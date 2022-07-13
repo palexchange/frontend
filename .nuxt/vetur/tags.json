@@ -5,6 +5,9 @@
   "BaseFilter": {
     "description": "Auto imported from components/BaseFilter.vue"
   },
+  "Card": {
+    "description": "Auto imported from components/Card.vue"
+  },
   "CrudHeader": {
     "description": "Auto imported from components/CrudHeader.vue"
   },
@@ -16,6 +19,9 @@
   },
   "FileUpload": {
     "description": "Auto imported from components/FileUpload.vue"
+  },
+  "InputField": {
+    "description": "Auto imported from components/InputField.vue"
   },
   "LocaleTextInput": {
     "description": "Auto imported from components/LocaleTextInput.vue"

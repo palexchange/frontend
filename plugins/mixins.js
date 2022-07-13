@@ -89,18 +89,18 @@ export default (context, inject) => {
     return setting.value;
   });
   inject('translateHeaders', (heads) => {
-    if (heads) {
-      console.log(typeof heads);
-      let new_headers = heads.slice(0, heads.length).map((v) => {
-        return v.text ? v : {
-          value: v,
-          text: context.app.i18n.t(v.replaceAll('.', '_'))
-        }
-      });
-      console.log(new_headers);
-      return new_headers
-    }
-
+    // if (heads) {
+    //   console.log(typeof heads);
+    //   let new_headers = heads.slice(0, heads.length).map((v) => {
+    //     return v.text ? v : {
+    //       value: v,
+    //       text: context.app.i18n.t(v.replaceAll('.', '_'))
+    //     }
+    //   });
+    //   console.log(new_headers);
+    //   return new_headers
+    // }
+    return heads
   });
   inject('allowed', (code, action) => {
     let user = context.store.$auth.user;

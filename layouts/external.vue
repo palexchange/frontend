@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  middleware: "auth",
-  auth: "guest",
+  // middleware: "auth",
+  // auth: "guest",
   beforeCreate() {
     this.$vuetify.rtl = this.$i18n.locale == "ar" || this.$i18n.locale=="he" ;
   },

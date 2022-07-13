@@ -1,4 +1,4 @@
-import locale770bf1f0 from '../../locales/ar.js'
+import locale38517862 from '../../locales/ar.json'
 import locale77427e78 from '../../locales/en.js'
 import locale7768ada4 from '../../locales/he.js'
 
@@ -14,7 +14,7 @@ export const nuxtOptions = {
 export const options = {
   vueI18n: {"fallbackLocale":"ar"},
   vueI18nLoader: false,
-  locales: [{"code":"en","iso":"en-US","file":"en.js","dir":"ltr","name":"english"},{"code":"ar","iso":"ar-EG","file":"ar.js","dir":"rtl","name":"arabic"},{"code":"he","iso":"he","file":"he.js","dir":"rtl","name":"hebrow"}],
+  locales: [{"code":"en","iso":"en-US","file":"en.js","dir":"ltr","name":"english"},{"code":"ar","iso":"ar-EG","file":"ar.json","dir":"rtl","name":"arabic"},{"code":"he","iso":"he","file":"he.js","dir":"rtl","name":"hebrow"}],
   defaultLocale: "ar",
   defaultDirection: "ltr",
   routesNameSeparator: "___",
@@ -22,24 +22,24 @@ export const options = {
   sortRoutes: true,
   strategy: "no_prefix",
   lazy: false,
-  langDir: "/var/www/html/frontend/locales/",
+  langDir: "/home/ahmad/palestinain/frontend/locales/",
   rootRedirect: null,
   detectBrowserLanguage: {"alwaysRedirect":true,"cookieCrossOrigin":false,"cookieDomain":null,"cookieKey":"i18n_redirected","cookieSecure":false,"fallbackLocale":"ar","redirectOn":"root","useCookie":true,"onlyOnRoot":true},
   differentDomains: true,
-  baseUrl: "http://localhost",
+  baseUrl: "",
   vuex: {"moduleName":"i18n","syncRouteParams":true,"syncLocale":true,"syncMessages":false},
   parsePages: true,
   pages: {},
   skipSettingLocaleOnNavigate: false,
   onBeforeLanguageSwitch: () => {},
   onLanguageSwitched: () => null,
-  normalizedLocales: [{"code":"en","iso":"en-US","file":"en.js","dir":"ltr","name":"english"},{"code":"ar","iso":"ar-EG","file":"ar.js","dir":"rtl","name":"arabic"},{"code":"he","iso":"he","file":"he.js","dir":"rtl","name":"hebrow"}],
+  normalizedLocales: [{"code":"en","iso":"en-US","file":"en.js","dir":"ltr","name":"english"},{"code":"ar","iso":"ar-EG","file":"ar.json","dir":"rtl","name":"arabic"},{"code":"he","iso":"he","file":"he.js","dir":"rtl","name":"hebrow"}],
   localeCodes: ["en","ar","he"],
   additionalMessages: [],
 }
 
 export const localeMessages = {
-  'ar.js': () => Promise.resolve(locale770bf1f0),
+  'ar.json': () => Promise.resolve(locale38517862),
   'en.js': () => Promise.resolve(locale77427e78),
   'he.js': () => Promise.resolve(locale7768ada4),
 }

@@ -12,11 +12,12 @@ import '../node_modules/prismjs/themes/prism.css'
 
 import '../node_modules/vuetify/dist/vuetify.css'
 
+import _77180f1e from '../layouts/blank.vue'
 import _6f6c098b from '../layouts/default.vue'
 import _29b0cc7e from '../layouts/external.vue'
 import _7762aba2 from '../layouts/guest.vue'
 
-const layouts = { "_default": sanitizeComponent(_6f6c098b),"_external": sanitizeComponent(_29b0cc7e),"_guest": sanitizeComponent(_7762aba2) }
+const layouts = { "_blank": sanitizeComponent(_77180f1e),"_default": sanitizeComponent(_6f6c098b),"_external": sanitizeComponent(_29b0cc7e),"_guest": sanitizeComponent(_7762aba2) }
 
 export default {
   render (h, props) {

@@ -5,7 +5,9 @@
       prominent
       src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
     >
-      <v-toolbar-title class="text-center"> {{$t('login_form')}} </v-toolbar-title>
+      <v-toolbar-title class="text-center">
+        {{ $t("login_form") }}
+      </v-toolbar-title>
     </v-toolbar>
     <v-card-text>
       <form ref="form" @submit.prevent="login()">
@@ -27,7 +29,7 @@
           name="password"
           :label="$t('password')"
           :placeholder="$t('password')"
-          :type="show1?'text':'password'"
+          :type="show1 ? 'text' : 'password'"
           required
           rounded
           filled
@@ -40,8 +42,14 @@
         ></v-text-field>
         <!-- <v-checkbox label="Remember Me" dense></v-checkbox> -->
         <div class="red--text">{{ errorMessage }}</div>
-        <v-btn :loading="loading" block type="submit" class="mt-4" color="primary" value="log in"
-          >{{$t('login')}}</v-btn
+        <v-btn
+          :loading="loading"
+          block
+          type="submit"
+          class="mt-4"
+          color="primary"
+          value="log in"
+          >{{ $t("login") }}</v-btn
         >
       </form>
     </v-card-text>
@@ -49,27 +57,28 @@
 </template>
 
 <script>
-
 export default {
   name: "Login",
   layout: "guest",
   data() {
     return {
       user: {
-        username:'ahmed@ahmed.com',
-        password:'123456'
+        username: "ahmed@ahmed.com",
+        password: "123456",
       },
       errorMessage: "",
-      show1:false,
-      loading:false
+      show1: false,
+      loading: false,
     };
   },
   methods: {
     async login() {
-      this.loading=true;
-      const { username,password } = this.user;
-      await this.$auth.loginWith('local',{data:{email:username,password}});
-      this.loading=false;
+      this.loading = true;
+      const { username, password } = this.user;
+      await this.$auth.loginWith("local", {
+        data: { email: username, password },
+      });
+      this.loading = false;
     },
   },
 };

@@ -8,10 +8,12 @@ You can directly use them in pages and other components without the need to impo
 
 - `<AutoComplete>` | `<auto-complete>` (components/AutoComplete.vue)
 - `<BaseFilter>` | `<base-filter>` (components/BaseFilter.vue)
+- `<Card>` | `<card>` (components/Card.vue)
 - `<CrudHeader>` | `<crud-header>` (components/CrudHeader.vue)
 - `<DataTable>` | `<data-table>` (components/DataTable.vue)
 - `<DatePicker>` | `<date-picker>` (components/DatePicker.vue)
 - `<FileUpload>` | `<file-upload>` (components/FileUpload.vue)
+- `<InputField>` | `<input-field>` (components/InputField.vue)
 - `<LocaleTextInput>` | `<locale-text-input>` (components/LocaleTextInput.vue)
 - `<NumberInput>` | `<number-input>` (components/NumberInput.vue)
 - `<NuxtLogo>` | `<nuxt-logo>` (components/NuxtLogo.vue)

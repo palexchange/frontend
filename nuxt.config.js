@@ -2,9 +2,9 @@ import colors from 'vuetify/es5/util/colors'
 import ar from 'vuetify/lib/locale/ar';
 import en from 'vuetify/lib/locale/en';
 export default {
-  target:'server',
+  target: 'server',
   // Global page headers: https://go.nuxtjs.dev/config-head
-  ssr:true,
+  ssr: true,
   server: {
     host: '0.0.0.0',
     port: process.env.PORT || 3000
@@ -100,7 +100,7 @@ export default {
     // credentials: true,
     withCredentials: true,
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL:`${process.env.BASE_URL}/api`,
+    baseURL: `${process.env.BASE_URL}/api`,
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -127,6 +127,15 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
+        },
+        light: {
+          primary: '#FF7F00',
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
         }
       }
     },
@@ -141,7 +150,7 @@ export default {
   i18n: {
     baseUrl: process.env.BASE_URL,
     strategy: 'no_prefix',
-    differentDomains:true,
+    differentDomains: true,
     locales: [{
       code: 'en',
       iso: 'en-US',
@@ -152,7 +161,7 @@ export default {
     {
       code: 'ar',
       iso: 'ar-EG',
-      file: 'ar.js',
+      file: 'ar.json',
       dir: 'rtl',
       name: 'arabic'
     },
@@ -192,7 +201,7 @@ export default {
       syncRouteParams: true
     },
     strategy: 'no_prefix',
-    differentDomains:true,
+    differentDomains: true,
     // beforeLanguageSwitch:(oldLocale, newLocale) => {
     //   console.log(oldLocale, newLocale)
     //   oldLocale == 'en' ? (this.vuetify.rtl = true):(this.vuetify.rtl = false)
@@ -216,7 +225,7 @@ export default {
           prefix: 'auth.',
           options: {
             path: '/',
-            secure:true,
+            secure: true,
           }
         },
         url: '/backend',

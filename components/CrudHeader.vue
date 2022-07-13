@@ -1,22 +1,16 @@
 <template>
-  <v-row>
-    <v-col cols="4"> {{$t(name)}} </v-col>
-    <v-spacer></v-spacer>
-    <v-col cols="3" v-if="!report">
-      <v-btn color="primary" rounded small :to="to">
-        <v-icon small> fas fa-plus </v-icon>
-        <span> {{$t('add')}} </span>
-      </v-btn>
-      <v-btn color="primary" rounded small @click="$emit('filterClick')">
-        <v-icon small> fas fa-filter </v-icon>
-        <span> {{$t('filter')}} </span>
-      </v-btn>
-    </v-col>
-  </v-row>
+  <Card>
+    <v-card-title>
+      <v-row class="justify-space-between">
+        <v-col> {{ $t(name) }} </v-col>
+        <v-col style="text-align: end"> <slot /> </v-col>
+      </v-row>
+    </v-card-title>
+  </Card>
 </template>
 <script>
 export default {
-    props:['name','to','report'],
-    name:"Crud Header"
-}
+  props: ["name", "to", "report"],
+  name: "Crud-Header",
+};
 </script>

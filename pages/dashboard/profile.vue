@@ -131,7 +131,11 @@
                         </v-row>
                         <v-row>
                           <v-col cols="12">
-                            <v-btn block color="primary" @click="$save(user,'user')">
+                            <v-btn
+                              block
+                              color="primary"
+                              @click="$save(user, 'user')"
+                            >
                               {{ $t("save") }}
                             </v-btn>
                           </v-col>
@@ -224,7 +228,6 @@ export default {
     },
   },
   mounted() {
-    
     if (this.user_data) {
       this.user = JSON.parse(JSON.stringify(this.user_data));
     }

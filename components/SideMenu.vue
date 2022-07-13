@@ -1,46 +1,30 @@
 <template>
   <v-navigation-drawer
     app
-    clipped    
+    style="border: none"
+    color="#E0E0FF"
     :mini-variant.sync="drawer"
     permanent
+    width="218"
     :right="$vuetify.rtl"
   >
-    <v-card rounded flat>
-      <v-btn @click="drawer = !drawer" class="px-7" :block="!drawer" icon rounded color="primary">
-        <v-icon>
-           fas fa-bars 
-        </v-icon>
-        <v-spacer></v-spacer>
-        <span v-if="!drawer">
-        {{$t('menu')}}
-        </span>
-        <v-spacer></v-spacer>
-      </v-btn>
-      <v-list>
-      <v-divider></v-divider>
-      <v-list-item class="px-2">
-        <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
-        </v-list-item-avatar>
+    <v-card color="#E0E0FF" flat>
+      <v-list height="135px" class="d-flex justify-center px-2">
+        <v-list-item class="justify-center">
+          <v-list-item-avatar class="justify-center">
+            <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+          </v-list-item-avatar>
 
-        <v-list-item-title>{{user.name}}
-        <v-list-item-subtitle>
-          {{user.email}}
-        </v-list-item-subtitle>
-        </v-list-item-title>
-        <v-btn
-          icon
-          @click.stop="drawer = !drawer"
-        >
-          <v-icon>mdi-chevron-left</v-icon>
-        </v-btn>
-      </v-list-item>
+          <v-list-item-title class="text-center">
+            user.name
+            <v-list-item-subtitle> user.email </v-list-item-subtitle>
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
 
       <v-divider></v-divider>
-      <v-list shaped dense>
-        <v-list-group
+      <v-list dense>
+        <!-- <v-list-group
           v-for="item in items.filter((i) => i.items != null)"
           :key="item.title"
           v-model="item.active"
@@ -71,18 +55,18 @@
               <v-list-item-title v-text="$t(child.title)"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-        </v-list-group>
+        </v-list-group> -->
 
         <v-list-item
-          v-for="item in items.filter((i) => !i.items && i.types[c_type])"
+          exact-active-class="active"
+          active-class="deactive"
+          v-for="item in items"
           :key="item.title"
           link
           :to="item.to"
         >
           <v-list-item-icon>
-            <v-icon>
-              {{ item.icon }}
-            </v-icon>
+            <img :src="getImgUrl(item.icon)" v-bind:alt="item.icon" />
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title v-text="$t(item.title)"></v-list-item-title>
@@ -91,11 +75,19 @@
       </v-list>
     </v-card>
     <template v-slot:append>
-      <div class="pa-2">
-        <v-btn block color="primary" @click="$auth.logout()" :icon="drawer">
-          <v-icon class="pa-2"> fas fa-sign-out-alt </v-icon>
-          <span v-if="!drawer">
-          {{$t('logout')}}
+      <div style="background-color: #e0e0ff" class="pa-2">
+        <v-btn
+          block
+          text
+          color="primary"
+          @click="$auth.logout()"
+          :icon="drawer"
+        >
+          <v-icon color="grey darken-2" class="pa-2">
+            fas fa-sign-out-alt
+          </v-icon>
+          <span class="grey--text text--darken-4" v-if="!drawer">
+            {{ $t("logout") }}
           </span>
         </v-btn>
       </div>
@@ -103,9 +95,15 @@
   </v-navigation-drawer>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 import items from "../helpers/admin_menu";
 export default {
+  props: {
+    forgin_drawer: {
+      type: Boolean,
+      default: false,
+    },
+  },
   //
   data() {
     return {
@@ -114,15 +112,30 @@ export default {
       drawer: false,
     };
   },
-  computed:{
+  computed: {
     ...mapState({
-      user:state=>state.auth.user
+      user: (state) => state.auth.user,
     }),
-    c_type(){
-      let types=['admin','customer'];
-      return types[this.user.type-1];
-    }
-  }
+    // c_type() {
+    //   let types = ["admin", "customer"];
+    //   return types[this.user.type - 1];
+    // },
+  },
+  watch: {
+    forgin_drawer(val) {
+      this.drawer = val;
+    },
+    drawer(val) {
+      if (val != this.forgin_drawer) {
+        this.$emit("change_dawer");
+      }
+    },
+  },
+  methods: {
+    getImgUrl(pic) {
+      return require("~/assets/img/icons/" + pic);
+    },
+  },
 };
 </script>
 <style>
@@ -137,5 +150,20 @@ export default {
 }
 .list-item-padding-fix-ltr {
   padding-right: 25px;
+}
+/* .v-list-item--active {
+  background-color: transparent !important;
+} */
+
+.theme--light.v-list-item--active::before {
+  content: "";
+  width: 5px;
+  height: 100%;
+  background: #ee4d38;
+  opacity: 1 !important;
+  border-radius: 30px;
+  position: absolute;
+  top: 2%;
+  right: 2%;
 }
 </style>

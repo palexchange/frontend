@@ -1,0 +1,57 @@
+<template>
+  <div>
+    <CrudHeader name="transfers">
+      <v-btn icon color="black">
+        <v-icon> fas fa-search </v-icon>
+      </v-btn>
+      <v-btn color="primary" to="transfers/outcoming/1">
+        <span> {{ $t("add outcoming transfer") }} </span>
+      </v-btn>
+      <v-btn color="primary" to="transfers/incoming">
+        <span> {{ $t("add incoming transfer") }} </span>
+      </v-btn>
+    </CrudHeader>
+    <Card> test </Card>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      filter: false,
+      params: {},
+    };
+  },
+  methods: {
+    edit(item) {
+      this.$router.push({
+        name: "dashboard-categories-form-id",
+        params: {
+          id: item.id,
+        },
+      });
+    },
+    // delete(item) {
+    //   this.$remove(item, "item");
+    // },
+  },
+  computed: {
+    ...mapState({
+      action: (state) => state.context.action,
+      item: (state) => state.context.item,
+    }),
+  },
+  watch: {
+    action(val) {
+      if (this[val]) {
+        this[val](this.item);
+      }
+    },
+  },
+};
+</script>
+
+<style>
+</style>

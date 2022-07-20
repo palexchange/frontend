@@ -1,12 +1,6 @@
 <template>
   <Card>
-    <v-card-title>
-      <h3 class="box-title-sec card-title align-items-start flex-column">
-        <span class="title-sec card-label fw-bolder fs-3 mb-5">
-          {{ $t("add to your portfolio") }}
-        </span>
-      </h3></v-card-title
-    >
+    <v-card-title> </v-card-title>
     <v-card-text> asdas</v-card-text>
   </Card>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <h1>dashboard</h1>
+  <h1>{{$route.name}}</h1>
 </template>
 
 <script>

@@ -1,13 +1,304 @@
 <template>
   <div>
-    <h1>outcoming</h1>
-    ":test aksak nklsd bgflfasn test here tihs sranoi haS "
+    <Card class="mb-5 pt-3 pl-3 pr-6">
+      <v-row>
+        <v-col cols="12" md="6" sm="12">
+          <v-row>
+            <v-col cols="12" sm="12" md="4">
+              <Title title="create outcomming transfer"></Title>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" sm="12" md="4"
+              ><AutoComplete
+                required
+                :items="transfer_types"
+                text="transfer type"
+                holder="transfer type"
+            /></v-col>
+            <v-col>
+              <DatePicker
+                v-model="item.date"
+                required
+                text="transfer date"
+                holder="test"
+              />
+            </v-col>
+            <v-col cols="12" md="4" sm="12">
+              <InputField dashed text="palestinian profit" />
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="12" md="6" sm="12">
+          <v-row no-gutters class="flex-column text-h6">
+            <v-col class="align-self-strach text-left mb-4">
+              <span>
+                {{ $t("todays profit") }}<span class="show-text">0400</span>
+              </span>
+              <span>
+                {{ $t("transfer number") }}
+                <span class="show-text">1616#</span>
+              </span>
+            </v-col>
+
+            <v-col class="text-left mb-4">
+              {{ $t("refrence number") }}<span class="show-text">1616#</span>
+            </v-col>
+            <v-col class="text-left mb-4">
+              {{ $t("transfer stats") }}<span class="show-text">مسودة</span>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </Card>
+    <Card class="mb-5 px-3">
+      <v-card-title> بيانات المرسل </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="3" sm="6">
+            <AutoComplete text="beneficiary" holder="beneficiary" required
+          /></v-col>
+          <v-col>
+            <InputField holder="id number" text="id number" required
+          /></v-col>
+          <v-col> <InputField holder="mobile" text="mobile" required /></v-col>
+          <v-col cols="12" md="3" sm="6">
+            <InputField holder="address" text="address"
+          /></v-col>
+          <v-col cols="12" md="3" sm="6"> <InputField holder="notes" text="notes" /></v-col>
+        </v-row>
+      </v-card-text>
+    </Card>
+    <Card class="mb-5 px-3">
+      <v-card-title>بيانات المستلم </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="3" sm="6">
+            <AutoComplete text="beneficiary" holder="beneficiary" required
+          /></v-col>
+          <v-col>
+            <InputField holder="id number" text="id number" required
+          /></v-col>
+          <v-col cols="12" md="" sm="6"> <InputField holder="mobile" text="mobile" required /></v-col>
+          <v-col>
+            <AutoComplete text="country" holder="country" required
+          /></v-col>
+          <v-col> <AutoComplete text="city" holder="city" required /></v-col>
+          <v-col cols="12" md="3" sm="6">
+            <InputField holder="address" text="address"
+          /></v-col>
+        </v-row>
+      </v-card-text>
+    </Card>
+    <Card class="mb-5">
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="5" sm="12" >
+            <v-radio-group mandatory v-model="item.commission_on" row>
+              <v-radio value="1" label="العمولة علي المحول"></v-radio>
+              <v-radio value="2" label="العمولة علي المستلم"></v-radio>
+            </v-radio-group>
+          </v-col>
+
+          <v-col class="align-self-center" md="3" sm="12">
+            <v-text-field
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+              slot="append"
+              hide-details
+              :label="
+                item.is_percentage ? `${$t('commission')} %` : $t('commission')
+              "
+              :append-icon="
+                item.is_percentage == false
+                  ? 'fas fa-sort-numeric-up-alt'
+                  : 'fas fa-percentage'
+              "
+              @click:append="() => (item.is_percentage = !item.is_percentage)"
+            >
+            </v-text-field>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </Card>
+    <Card class="mb-5 pa-3">
+      <v-card-title>بيانات الحوالة المالية </v-card-title>
+      <v-card-text>
+        <v-row class="justify-center">
+          <v-col>
+            <InputField
+              holder="transfirig amount"
+              text="transfirig amount"
+              required
+          /></v-col>
+          <v-col>
+            <AutoComplete text="currency" holder="currency" required
+          /></v-col>
+          <v-col>
+            <InputField
+              holder="converting to dollar amount"
+              text="converting to dollar amount"
+              required
+          /></v-col>
+          <v-col>
+            <InputField holder="another expenses" text="another expenses"
+          /></v-col>
+          <v-col>
+            <InputField
+              dashed
+              holder="مبلغ شامل عمولة"
+              text="م.ش عمولة و مصاريف"
+          /></v-col>
+          <v-col>
+            <InputField
+              dashed
+              holder="مبلغ مستلم بالدولار"
+              text="مبلغ مستلم بالدولار"
+          /></v-col>
+          <v-col>
+            <InputField dashed holder="شامل العمولة" text="المبلغ بالدولار ش.ع"
+          /></v-col>
+        </v-row>
+        <v-row>
+          <v-col class="text-center">
+            <img src="~/assets/img/icons/to.png" alt="" />
+          </v-col>
+        </v-row>
+        <v-row class="justify-center">
+          <v-col>
+            <AutoComplete
+              holder="currency to give"
+              text="currency to give"
+              required
+          /></v-col>
+          <v-col>
+            <InputField
+              holder="convert to receiver currency"
+              text="convert to receiver currency"
+              required
+          /></v-col>
+          <v-col>
+            <InputField
+              dashed
+              holder="amount to give"
+              text="amount to give"
+              required
+          /></v-col>
+          <v-col>
+            <InputField
+              holder="another expenses on receiver"
+              text="another expenses on receiver"
+          /></v-col>
+          <v-col cols="3">
+            <InputField
+              dashed
+              holder="final amount to give"
+              text="final amount to give"
+          /></v-col>
+        </v-row>
+      </v-card-text>
+    </Card>
+    <Card class="mb-5 pa-3">
+      <v-card-title>المكتب</v-card-title>
+      <v-card-text>
+        <v-row class="justify-center">
+          <v-col cols="3">
+            <AutoComplete holder="beneficiary" text="beneficiary" required
+          /></v-col>
+
+          <v-col>
+            <AutoComplete
+              holder="currency to office"
+              text="currency to office"
+              required
+          /></v-col>
+
+          <v-col>
+            <InputField
+              holder="converting to dollar amount"
+              text="converting to dollar amount"
+          /></v-col>
+          <v-col>
+            <InputField dashed holder="office amount" text="office amount"
+          /></v-col>
+          <v-col>
+            <InputField holder="عمولة المكتب" text="عمولة المكتب"
+          /></v-col>
+          <v-col cols="1">
+            <InputField holder="returned" text="returned"
+          /></v-col>
+          <v-col>
+            <InputField
+              dashed
+              holder="final amount to office"
+              text="final amount to office"
+          /></v-col>
+        </v-row>
+      </v-card-text>
+    </Card>
+    <v-row>
+      <v-col cols="3">
+        <v-checkbox :label="$t('send sms to the sender')"> </v-checkbox>
+      </v-col>
+    </v-row>
+    <v-row class="justify-center">
+      <v-card color="transparent" flat>
+        <v-card-actions>
+          <v-btn class="px-16" color="primary">إتمام العملة</v-btn>
+          &nbsp; &nbsp;
+          <v-menu offset-x left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" color="primary" outlined
+                >الإجراءات</v-btn
+              >
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title> طباعة ايصال </v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon small>fas fa-print</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title> {{ $t("حفظ كمسودة") }}</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon small>fas fa-save</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title> ترحيل علي الحساب</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon small>fas fa-arrow-left</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-card-actions>
+      </v-card>
+    </v-row>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "transfer form",
+  data() {
+    return {
+      transfer_types: [{ id: 1, name: "تسليم يد" }],
+      item: { is_percentage: false },
+    };
+  },
+};
 </script>
 
 <style>
+.show-text {
+  background-color: #e6e6e6;
+  border-radius: 4px;
+  padding: 5px 8px;
+  width: 50px !important;
+  margin: 20px 18px;
+}
 </style>

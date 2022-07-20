@@ -1,88 +1,59 @@
 <template>
-  <v-autocomplete
-    :items="all"
-    item-text="name"
-    item-value="id"
-    v-bind="$attrs"
-    v-on="$listeners"
-    dense
-  ></v-autocomplete>
+  <div :class="dashed ? 'dashing' : ''">
+    <label :class="required ? 'required form-label' : 'form-label'">{{
+      $t(text)
+    }}</label>
+    <v-autocomplete
+      color="#FF7171"
+      style="border-radius: 0px !important"
+      dense
+      :disabled="dashed"
+      :required="this.required ? true : false"
+      outlined
+      v-bind="$attrs"
+      v-on="$listeners"
+      :rules="required ? rulesss.requiredRules : []"
+      :placeholder="$t(holder)"
+      item-text="name"
+      item-value="id"
+    ></v-autocomplete>
+  </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import ruless from "~/helpers/rules";
 export default {
   props: {
-    module: {
+    holder: {
       type: String,
-      default: null,
+      default: "",
     },
-    hide_pagination: Boolean,
-    hidden_headers: Array,
-    params:Object
+    text: {
+      type: String,
+      default: "",
+    },
+    required: {
+      type: Boolean,
+      default: false,
+    },
+    dashed: {
+      type: Boolean,
+      default: false,
+    },
+    maxlength: {
+      type: Number,
+    },
   },
   data() {
     return {
-      loading: false,
-      options: {
-        sortBy: [],
-        sortDesc: [],
-        itemKey: "item.",
-      },
-      loaded: false,
-      sortingData: { sortBy: [], sortDesc: [] },
-      menu_name: null,
-      item: null,
+      rulesss: ruless(this),
     };
-  },
-  async fetch() {
-    if (this.module) {
-      await this.$store.dispatch(`${this.module}/index`, {
-        ...this.options,
-        ...this.params,
-        itemsPerPage:-1
-      });
-      let val = this.meta;
-      if (val) {
-        this.options.page = val.current_page;
-      }
-      this.loaded = true;
-    }
-  },
-  computed: {
-    ...mapState({
-      all: function (state) {
-        if (this.module) {
-          return state[this.module].all;
-        }
-        return [];
-      },
-      meta: function (state) {
-        if (this.module) {
-          return state[this.module].meta;
-        }
-      },
-      headers: function (state) {
-        if (this.module) {
-          return state[this.module].headers.filter(
-            (i) => !(this.hidden_headers || []).some((h) => h == i)
-          );
-        }
-      },
-      functions: function (state) {
-        if (this.module) {
-          return state[this.module].functions;
-        }
-      },
-      formatted_numbers: function (state) {
-        if (this.module) {
-          return state[this.module].formatted_numbers || [];
-        }
-      },
-    }),
   },
 };
 </script>
 
-<style>
+<style lang="css">
+.dashing .v-text-field fieldset {
+  border: rgb(143, 135, 135) dashed 2px !important;
+}
 </style>

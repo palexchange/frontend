@@ -10,12 +10,18 @@
     :disabled="disabled"
   >
     <template v-slot:activator="{ on, attrs }">
+            <label
+        for="test"
+        :class="required ? 'required form-label' : 'form-label'"
+        >{{ $t(text) }}</label
+      >
       <v-text-field
+        id="test"
         color="primary"
         :rules="required ? rules.requiredRules : []"
         :value="value"
         :outlined="param ? false : true"
-        :rounded="param ? true : false"
+        style="border-radius: 0px !important"
         dense
         prepend-inner-icon="mdi-calendar"
         readonly
@@ -23,18 +29,24 @@
         v-bind="{ attrs, param }"
         :label="$t(label)"
         v-on="on"
-        clearable
+        :placeholder="$t(holder)"
         @change="(v) => $emit('input', v)"
       >
-        <!-- <template v-slot:prepend>
+        <template v-slot:prepend-inner>
           <span
-          
-            style="font-family: Tajawal !important; font-size: 20px !important;white-space: nowrap;"
+            style="
+              font-family: Tajawal !important;
+              font-size: 20px !important;
+              white-space: nowrap;
+            "
           >
-            {{ $t(`${perpend_label}`) }}
           </span>
-        </template> -->
+        </template>
+        <template v-slot:append>
+          <img src="../assets/img/icons/date.png" alt="date" />
+        </template>
       </v-text-field>
+
     </template>
     <v-date-picker v-bind="$attrs" v-model="value" scrollable color="primary">
       <v-spacer></v-spacer>
@@ -54,6 +66,8 @@ var moment = require("moment");
 import rules from "~/helpers/rules";
 export default {
   props: {
+    text: String,
+    holder: String,
     value: String,
     label: String,
     param: Boolean,
@@ -81,8 +95,8 @@ export default {
   mounted() {
     if (!this.noInitDate) {
       this.$emit("input", this.date);
-    }else{
-      this.$emit('input',this.date);
+    } else {
+      this.$emit("input", this.date);
     }
     this.value = this.date;
   },
@@ -90,5 +104,4 @@ export default {
 </script>
 
 <style>
-
 </style>

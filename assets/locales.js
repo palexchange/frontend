@@ -1,14 +1,11 @@
 export default [
     {
-        name:'arabic',
-        code:'ar',
+        name: 'arabic',
+        code: 'ar',
     },
     {
-        name:'english',
-        code:'en',
+        name: 'english',
+        code: 'en',
     },
-    {
-        name:'hebro',
-        code:'he',
-    },
+
 ]

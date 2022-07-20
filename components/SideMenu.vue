@@ -57,9 +57,9 @@
           </v-list-item>
         </v-list-group> -->
 
+        <!-- active-class="deactive" -->
         <v-list-item
           exact-active-class="active"
-          active-class="deactive"
           v-for="item in items"
           :key="item.title"
           link
@@ -155,7 +155,7 @@ export default {
   background-color: transparent !important;
 } */
 
-.theme--light.v-list-item--active::before {
+.active::before {
   content: "";
   width: 5px;
   height: 100%;
@@ -165,5 +165,8 @@ export default {
   position: absolute;
   top: 2%;
   right: 2%;
+}
+.theme--light.v-list-item--active::before {
+  opacity: 0;
 }
 </style>

@@ -18,7 +18,7 @@ export default [
   {
     icon: "3.png",
     title: "exchange",
-    to: '/dashboard/categories',
+    to: '/dashboard/exchange',
     types: {
       admin: true,
     }
@@ -26,7 +26,7 @@ export default [
   {
     title: "inputs",
     icon: '4.png',
-    to: '/dashboard/daily_meals/form',
+    to: '/dashboard/inputs',
     types: {
       admin: true,
     }
@@ -34,7 +34,7 @@ export default [
   {
     title: "outputs",
     icon: '5.png',
-    to: '/dashboard/orders',
+    to: '/dashboard/outputs',
     types: {
       admin: true,
       customer: true
@@ -43,7 +43,7 @@ export default [
   {
     icon: "6.png",
     title: "beneficiaries",
-    to: '/dashboard/menu',
+    to: '/dashboard/beneficiaries',
     types: {
       admin: true,
       customer: true
@@ -52,7 +52,7 @@ export default [
   {
     icon: "7.png",
     title: "reports",
-    to: '/dashboard/report',
+    to: '/dashboard/reports',
     types: {
       admin: true,
       customer: true
@@ -61,7 +61,7 @@ export default [
   {
     icon: "8.png",
     title: "entries",
-    to: '/dashboard/detailed_report',
+    to: '/dashboard/entries',
     types: {
       admin: true,
       customer: true

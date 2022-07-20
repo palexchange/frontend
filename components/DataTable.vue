@@ -18,9 +18,9 @@
       @update:sort-by="updateSortBy($event)"
       @update:sort-desc="updateSortDesc($event)"
     >
-      <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope"
-        ><slot :name="slot" v-bind="scope"
-      /></template>
+      <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope">
+        <slot :name="slot" v-bind="scope"/>
+      </template>
       <template v-for="func in functions" v-slot:[getKey(func.key)]="scope">
         {{
           typeof func.f == "function"

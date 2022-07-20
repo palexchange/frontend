@@ -8,30 +8,32 @@ const _5385c45d = () => interopDefault(import('../pages/dashboard/index.vue' /* 
 const _51f25bc0 = () => interopDefault(import('../pages/inspire.vue' /* webpackChunkName: "pages/inspire" */))
 const _b1cd7528 = () => interopDefault(import('../pages/auth/login.vue' /* webpackChunkName: "pages/auth/login" */))
 const _3426cbf0 = () => interopDefault(import('../pages/auth/register.vue' /* webpackChunkName: "pages/auth/register" */))
-const _c8c61b38 = () => interopDefault(import('../pages/dashboard/categories/index.vue' /* webpackChunkName: "pages/dashboard/categories/index" */))
-const _6d94cb63 = () => interopDefault(import('../pages/dashboard/customers/index.vue' /* webpackChunkName: "pages/dashboard/customers/index" */))
-const _56bb3110 = () => interopDefault(import('../pages/dashboard/daily_meals/index.vue' /* webpackChunkName: "pages/dashboard/daily_meals/index" */))
-const _44248eee = () => interopDefault(import('../pages/dashboard/detailed_report.vue' /* webpackChunkName: "pages/dashboard/detailed_report" */))
-const _094382e4 = () => interopDefault(import('../pages/dashboard/items/index.vue' /* webpackChunkName: "pages/dashboard/items/index" */))
-const _2f1857b8 = () => interopDefault(import('../pages/dashboard/menu.vue' /* webpackChunkName: "pages/dashboard/menu" */))
-const _96b0f326 = () => interopDefault(import('../pages/dashboard/orders/index.vue' /* webpackChunkName: "pages/dashboard/orders/index" */))
-const _fac39e18 = () => interopDefault(import('../pages/dashboard/profile.vue' /* webpackChunkName: "pages/dashboard/profile" */))
-const _6668ea39 = () => interopDefault(import('../pages/dashboard/report.vue' /* webpackChunkName: "pages/dashboard/report" */))
+const _f9be635e = () => interopDefault(import('../pages/dashboard/beneficiaries/index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/index" */))
+const _f19012c4 = () => interopDefault(import('../pages/dashboard/entries/index.vue' /* webpackChunkName: "pages/dashboard/entries/index" */))
+const _2f9f762a = () => interopDefault(import('../pages/dashboard/exchange/index.vue' /* webpackChunkName: "pages/dashboard/exchange/index" */))
+const _dc705f1e = () => interopDefault(import('../pages/dashboard/inputs/index.vue' /* webpackChunkName: "pages/dashboard/inputs/index" */))
+const _92adc1c0 = () => interopDefault(import('../pages/dashboard/outputs/index.vue' /* webpackChunkName: "pages/dashboard/outputs/index" */))
+const _7ab4550d = () => interopDefault(import('../pages/dashboard/reports/index.vue' /* webpackChunkName: "pages/dashboard/reports/index" */))
+const _0ff7f2eb = () => interopDefault(import('../pages/dashboard/settings/index.vue' /* webpackChunkName: "pages/dashboard/settings/index" */))
 const _0d2ff936 = () => interopDefault(import('../pages/dashboard/transfers/index.vue' /* webpackChunkName: "pages/dashboard/transfers/index" */))
-const _3b840622 = () => interopDefault(import('../pages/dashboard/categories/form.vue' /* webpackChunkName: "pages/dashboard/categories/form" */))
-const _7a9f1a66 = () => interopDefault(import('../pages/dashboard/categories/form/_id.vue' /* webpackChunkName: "pages/dashboard/categories/form/_id" */))
-const _10bd9143 = () => interopDefault(import('../pages/dashboard/customers/form.vue' /* webpackChunkName: "pages/dashboard/customers/form" */))
-const _0804f524 = () => interopDefault(import('../pages/dashboard/customers/form/_id.vue' /* webpackChunkName: "pages/dashboard/customers/form/_id" */))
-const _cf9cc2e4 = () => interopDefault(import('../pages/dashboard/daily_meals/form.vue' /* webpackChunkName: "pages/dashboard/daily_meals/form" */))
-const _64c3f539 = () => interopDefault(import('../pages/dashboard/daily_meals/form/_id.vue' /* webpackChunkName: "pages/dashboard/daily_meals/form/_id" */))
-const _bc98e690 = () => interopDefault(import('../pages/dashboard/items/form.vue' /* webpackChunkName: "pages/dashboard/items/form" */))
-const _3c22833a = () => interopDefault(import('../pages/dashboard/items/form/_id.vue' /* webpackChunkName: "pages/dashboard/items/form/_id" */))
-const _0b7b660e = () => interopDefault(import('../pages/dashboard/orders/form.vue' /* webpackChunkName: "pages/dashboard/orders/form" */))
-const _4e9d13b8 = () => interopDefault(import('../pages/dashboard/orders/form/_id.vue' /* webpackChunkName: "pages/dashboard/orders/form/_id" */))
+const _b73d0950 = () => interopDefault(import('../pages/dashboard/beneficiaries/form/index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/index" */))
+const _5be87b2b = () => interopDefault(import('../pages/dashboard/entries/form/index.vue' /* webpackChunkName: "pages/dashboard/entries/form/index" */))
+const _735614fe = () => interopDefault(import('../pages/dashboard/exchange/form/index.vue' /* webpackChunkName: "pages/dashboard/exchange/form/index" */))
+const _4666cd38 = () => interopDefault(import('../pages/dashboard/inputs/form/index.vue' /* webpackChunkName: "pages/dashboard/inputs/form/index" */))
+const _4ac653e9 = () => interopDefault(import('../pages/dashboard/outputs/form/index.vue' /* webpackChunkName: "pages/dashboard/outputs/form/index" */))
+const _5ae0ca1c = () => interopDefault(import('../pages/dashboard/reports/form/index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
+const _09a9b204 = () => interopDefault(import('../pages/dashboard/settings/form/index.vue' /* webpackChunkName: "pages/dashboard/settings/form/index" */))
+const _3d86b39f = () => interopDefault(import('../pages/dashboard/settings/pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
+const _6c4673c0 = () => interopDefault(import('../pages/dashboard/beneficiaries/form/_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
+const _6f214c53 = () => interopDefault(import('../pages/dashboard/entries/form/_id.vue' /* webpackChunkName: "pages/dashboard/entries/form/_id" */))
+const _227d8234 = () => interopDefault(import('../pages/dashboard/exchange/form/_id.vue' /* webpackChunkName: "pages/dashboard/exchange/form/_id" */))
+const _ed9284c0 = () => interopDefault(import('../pages/dashboard/inputs/form/_id.vue' /* webpackChunkName: "pages/dashboard/inputs/form/_id" */))
+const _507a3c91 = () => interopDefault(import('../pages/dashboard/outputs/form/_id.vue' /* webpackChunkName: "pages/dashboard/outputs/form/_id" */))
+const _2512a384 = () => interopDefault(import('../pages/dashboard/reports/form/_id.vue' /* webpackChunkName: "pages/dashboard/reports/form/_id" */))
+const _2cb2d0e6 = () => interopDefault(import('../pages/dashboard/settings/form/_id.vue' /* webpackChunkName: "pages/dashboard/settings/form/_id" */))
 const _f151ba8a = () => interopDefault(import('../pages/dashboard/transfers/form/_id.vue' /* webpackChunkName: "pages/dashboard/transfers/form/_id" */))
 const _c7d6dbc6 = () => interopDefault(import('../pages/dashboard/transfers/incoming/_id.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/_id" */))
 const _071bd79e = () => interopDefault(import('../pages/dashboard/transfers/outcoming/_id.vue' /* webpackChunkName: "pages/dashboard/transfers/outcoming/_id" */))
-const _70a1a01e = () => interopDefault(import('../pages/print/_id.vue' /* webpackChunkName: "pages/print/_id" */))
 const _22745f98 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -62,90 +64,97 @@ export const routerOptions = {
     component: _3426cbf0,
     name: "auth-register"
   }, {
-    path: "/dashboard/categories",
-    component: _c8c61b38,
-    name: "dashboard-categories"
+    path: "/dashboard/beneficiaries",
+    component: _f9be635e,
+    name: "dashboard-beneficiaries"
   }, {
-    path: "/dashboard/customers",
-    component: _6d94cb63,
-    name: "dashboard-customers"
+    path: "/dashboard/entries",
+    component: _f19012c4,
+    name: "dashboard-entries"
   }, {
-    path: "/dashboard/daily_meals",
-    component: _56bb3110,
-    name: "dashboard-daily_meals"
+    path: "/dashboard/exchange",
+    component: _2f9f762a,
+    name: "dashboard-exchange"
   }, {
-    path: "/dashboard/detailed_report",
-    component: _44248eee,
-    name: "dashboard-detailed_report"
+    path: "/dashboard/inputs",
+    component: _dc705f1e,
+    name: "dashboard-inputs"
   }, {
-    path: "/dashboard/items",
-    component: _094382e4,
-    name: "dashboard-items"
+    path: "/dashboard/outputs",
+    component: _92adc1c0,
+    name: "dashboard-outputs"
   }, {
-    path: "/dashboard/menu",
-    component: _2f1857b8,
-    name: "dashboard-menu"
+    path: "/dashboard/reports",
+    component: _7ab4550d,
+    name: "dashboard-reports"
   }, {
-    path: "/dashboard/orders",
-    component: _96b0f326,
-    name: "dashboard-orders"
-  }, {
-    path: "/dashboard/profile",
-    component: _fac39e18,
-    name: "dashboard-profile"
-  }, {
-    path: "/dashboard/report",
-    component: _6668ea39,
-    name: "dashboard-report"
+    path: "/dashboard/settings",
+    component: _0ff7f2eb,
+    name: "dashboard-settings"
   }, {
     path: "/dashboard/transfers",
     component: _0d2ff936,
     name: "dashboard-transfers"
   }, {
-    path: "/dashboard/categories/form",
-    component: _3b840622,
-    name: "dashboard-categories-form",
-    children: [{
-      path: ":id?",
-      component: _7a9f1a66,
-      name: "dashboard-categories-form-id"
-    }]
+    path: "/dashboard/beneficiaries/form",
+    component: _b73d0950,
+    name: "dashboard-beneficiaries-form"
   }, {
-    path: "/dashboard/customers/form",
-    component: _10bd9143,
-    name: "dashboard-customers-form",
-    children: [{
-      path: ":id?",
-      component: _0804f524,
-      name: "dashboard-customers-form-id"
-    }]
+    path: "/dashboard/entries/form",
+    component: _5be87b2b,
+    name: "dashboard-entries-form"
   }, {
-    path: "/dashboard/daily_meals/form",
-    component: _cf9cc2e4,
-    name: "dashboard-daily_meals-form",
-    children: [{
-      path: ":id?",
-      component: _64c3f539,
-      name: "dashboard-daily_meals-form-id"
-    }]
+    path: "/dashboard/exchange/form",
+    component: _735614fe,
+    name: "dashboard-exchange-form"
   }, {
-    path: "/dashboard/items/form",
-    component: _bc98e690,
-    name: "dashboard-items-form",
-    children: [{
-      path: ":id?",
-      component: _3c22833a,
-      name: "dashboard-items-form-id"
-    }]
+    path: "/dashboard/inputs/form",
+    component: _4666cd38,
+    name: "dashboard-inputs-form"
   }, {
-    path: "/dashboard/orders/form",
-    component: _0b7b660e,
-    name: "dashboard-orders-form",
-    children: [{
-      path: ":id?",
-      component: _4e9d13b8,
-      name: "dashboard-orders-form-id"
-    }]
+    path: "/dashboard/outputs/form",
+    component: _4ac653e9,
+    name: "dashboard-outputs-form"
+  }, {
+    path: "/dashboard/reports/form",
+    component: _5ae0ca1c,
+    name: "dashboard-reports-form"
+  }, {
+    path: "/dashboard/settings/form",
+    component: _09a9b204,
+    name: "dashboard-settings-form"
+  }, {
+    path: "/dashboard/settings/pricing",
+    component: _3d86b39f,
+    name: "dashboard-settings-pricing"
+  }, {
+    path: "/dashboard/beneficiaries/form/:id",
+    component: _6c4673c0,
+    name: "dashboard-beneficiaries-form-id"
+  }, {
+    path: "/dashboard/entries/form/:id",
+    component: _6f214c53,
+    name: "dashboard-entries-form-id"
+  }, {
+    path: "/dashboard/exchange/form/:id",
+    component: _227d8234,
+    name: "dashboard-exchange-form-id"
+  }, {
+    path: "/dashboard/inputs/form/:id",
+    component: _ed9284c0,
+    name: "dashboard-inputs-form-id"
+  }, {
+    path: "/dashboard/outputs/form/:id",
+    component: _507a3c91,
+    name: "dashboard-outputs-form-id"
+  }, {
+    path: "/dashboard/reports/form/:id",
+    component: _2512a384,
+    name: "dashboard-reports-form-id"
+  }, {
+    path: "/dashboard/settings/form/:id",
+    component: _2cb2d0e6,
+    name: "dashboard-settings-form-id"
   }, {
     path: "/dashboard/transfers/form/:id?",
     component: _f151ba8a,
@@ -158,10 +167,6 @@ export const routerOptions = {
     path: "/dashboard/transfers/outcoming/:id?",
     component: _071bd79e,
     name: "dashboard-transfers-outcoming-id"
-  }, {
-    path: "/print/:id?",
-    component: _70a1a01e,
-    name: "print-id"
   }, {
     path: "/",
     component: _22745f98,

@@ -29,13 +29,14 @@
             @click="drawer = !drawer"
             class="px-7"
             icon
-            rounded
             color="grey darken-2"
             small
           >
             <v-icon> fas fa-bars </v-icon>
           </v-btn>
-          <h2 style="width: 100%" class="mt-1">{{ name }}</h2>
+          <h2 style="width: 100%" class="mt-1">
+            {{ $t(this.$route.name) }}
+          </h2>
         </div>
         <v-container class="py-0 fill-height">
           <!-- <v-btn v-for="link in links" :key="link" text>
@@ -44,23 +45,56 @@
 
           <v-spacer></v-spacer>
 
-          <v-menu offset-y>
+          <v-menu :close-on-content-click="false" offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon dark color="primary" v-bind="attrs" v-on="on">
                 <img src="~/assets/img/vertical_menu.png" alt="" />
               </v-btn>
             </template>
-            <v-list>
-              <v-list-item
-                v-for="locale in locales"
-                :key="locale.code"
-                link
-                @click="changeLocale(locale)"
-              >
-                <v-list-item-title>
-                  {{ $t(locale.name) }}
-                </v-list-item-title>
+            <v-list width="200">
+              <v-list-group>
+                <template v-slot:activator>
+                  <v-list-item-title>{{ $t("settings") }}</v-list-item-title>
+                </template>
+                <v-list-item>
+                  <v-btn to="/dashboard/settings/pricing" block depressed>
+                    {{ $t("exchange prices") }}
+                  </v-btn>
+                </v-list-item>
+                <v-list-item>
+                  <v-btn block depressed> {{ $t("exchange prices") }} </v-btn>
+                </v-list-item>
+              </v-list-group>
+
+              <v-list-item>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      text
+                      block
+                      dark
+                      color="primary"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      lang
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item
+                      v-for="locale in locales"
+                      :key="locale.code"
+                      link
+                      @click="changeLocale(locale)"
+                    >
+                      <v-list-item-title>
+                        {{ $t(locale.name) }}
+                      </v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
               </v-list-item>
+              <v-list-item></v-list-item>
             </v-list>
           </v-menu>
         </v-container>
@@ -167,18 +201,16 @@ export default {
       }
     },
     changeLocale(locale) {
+      console.log(locale.code);
       console.log(locale);
       this.$i18n.setLocale(locale.code);
       this.$i18n.setLocaleCookie(locale.code);
       this.$i18n.finalizePendingLocaleChange();
-      this.$vuetify.rtl = locale == "ar" || locale == "he" ? true : false;
+      this.$vuetify.rtl = locale.code == "ar" ? true : false;
     },
   },
   beforeCreate() {
-    this.$vuetify.rtl = this.$i18n.locale == "ar" || this.$i18n.locale == "he";
-  },
-  mounted() {
-    this.name = this.$route.name.replace("-", "_");
+    this.$vuetify.rtl = this.$i18n.locale == "ar";
   },
 };
 </script>

@@ -1,5 +1,5 @@
 import locale38517862 from '../../locales/ar.json'
-import locale77427e78 from '../../locales/en.js'
+import locale9ec66352 from '../../locales/en.json'
 import locale7768ada4 from '../../locales/he.js'
 
 export const Constants = {
@@ -14,7 +14,7 @@ export const nuxtOptions = {
 export const options = {
   vueI18n: {"fallbackLocale":"ar"},
   vueI18nLoader: false,
-  locales: [{"code":"en","iso":"en-US","file":"en.js","dir":"ltr","name":"english"},{"code":"ar","iso":"ar-EG","file":"ar.json","dir":"rtl","name":"arabic"},{"code":"he","iso":"he","file":"he.js","dir":"rtl","name":"hebrow"}],
+  locales: [{"code":"en","iso":"en-US","file":"en.json","dir":"ltr","name":"english"},{"code":"ar","iso":"ar-EG","file":"ar.json","dir":"rtl","name":"arabic"},{"code":"he","iso":"he","file":"he.js","dir":"rtl","name":"hebrow"}],
   defaultLocale: "ar",
   defaultDirection: "ltr",
   routesNameSeparator: "___",
@@ -33,13 +33,13 @@ export const options = {
   skipSettingLocaleOnNavigate: false,
   onBeforeLanguageSwitch: () => {},
   onLanguageSwitched: () => null,
-  normalizedLocales: [{"code":"en","iso":"en-US","file":"en.js","dir":"ltr","name":"english"},{"code":"ar","iso":"ar-EG","file":"ar.json","dir":"rtl","name":"arabic"},{"code":"he","iso":"he","file":"he.js","dir":"rtl","name":"hebrow"}],
+  normalizedLocales: [{"code":"en","iso":"en-US","file":"en.json","dir":"ltr","name":"english"},{"code":"ar","iso":"ar-EG","file":"ar.json","dir":"rtl","name":"arabic"},{"code":"he","iso":"he","file":"he.js","dir":"rtl","name":"hebrow"}],
   localeCodes: ["en","ar","he"],
   additionalMessages: [],
 }
 
 export const localeMessages = {
   'ar.json': () => Promise.resolve(locale38517862),
-  'en.js': () => Promise.resolve(locale77427e78),
+  'en.json': () => Promise.resolve(locale9ec66352),
   'he.js': () => Promise.resolve(locale7768ada4),
 }

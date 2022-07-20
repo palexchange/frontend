@@ -11,6 +11,9 @@
   "CrudHeader": {
     "description": "Auto imported from components/CrudHeader.vue"
   },
+  "CurrencySheet": {
+    "description": "Auto imported from components/CurrencySheet.vue"
+  },
   "DataTable": {
     "description": "Auto imported from components/DataTable.vue"
   },
@@ -40,6 +43,9 @@
   },
   "TimePicker": {
     "description": "Auto imported from components/TimePicker.vue"
+  },
+  "Title": {
+    "description": "Auto imported from components/Title.vue"
   },
   "Tutorial": {
     "description": "Auto imported from components/Tutorial.vue"

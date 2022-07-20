@@ -154,7 +154,7 @@ export default {
     locales: [{
       code: 'en',
       iso: 'en-US',
-      file: 'en.js',
+      file: 'en.json',
       dir: 'ltr',
       name: 'english'
     },

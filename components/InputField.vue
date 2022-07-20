@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <label :class="required ? 'required form-label' : 'form-label'">{{
+  <div :class="dashed ? 'dashing' : ''">
+    <label :for="id" :class="required ? 'required form-label' : 'form-label'">{{
       $t(text)
     }}</label>
     <v-text-field
+      :id="id"
       min="0"
       color="#FF7171"
       style="border-radius: 0px !important"
       dense
+      :disabled="dashed"
       :required="this.required ? true : false"
       outlined
       v-bind="$attrs"
@@ -37,6 +39,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    dashed: {
+      type: Boolean,
+      default: false,
+    },
     maxlength: {
       type: Number,
     },
@@ -44,10 +50,17 @@ export default {
   data() {
     return {
       rulesss: ruless(this),
+      id: null,
     };
+  },
+  mounted() {
+    this.id = this._uid;
   },
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
+.dashing .v-text-field fieldset {
+  border: rgb(143, 135, 135) dashed 2px !important;
+}
 </style>

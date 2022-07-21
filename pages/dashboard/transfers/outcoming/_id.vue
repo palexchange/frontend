@@ -219,13 +219,23 @@
             <InputField
               holder="converting to dollar amount"
               text="converting to dollar amount"
+              required
           /></v-col>
           <v-col>
             <InputField dashed holder="office amount" text="office amount"
           /></v-col>
           <v-col>
-            <InputField holder="عمولة المكتب" text="عمولة المكتب"
-          /></v-col>
+            <label class="required form-label">عمولة المكتب</label>
+            <v-text-field color="#FF7171" style="border-radius: 0px !important" dense outlined slot="append"
+              hide-details required :label="
+                item.is_percentage ? `${$t('commission')} %` : $t('commission')
+              " :append-icon="
+  item.is_percentage == false
+    ? 'fas fa-sort-numeric-up-alt'
+    : 'fas fa-percentage'
+" @click:append="() => (item.is_percentage = !item.is_percentage)">
+            </v-text-field>
+            </v-col>
           <v-col cols="1">
             <InputField holder="returned" text="returned"
           /></v-col>

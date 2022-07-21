@@ -2,218 +2,218 @@
   {
     "name": "dashboard",
     "path": "/dashboard",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\index.vue",
     "chunkName": "pages/dashboard/index",
-    "_name": "_5385c45d"
+    "_name": "_d472dc58"
   },
   {
     "name": "inspire",
     "path": "/inspire",
-    "component": "/home/ahmad/palestinain/frontend/pages/inspire.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\inspire.vue",
     "chunkName": "pages/inspire",
-    "_name": "_51f25bc0"
+    "_name": "_da6d8e98"
   },
   {
     "name": "auth-login",
     "path": "/auth/login",
-    "component": "/home/ahmad/palestinain/frontend/pages/auth/login.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\auth\\\\login.vue",
     "chunkName": "pages/auth/login",
-    "_name": "_b1cd7528"
+    "_name": "_31855aca"
   },
   {
     "name": "auth-register",
     "path": "/auth/register",
-    "component": "/home/ahmad/palestinain/frontend/pages/auth/register.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\auth\\\\register.vue",
     "chunkName": "pages/auth/register",
-    "_name": "_3426cbf0"
+    "_name": "_5780fc61"
   },
   {
     "name": "dashboard-beneficiaries",
     "path": "/dashboard/beneficiaries",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/beneficiaries/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\beneficiaries\\\\index.vue",
     "chunkName": "pages/dashboard/beneficiaries/index",
-    "_name": "_f9be635e"
+    "_name": "_1cc0bc1d"
   },
   {
     "name": "dashboard-entries",
     "path": "/dashboard/entries",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/entries/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\entries\\\\index.vue",
     "chunkName": "pages/dashboard/entries/index",
-    "_name": "_f19012c4"
+    "_name": "_c0635fa0"
   },
   {
     "name": "dashboard-exchange",
     "path": "/dashboard/exchange",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/exchange/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\exchange\\\\index.vue",
     "chunkName": "pages/dashboard/exchange/index",
-    "_name": "_2f9f762a"
+    "_name": "_f3cbf05e"
   },
   {
     "name": "dashboard-inputs",
     "path": "/dashboard/inputs",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/inputs/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\inputs\\\\index.vue",
     "chunkName": "pages/dashboard/inputs/index",
-    "_name": "_dc705f1e"
+    "_name": "_0298a26a"
   },
   {
     "name": "dashboard-outputs",
     "path": "/dashboard/outputs",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/outputs/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\outputs\\\\index.vue",
     "chunkName": "pages/dashboard/outputs/index",
-    "_name": "_92adc1c0"
+    "_name": "_5e8237ee"
   },
   {
     "name": "dashboard-reports",
     "path": "/dashboard/reports",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/reports/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\reports\\\\index.vue",
     "chunkName": "pages/dashboard/reports/index",
-    "_name": "_7ab4550d"
+    "_name": "_1bddbfa1"
   },
   {
     "name": "dashboard-settings",
     "path": "/dashboard/settings",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/settings/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\settings\\\\index.vue",
     "chunkName": "pages/dashboard/settings/index",
-    "_name": "_0ff7f2eb"
+    "_name": "_574819d1"
   },
   {
     "name": "dashboard-transfers",
     "path": "/dashboard/transfers",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/transfers/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\transfers\\\\index.vue",
     "chunkName": "pages/dashboard/transfers/index",
-    "_name": "_0d2ff936"
+    "_name": "_3fc3ab50"
   },
   {
     "name": "dashboard-beneficiaries-form",
     "path": "/dashboard/beneficiaries/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/beneficiaries/form/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/beneficiaries/form/index",
-    "_name": "_b73d0950"
+    "_name": "_770d5f19"
   },
   {
     "name": "dashboard-entries-form",
     "path": "/dashboard/entries/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/entries/form/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\entries\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/entries/form/index",
-    "_name": "_5be87b2b"
+    "_name": "_789b4e28"
   },
   {
     "name": "dashboard-exchange-form",
     "path": "/dashboard/exchange/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/exchange/form/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/exchange/form/index",
-    "_name": "_735614fe"
+    "_name": "_5ee413cd"
   },
   {
     "name": "dashboard-inputs-form",
     "path": "/dashboard/inputs/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/inputs/form/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/inputs/form/index",
-    "_name": "_4666cd38"
+    "_name": "_33ff1747"
   },
   {
     "name": "dashboard-outputs-form",
     "path": "/dashboard/outputs/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/outputs/form/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/outputs/form/index",
-    "_name": "_4ac653e9"
+    "_name": "_727cfa2a"
   },
   {
     "name": "dashboard-reports-form",
     "path": "/dashboard/reports/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/reports/form/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\reports\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/reports/form/index",
-    "_name": "_5ae0ca1c"
+    "_name": "_345aa0c6"
   },
   {
     "name": "dashboard-settings-form",
     "path": "/dashboard/settings/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/settings/form/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\settings\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/settings/form/index",
-    "_name": "_09a9b204"
+    "_name": "_45bca5cd"
   },
   {
     "name": "dashboard-settings-pricing",
     "path": "/dashboard/settings/pricing",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/settings/pricing.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\settings\\\\pricing.vue",
     "chunkName": "pages/dashboard/settings/pricing",
-    "_name": "_3d86b39f"
+    "_name": "_1d2e8df6"
   },
   {
     "name": "dashboard-beneficiaries-form-id",
     "path": "/dashboard/beneficiaries/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/beneficiaries/form/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/beneficiaries/form/_id",
-    "_name": "_6c4673c0"
+    "_name": "_8f2b587e"
   },
   {
     "name": "dashboard-entries-form-id",
     "path": "/dashboard/entries/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/entries/form/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\entries\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/entries/form/_id",
-    "_name": "_6f214c53"
+    "_name": "_1399a654"
   },
   {
     "name": "dashboard-exchange-form-id",
     "path": "/dashboard/exchange/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/exchange/form/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/exchange/form/_id",
-    "_name": "_227d8234"
+    "_name": "_0fe2b516"
   },
   {
     "name": "dashboard-inputs-form-id",
     "path": "/dashboard/inputs/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/inputs/form/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/inputs/form/_id",
-    "_name": "_ed9284c0"
+    "_name": "_a5af8122"
   },
   {
     "name": "dashboard-outputs-form-id",
     "path": "/dashboard/outputs/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/outputs/form/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/outputs/form/_id",
-    "_name": "_507a3c91"
+    "_name": "_02777f12"
   },
   {
     "name": "dashboard-reports-form-id",
     "path": "/dashboard/reports/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/reports/form/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\reports\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/reports/form/_id",
-    "_name": "_2512a384"
+    "_name": "_1291f545"
   },
   {
     "name": "dashboard-settings-form-id",
     "path": "/dashboard/settings/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/settings/form/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\settings\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/settings/form/_id",
-    "_name": "_2cb2d0e6"
+    "_name": "_7fe3b775"
   },
   {
     "name": "dashboard-transfers-form-id",
     "path": "/dashboard/transfers/form/:id?",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/transfers/form/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\transfers\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/transfers/form/_id",
-    "_name": "_f151ba8a"
+    "_name": "_d2bfa708"
   },
   {
     "name": "dashboard-transfers-incoming-id",
     "path": "/dashboard/transfers/incoming/:id?",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/transfers/incoming/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\_id.vue",
     "chunkName": "pages/dashboard/transfers/incoming/_id",
-    "_name": "_c7d6dbc6"
+    "_name": "_eef06f4c"
   },
   {
     "name": "dashboard-transfers-outcoming-id",
     "path": "/dashboard/transfers/outcoming/:id?",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/transfers/outcoming/_id.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\dashboard\\\\transfers\\\\outcoming\\\\_id.vue",
     "chunkName": "pages/dashboard/transfers/outcoming/_id",
-    "_name": "_071bd79e"
+    "_name": "_6f418e16"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/home/ahmad/palestinain/frontend/pages/index.vue",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\transfers\\\\pages\\\\index.vue",
     "chunkName": "pages/index",
-    "_name": "_22745f98"
+    "_name": "_91f149a8"
   }
 ]

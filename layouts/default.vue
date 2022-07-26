@@ -4,101 +4,62 @@
       @change_dawer="() => (drawer = !drawer)"
       :forgin_drawer="drawer"
     />
-    <v-app-bar
-      style="
-        justify-content: end !important;
-        background-color: #eeeeee;
-        max-height: 70px !important;
-      "
-      flat
-      :clipped-left="!$vuetify.rtl"
-      :clipped-right="$vuetify.rtl"
-    >
-      <div
-        :style="drawer ? `width:90% !important` : ``"
-        class="test_meow"
-        style="
-          width: 85%;
-          align-self: self-end;
-          display: flex;
-          transition: width 0.3s;
-        "
+    <v-app-bar color="#EEEEEE" elevation="0">
+      <v-app-bar-nav-icon
+        :class="$vuetify.breakpoint.mobile ? 'nomargin' : ''"
+        :style="drawer ? 'margin-right: 190px' : 'margin-right: 270px'"
+        @click="drawer = !drawer"
       >
-        <div style="width: 100%" class="d-flex align-center">
-          <v-btn
-            @click="drawer = !drawer"
-            class="px-7"
-            icon
-            color="grey darken-2"
-            small
-          >
-            <v-icon> fas fa-bars </v-icon>
+        <v-icon> fas fa-bars </v-icon>
+      </v-app-bar-nav-icon>
+
+      <v-toolbar-title>{{ $t(this.$route.name) }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-menu :close-on-content-click="false" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon dark color="primary" v-bind="attrs" v-on="on">
+            <img src="~/assets/img/vertical_menu.png" alt="" />
           </v-btn>
-          <h2 style="width: 100%" class="mt-1">
-            {{ $t(this.$route.name) }}
-          </h2>
-        </div>
-        <v-container class="py-0 fill-height">
-          <!-- <v-btn v-for="link in links" :key="link" text>
-          {{ link }}
-        </v-btn> -->
-
-          <v-spacer></v-spacer>
-
-          <v-menu :close-on-content-click="false" offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn icon dark color="primary" v-bind="attrs" v-on="on">
-                <img src="~/assets/img/vertical_menu.png" alt="" />
-              </v-btn>
+        </template>
+        <v-list width="200">
+          <v-list-group>
+            <template v-slot:activator>
+              <v-list-item-title>{{ $t("settings") }}</v-list-item-title>
             </template>
-            <v-list width="200">
-              <v-list-group>
-                <template v-slot:activator>
-                  <v-list-item-title>{{ $t("settings") }}</v-list-item-title>
-                </template>
-                <v-list-item>
-                  <v-btn to="/dashboard/settings/pricing" block depressed>
-                    {{ $t("exchange prices") }}
-                  </v-btn>
-                </v-list-item>
-                <v-list-item>
-                  <v-btn block depressed> {{ $t("exchange prices") }} </v-btn>
-                </v-list-item>
-              </v-list-group>
+            <v-list-item>
+              <v-btn to="/dashboard/settings/pricing" block depressed>
+                {{ $t("exchange prices") }}
+              </v-btn>
+            </v-list-item>
+            <v-list-item>
+              <v-btn block depressed> {{ $t("exchange prices") }} </v-btn>
+            </v-list-item>
+          </v-list-group>
 
-              <v-list-item>
-                <v-menu offset-y>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      text
-                      block
-                      dark
-                      color="primary"
-                      v-bind="attrs"
-                      v-on="on"
-                    >
-                      lang
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item
-                      v-for="locale in locales"
-                      :key="locale.code"
-                      link
-                      @click="changeLocale(locale)"
-                    >
-                      <v-list-item-title>
-                        {{ $t(locale.name) }}
-                      </v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </v-list-item>
-              <v-list-item></v-list-item>
-            </v-list>
-          </v-menu>
-        </v-container>
-      </div>
+          <v-list-item>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn text block dark color="primary" v-bind="attrs" v-on="on">
+                  lang
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="locale in locales"
+                  :key="locale.code"
+                  link
+                  @click="changeLocale(locale)"
+                >
+                  <v-list-item-title>
+                    {{ $t(locale.name) }}
+                  </v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-list-item>
+          <v-list-item></v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
       <v-container>
@@ -228,5 +189,8 @@ export default {
 }
 .v-navigation-drawer__border {
   display: none !important;
+}
+.nomargin {
+  margin-right: 0px !important ;
 }
 </style>

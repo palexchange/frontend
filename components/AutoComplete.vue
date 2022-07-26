@@ -1,8 +1,10 @@
 <template>
   <div :class="dashed ? 'dashing' : ''">
-    <label :class="required ? 'required form-label' : 'form-label'">{{
-      $t(text)
-    }}</label>
+    <label
+      style="color: rgba(139, 139, 139, 0.93)"
+      :class="required ? 'required form-label' : 'form-label'"
+      >{{ $t(text) }}</label
+    >
     <v-autocomplete
       color="#FF7171"
       style="border-radius: 0px !important"

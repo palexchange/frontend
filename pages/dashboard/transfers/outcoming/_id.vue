@@ -31,7 +31,7 @@
         </v-col>
         <v-col cols="12" md="6" sm="12">
           <v-row no-gutters class="flex-column text-h6">
-            <v-col class="align-self-strach text-left mb-4">
+            <v-col cols="12" class="align-self-strach text-left mb-4">
               <span>
                 {{ $t("todays profit") }}<span class="show-text">0400</span>
               </span>

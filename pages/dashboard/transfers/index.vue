@@ -16,8 +16,8 @@
       <v-row>
         <v-col><InputField required text="رقم الهوية" holder="ahmad" /></v-col>
         <v-col
-          ><InputField dashed required text="رقم الهوية" holder="ahmad"
-        /></v-col>
+          >
+          <InputField dashed required text="رقم الهوية" holder="ahmad" /></v-col>
         <v-col><AutoComplete text="رقم الهوية" holder="ahmad" /></v-col>
 
         <v-col>

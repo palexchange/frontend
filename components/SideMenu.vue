@@ -1,10 +1,12 @@
 <template>
   <v-navigation-drawer
+    v-model="drawer"
+    :temporary="$vuetify.breakpoint.mobile"
     app
     style="border: none"
     color="#E0E0FF"
     :mini-variant.sync="drawer"
-    permanent
+    :permanent="!$vuetify.breakpoint.mobile"
     width="218"
     :right="$vuetify.rtl"
   >

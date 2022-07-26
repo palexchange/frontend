@@ -1,6 +1,6 @@
-import locale38517862 from '../..\\locales\\ar.json'
-import locale9ec66352 from '../..\\locales\\en.json'
-import locale7768ada4 from '../..\\locales\\he.js'
+import locale38517862 from '../../locales/ar.json'
+import locale9ec66352 from '../../locales/en.json'
+import locale7768ada4 from '../../locales/he.js'
 
 export const Constants = {
   COMPONENT_OPTIONS_KEY: "nuxtI18n",
@@ -22,7 +22,7 @@ export const options = {
   sortRoutes: true,
   strategy: "no_prefix",
   lazy: false,
-  langDir: "E:\\IbrahimProject\\Vue\\Serapha\\transfers\\locales\\",
+  langDir: "/home/ahmad/palestinain/frontend/locales/",
   rootRedirect: null,
   detectBrowserLanguage: {"alwaysRedirect":true,"cookieCrossOrigin":false,"cookieDomain":null,"cookieKey":"i18n_redirected","cookieSecure":false,"fallbackLocale":"ar","redirectOn":"root","useCookie":true,"onlyOnRoot":true},
   differentDomains: true,

@@ -145,17 +145,18 @@
     "amount to give": "المبلغ للتسليم",
     "transfer date": "تاريخ الحوالة",
     "another expenses on receiver": "مصاريف علي المستلم",
-    "final amount to give": "المبلغ النهائي للتسليم بعد خصم المصاريف",
+    "final amount to give": "المبلغ النهائي للتسليم",
     "transfer type": "نوع الحوالة",
     "buy": "بيع",
     "send sms to the sender": "ارسال رسالة sms للمحول",
     "office amount": "مبلغ المكتب",
     "currency to office": "العملة للمكتب",
-    "transfirig amount": "المبلغ للتحويل",
+    "transfirrig amount": "المبلغ للتحويل",
     "country": "الدولة",
     "currency": "العملة",
     "city": "المدينة",
     "id number": "رقم الهوية",
+    "id image": "صورة الهوية",
     "beneficiary": "المستفيد",
     "another expenses": "مصاريف اخري",
     "mobile": "رقم الهانف",
@@ -166,5 +167,6 @@
     "transfer stats": "حالة الحوالة",
     "palestinian profit": "ربحية المكتب من الحوالة",
     "create outcomming transfer": "إنشاء حوالة صاردة",
-    "categories_form": "نموذج إضافة تصنيف"
+    "categories_form": "نموذج إضافة تصنيف",
+    "recived amount in USD":"المبلغ المستلم بالدولار"
 }

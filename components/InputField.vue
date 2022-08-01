@@ -2,12 +2,12 @@
   <div :class="dashed ? 'dashing' : ''">
     <label
       style="color: rgba(139, 139, 139, 0.93)"
-      :for="id"
+       
       :class="required ? 'required form-label' : 'form-label'"
       >{{ $t(text) }}</label
     >
     <v-text-field
-      :id="id"
+       
       min="0"
       color="#FF7171"
       style="border-radius: 0px !important"

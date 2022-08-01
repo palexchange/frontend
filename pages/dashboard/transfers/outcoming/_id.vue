@@ -132,14 +132,14 @@
             <InputField holder="another expenses" text="another expenses" v-model.number="item.otherExpenses" />
           </v-col>
           <v-col>
-            <InputField :value="amountWithCommissionAndExpensesComp" dashed holder="مبلغ شامل عمولة"
+            <InputField :value="amountWithCommissionAndExpensesComp | money" dashed holder="مبلغ شامل عمولة"
               text="م.ش عمولة و مصاريف" />
           </v-col>
           <v-col>
-            <InputField :value="amountInUSDComp" dashed holder="مبلغ مستلم بالدولار" text="مبلغ مستلم بالدولار" />
+            <InputField :value="amountInUSDComp | money" dashed holder="مبلغ مستلم بالدولار" text="مبلغ مستلم بالدولار" />
           </v-col>
           <v-col>
-            <InputField :value="totalAmountInUSDComp" dashed holder="شامل العمولة" text="المبلغ بالدولار ش.ع" />
+            <InputField :value="totalAmountInUSDComp | money" dashed holder="شامل العمولة" text="المبلغ بالدولار ش.ع" />
           </v-col>
         </v-row>
         <v-row>
@@ -255,50 +255,33 @@ export default {
   name: "transfer form",
   data() {
     return {
-      transfer_types: [{ id: 1, name: "تسليم يد" }],
+      transfer_types: [{ id: 1, name: "تسليم يد" },{ id: 1, name: "موني غرام" }],
       item: { is_percentage: false },
     };
   },
   computed: {
     amountWithCommissionAndExpensesComp() {
-      console.log("perc: ", this.item.is_percentage)
-      console.log("amount: ", this.item.transferringAmount)
-      console.log("comm: ", this.item.commission)
-      console.log("expenses: ", this.item.otherExpenses)
-      let otherExp = (this.item.otherExpenses == undefined ? 0 : this.item.otherExpenses)
-      if (this.item.transferringAmount == undefined || this.item.commission == undefined) return;
-      let commValue = (this.item.commission_on === '1' ? (this.item.is_percentage ? this.item.commission / 100 * this.item.transferringAmount : this.item.commission) : 0);
-      // if(this.item.commission_on === '2') commValue = 0;
-      return commValue + this.item.transferringAmount + otherExp;
+      let otherExp = this.item.otherExpenses || 0;
+      let transferringAmount = this.item.transferringAmount || 0;
+      let comval = this.calcCommisson();
+      let total = comval + transferringAmount + otherExp;
+      return total > 0 ? total : null;
+      
     },
     amountInUSDComp() {
-      console.log("amount: ", this.item.transferringAmount)
-      console.log("ratio: ", this.item.convertToUSD)
       if (this.item.transferringAmount == undefined || this.item.convertToUSD == undefined) return;
       return this.item.transferringAmount / this.item.convertToUSD;
     },
     totalAmountInUSDComp() {
-      console.log("LastMethod ratio: ", this.item.convertToUSD)
-      if (this.item.convertToUSD == undefined || this.amountWithCommissionAndExpensesComp == undefined) return;
-      let commValue = (this.item.commission_on === '1' ? (this.item.is_percentage ? this.item.commission / 100 * this.item.transferringAmount : this.item.commission) : 0);
-      let otherExp = (this.item.otherExpenses == undefined ? 0 : this.item.otherExpenses)
-
-      return this.amountInUSDComp + commValue + otherExp;
-      // console.log("Last Method: ",tot);
-      // return tot;
+           let convert_param = this.item.convertToUSD || 1;
+      let total = parseFloat(this.amountInUSDComp || 0);
+      let commVal = parseFloat((this.calcCommisson() || 0) / convert_param);
+      let otherExp = parseFloat((this.item.otherExpenses || 0) / convert_param);
+      let final = commVal + total + otherExp;
+      return final > 0 ? final : null;
     },
     recivedAmountComp() {
-      console.log("Here we gooo")
-      console.log("total amount: ", this.amountInUSDComp)
-      console.log("comm: ", this.item.commission)
-      console.log("convert to recv curr: ", this.item.convertToRecvCurr)
       if (this.item.convertToRecvCurr == undefined || this.amountInUSDComp == null) return;
-      console.log("Here we paaaassedd")
-      // let otherExp = (this.item.otherExpOnRecv == undefined ? 0 : this.item.otherExpOnRecv)
-      // let recvCommission = (this.item.commission_on === '2' ? this.item.commission : 0);
-      // recvCommission = (this.item.is_percentage ? recvCommission / 100 * this.item.transferringAmount : recvCommission);
-      // console.log("recv Commission: ", recvCommission)
-      // console.log("other exp: ", otherExp)
       return this.amountInUSDComp * this.item.convertToRecvCurr
     },
     totalRecvAmountComp() {
@@ -316,17 +299,33 @@ export default {
       if (this.item.officeCommission == undefined || this.officeAmount == null) return;
       let returned = (this.item.officeReturn == undefined ? 0 : this.item.officeReturn);
       let commission = (this.item.is_percentage ? this.item.officeCommission / 100 * this.officeAmount : this.item.officeCommission);
-
-      console.log("Officee::")
-      console.log("office Amount: ", this.officeAmount)
-      console.log("comm: ", commission)
-      console.log("returned: ", returned)
       let tempVar = (this.officeAmount + commission - returned);
-      console.log("tempVar: ", tempVar)
       return tempVar;
-    }
+    },
+        
 
+  },
+  methods:{
+    calcCommisson(){
+        let  transferringAmount = this.item.transferringAmount || 0;
+        let commisson_amount = this.item.commission || 0;
+        let percentage = this.item.is_percentage;
+        let amount = 0 ;
+        if (commisson_amount > 0) {
+              amount = percentage ?   (transferringAmount * commisson_amount/100):commisson_amount
+          }
+      
+        return amount
+    }
+  },
+  filters:{
+    money(value){
+      if (value) {
+        return value.toLocaleString(undefined, {minimumFractionDigits: 2})
+      }
+    }
   }
+ 
 };
 </script>
 
@@ -338,4 +337,16 @@ export default {
   width: 50px !important;
   margin: 20px 18px;
 }
+.theme--light.v-input--is-disabled input{
+  color: rgb(0, 0, 0 , 1) !important;
+  opacity: 1 !important;
+  font-size:20px  !important ;
+
+}
+/* .theme--light.v-input input::placeholder, 
+.theme--light.v-input textarea::placeholder{
+   color: rgb(0, 0, 0 , 1) !important;
+  opacity: 1 !important;
+
+} */
 </style>

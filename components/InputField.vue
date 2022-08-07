@@ -12,7 +12,7 @@
       color="#FF7171"
       style="border-radius: 0px !important"
       dense
-      :disabled="dashed"
+      :disabled="dashed || disabledd"
       :required="this.required ? true : false"
       outlined
       v-bind="$attrs"
@@ -48,6 +48,10 @@ export default {
     },
     maxlength: {
       type: Number,
+    },
+    disabledd: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

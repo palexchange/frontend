@@ -1,5 +1,30 @@
 <template>
   <div>
+    <client-only>
+      <bing-map
+        :credentials="mapCredentials"
+        :options="mapOptions"
+        v-if="mapVisible"
+      >
+        <bing-map-layer
+          name="activeFlightsLayer"
+          v-on:layer-click="handleEvent"
+          v-on:layer-mouseover="showTooltip"
+          v-on:layer-mouseout="hideTooltip"
+          :visible="pinsVisible"
+        >
+          <bing-map-pushpin
+            v-for="item in pins"
+            :metadata="item.metadata"
+            :location="item.location"
+            :options="item.options"
+          ></bing-map-pushpin>
+          <bing-map-infobox :options="tooltip">
+            <div class="customInfobox">{{ tooltip.description }}</div>
+          </bing-map-infobox>
+        </bing-map-layer>
+      </bing-map>
+    </client-only>
     <v-btn to="/dashboard"> <h1>go to dashboard here</h1></v-btn>
   </div>
 </template>

@@ -25,7 +25,8 @@ import nuxt_plugin_workbox_64349ca2 from 'nuxt_plugin_workbox_64349ca2' // Sourc
 import nuxt_plugin_metaplugin_388021b5 from 'nuxt_plugin_metaplugin_388021b5' // Source: ./pwa/meta.plugin.js (mode: 'all')
 import nuxt_plugin_iconplugin_3d27c729 from 'nuxt_plugin_iconplugin_3d27c729' // Source: ./pwa/icon.plugin.js (mode: 'all')
 import nuxt_plugin_axios_c3975df4 from 'nuxt_plugin_axios_c3975df4' // Source: ./axios.js (mode: 'all')
-import nuxt_plugin_vuetify_165b1c58 from 'nuxt_plugin_vuetify_165b1c58' // Source: ../plugins/vuetify (mode: 'all')
+import nuxt_plugin_vuetify_165b1c58 from 'nuxt_plugin_vuetify_165b1c58' // Source: ../plugins/vuetify (mode: 'client')
+import nuxt_plugin_maps_18bbcbca from 'nuxt_plugin_maps_18bbcbca' // Source: ../plugins/maps.js (mode: 'all')
 import nuxt_plugin_mixins_5013a1f0 from 'nuxt_plugin_mixins_5013a1f0' // Source: ../plugins/mixins (mode: 'all')
 import nuxt_plugin_vueapexchart_0ea3e8d8 from 'nuxt_plugin_vueapexchart_0ea3e8d8' // Source: ../plugins/vue-apexchart.js (mode: 'client')
 import nuxt_plugin_vmask_3c04b27e from 'nuxt_plugin_vmask_3c04b27e' // Source: ../plugins/v-mask.js (mode: 'client')
@@ -282,8 +283,12 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_axios_c3975df4(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_vuetify_165b1c58 === 'function') {
+  if (process.client && typeof nuxt_plugin_vuetify_165b1c58 === 'function') {
     await nuxt_plugin_vuetify_165b1c58(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_maps_18bbcbca === 'function') {
+    await nuxt_plugin_maps_18bbcbca(app.context, inject)
   }
 
   if (typeof nuxt_plugin_mixins_5013a1f0 === 'function') {

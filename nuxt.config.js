@@ -31,6 +31,10 @@ export default {
   plugins: [
     {
       src: "~/plugins/vuetify",
+      ssr: false
+    },
+    {
+      src: "~/plugins/maps.js",
     },
     {
       src: "~/plugins/mixins",

@@ -185,5 +185,10 @@
     "euro" : "يورو",
     "pound" : "جنيه",
     "execute process" : "إتمام العملية",
-    "print receipt" : "طباعة إيصال"
+    "print receipt" : "طباعة إيصال",
+    "statement" : "البيان",
+    "recived amount" : "المبلغ المستلم",
+    "conversion factor" : "معامل التحويل",
+    "approve" : "اعتماد"
+    
 }

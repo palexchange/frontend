@@ -5,15 +5,25 @@
         <v-col cols="12" md="6" sm="12">
           <v-row>
             <v-col cols="12" sm="12" md="4">
-              <Title title="create incoming transfer"></Title>
+              <Title title="add incoming transfer"></Title>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" sm="12" md="4">
-              <AutoComplete required :items="transfer_types" text="transfer type" holder="transfer type" />
+              <AutoComplete
+                required
+                :items="transfer_types"
+                text="transfer type"
+                holder="transfer type"
+              />
             </v-col>
             <v-col>
-              <DatePicker v-model="item.date" required text="transfer date" holder="test" />
+              <DatePicker
+                v-model="item.date"
+                required
+                text="transfer date"
+                holder="test"
+              />
             </v-col>
             <v-col cols="12" md="4" sm="12">
               <InputField dashed text="palestinian profit" />
@@ -61,25 +71,40 @@
       <v-card-title>بيانات المستلم </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" md="4" sm="6" lg="2">
             <AutoComplete text="beneficiary" holder="beneficiary" required />
           </v-col>
-          <v-col cols="12" md="2">
-            <label style="color: rgba(139, 139, 139, 0.93)" class="required form-label">{{ $t("id image") }}</label>
-            <v-file-input min="0" color="#FF7171" style="border-radius: 0px !important" dense :disabled="dashed"
-              :required="true" outlined v-on="$listeners" :rules="rulesss.requiredRules" :placeholder="$t('id image')"
-              prepend-icon="" prepend-inner-icon="fa-solid fa-image" />
+          <v-col ccols="12" md="4" sm="6" lg="2">
+            <label
+              style="color: rgba(139, 139, 139, 0.93)"
+              class="required form-label"
+              >{{ $t("id image") }}</label
+            >
+            <v-file-input
+              min="0"
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              :disabled="dashed"
+              :required="true"
+              outlined
+              v-on="$listeners"
+              :rules="rulesss.requiredRules"
+              :placeholder="$t('id image')"
+              prepend-icon=""
+              prepend-inner-icon="fa-solid fa-image"
+            />
           </v-col>
-          <v-col cols="12" md="2" sm="6">
+          <v-col cols="12" md="4" sm="6" lg="2">
             <InputField holder="mobile" text="mobile" required />
           </v-col>
-          <v-col>
+          <v-col cols="12" md="4" sm="6" lg="2">
             <AutoComplete text="country" holder="country" required />
           </v-col>
-          <v-col>
+          <v-col cols="12" md="4" sm="6" lg="2">
             <AutoComplete text="city" holder="city" required />
           </v-col>
-          <v-col cols="12" md="2" sm="6">
+          <v-col cols="12" md="4" sm="6" lg="2">
             <InputField holder="address" text="address" />
           </v-col>
         </v-row>
@@ -97,109 +122,174 @@
           </v-col>
 
           <v-col class="align-self-center" md="3" sm="12">
-            <v-text-field color="#FF7171" style="border-radius: 0px !important" dense outlined slot="append"
-              hide-details :label="
+            <v-text-field
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+              slot="append"
+              hide-details
+              :label="
                 item.is_percentage ? `${$t('commission')} %` : $t('commission')
-              " :append-icon="
-  item.is_percentage == false
-    ? 'fas fa-sort-numeric-up-alt'
-    : 'fas fa-percentage'
-" @click:append="() => (item.is_percentage = !item.is_percentage)">
+              "
+              :append-icon="
+                item.is_percentage == false
+                  ? 'fas fa-sort-numeric-up-alt'
+                  : 'fas fa-percentage'
+              "
+              @click:append="() => (item.is_percentage = !item.is_percentage)"
+            >
             </v-text-field>
           </v-col>
         </v-row>
       </v-card-text>
     </Card>
 
-
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات الحوالة المالية </v-card-title>
       <v-card-text>
-        <v-row class="justify-center">
+        <v-row class="justify-center responseveCols">
           <v-col>
-            <InputField v-model.number="item.transferringAmount" holder="transfirrig amount" text="transfirrig amount"
-              required />
+            <InputField
+              v-model.number="item.transferringAmount"
+              holder="transfirrig amount"
+              text="transfirrig amount"
+              required
+            />
           </v-col>
           <v-col>
             <AutoComplete text="currency" holder="currency" required />
           </v-col>
           <v-col>
-            <InputField v-model.number="item.RatioToUSD" holder="converting to dollar amount"
-              text="converting to dollar amount" required />
+            <InputField
+              v-model.number="item.RatioToUSD"
+              holder="converting to dollar amount"
+              text="converting to dollar amount"
+              required
+            />
           </v-col>
-
 
           <v-col>
-            <InputField :value="recivedAmountInUSDComp" dashed
-              holder="recived amount in USD" text="recived amount in USD" />
+            <InputField
+              :value="recivedAmountInUSDComp"
+              dashed
+              holder="recived amount in USD"
+              text="recived amount in USD"
+            />
           </v-col>
-
         </v-row>
         <v-row>
-          <v-col class="text-center">
+          <v-col class="text-center responseveCols">
             <img src="~/assets/img/icons/to.png" alt="" />
           </v-col>
         </v-row>
 
         <v-row class="justify-center">
           <v-col>
-            <AutoComplete holder="currency to give" text="currency to give" required />
+            <AutoComplete
+              holder="currency to give"
+              text="currency to give"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField v-model.number="item.recvCurr" holder="convert to receiver currency" text="convert to receiver currency" required />
+            <InputField
+              v-model.number="item.recvCurr"
+              holder="convert to receiver currency"
+              text="convert to receiver currency"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField :value="finalAmountToDeliverComp" dashed holder="final amount to give" text="final amount to give" required />
+            <InputField
+              :value="finalAmountToDeliverComp"
+              dashed
+              holder="final amount to give"
+              text="final amount to give"
+              required
+            />
           </v-col>
-
         </v-row>
       </v-card-text>
     </Card>
 
-
     <Card class="mb-5 pa-3">
       <v-card-title>المكتب</v-card-title>
       <v-card-text>
-        <v-row class="justify-center">
+        <v-row class="justify-center responseveCols">
           <v-col cols="3">
             <AutoComplete holder="beneficiary" text="beneficiary" required />
           </v-col>
 
           <v-col>
-            <AutoComplete holder="currency to office" text="currency to office" required />
+            <AutoComplete
+              holder="currency to office"
+              text="currency to office"
+              required
+            />
           </v-col>
 
           <v-col>
-            <InputField v-model.number="item.officeConvertToUSD" holder="converting to dollar amount" text="converting to dollar amount" required />
+            <InputField
+              v-model.number="item.officeConvertToUSD"
+              holder="converting to dollar amount"
+              text="converting to dollar amount"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField :value="officeAmount" dashed holder="office amount" text="office amount" />
+            <InputField
+              :value="officeAmount"
+              dashed
+              holder="office amount"
+              text="office amount"
+            />
           </v-col>
           <v-col>
             <label class="required form-label">عمولة المكتب</label>
-            <v-text-field v-model.number="item.officeCommission" color="#FF7171" style="border-radius: 0px !important" dense outlined slot="append"
-              hide-details required :label="
+            <v-text-field
+              v-model.number="item.officeCommission"
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+              slot="append"
+              hide-details
+              required
+              :label="
                 item.is_percentage ? `${$t('commission')} %` : $t('commission')
-              " :append-icon="
-  item.is_percentage == false
-    ? 'fas fa-sort-numeric-up-alt'
-    : 'fas fa-percentage'
-" @click:append="() => (item.is_percentage = !item.is_percentage)">
+              "
+              :append-icon="
+                item.is_percentage == false
+                  ? 'fas fa-sort-numeric-up-alt'
+                  : 'fas fa-percentage'
+              "
+              @click:append="() => (item.is_percentage = !item.is_percentage)"
+            >
             </v-text-field>
           </v-col>
           <v-col cols="1">
-            <InputField v-model.number="item.officeReturn" holder="returned" text="returned" required />
+            <InputField
+              v-model.number="item.officeReturn"
+              holder="returned"
+              text="returned"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField :value="totalOfficeAmount" dashed holder="final amount to office" text="final amount to office" />
+            <InputField
+              :value="totalOfficeAmount"
+              dashed
+              holder="final amount to office"
+              text="final amount to office"
+            />
           </v-col>
         </v-row>
       </v-card-text>
     </Card>
 
-
     <v-row>
-      <v-col cols="3">
+      <v-col cols="12" xs="12">
         <v-checkbox :label="$t('send sms to the sender')"> </v-checkbox>
       </v-col>
     </v-row>
@@ -210,7 +300,9 @@
           &nbsp; &nbsp;
           <v-menu offset-x left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" color="primary" outlined>الإجراءات</v-btn>
+              <v-btn v-bind="attrs" v-on="on" color="primary" outlined
+                >الإجراءات</v-btn
+              >
             </template>
             <v-list>
               <v-list-item>
@@ -236,8 +328,6 @@
         </v-card-actions>
       </v-card>
     </v-row>
-
-
   </div>
 </template>
 
@@ -267,32 +357,47 @@ export default {
   // },
   computed: {
     recivedAmountInUSDComp() {
-      if(this.item.transferringAmount == undefined || this.item.RatioToUSD == undefined) return;
-      
+      if (
+        this.item.transferringAmount == undefined ||
+        this.item.RatioToUSD == undefined
+      )
+        return;
+
       return this.item.transferringAmount / this.item.RatioToUSD;
     },
     finalAmountToDeliverComp() {
-      if(this.recivedAmountInUSDComp == null || this.item.recvCurr == undefined) return;
+      if (
+        this.recivedAmountInUSDComp == null ||
+        this.item.recvCurr == undefined
+      )
+        return;
       return this.recivedAmountInUSDComp * this.item.recvCurr;
     },
     officeAmount() {
-      if (this.finalAmountToDeliverComp == null || this.item.officeConvertToUSD == undefined) return;
+      if (
+        this.finalAmountToDeliverComp == null ||
+        this.item.officeConvertToUSD == undefined
+      )
+        return;
       return this.finalAmountToDeliverComp / this.item.officeConvertToUSD;
     },
     totalOfficeAmount() {
-      if (this.item.officeCommission == undefined || this.officeAmount == null) return;
-      let returned = (this.item.officeReturn == undefined ? 0 : this.item.officeReturn);
-      let commission = (this.item.is_percentage ? this.item.officeCommission / 100 * this.officeAmount : this.item.officeCommission);
+      if (this.item.officeCommission == undefined || this.officeAmount == null)
+        return;
+      let returned =
+        this.item.officeReturn == undefined ? 0 : this.item.officeReturn;
+      let commission = this.item.is_percentage
+        ? (this.item.officeCommission / 100) * this.officeAmount
+        : this.item.officeCommission;
 
-      console.log("Officee::")
-      console.log("office Amount: ", this.officeAmount)
-      console.log("comm: ", commission)
-      console.log("returned: ", returned)
-      let tempVar = (this.officeAmount + commission - returned);
-      console.log("tempVar: ", tempVar)
+      console.log("Officee::");
+      console.log("office Amount: ", this.officeAmount);
+      console.log("comm: ", commission);
+      console.log("returned: ", returned);
+      let tempVar = this.officeAmount + commission - returned;
+      console.log("tempVar: ", tempVar);
       return tempVar;
-    }
-
+    },
   },
 };
 </script>
@@ -304,5 +409,16 @@ export default {
   padding: 5px 8px;
   width: 50px !important;
   margin: 20px 18px;
+}
+
+@media (max-width: 600px) {
+  .responseveCols > div {
+    min-width: 100% !important;
+  }
+}
+@media (max-width: 1280px) {
+  .responseveCols > div {
+    min-width: 50% !important;
+  }
 }
 </style>

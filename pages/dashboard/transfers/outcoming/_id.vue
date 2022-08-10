@@ -5,7 +5,7 @@
         <v-col cols="12" md="6" sm="12">
           <v-row>
             <v-col cols="12" sm="12" md="4">
-              <Title title="create outcomming transfer"></Title>
+              <Title title="add outcomming transfer"></Title>
             </v-col>
           </v-row>
           <v-row>
@@ -71,16 +71,16 @@
           <v-col cols="12" md="3" sm="6">
             <AutoComplete text="beneficiary" holder="beneficiary" required />
           </v-col>
-          <v-col>
+          <v-col cols="12" md="3" sm="6">
             <InputField holder="id number" text="id number" required />
           </v-col>
-          <v-col cols="12" md="" sm="6">
+          <v-col cols="12" md="3" sm="6">
             <InputField holder="mobile" text="mobile" required />
           </v-col>
-          <v-col>
+          <v-col cols="12" md="3" sm="6">
             <AutoComplete text="country" holder="country" required />
           </v-col>
-          <v-col>
+          <v-col cols="12" md="3" sm="6">
             <AutoComplete text="city" holder="city" required />
           </v-col>
           <v-col cols="12" md="3" sm="6">
@@ -116,7 +116,7 @@
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات الحوالة المالية </v-card-title>
       <v-card-text>
-        <v-row class="justify-center">
+        <v-row class="justify-center responseveCols">
           <v-col>
             <InputField v-model.number="item.transferringAmount" holder="transfirrig amount" text="transfirrig amount"
               required />
@@ -147,7 +147,7 @@
             <img src="~/assets/img/icons/to.png" alt="" />
           </v-col>
         </v-row>
-        <v-row class="justify-center">
+        <v-row class="justify-center responseveCols">
           <v-col>
             <AutoComplete holder="currency to give" text="currency to give" required />
           </v-col>
@@ -171,7 +171,7 @@
     <Card class="mb-5 pa-3">
       <v-card-title>المكتب</v-card-title>
       <v-card-text>
-        <v-row class="justify-center">
+        <v-row class="justify-center responseveCols">
           <v-col cols="3">
             <AutoComplete holder="beneficiary" text="beneficiary" required />
           </v-col>
@@ -210,7 +210,7 @@
       </v-card-text>
     </Card>
     <v-row>
-      <v-col cols="3">
+      <v-col>
         <v-checkbox :label="$t('send sms to the sender')"> </v-checkbox>
       </v-col>
     </v-row>
@@ -344,6 +344,17 @@ export default {
   opacity: 1 !important;
   font-size:20px  !important ;
 
+}
+
+  @media (max-width:600px) {
+    .responseveCols>div {
+        min-width: 100%  !important;
+  }
+  }
+  @media (max-width:1280px) {
+    .responseveCols>div {
+        min-width: 50%  !important;
+  }
 }
 /* .theme--light.v-input input::placeholder, 
 .theme--light.v-input textarea::placeholder{

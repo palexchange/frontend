@@ -189,6 +189,11 @@
     "statement" : "البيان",
     "recived amount" : "المبلغ المستلم",
     "conversion factor" : "معامل التحويل",
-    "approve" : "اعتماد"
-    
+    "approve" : "اعتماد",
+    "show beneficiaries" : "عرض المستفيدين",
+    "add beneficiary" : "إضافة مستفيد",
+    "identity" : "هوية",
+    "beneficiary name" : "إسم المستفيد",
+    "default currency" : "العملة الافتراضية",
+    "close"  : "إغلاق"
 }

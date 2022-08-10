@@ -13,12 +13,13 @@
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
         v-model="time"
-        :label="$t(`${label}`)"
-        prepend-inner-icon="mdi-clock-time-four-outline"
+        :label="label ? $t(`${label}`) : ''"
+        append-icon="mdi-clock-time-four-outline"
+        
         readonly
         v-bind="attrs"
         v-on="on"
-        :value="value"
+        :value="convert24hrToAmpm(time)"
         outlined
         dense
       ></v-text-field>
@@ -26,6 +27,7 @@
     <v-time-picker
       v-if="menu2"
       v-model="time"
+      
       full-width
       @click:minute="
         $refs.menu.save(time);
@@ -39,9 +41,10 @@ export default {
   props: { label:String},
   data() {
     return {
-      time: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
+      time: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString()
         .substr(11, 8),
+        
+        
       menu2: false,
       modal2: false,
     };
@@ -49,5 +52,22 @@ export default {
   mounted() {
     this.$emit("input", this.time);
   },
+  methods: {
+    convert24hrToAmpm(dateStr) {
+      console.log("typesssssss: ",typeof(dateStr));
+      if(!dateStr) {
+        return new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(11, 8);
+      }
+      console.log("Before: ",dateStr);
+      let time =  new Date('1970-01-01T' + dateStr + 'Z')
+        .toLocaleTimeString('en-US',
+          { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
+        ).toString();
+        console.log("After: ",time);
+        return time;
+    }
+  }
 };
 </script>

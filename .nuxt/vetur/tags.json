@@ -5,6 +5,9 @@
   "BaseFilter": {
     "description": "Auto imported from components/BaseFilter.vue"
   },
+  "Breadcrumbs": {
+    "description": "Auto imported from components/Breadcrumbs.vue"
+  },
   "Card": {
     "description": "Auto imported from components/Card.vue"
   },

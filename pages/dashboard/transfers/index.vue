@@ -11,13 +11,15 @@
         <span> {{ $t("add incoming transfer") }} </span>
       </v-btn>
     </CrudHeader>
-    <Card> test </Card>
+    
+       <DataTable />
+
     <Card class="pa-5">
       <v-row>
         <v-col><InputField required text="رقم الهوية" holder="ahmad" /></v-col>
-        <v-col
-          >
-          <InputField dashed required text="رقم الهوية" holder="ahmad" /></v-col>
+        <v-col>
+          <InputField dashed required text="رقم الهوية" holder="ahmad"
+        /></v-col>
         <v-col><AutoComplete text="رقم الهوية" holder="ahmad" /></v-col>
 
         <v-col>

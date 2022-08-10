@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+  class="mian-side"
     v-model="drawer"
     :temporary="$vuetify.breakpoint.mobile"
     app
@@ -157,7 +158,7 @@ export default {
   background-color: transparent !important;
 } */
 
-.active::before {
+.mian-side .active::before {
   content: "";
   width: 5px;
   height: 100%;

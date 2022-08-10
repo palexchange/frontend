@@ -7,7 +7,7 @@
     <v-app-bar color="#EEEEEE" elevation="0">
       <v-app-bar-nav-icon
         :class="$vuetify.breakpoint.mobile ? 'nomargin' : ''"
-        :style="drawer ? 'margin-right: 190px' : 'margin-right: 270px'"
+        :style="drawer ? 'margin-right: 160px' : 'margin-right: 240px'"
         @click="drawer = !drawer"
       >
         <v-icon> fas fa-bars </v-icon>
@@ -63,14 +63,7 @@
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
       <v-container>
-        <v-breadcrumbs :items="routeLinks" large>
-          <template v-slot:divider>
-            <v-icon>{{
-              $vuetify.rtl ? "mdi-chevron-left" : "mdi-chevron-right"
-            }}</v-icon>
-            <!-- <v-icon>mdi-chevron-{{ $vuetify.rtl ? "left" : "right" }}</v-icon> -->
-          </template>
-        </v-breadcrumbs>
+        <Breadcrumbs />
         <div style="min-height: 75vh">
           <Nuxt />
         </div>

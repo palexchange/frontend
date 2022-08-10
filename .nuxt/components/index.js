@@ -1,5 +1,6 @@
 export { default as AutoComplete } from '../../components/AutoComplete.vue'
 export { default as BaseFilter } from '../../components/BaseFilter.vue'
+export { default as Breadcrumbs } from '../../components/Breadcrumbs.vue'
 export { default as Card } from '../../components/Card.vue'
 export { default as CrudHeader } from '../../components/CrudHeader.vue'
 export { default as CurrencySheet } from '../../components/CurrencySheet.vue'

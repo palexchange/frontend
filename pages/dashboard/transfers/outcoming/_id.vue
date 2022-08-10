@@ -156,14 +156,14 @@
               text="convert to receiver currency" required />
           </v-col>
           <v-col>
-            <InputField :value="recivedAmountComp" dashed holder="amount to give" text="amount to give" required />
+            <InputField :value="recivedAmountComp | money" dashed holder="amount to give" text="amount to give" required />
           </v-col>
           <v-col>
             <InputField v-model.number="item.otherExpOnRecv" holder="another expenses on receiver"
               text="another expenses on receiver" />
           </v-col>
           <v-col cols="3">
-            <InputField :value="totalRecvAmountComp" dashed holder="final amount to give" text="final amount to give" />
+            <InputField :value="totalRecvAmountComp | money" dashed holder="final amount to give" text="final amount to give" />
           </v-col>
         </v-row>
       </v-card-text>
@@ -185,7 +185,7 @@
               text="converting to dollar amount" required />
           </v-col>
           <v-col>
-            <InputField :value="officeAmount" dashed holder="office amount" text="office amount" />
+            <InputField :value="officeAmount | money" dashed holder="office amount" text="office amount" />
           </v-col>
           <v-col>
             <label class="required form-label">عمولة المكتب</label>
@@ -203,7 +203,7 @@
             <InputField v-model.number="item.officeReturn" holder="returned" text="returned" />
           </v-col>
           <v-col>
-            <InputField :value="totalOfficeAmount" dashed holder="final amount to office"
+            <InputField :value="totalOfficeAmount | money" dashed holder="final amount to office"
               text="final amount to office" />
           </v-col>
         </v-row>
@@ -263,7 +263,7 @@ export default {
     amountWithCommissionAndExpensesComp() {
       let otherExp = this.item.otherExpenses || 0;
       let transferringAmount = this.item.transferringAmount || 0;
-      let comval = this.calcCommisson();
+      let comval = (this.item.commission_on === '2' ? 0 : this.calcCommisson());
       let total = comval + transferringAmount + otherExp;
       return total > 0 ? total : null;
       
@@ -273,34 +273,36 @@ export default {
       return this.item.transferringAmount / this.item.convertToUSD;
     },
     totalAmountInUSDComp() {
-           let convert_param = this.item.convertToUSD || 1;
+      let convert_param = this.item.convertToUSD || 1;
       let total = parseFloat(this.amountInUSDComp || 0);
       let commVal = parseFloat((this.calcCommisson() || 0) / convert_param);
-      let otherExp = parseFloat((this.item.otherExpenses || 0) / convert_param);
+      let otherExp = (this.item.otherExpenses || 0) / convert_param;
       let final = commVal + total + otherExp;
       return final > 0 ? final : null;
     },
     recivedAmountComp() {
-      if (this.item.convertToRecvCurr == undefined || this.amountInUSDComp == null) return;
-      return this.amountInUSDComp * this.item.convertToRecvCurr
+      let conversionParam = this.item.convertToRecvCurr || 0, amountInUSD = parseFloat(this.amountInUSDComp || 0);
+      let res = conversionParam * amountInUSD;
+      return res <= 0 ? null : res;
     },
     totalRecvAmountComp() {
-      if (this.amountInUSDComp == null || this.item.convertToRecvCurr == undefined) return;
-      let commission = (this.item.commission == undefined || this.item.commission_on === '1' ? 0 : this.item.commission);
-      commission = (this.item.is_percentage ? commission / 100 * this.amountInUSDComp : commission);
-      let otherExp = (this.item.otherExpOnRecv == undefined ? 0 : this.item.otherExpOnRecv);
-      return (this.amountInUSDComp - commission - otherExp) * this.item.convertToRecvCurr;
+      let amountInUSD = parseFloat(this.amountInUSDComp || 0), conversionParam = this.item.convertToRecvCurr || 0;
+      let commission = (this.item.commission_on === '1' ? 0 : this.calcCommisson() || 0);
+      let otherExp = (this.item.otherExpOnRecv || 0);
+      let res = (amountInUSD - commission - otherExp) * conversionParam;
+      return res <= 0 ? null : res;
     },
     officeAmount() {
-      if (this.totalRecvAmountComp == null || this.item.officeConvertToUSD == undefined) return;
-      return this.totalRecvAmountComp / this.item.officeConvertToUSD;
+      let officeConversionParam = this.item.officeConvertToUSD || 1, totalRecvAmount = parseFloat(this.totalRecvAmountComp || 0);
+      let officeAmount = totalRecvAmount / officeConversionParam;
+      return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      if (this.item.officeCommission == undefined || this.officeAmount == null) return;
-      let returned = (this.item.officeReturn == undefined ? 0 : this.item.officeReturn);
-      let commission = (this.item.is_percentage ? this.item.officeCommission / 100 * this.officeAmount : this.item.officeCommission);
-      let tempVar = (this.officeAmount + commission - returned);
-      return tempVar;
+      let commission = this.item.officeCommission || 0, officeAmount = parseFloat(this.officeAmount || 0);
+      let returned = this.item.officeReturn || 0;
+      commission = (this.item.is_percentage ? commission / 100 * officeAmount : commission);
+      let tempVar = (officeAmount + commission - returned);
+      return tempVar <= 0 ? null : tempVar;
     },
         
 

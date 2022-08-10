@@ -34,9 +34,6 @@ export default {
       ssr: false
     },
     {
-      src: "~/plugins/maps.js",
-    },
-    {
       src: "~/plugins/mixins",
     },
     {

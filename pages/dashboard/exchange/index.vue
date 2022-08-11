@@ -144,12 +144,6 @@
     </Card>
 
     <Card class="pr-3 pb-3">
-      <!-- <v-row class="mt-3">
-        <v-col cols="2" class=""><span class="text-h6 font-weight-black mr-3">{{$t("exchange to")}}</span></v-col>
-        <v-col cols="2" class="" > <span >{{$t("amount to exchange")}}</span> </v-col>
-        <v-col class="" > <span >{{$t("conversion price")}}</span> </v-col>
-        <v-col class="" > <span >{{$t("edited conversion price")}}</span> </v-col>
-     </v-row> -->
       <v-simple-table class="my_tabel mt-3 mb-3">
         <template v-slot:default>
           <tbody>
@@ -188,17 +182,14 @@
     </Card>
 
     <v-row justify="center" class="mt-5 mb-5">
-      <v-col cols="4">
+      <v-col class="d-flex justify-center">
         <v-btn height="50" class="text-center" color="primary">
-          <v-spacer></v-spacer>&nbsp;{{ $t("execute process")
-          }}<v-spacer></v-spacer>
+          {{ $t("execute process") }}
           <v-icon dence>fas fa-solid fa-check</v-icon>
         </v-btn>
-      </v-col>
-      <v-col cols="4">
+       <div style="width:20px"></div>
         <v-btn height="50" class="text-center white--text" color="#6A3D9A">
-          <v-spacer></v-spacer>&nbsp;&nbsp;&nbsp;{{ $t("print receipt")
-          }}<v-spacer></v-spacer>
+          &nbsp;&nbsp;{{ $t("print receipt") }}
           <v-icon dence>fas fa-solid fa-print</v-icon>
         </v-btn>
       </v-col>

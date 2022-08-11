@@ -171,6 +171,7 @@
                 }}</span>
               </td>
             </tr>
+            <!-- HI KILLUA  -->
             <ExchangeRow
               :key="i"
               v-for="(currency, i) in currensies"

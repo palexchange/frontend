@@ -136,8 +136,8 @@ export default {
   content: "";
 }
 
-.my-table thead > tr {
-  border-bottom: 16px solid #f7f7f7 !important;
+.my-table thead > th {
+  border-bottom: 16px solid #EEEEEE !important;
 }
 
 .my-table thead > tr > th,
@@ -148,8 +148,8 @@ export default {
 .my-table tbody > tr:hover {
   background-color: transparent !important;
 }
-.my-table tbody > tr {
-  border-bottom: 16px solid #f7f7f7 !important;
+.my-table tbody > td {
+  border-bottom: 16px solid #EEEEEE !important;
 }
 .my-table tbody,
 .my-table td {

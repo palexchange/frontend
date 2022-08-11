@@ -104,7 +104,15 @@
             />
           </v-col>
           <v-col cols="12" xs="12" sm="4" md="3" class="ml-40">
-            <AutoComplete text="currency" holder="currency" required />
+            <AutoComplete
+              :items="currensies"
+              v-model="item.values"
+              item-text="name"
+              item-value="values"
+              text="currency"
+              holder="currency"
+              required
+            />
           </v-col>
           <v-col cols="1" md="2">
             <v-spacer></v-spacer>
@@ -568,7 +576,19 @@
 export default {
   data() {
     return {
-      item: {},
+      currensies: [
+        {
+          id: 1,
+          name: "dollar",
+          values: { sale: 1, buy: 1 },
+        },
+        {
+          id: 2,
+          name: "shakle",
+          values: { sale: 0.29, buy: 0.3 },
+        },
+      ],
+      item: { values: {} },
       desserts: [
         {
           name: "Frozen Yogurt",

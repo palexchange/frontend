@@ -156,7 +156,7 @@
             <tr class="text-right text-h6 font-weight-black">
               <td>
                 <span
-                  class="text-h6 font-weight-black text-right"
+                  class="fs-18 font-weight-black text-right"
                   style="white-space: nowrap"
                   >{{ $t("exchange to") }}</span
                 >
@@ -177,380 +177,14 @@
                 }}</span>
               </td>
             </tr>
-
-            <tr class="text-right">
-              <td>
-                <span class="column-text text-right text-h6">{{
-                  $t("dollar")
-                }}</span>
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  background-color="#e7e6e6"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  disabled
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("amount rounding")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("delete fraction")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("complete fraction")
-                }}</v-btn>
-              </td>
-            </tr>
-            <tr class="text-right">
-              <td>
-                <span class="column-text text-right text-h6 mb-4">{{
-                  $t("shekel")
-                }}</span>
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  background-color="#e7e6e6"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  disabled
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("amount rounding")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("delete fraction")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("complete fraction")
-                }}</v-btn>
-              </td>
-            </tr>
-            <tr class="text-right">
-              <td>
-                <span class="column-text text-right text-h6 mb-4">{{
-                  $t("dinar")
-                }}</span>
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  background-color="#e7e6e6"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  disabled
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("amount rounding")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("delete fraction")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("complete fraction")
-                }}</v-btn>
-              </td>
-            </tr>
-            <tr class="text-right">
-              <td>
-                <span class="column-text text-right text-h6 mb-4">{{
-                  $t("euro")
-                }}</span>
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  background-color="#e7e6e6"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  disabled
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("amount rounding")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("delete fraction")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("complete fraction")
-                }}</v-btn>
-              </td>
-            </tr>
-            <tr class="text-right">
-              <td>
-                <span class="column-text text-right text-h6 mb-4">{{
-                  $t("pound")
-                }}</span>
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details="auto"
-                  class="mt-4"
-                  min="0"
-                  background-color="#e7e6e6"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  disabled
-                  :rules="[]"
-                />
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("amount rounding")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("delete fraction")
-                }}</v-btn>
-              </td>
-              <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("complete fraction")
-                }}</v-btn>
-              </td>
-            </tr>
+            <ExchangeRow
+              :key="i"
+              v-for="(currency, i) in currensies"
+              :name="currency.name"
+            />
           </tbody>
         </template>
       </v-simple-table>
-
-      <!-- <v-row class="mt-5 no-gutters" align="center">
-        <v-col cols="1" class="text-right mr-5"><span class="text-h6 font-weight-black">{{$t("exchange to")}}</span></v-col>
-        <v-col cols="2" class="text-right" > <span class="column-text">{{$t("amount to exchange")}}</span> </v-col>
-        <v-col cols="2" class="text-right" > <span class="column-text">{{$t("conversion price")}}</span> </v-col>
-        <v-col cols="3" class="text-right" > <span class="column-text">{{$t("edited conversion price")}}</span> </v-col>
-      </v-row>
-      
-      <v-row >
-        <v-row >
-          <v-col  class="text-right mr-5">  <span class="column-text">{{$t("dollar")}}</span> </v-col>
-          <v-col  class="text-right"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField :disabled="true"> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("reminder")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("amount rounding")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("delete fraction")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("complete fraction")}}</v-btn> </v-col>
-        </v-row>
-        <v-row >
-          <v-col  class="text-right mr-5">  <span class="column-text">{{$t("shekle")}}</span> </v-col>
-          <v-col  class="text-right"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField > </InputField></v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("reminder")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("amount rounding")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("delete fraction")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("complete fraction")}}</v-btn> </v-col>
-        </v-row>
-        <v-row >
-          <v-col  class="text-right mr-5">  <span class="column-text">{{$t("dinar")}}</span> </v-col>
-          <v-col  class="text-right"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField > </InputField></v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("reminder")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("amount rounding")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("delete fraction")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("complete fraction")}}</v-btn> </v-col>
-        </v-row>
-        <v-row >
-          <v-col  class="text-right mr-5">  <span class="column-text">{{$t("euro")}}</span> </v-col>
-          <v-col  class="text-right"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField > </InputField></v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("reminder")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("amount rounding")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("delete fraction")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("complete fraction")}}</v-btn> </v-col>
-        </v-row>
-        <v-row >
-          <v-col  class="text-right mr-5">  <span class="column-text">{{$t("pound")}}</span> </v-col>
-          <v-col  class="text-right"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField> </InputField></v-col>
-          <v-col  class="text-right mr-3"> <InputField > </InputField></v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("reminder")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("amount rounding")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("delete fraction")}}</v-btn> </v-col>
-          <v-col  class="text-right mr-3"> <v-btn color="primary">{{$t("complete fraction")}}</v-btn> </v-col>
-        </v-row>
-      </v-row>-->
     </Card>
 
     <v-row justify="center" class="mt-5 mb-5">
@@ -584,7 +218,22 @@ export default {
         },
         {
           id: 2,
-          name: "shakle",
+          name: "shekel",
+          values: { sale: 0.29, buy: 0.3 },
+        },
+        {
+          id: 3,
+          name: "dinar",
+          values: { sale: 0.29, buy: 0.3 },
+        },
+        {
+          id: 4,
+          name: "euro",
+          values: { sale: 0.29, buy: 0.3 },
+        },
+        {
+          id: 5,
+          name: "pound",
           values: { sale: 0.29, buy: 0.3 },
         },
       ],

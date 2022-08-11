@@ -584,7 +584,7 @@ export default {
         },
         {
           id: 2,
-          name: "shakle",
+          name: "shekle",
           values: { sale: 0.29, buy: 0.3 },
         },
       ],

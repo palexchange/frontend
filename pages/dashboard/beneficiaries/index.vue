@@ -69,6 +69,14 @@
       :sort-desc.sync="sortDesc"
       class="my-table"
     />
+    <v-pagination
+ 
+      style="width: fit-content; margin: auto; background-color: #f5f5f5"
+ 
+      :next-icon="$t('nextt')"
+      :prev-icon="$t('prevv')"
+      color="transparent"
+    ></v-pagination>
   </div>
 </template>
 
@@ -255,3 +263,4 @@ export default {
   color: #ff7171 !important ;
 }
 </style>
+

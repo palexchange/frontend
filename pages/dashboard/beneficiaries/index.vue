@@ -69,6 +69,13 @@
       :sort-desc.sync="sortDesc"
       class="my-table"
     />
+    <v-pagination
+      length="5"
+      style="width: fit-content; margin: auto; background-color: #f5f5f5"
+      :next-icon="$t('nextt')"
+      :prev-icon="$t('prevv')"
+      color="transparent"
+    ></v-pagination>
   </div>
 </template>
 
@@ -210,12 +217,14 @@ export default {
 .my-table th:last-child::after {
   content: "";
 }
-
+.my-table tr {
+  border-radius: 20px !important;
+}
 .my-table thead th {
-  border-bottom: 16px solid #EEEEEE !important;
+  border-bottom: 16px solid #eeeeee !important;
 }
 .my-table tbody td {
-  border-bottom: 16px solid #EEEEEE !important;
+  border-bottom: 16px solid #eeeeee !important;
 }
 .my-table thead > tr > th,
 .my-table tbody > td {

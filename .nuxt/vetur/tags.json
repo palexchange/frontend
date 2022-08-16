@@ -23,6 +23,9 @@
   "DatePicker": {
     "description": "Auto imported from components/DatePicker.vue"
   },
+  "ExchangeRow": {
+    "description": "Auto imported from components/ExchangeRow.vue"
+  },
   "FileUpload": {
     "description": "Auto imported from components/FileUpload.vue"
   },

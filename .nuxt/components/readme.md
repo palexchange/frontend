@@ -14,6 +14,7 @@ You can directly use them in pages and other components without the need to impo
 - `<CurrencySheet>` | `<currency-sheet>` (components/CurrencySheet.vue)
 - `<DataTable>` | `<data-table>` (components/DataTable.vue)
 - `<DatePicker>` | `<date-picker>` (components/DatePicker.vue)
+- `<ExchangeRow>` | `<exchange-row>` (components/ExchangeRow.vue)
 - `<FileUpload>` | `<file-upload>` (components/FileUpload.vue)
 - `<InputField>` | `<input-field>` (components/InputField.vue)
 - `<LocaleTextInput>` | `<locale-text-input>` (components/LocaleTextInput.vue)

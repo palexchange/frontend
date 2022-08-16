@@ -16,7 +16,8 @@
       v-on="$listeners"
       :rules="required ? rulesss.requiredRules : []"
       :placeholder="$t(holder)"
-
+      item-text="name"
+      item-value="id"
     ></v-autocomplete>
   </div>
 </template>

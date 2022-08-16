@@ -5,31 +5,29 @@
     </td>
     <td>
       <v-text-field
-        hide-details="auto"
+        hide-details
         class="mt-4"
         min="0"
         color="#FF7171"
         style="border-radius: 7px !important"
         dense
         outlined
-        :rules="[]"
       />
     </td>
     <td>
       <v-text-field
-        hide-details="auto"
+        hide-details
         class="mt-4"
         min="0"
         color="#FF7171"
         style="border-radius: 7px !important"
         dense
         outlined
-        :rules="[]"
       />
     </td>
     <td>
       <v-text-field
-        hide-details="auto"
+        hide-details
         class="mt-4"
         min="0"
         background-color="#e7e6e6"
@@ -37,7 +35,6 @@
         dense
         outlined
         disabled
-        :rules="[]"
       />
     </td>
     <td>

@@ -12,10 +12,11 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
+        :hide-details="hide_details"
         v-model="time"
         :label="label ? $t(`${label}`) : ''"
         append-icon="mdi-clock-time-four-outline"
-        
+        :disabled="disabled"
         readonly
         v-bind="attrs"
         v-on="on"
@@ -27,7 +28,6 @@
     <v-time-picker
       v-if="menu2"
       v-model="time"
-      
       full-width
       @click:minute="
         $refs.menu.save(time);
@@ -38,13 +38,14 @@
 </template>
 <script>
 export default {
-  props: { label:String},
+  props: { label: String, disabled: Boolean, hide_details: Boolean },
+
   data() {
     return {
-      time: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString()
+      time: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
         .substr(11, 8),
-        
-        
+
       menu2: false,
       modal2: false,
     };
@@ -54,20 +55,24 @@ export default {
   },
   methods: {
     convert24hrToAmpm(dateStr) {
-      console.log("typesssssss: ",typeof(dateStr));
-      if(!dateStr) {
+      console.log("typesssssss: ", typeof dateStr);
+      if (!dateStr) {
         return new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(11, 8);
+          .toISOString()
+          .substr(11, 8);
       }
-      console.log("Before: ",dateStr);
-      let time =  new Date('1970-01-01T' + dateStr + 'Z')
-        .toLocaleTimeString('en-US',
-          { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
-        ).toString();
-        console.log("After: ",time);
-        return time;
-    }
-  }
+      console.log("Before: ", dateStr);
+      let time = new Date("1970-01-01T" + dateStr + "Z")
+        .toLocaleTimeString("en-US", {
+          timeZone: "UTC",
+          hour12: true,
+          hour: "numeric",
+          minute: "numeric",
+        })
+        .toString();
+      console.log("After: ", time);
+      return time;
+    },
+  },
 };
 </script>

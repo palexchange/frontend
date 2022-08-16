@@ -10,7 +10,7 @@
     :disabled="disabled"
   >
     <template v-slot:activator="{ on, attrs }">
-            <label
+      <label
         for="test"
         :class="required ? 'required form-label' : 'form-label'"
         >{{ $t(text) }}</label
@@ -19,12 +19,13 @@
         id="test"
         color="primary"
         :rules="required ? rules.requiredRules : []"
-        :value="value"
+        :value="value || date"
         :outlined="param ? false : true"
         style="border-radius: 0px !important"
         dense
         prepend-inner-icon="mdi-calendar"
         readonly
+        :hide-details="hide_details"
         :disabled="disabled"
         v-bind="{ attrs, param }"
         :label="$t(label)"
@@ -46,7 +47,6 @@
           <img src="../assets/img/icons/date.png" alt="date" />
         </template>
       </v-text-field>
-
     </template>
     <v-date-picker v-bind="$attrs" v-model="value" scrollable color="primary">
       <v-spacer></v-spacer>
@@ -75,6 +75,7 @@ export default {
     required: Boolean,
     noInitDate: Boolean,
     perpend_label: String,
+    hide_details: Boolean,
   },
   // ["value", "label", "param", "disabled", "required"],
   data() {

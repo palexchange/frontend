@@ -4,7 +4,7 @@
       <v-col cols="12" xs="12" lg="7">
         <Card class="mb-5 pt-3 pl-3 pr-6">
           <v-row class="mb-1">
-            <v-col cols="12" xs="12" sm="6" lg="6">
+            <v-col cols="12" xs="12" sm="6" lg="8">
               <v-row class="text-h6 mb-4">
                 <v-col>
                   <Title title="create an exchange process"></Title>
@@ -32,7 +32,7 @@
               cols="12"
               xs="12"
               sm="6"
-              lg="6"
+              lg="4"
               class="text-h5 mt-5 text-left"
               justify="left"
             >
@@ -43,22 +43,6 @@
       </v-col>
       <v-col cols="12" xs="12" lg="5">
         <Card>
-          <!-- <v-row no-gutters class="flex-column text-h6 mt-5 mr-5">
-             <v-col class="text-right mb-4">
-              <v-icon class="mr-4 ml-3">fas fa-solid fa-user</v-icon>
-              {{ $t("user") }}<span class="show-text"> محمد#</span>
-            </v-col>
-             <v-col class="text-right mb-4">
-              <v-icon class="mr-4 ml-3">fas fa-solid fa-arrow-down</v-icon>
-              {{ $t("today transactions profit") }}<span class="show-text">1616#</span>
-            </v-col>
-             <v-col class="text-right mb-4">
-              <v-icon class="mr-4 ml-3">fas fa-solid fa-clock</v-icon>
-              {{ $t("today transactions count") }}<span class="show-text mr-10" >1616#</span>
-            </v-col>
-          </v-row> -->
-
-          <!-- <v-row class="text-right text-h6 mt-5 mr-5"> -->
           <v-row class="text-right text-h6 mt-5 mr-5">
             <v-col cols="1">
               <v-icon class="mr-4 ml-3">fas fa-solid fa-user</v-icon>
@@ -106,10 +90,9 @@
           <v-col cols="12" xs="12" sm="4" md="3" class="ml-40">
             <AutoComplete
               :items="currensies"
-              v-model="item.values"
-              item-text="name"
-              item-value="values"
+              v-model="selected"
               text="currency"
+              return-object
               holder="currency"
               required
             />
@@ -146,7 +129,7 @@
     <Card class="pr-3 pb-3">
       <v-simple-table class="my_tabel mt-3 mb-3">
         <template v-slot:default>
-          <tbody>
+          <thead>
             <tr class="text-right text-h6 font-weight-black">
               <td>
                 <span
@@ -171,12 +154,74 @@
                 }}</span>
               </td>
             </tr>
+          </thead>
+          <tbody :key="number">
+            <tr :key="i" v-for="(currency, i) in currensies" class="text-right">
+              <td>
+                <v-btn
+                  @click="setRow(i, currency)"
+                  depressed
+                  width="50"
+                  class="mt-2 fs-18"
+                  >{{ $t(currency.name) }}</v-btn
+                >
+              </td>
+              <td>
+                <v-text-field
+                  hide-details
+                  :value="items[i].exchanged_amount"
+                  class="mt-4"
+                  min="0"
+                  color="#FF7171"
+                  style="border-radius: 7px !important"
+                  dense
+                  outlined
+                />
+              </td>
+              <td>
+                <v-text-field
+                  v-model="items[i].exchanged_vactor"
+                  hide-details
+                  class="mt-4"
+                  min="0"
+                  color="#FF7171"
+                  style="border-radius: 7px !important"
+                  dense
+                  outlined
+                />
+              </td>
+              <td>
+                <v-text-field
+                  hide-details
+                  class="mt-4"
+                  min="0"
+                  background-color="#e7e6e6"
+                  style="border-radius: 7px !important"
+                  dense
+                  outlined
+                  disabled
+                />
+              </td>
+              <td>
+                <v-btn class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
+              </td>
+              <td>
+                <v-btn class="mt-4" color="primary">{{
+                  $t("amount rounding")
+                }}</v-btn>
+              </td>
+              <td>
+                <v-btn class="mt-4" color="primary">{{
+                  $t("delete fraction")
+                }}</v-btn>
+              </td>
+              <td>
+                <v-btn class="mt-4" color="primary">{{
+                  $t("complete fraction")
+                }}</v-btn>
+              </td>
+            </tr>
             <!-- HI KILLUA  -->
-            <ExchangeRow
-              :key="i"
-              v-for="(currency, i) in currensies"
-              :name="currency.name"
-            />
           </tbody>
         </template>
       </v-simple-table>
@@ -188,7 +233,7 @@
           {{ $t("execute process") }}
           <v-icon dence>fas fa-solid fa-check</v-icon>
         </v-btn>
-       <div style="width:20px"></div>
+        <div style="width: 20px"></div>
         <v-btn height="50" class="text-center white--text" color="#6A3D9A">
           &nbsp;&nbsp;{{ $t("print receipt") }}
           <v-icon dence>fas fa-solid fa-print</v-icon>
@@ -200,8 +245,11 @@
 
 <script>
 export default {
+  name: "extchange",
   data() {
     return {
+      selected: {},
+      number: 1,
       currensies: [
         {
           id: 1,
@@ -216,63 +264,36 @@ export default {
         {
           id: 3,
           name: "dinar",
-          values: { sale: 0.29, buy: 0.3 },
+          values: { sale: 0.7, buy: 0.69 },
         },
         {
           id: 4,
           name: "euro",
-          values: { sale: 0.29, buy: 0.3 },
+          values: { sale: 0.6, buy: 0.59 },
         },
         {
           id: 5,
           name: "pound",
-          values: { sale: 0.29, buy: 0.3 },
+          values: { sale: 15, buy: 14 },
         },
       ],
-      item: { values: {} },
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-        },
-      ],
+      item: {},
+      items: [{}, {}, {}, {}, {}, {}],
     };
+  },
+  methods: {
+    setRow(index, item) {
+      console.log(index);
+      this.items[index] = {
+        exchanged_vactor: item.values.sale,
+        exchanged_amount: this.calc(item.values.sale),
+      };
+      this.number = this.number + 1;
+    },
+    calc(sale) {
+      // let sale = this.selected.values.sale;
+      return (100 / 0.29).toFixed(2);
+    },
   },
 };
 </script>

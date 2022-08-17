@@ -97,7 +97,7 @@
                     <br />
                     <span>
                       {{
-                        calcSalePrice(
+                        $calcSalePrice(
                           currencies[from_index],
                           currencies[to_index]
                         )
@@ -109,7 +109,7 @@
                     <br />
                     <span>
                       {{
-                        calcBuyPrice(
+                        $calcBuyPrice(
                           currencies[from_index],
                           currencies[to_index]
                         )
@@ -166,30 +166,6 @@ export default {
     // setInterval(() => {
     //   this.numebr++;
     // }, 10);
-  },
-  methods: {
-    calcBuyPrice(from, to) {
-      if (from.id == to.id) {
-        return 1;
-      } else if (to.id == 1) {
-        return from.values.sale;
-      } else if (from.id == 1) {
-        return (1 / to.values.sale).toFixed(3);
-      } else {
-        return ((1 / from.values.sale) * to.values.buy).toFixed(3);
-      }
-    },
-    calcSalePrice(from, to) {
-      if (from.id == to.id) {
-        return 1;
-      } else if (to.id == 1) {
-        return from.values.buy;
-      } else if (from.id == 1) {
-        return (1 / to.values.buy).toFixed(3);
-      } else {
-        return ((1 / from.values.buy) * to.values.sale).toFixed(3);
-      }
-    },
   },
 };
 </script>

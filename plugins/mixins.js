@@ -150,4 +150,27 @@ export default (context, inject) => {
         }
       });
   });
+  inject('calcBuyPrice', (from, to) => {
+    if (from.id == to.id) {
+      return 1;
+    } else if (to.id == 1) {
+      return from.values.sale;
+    } else if (from.id == 1) {
+      return (1 / to.values.sale).toFixed(3);
+    } else {
+      return ((1 / from.values.buy) * to.values.buy).toFixed(3);
+    }
+  });
+  inject('calcSalePrice', (from, to) => {
+    if (from.id == to.id) {
+      return 1;
+    } else if (to.id == 1) {
+      return from.values.buy;
+    } else if (from.id == 1) {
+      return (1 / to.values.buy).toFixed(3);
+    } else {
+
+      return ((1 / from.values.sale) * to.values.sale).toFixed(3);
+    }
+  });
 }

@@ -4,7 +4,11 @@
       @change_dawer="() => (drawer = !drawer)"
       :forgin_drawer="drawer"
     />
-    <v-app-bar color="#EEEEEE" elevation="0">
+    <v-app-bar
+      :fixed="$vuetify.breakpoint.mobile"
+      color="#EEEEEE"
+      elevation="0"
+    >
       <v-app-bar-nav-icon
         :class="$vuetify.breakpoint.mobile ? 'nomargin' : ''"
         :style="drawer ? 'margin-right: 160px' : 'margin-right: 240px'"
@@ -164,6 +168,7 @@ export default {
     },
   },
   beforeCreate() {
+    console.log(this.$i18n.locale);
     this.$vuetify.rtl = this.$i18n.locale == "ar";
   },
 };

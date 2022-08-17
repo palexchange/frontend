@@ -10,10 +10,20 @@
           </v-row>
           <v-row>
             <v-col cols="12" sm="12" md="4">
-              <AutoComplete required :items="transfer_types" text="transfer type" holder="transfer type" />
+              <AutoComplete
+                required
+                :items="transfer_types"
+                text="transfer type"
+                holder="transfer type"
+              />
             </v-col>
             <v-col>
-              <DatePicker v-model="item.date" required text="transfer date" holder="test" />
+              <DatePicker
+                v-model="item.date"
+                required
+                text="transfer date"
+                holder="test"
+              />
             </v-col>
             <v-col cols="12" md="4" sm="12">
               <InputField dashed text="palestinian profit" />
@@ -100,14 +110,24 @@
           </v-col>
 
           <v-col class="align-self-center" md="3" sm="12">
-            <v-text-field color="#FF7171" style="border-radius: 0px !important" dense outlined slot="append"
-              hide-details :label="
+            <v-text-field
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+              slot="append"
+              hide-details
+              :label="
                 item.is_percentage ? `${$t('commission')} %` : $t('commission')
-              " :append-icon="
-  item.is_percentage == false
-    ? 'fas fa-sort-numeric-up-alt'
-    : 'fas fa-percentage'
-" @click:append="() => (item.is_percentage = !item.is_percentage)" v-model.number="item.commission">
+              "
+              :append-icon="
+                item.is_percentage == false
+                  ? 'fas fa-sort-numeric-up-alt'
+                  : 'fas fa-percentage'
+              "
+              @click:append="() => (item.is_percentage = !item.is_percentage)"
+              v-model.number="item.commission"
+            >
             </v-text-field>
           </v-col>
         </v-row>
@@ -118,28 +138,54 @@
       <v-card-text>
         <v-row class="justify-center responseveCols">
           <v-col>
-            <InputField v-model.number="item.transferringAmount" holder="transfirrig amount" text="transfirrig amount"
-              required />
+            <InputField
+              v-model.number="item.transferringAmount"
+              holder="transfirrig amount"
+              text="transfirrig amount"
+              required
+            />
           </v-col>
           <v-col>
             <AutoComplete text="currency" holder="currency" required />
           </v-col>
           <v-col>
-            <InputField v-model.number="item.convertToUSD" holder="converting to dollar amount"
-              text="converting to dollar amount" required />
+            <InputField
+              v-model.number="item.convertToUSD"
+              holder="converting to dollar amount"
+              text="converting to dollar amount"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField holder="another expenses" text="another expenses" v-model.number="item.otherExpenses" />
+            <InputField
+              holder="another expenses"
+              text="another expenses"
+              v-model.number="item.otherExpenses"
+            />
           </v-col>
           <v-col>
-            <InputField :value="amountWithCommissionAndExpensesComp | money" dashed holder="مبلغ شامل عمولة"
-              text="م.ش عمولة و مصاريف" />
+            <InputField
+              :value="amountWithCommissionAndExpensesComp | money"
+              dashed
+              holder="مبلغ شامل عمولة"
+              text="م.ش عمولة و مصاريف"
+            />
           </v-col>
           <v-col>
-            <InputField :value="amountInUSDComp | money" dashed holder="مبلغ مستلم بالدولار" text="مبلغ مستلم بالدولار" />
+            <InputField
+              :value="amountInUSDComp | money"
+              dashed
+              holder="مبلغ مستلم بالدولار"
+              text="مبلغ مستلم بالدولار"
+            />
           </v-col>
           <v-col>
-            <InputField :value="totalAmountInUSDComp | money" dashed holder="شامل العمولة" text="المبلغ بالدولار ش.ع" />
+            <InputField
+              :value="totalAmountInUSDComp | money"
+              dashed
+              holder="شامل العمولة"
+              text="المبلغ بالدولار ش.ع"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -149,21 +195,43 @@
         </v-row>
         <v-row class="justify-center responseveCols">
           <v-col>
-            <AutoComplete holder="currency to give" text="currency to give" required />
+            <AutoComplete
+              holder="currency to give"
+              text="currency to give"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField v-model.number="item.convertToRecvCurr" holder="convert to receiver currency"
-              text="convert to receiver currency" required />
+            <InputField
+              v-model.number="item.convertToRecvCurr"
+              holder="convert to receiver currency"
+              text="convert to receiver currency"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField :value="recivedAmountComp | money" dashed holder="amount to give" text="amount to give" required />
+            <InputField
+              :value="recivedAmountComp | money"
+              dashed
+              holder="amount to give"
+              text="amount to give"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField v-model.number="item.otherExpOnRecv" holder="another expenses on receiver"
-              text="another expenses on receiver" />
+            <InputField
+              v-model.number="item.otherExpOnRecv"
+              holder="another expenses on receiver"
+              text="another expenses on receiver"
+            />
           </v-col>
           <v-col cols="3">
-            <InputField :value="totalRecvAmountComp | money" dashed holder="final amount to give" text="final amount to give" />
+            <InputField
+              :value="totalRecvAmountComp | money"
+              dashed
+              holder="final amount to give"
+              text="final amount to give"
+            />
           </v-col>
         </v-row>
       </v-card-text>
@@ -177,34 +245,70 @@
           </v-col>
 
           <v-col>
-            <AutoComplete holder="currency to office" text="currency to office" required />
+            <AutoComplete
+              holder="currency to office"
+              text="currency to office"
+              required
+            />
           </v-col>
 
           <v-col>
-            <InputField v-model.number="item.officeConvertToUSD" holder="converting to dollar amount"
-              text="converting to dollar amount" required />
+            <InputField
+              v-model.number="item.officeConvertToUSD"
+              holder="converting amount"
+              text="converting amount"
+              required
+            />
           </v-col>
           <v-col>
-            <InputField :value="officeAmount | money" dashed holder="office amount" text="office amount" />
+            <InputField
+              :value="officeAmount | money"
+              dashed
+              holder="office amount"
+              text="office amount"
+            />
           </v-col>
           <v-col>
             <label class="required form-label">عمولة المكتب</label>
-            <v-text-field v-model.number="item.officeCommission" color="#FF7171" style="border-radius: 0px !important" dense
-              outlined slot="append" hide-details required :label="
-                item.is_percentage ? `${$t('commission')} %` : $t('commission')
-              " :append-icon="
-  item.is_percentage == false
-    ? 'fas fa-sort-numeric-up-alt'
-    : 'fas fa-percentage'
-" @click:append="() => (item.is_percentage = !item.is_percentage)">
+            <v-text-field
+              v-model.number="item.officeCommission"
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+              slot="append"
+              hide-details
+              required
+              :label="
+                item.is_percentage_office
+                  ? `${$t('commission')} %`
+                  : $t('commission')
+              "
+              :append-icon="
+                item.is_percentage_office == false
+                  ? 'fas fa-sort-numeric-up-alt'
+                  : 'fas fa-percentage'
+              "
+              @click:append="
+                () => (item.is_percentage_office = !item.is_percentage_office)
+              "
+            >
             </v-text-field>
           </v-col>
           <v-col cols="1">
-            <InputField v-model.number="item.officeReturn" holder="returned" text="returned" />
+            <InputField
+              v-model.number="item.officeReturn"
+              holder="returned"
+              text="returned"
+            />
           </v-col>
           <v-col>
-            <InputField :value="totalOfficeAmount | money" dashed holder="final amount to office"
-              text="final amount to office" />
+            <InputField
+              :value="totalOfficeAmount | money"
+              dashed
+              holder="final amount to office"
+              text="final amount to office"
+            />
           </v-col>
         </v-row>
       </v-card-text>
@@ -221,7 +325,9 @@
           &nbsp; &nbsp;
           <v-menu offset-x left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" color="primary" outlined>الإجراءات</v-btn>
+              <v-btn v-bind="attrs" v-on="on" color="primary" outlined
+                >الإجراءات</v-btn
+              >
             </template>
             <v-list>
               <v-list-item>
@@ -255,21 +361,27 @@ export default {
   name: "transfer form",
   data() {
     return {
-      transfer_types: [{ id: 1, name: "تسليم يد" },{ id: 1, name: "موني غرام" }],
-      item: { is_percentage: false },
+      transfer_types: [
+        { id: 1, name: "تسليم يد" },
+        { id: 1, name: "موني غرام" },
+      ],
+      item: { is_percentage: false, is_percentage_office: false },
     };
   },
   computed: {
     amountWithCommissionAndExpensesComp() {
       let otherExp = this.item.otherExpenses || 0;
       let transferringAmount = this.item.transferringAmount || 0;
-      let comval = (this.item.commission_on === '2' ? 0 : this.calcCommisson());
+      let comval = this.item.commission_on === "2" ? 0 : this.calcCommisson();
       let total = comval + transferringAmount + otherExp;
       return total > 0 ? total : null;
-      
     },
     amountInUSDComp() {
-      if (this.item.transferringAmount == undefined || this.item.convertToUSD == undefined) return;
+      if (
+        this.item.transferringAmount == undefined ||
+        this.item.convertToUSD == undefined
+      )
+        return;
       return this.item.transferringAmount / this.item.convertToUSD;
     },
     totalAmountInUSDComp() {
@@ -281,53 +393,59 @@ export default {
       return final > 0 ? final : null;
     },
     recivedAmountComp() {
-      let conversionParam = this.item.convertToRecvCurr || 0, amountInUSD = parseFloat(this.amountInUSDComp || 0);
+      let conversionParam = this.item.convertToRecvCurr || 0,
+        amountInUSD = parseFloat(this.amountInUSDComp || 0);
       let res = conversionParam * amountInUSD;
       return res <= 0 ? null : res;
     },
     totalRecvAmountComp() {
-      let amountInUSD = parseFloat(this.amountInUSDComp || 0), conversionParam = this.item.convertToRecvCurr || 0;
-      let commission = (this.item.commission_on === '1' ? 0 : this.calcCommisson() || 0);
-      let otherExp = (this.item.otherExpOnRecv || 0);
+      let amountInUSD = parseFloat(this.amountInUSDComp || 0),
+        conversionParam = this.item.convertToRecvCurr || 0;
+      let commission =
+        this.item.commission_on === "1" ? 0 : this.calcCommisson() || 0;
+      let otherExp = this.item.otherExpOnRecv || 0;
       let res = (amountInUSD - commission - otherExp) * conversionParam;
       return res <= 0 ? null : res;
     },
     officeAmount() {
-      let officeConversionParam = this.item.officeConvertToUSD || 1, totalRecvAmount = parseFloat(this.totalRecvAmountComp || 0);
+      let officeConversionParam = this.item.officeConvertToUSD || 1,
+        totalRecvAmount = parseFloat(this.totalRecvAmountComp || 0);
       let officeAmount = totalRecvAmount / officeConversionParam;
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      let commission = this.item.officeCommission || 0, officeAmount = parseFloat(this.officeAmount || 0);
+      let commission = this.item.officeCommission || 0,
+        officeAmount = parseFloat(this.officeAmount || 0);
       let returned = this.item.officeReturn || 0;
-      commission = (this.item.is_percentage ? commission / 100 * officeAmount : commission);
-      let tempVar = (officeAmount + commission - returned);
+      commission = this.item.is_percentage
+        ? (commission / 100) * officeAmount
+        : commission;
+      let tempVar = officeAmount + commission - returned;
       return tempVar <= 0 ? null : tempVar;
     },
-        
-
   },
-  methods:{
-    calcCommisson(){
-        let  transferringAmount = this.item.transferringAmount || 0;
-        let commisson_amount = this.item.commission || 0;
-        let percentage = this.item.is_percentage;
-        let amount = 0 ;
-        if (commisson_amount > 0) {
-              amount = percentage ?   (transferringAmount * commisson_amount/100):commisson_amount
-          }
-      
-        return amount
-    }
-  },
-  filters:{
-    money(value){
-      if (value) {
-        return value.toLocaleString(undefined, {minimumFractionDigits: 2})
+  methods: {
+    calcCommisson() {
+      let transferringAmount = this.item.transferringAmount || 0;
+      let commisson_amount = this.item.commission || 0;
+      let percentage = this.item.is_percentage;
+      let amount = 0;
+      if (commisson_amount > 0) {
+        amount = percentage
+          ? (transferringAmount * commisson_amount) / 100
+          : commisson_amount;
       }
-    }
-  }
- 
+
+      return amount;
+    },
+  },
+  filters: {
+    money(value) {
+      if (value) {
+        return value.toLocaleString(undefined, { minimumFractionDigits: 2 });
+      }
+    },
+  },
 };
 </script>
 
@@ -339,21 +457,20 @@ export default {
   width: 50px !important;
   margin: 20px 18px;
 }
-.theme--light.v-input--is-disabled input{
-  color: rgb(0, 0, 0 , 1) !important;
+.theme--light.v-input--is-disabled input {
+  color: rgb(0, 0, 0, 1) !important;
   opacity: 1 !important;
-  font-size:20px  !important ;
-
+  font-size: 20px !important ;
 }
 
-  @media (max-width:600px) {
-    .responseveCols>div {
-        min-width: 100%  !important;
+@media (max-width: 600px) {
+  .responseveCols > div {
+    min-width: 100% !important;
   }
-  }
-  @media (max-width:1280px) {
-    .responseveCols>div {
-        min-width: 50%  !important;
+}
+@media (max-width: 1280px) {
+  .responseveCols > div {
+    min-width: 50% !important;
   }
 }
 /* .theme--light.v-input input::placeholder, 

@@ -1,14 +1,14 @@
 <template>
   <v-navigation-drawer
-  class="mian-side"
+    class="mian-side"
     v-model="drawer"
     :temporary="$vuetify.breakpoint.mobile"
     app
     style="border: none"
     color="#E0E0FF"
-    :mini-variant.sync="drawer"
+    :mini-variant.sync="$vuetify.breakpoint.mobile ? false : drawer"
     :permanent="!$vuetify.breakpoint.mobile"
-    width="218"
+    width="180"
     :right="$vuetify.rtl"
   >
     <v-card color="#E0E0FF" flat>

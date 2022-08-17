@@ -185,6 +185,11 @@
     "shekel": "شيكل",
     "dinar": "دينار",
     "euro": "يورو",
+    "dashboard-exchange": "الصرافة",
+    "add outcomming transfer": "إضافة حوالة صاردة",
+    "dashboard-transfers": "الحوالات",
+    "dashboard-transfers-incoming-id": "حوالة واردة",
+    "incoming": "واردة",
     "pound": "جنيه",
     "execute process": "إتمام العملية",
     "print receipt": "طباعة إيصال",
@@ -198,5 +203,6 @@
     "denar": "دينار",
     "beneficiary name": "إسم المستفيد",
     "default currency": "العملة الافتراضية",
+    "converting amount": "سعر التحويل",
     "close": "إغلاق"
 }

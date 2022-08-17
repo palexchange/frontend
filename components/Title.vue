@@ -1,6 +1,6 @@
 <template>
   <h3 class="box-title-sec title-sec ">
-    <span class=" mb-5">
+    <span class="title-sec mb-5">
       {{ $t(title) }}
     </span>
   </h3>

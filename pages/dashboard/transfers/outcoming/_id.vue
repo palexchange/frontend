@@ -358,7 +358,7 @@
 
 <script>
 export default {
-  name: "transfer form",
+  name: "transfer-form",
   data() {
     return {
       transfer_types: [

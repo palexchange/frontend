@@ -54,7 +54,10 @@
     </v-card-text>
     <v-divider class="py-5"></v-divider>
     <v-card-text>
-      <v-simple-table class="my-test">
+      
+      {{myname}}
+      <v-btn @click="t">test</v-btn>
+      <v-simple-table  class="my-test">
         <template v-slot:default>
           <thead>
             <tr>
@@ -129,6 +132,7 @@
   </Card>
 </template>
 <script>
+import { mapState,mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -190,7 +194,20 @@ export default {
         return ((1 / from.values.buy) * to.values.sale).toFixed(3);
       }
     },
+    t() {
+      this.$store.dispatch("putHello","Trex")
+    }
   },
+  computed:{
+    test(){
+      let obj = {name:"ahand"}
+      let {name} = obj;
+      return mapState.name
+    },
+    ...mapState({
+      myname:(state)=>state.name
+    })
+  }
 };
 </script>
 

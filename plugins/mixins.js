@@ -154,23 +154,23 @@ export default (context, inject) => {
     if (from.id == to.id) {
       return 1;
     } else if (to.id == 1) {
-      return (1 / from.values.sale).toFixed(3);
+      return (1 / from.values.buy).toFixed(11);
     } else if (from.id == 1) {
-      return (to.values.sale).toFixed(3);
+      return (to.values.buy);
     } else {
-      return ((from.values.buy) * 1 / to.values.buy).toFixed(3);
+      return ((from.values.buy) * 1 / to.values.buy).toFixed(11);
     }
   });
   inject('calcSalePrice', (from, to) => {
     if (from.id == to.id) {
       return 1;
     } else if (to.id == 1) {
-      return (1 / from.values.buy).toFixed(3);
+      return (1 / from.values.sale).toFixed(11);
     } else if (from.id == 1) {
-      return (to.values.buy).toFixed(3);
+      return (to.values.sale);
     } else {
 
-      return ((from.values.sale) * 1 / to.values.sale).toFixed(3);
+      return ((from.values.sale) * 1 / to.values.sale).toFixed(11);
     }
   });
 }

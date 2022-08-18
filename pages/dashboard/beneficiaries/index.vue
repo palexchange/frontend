@@ -264,3 +264,4 @@ export default {
   color: #ff7171 !important ;
 }
 </style>
+

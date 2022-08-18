@@ -1,6 +1,7 @@
 import codes from "country-codes-list";
 import locales from '~/assets/locales';
 export const state = () => ({
+  name:"meow",
   input_number_format: 2,
   output_number_format: 2,
   list: [1, 2, 3, 4],
@@ -26,6 +27,9 @@ export const actions = {
   // nuxtServerInit ({ commit,dispatch}, { req }) {
   //   dispatch('setDefaultDigitsNumber')
   // },
+  putHello(cintext,data){
+    cintext.commit("edit_name",data)
+  },
   addErrors({
     commit
   }, data) {
@@ -89,7 +93,13 @@ export const actions = {
   },
 
 }
+
 export const mutations = {
+  
+  
+  edit_name(state,bewName){
+    state.name = bewName
+  },
   add_error(state, data) {
     state.errors = data
   },

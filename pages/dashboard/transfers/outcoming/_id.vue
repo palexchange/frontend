@@ -26,11 +26,21 @@
               />
             </v-col>
             <v-col cols="12" md="4" sm="12">
-              <InputField dashed text="palestinian profit" />
+              <InputField
+                v-bind="item.officeProfit"
+                dashed
+                text="palestinian profit"
+                :value="officeProfitComp | money"
+              />
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" md="6" sm="12">
+        <v-col
+          cols="1
+        2"
+          md="6"
+          sm="12"
+        >
           <v-row no-gutters class="flex-column text-h6">
             <v-col cols="12" class="align-self-strach text-left mb-4">
               <span>
@@ -146,7 +156,18 @@
             />
           </v-col>
           <v-col>
-            <AutoComplete text="currency" holder="currency" required />
+            <AutoComplete
+              @change="
+                (v) => signCurrency('convertToUSD', 'buy', v, currencies[0])
+              "
+              v-model="item.senderConvertingCurrAuto"
+              :items="currencies"
+              item-name="name"
+              return-object
+              text="currency"
+              holder="currency"
+              required
+            />
           </v-col>
           <v-col>
             <InputField
@@ -196,6 +217,19 @@
         <v-row class="justify-center responseveCols">
           <v-col>
             <AutoComplete
+              @change="
+                (v) =>
+                  signCurrency(
+                    'convertToRecvCurr',
+                    'buy',
+                    this.currencies[0],
+                    v
+                  )
+              "
+              v-model="item.recvCurrAuto"
+              return-object
+              :items="currencies"
+              item-name="name"
               holder="currency to give"
               text="currency to give"
               required
@@ -246,6 +280,19 @@
 
           <v-col>
             <AutoComplete
+              v-model="item.officeCurrencyAuto"
+              @change="
+                (v) =>
+                  signCurrency(
+                    'officeConversionParam',
+                    'sale',
+                    item.recvCurrAuto,
+                    v
+                  )
+              "
+              return-object
+              :items="currencies"
+              item-name="name"
               holder="currency to office"
               text="currency to office"
               required
@@ -254,9 +301,9 @@
 
           <v-col>
             <InputField
-              v-model.number="item.officeConvertToUSD"
-              holder="converting amount"
-              text="converting amount"
+              v-model.number="item.officeConversionParam"
+              holder="conversion price"
+              text="conversion price"
               required
             />
           </v-col>
@@ -280,18 +327,14 @@
               hide-details
               required
               :label="
-                item.is_percentage_office
-                  ? `${$t('commission')} %`
-                  : $t('commission')
+                item.is_percentageO ? `${$t('commission')} %` : $t('commission')
               "
               :append-icon="
-                item.is_percentage_office == false
+                item.is_percentageO == false
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
-              @click:append="
-                () => (item.is_percentage_office = !item.is_percentage_office)
-              "
+              @click:append="() => (item.is_percentageO = !item.is_percentageO)"
             >
             </v-text-field>
           </v-col>
@@ -358,14 +401,30 @@
 
 <script>
 export default {
-  name: "transfer form",
+  name: "transfer-form",
   data() {
     return {
+      currencies: [
+        { id: 1, name: this.$t("dollar"), values: { sale: 1, buy: 1 } },
+        { id: 2, name: this.$t("denar"), values: { sale: 0.7, buy: 0.69 } },
+        { id: 3, name: this.$t("shekel"), values: { sale: 3.23, buy: 3.22 } },
+        { id: 3, name: this.$t("shekel"), values: { sale: 3.32, buy: 3.3 } },
+        { id: 4, name: this.$t("euro"), values: { sale: 1.03, buy: 1.01 } },
+        { id: 5, name: this.$t("pound"), values: { sale: 16, buy: 15 } },
+        { id: 6, name: this.$t("derhm"), values: { sale: 3.63, buy: 3.6 } },
+      ],
+      prices: [],
       transfer_types: [
         { id: 1, name: "تسليم يد" },
         { id: 1, name: "موني غرام" },
       ],
-      item: { is_percentage: false, is_percentage_office: false },
+      item: {
+        is_percentage: false,
+        is_percentageO: false,
+        convertToUSD: null,
+        convertToRecvCurr: null,
+        officeConversionParam: null,
+      },
     };
   },
   computed: {
@@ -382,13 +441,13 @@ export default {
         this.item.convertToUSD == undefined
       )
         return;
-      return this.item.transferringAmount / this.item.convertToUSD;
+      return this.item.transferringAmount * this.item.convertToUSD;
     },
     totalAmountInUSDComp() {
       let convert_param = this.item.convertToUSD || 1;
       let total = parseFloat(this.amountInUSDComp || 0);
-      let commVal = parseFloat((this.calcCommisson() || 0) / convert_param);
-      let otherExp = (this.item.otherExpenses || 0) / convert_param;
+      let commVal = parseFloat((this.calcCommisson() || 0) * convert_param);
+      let otherExp = (this.item.otherExpenses || 0) * convert_param;
       let final = commVal + total + otherExp;
       return final > 0 ? final : null;
     },
@@ -408,23 +467,52 @@ export default {
       return res <= 0 ? null : res;
     },
     officeAmount() {
-      let officeConversionParam = this.item.officeConvertToUSD || 1,
+      let conversionParam = this.item.officeConversionParam || 1,
         totalRecvAmount = parseFloat(this.totalRecvAmountComp || 0);
-      let officeAmount = totalRecvAmount / officeConversionParam;
+      let officeAmount = totalRecvAmount * conversionParam;
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
       let commission = this.item.officeCommission || 0,
         officeAmount = parseFloat(this.officeAmount || 0);
       let returned = this.item.officeReturn || 0;
-      commission = this.item.is_percentage
+      commission = this.item.is_percentageO
         ? (commission / 100) * officeAmount
         : commission;
       let tempVar = officeAmount + commission - returned;
       return tempVar <= 0 ? null : tempVar;
     },
+    officeProfitComp() {
+      let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
+      let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
+      console.table({ fromInDoller, finalOfficeAmount });
+      let recvCurr = this.item.officeCurrencyAuto || null;
+      if (recvCurr == undefined) return;
+      let convParam = this.$calcBuyPrice(recvCurr, this.currencies[0]);
+      let res = fromInDoller - finalOfficeAmount * convParam;
+      console.table({ fromInDoller, finalOfficeAmount, convParam, res });
+      let otherExp = this.item.otherExpOnRecv || 0;
+      return res - otherExp;
+    },
   },
   methods: {
+    signCurrency(vName, type, fromCurr, toCurr) {
+      console.log(vName);
+      console.log(type);
+      console.log(fromCurr);
+      console.log(toCurr);
+
+      let fromCurrObj = fromCurr;
+      let toCurrObj = toCurr;
+
+      if (fromCurrObj == null || toCurrObj == null) return;
+
+      this.item[vName] = parseFloat(
+        type == "buy"
+          ? this.$calcBuyPrice(fromCurrObj, toCurrObj)
+          : this.$calcSalePrice(fromCurrObj, toCurrObj)
+      );
+    },
     calcCommisson() {
       let transferringAmount = this.item.transferringAmount || 0;
       let commisson_amount = this.item.commission || 0;

@@ -2,211 +2,211 @@
   {
     "name": "dashboard",
     "path": "/dashboard",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\index.vue",
     "chunkName": "pages/dashboard/index",
-    "_name": "_5385c45d"
+    "_name": "_41466920"
   },
   {
     "name": "inspire",
     "path": "/inspire",
-    "component": "/home/ahmad/palestinain/frontend/pages/inspire.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\inspire.vue",
     "chunkName": "pages/inspire",
-    "_name": "_51f25bc0"
+    "_name": "_7caa7f98"
   },
   {
     "name": "auth-login",
     "path": "/auth/login",
-    "component": "/home/ahmad/palestinain/frontend/pages/auth/login.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\auth\\\\login.vue",
     "chunkName": "pages/auth/login",
-    "_name": "_b1cd7528"
+    "_name": "_40cef102"
   },
   {
     "name": "auth-register",
     "path": "/auth/register",
-    "component": "/home/ahmad/palestinain/frontend/pages/auth/register.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\auth\\\\register.vue",
     "chunkName": "pages/auth/register",
-    "_name": "_3426cbf0"
+    "_name": "_555e2606"
   },
   {
     "name": "dashboard-beneficiaries",
     "path": "/dashboard/beneficiaries",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/beneficiaries/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\index.vue",
     "chunkName": "pages/dashboard/beneficiaries/index",
-    "_name": "_f9be635e"
+    "_name": "_b896d1fe"
   },
   {
     "name": "dashboard-entries",
     "path": "/dashboard/entries",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/entries/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\index.vue",
     "chunkName": "pages/dashboard/entries/index",
-    "_name": "_f19012c4"
+    "_name": "_142db3d8"
   },
   {
     "name": "dashboard-exchange",
     "path": "/dashboard/exchange",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/exchange/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\index.vue",
     "chunkName": "pages/dashboard/exchange/index",
-    "_name": "_2f9f762a"
+    "_name": "_194c2326"
   },
   {
     "name": "dashboard-inputs",
     "path": "/dashboard/inputs",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/inputs/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\index.vue",
     "chunkName": "pages/dashboard/inputs/index",
-    "_name": "_dc705f1e"
+    "_name": "_2e96e732"
   },
   {
     "name": "dashboard-outputs",
     "path": "/dashboard/outputs",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/outputs/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\index.vue",
     "chunkName": "pages/dashboard/outputs/index",
-    "_name": "_92adc1c0"
+    "_name": "_96c5e45c"
   },
   {
     "name": "dashboard-reports",
     "path": "/dashboard/reports",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/reports/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\index.vue",
     "chunkName": "pages/dashboard/reports/index",
-    "_name": "_7ab4550d"
+    "_name": "_71f89585"
   },
   {
     "name": "dashboard-settings",
     "path": "/dashboard/settings",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/settings/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\index.vue",
     "chunkName": "pages/dashboard/settings/index",
-    "_name": "_0ff7f2eb"
+    "_name": "_76efff26"
   },
   {
     "name": "dashboard-transfers",
     "path": "/dashboard/transfers",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/transfers/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\index.vue",
     "chunkName": "pages/dashboard/transfers/index",
-    "_name": "_0d2ff936"
+    "_name": "_1adb173c"
   },
   {
     "name": "dashboard-beneficiaries-form",
     "path": "/dashboard/beneficiaries/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/beneficiaries/form/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/beneficiaries/form/index",
-    "_name": "_b73d0950"
+    "_name": "_317b0206"
   },
   {
     "name": "dashboard-entries-form",
     "path": "/dashboard/entries/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/entries/form/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/entries/form/index",
-    "_name": "_5be87b2b"
+    "_name": "_4aa633d0"
   },
   {
     "name": "dashboard-exchange-form",
     "path": "/dashboard/exchange/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/exchange/form/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/exchange/form/index",
-    "_name": "_735614fe"
+    "_name": "_9328d52e"
   },
   {
     "name": "dashboard-inputs-form",
     "path": "/dashboard/inputs/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/inputs/form/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/inputs/form/index",
-    "_name": "_4666cd38"
+    "_name": "_c91b603a"
   },
   {
     "name": "dashboard-outputs-form",
     "path": "/dashboard/outputs/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/outputs/form/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/outputs/form/index",
-    "_name": "_4ac653e9"
+    "_name": "_0d1e55e4"
   },
   {
     "name": "dashboard-reports-form",
     "path": "/dashboard/reports/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/reports/form/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/reports/form/index",
-    "_name": "_5ae0ca1c"
+    "_name": "_6cc68a81"
   },
   {
     "name": "dashboard-settings-form",
     "path": "/dashboard/settings/form",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/settings/form/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/settings/form/index",
-    "_name": "_09a9b204"
+    "_name": "_c577b12e"
   },
   {
     "name": "dashboard-settings-pricing",
     "path": "/dashboard/settings/pricing",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/settings/pricing.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\pricing.vue",
     "chunkName": "pages/dashboard/settings/pricing",
-    "_name": "_3d86b39f"
+    "_name": "_0e4968a1"
   },
   {
     "name": "dashboard-beneficiaries-form-id",
     "path": "/dashboard/beneficiaries/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/beneficiaries/form/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/beneficiaries/form/_id",
-    "_name": "_6c4673c0"
+    "_name": "_cb23c6b6"
   },
   {
     "name": "dashboard-entries-form-id",
     "path": "/dashboard/entries/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/entries/form/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/entries/form/_id",
-    "_name": "_6f214c53"
+    "_name": "_da622b90"
   },
   {
     "name": "dashboard-exchange-form-id",
     "path": "/dashboard/exchange/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/exchange/form/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/exchange/form/_id",
-    "_name": "_227d8234"
+    "_name": "_5f81de11"
   },
   {
     "name": "dashboard-inputs-form-id",
     "path": "/dashboard/inputs/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/inputs/form/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/inputs/form/_id",
-    "_name": "_ed9284c0"
+    "_name": "_6bee21ea"
   },
   {
     "name": "dashboard-outputs-form-id",
     "path": "/dashboard/outputs/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/outputs/form/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/outputs/form/_id",
-    "_name": "_507a3c91"
+    "_name": "_fca67a14"
   },
   {
     "name": "dashboard-reports-form-id",
     "path": "/dashboard/reports/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/reports/form/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/reports/form/_id",
-    "_name": "_2512a384"
+    "_name": "_dc718dae"
   },
   {
     "name": "dashboard-settings-form-id",
     "path": "/dashboard/settings/form/:id",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/settings/form/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/settings/form/_id",
-    "_name": "_2cb2d0e6"
+    "_name": "_31521fde"
   },
   {
     "name": "dashboard-transfers-incoming-id",
     "path": "/dashboard/transfers/incoming/:id?",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/transfers/incoming/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\_id.vue",
     "chunkName": "pages/dashboard/transfers/incoming/_id",
-    "_name": "_c7d6dbc6"
+    "_name": "_6a8b913e"
   },
   {
     "name": "dashboard-transfers-outcoming-id",
     "path": "/dashboard/transfers/outcoming/:id?",
-    "component": "/home/ahmad/palestinain/frontend/pages/dashboard/transfers/outcoming/_id.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\outcoming\\\\_id.vue",
     "chunkName": "pages/dashboard/transfers/outcoming/_id",
-    "_name": "_071bd79e"
+    "_name": "_26d48c91"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/home/ahmad/palestinain/frontend/pages/index.vue",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\New folder (9)\\\\frontend\\\\pages\\\\index.vue",
     "chunkName": "pages/index",
-    "_name": "_22745f98"
+    "_name": "_0d950b10"
   }
 ]

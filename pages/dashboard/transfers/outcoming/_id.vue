@@ -66,19 +66,19 @@
       <v-card-title> بيانات المرسل </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" lg="3" md="4" sm="6">
             <AutoComplete text="beneficiary" holder="beneficiary" required />
           </v-col>
-          <v-col>
+          <v-col cols="12" lg="2" md="4" sm="6">
             <InputField holder="id number" text="id number" required />
           </v-col>
-          <v-col>
+          <v-col cols="12" lg="2" md="4" sm="6">
             <InputField holder="mobile" text="mobile" required />
           </v-col>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" lg="3" md="4" sm="6">
             <InputField holder="address" text="address" />
           </v-col>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" lg="2" md="4" sm="6">
             <InputField holder="notes" text="notes" />
           </v-col>
         </v-row>
@@ -88,22 +88,22 @@
       <v-card-title>بيانات المستلم </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" md="4" lg="3" sm="6">
             <AutoComplete text="beneficiary" holder="beneficiary" required />
           </v-col>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" md="4" lg="2" sm="6">
             <InputField holder="id number" text="id number" required />
           </v-col>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" md="4" lg="2" sm="6">
             <InputField holder="mobile" text="mobile" required />
           </v-col>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" md="4" lg="1" sm="6">
             <AutoComplete text="country" holder="country" required />
           </v-col>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" md="4" lg="2" sm="6">
             <AutoComplete text="city" holder="city" required />
           </v-col>
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" md="4" lg="2" sm="6">
             <InputField holder="address" text="address" />
           </v-col>
         </v-row>

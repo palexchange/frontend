@@ -61,7 +61,9 @@
               </v-list>
             </v-menu>
           </v-list-item>
-          <v-list-item></v-list-item>
+          <v-list-item>
+            <v-btn @click="$auth.logout()"> logout </v-btn>
+          </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -92,7 +94,7 @@
 import { mapState } from "vuex";
 export default {
   name: "DefaultLayout",
-  // middleware: "auth",
+  middleware: "auth",
   data() {
     return {
       name: "",

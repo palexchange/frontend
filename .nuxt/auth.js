@@ -18,7 +18,7 @@ export default function (ctx, inject) {
   "redirect": {
     "login": "/auth/login",
     "logout": "/auth/login",
-    "home": "/",
+    "home": "/dashboard",
     "callback": false
   },
   "vuex": {
@@ -67,6 +67,8 @@ export default function (ctx, inject) {
       "url": "/auth/user"
     }
   },
+  "clientId": "3",
+  "clientSecret": "yi9ZFSHCGLBcwjNimmc6dFuYlQOIHEkbZxl6edjf",
   "grantType": "password"
 }))
 

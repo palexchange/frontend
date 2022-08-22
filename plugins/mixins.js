@@ -169,7 +169,6 @@ export default (context, inject) => {
     } else if (from.id == 1) {
       return (to.values.sale);
     } else {
-
       return ((from.values.sale) * 1 / to.values.sale).toFixed(5);
     }
   });

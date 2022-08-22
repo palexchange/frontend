@@ -1,14 +1,5 @@
 <template>
   <v-card class="elevation-12">
-    <v-toolbar
-      dark
-      prominent
-      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-    >
-      <v-toolbar-title class="text-center">
-        {{ $t("login_form") }}
-      </v-toolbar-title>
-    </v-toolbar>
     <v-card-text>
       <form ref="form" @submit.prevent="login()">
         <v-text-field
@@ -63,8 +54,8 @@ export default {
   data() {
     return {
       user: {
-        username: "ahmed@ahmed.com",
-        password: "123456",
+        username: "test@test.com",
+        password: "a123",
       },
       errorMessage: "",
       show1: false,

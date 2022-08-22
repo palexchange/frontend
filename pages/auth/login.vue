@@ -1,7 +1,7 @@
 <template>
   <v-card class="elevation-12">
     <v-card-text>
-      <form ref="form" @submit.prevent="login()">
+      <form ref="form" @submit="login()">
         <v-text-field
           v-model="user.username"
           name="username"
@@ -66,6 +66,7 @@ export default {
     async login() {
       this.loading = true;
       const { username, password } = this.user;
+      console.log("user: ", username,"\nPassword: ",password);
       await this.$auth.loginWith("local", {
         data: { email: username, password },
       });

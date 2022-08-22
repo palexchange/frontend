@@ -10,10 +10,10 @@ const getters = {
 };
 const actions = {
   login({
-    commit
+    commits
   }, data) {
     this.state.overlay = true;
-    this.$axios.$post('/auth/login', data).then((response) => {
+    this.$axios.$post('/oauth/token', data).then((response) => {
       console.log(response);
       commit('setUser', response.data);
       this.$axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.access_token;
@@ -87,6 +87,7 @@ const actions = {
   unload({
     commit
   }) {
+    console.log("Remved");
     commit('removeUser');
     localStorage.removeItem('user_data');
   }

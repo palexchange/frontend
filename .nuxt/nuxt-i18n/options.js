@@ -26,7 +26,7 @@ export const options = {
   rootRedirect: null,
   detectBrowserLanguage: {"alwaysRedirect":true,"cookieCrossOrigin":false,"cookieDomain":null,"cookieKey":"i18n_redirected","cookieSecure":false,"fallbackLocale":"ar","redirectOn":"root","useCookie":true,"onlyOnRoot":true},
   differentDomains: true,
-  baseUrl: "",
+  baseUrl: "http://localhost:8000",
   vuex: {"moduleName":"i18n","syncRouteParams":true,"syncLocale":true,"syncMessages":false},
   parsePages: true,
   pages: {},

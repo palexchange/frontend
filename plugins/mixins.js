@@ -32,6 +32,9 @@ export default (context, inject) => {
     }
   });
   inject('save', async (item, resource, form_ref = null, redirect = null, file_attribute = null) => {
+    console.log("From $save: ");
+    console.log(item);
+    console.log("Resource: ",resource);
     let file = null;
     if (file_attribute) {
       file = item[file_attribute];

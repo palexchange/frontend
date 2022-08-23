@@ -9,73 +9,15 @@
           <v-col cols="12" sm="6" xs="12" class="text-left">
             <v-icon> fas fa-solid fa-search </v-icon>
             <span>&nbsp;&nbsp;</span>
-            <v-dialog transition="dialog-top-transition" max-width="800" v-model="dialog">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn color="primary" v-bind="attrs" v-on="on">{{
-                  $t("add beneficiary")
-                }}</v-btn>
-              </template>
-              <template v-slot:default="dialog">
-                <v-card>
-                  <v-toolbar color="primary" dark
-                    ><v-spacer></v-spacer> {{ $t("add beneficiary") }}
-                    <v-spacer></v-spacer
-                  ></v-toolbar>
-                  <v-card-text class="pa-6">
-                    <v-row>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField v-model="form.name" holder="beneficiary name"></InputField>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField v-model="form.mobile" holder="mobile"></InputField>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField v-model="form.id_no" holder="id number"></InputField>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField v-model="form.address" holder="address"></InputField>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField v-model="form.default_currency" holder="default currency"></InputField>
-                      </v-col>
-                    </v-row>
-                    <v-row class="button-responsive">
-                      <v-col class="text-center">
-                        <v-btn @click="save" color="primary" height="45">
-                          {{ $t("save") }}</v-btn
-                        >
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                  <v-card-actions class="justify-end">
-                    <v-btn color="primary" @click="dialog.value = false">{{
-                      $t("close")
-                    }}</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </template>
-            </v-dialog>
+            <v-btn
+              color="primary"
+              @click="$store.dispatch('setDialog', 'AddBeneficiary')"
+              >{{ $t("add beneficiary") }}</v-btn>
           </v-col>
         </v-row>
       </v-card-actions>
     </Card>
-
-    <v-data-table
-      :headers="headers"
-      items-per-page="5"
-      hide-default-footer
-      :items="desserts"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
-      class="my-table"
-    />
-    <v-pagination
-      length="5"
-      style="width: fit-content; margin: auto; background-color: #f5f5f5"
-      :next-icon="$t('nextt')"
-      :prev-icon="$t('prevv')"
-      color="transparent"
-    ></v-pagination>
+  <DataTable module="beneficiary" />
   </div>
 </template>
 
@@ -96,93 +38,12 @@ export default {
         { text: "identity", value: "carbs" },
         { text: "actions", value: "protein" },
       ],
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6,
-          carbs: 24,
-          protein: 4,
-          iron: "1%",
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%",
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16,
-          carbs: 23,
-          protein: 6,
-          iron: "7%",
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: "8%",
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16,
-          carbs: 49,
-          protein: 3.9,
-          iron: "16%",
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0,
-          carbs: 94,
-          protein: 0,
-          iron: "0%",
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: "2%",
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: "45%",
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25,
-          carbs: 51,
-          protein: 4.9,
-          iron: "22%",
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26,
-          carbs: 65,
-          protein: 7,
-          iron: "6%",
-        },
-      ],
+  
       form: {},
       item: {
-        showDialgo: false
+        showDialgo: false,
       },
-      dialog: false
+      dialog: false,
     };
   },
   methods: {
@@ -195,10 +56,10 @@ export default {
       this.sortBy = this.headers[index].value;
     },
     save() {
-      this.$save(this.form,'beneficiary');
+      this.$save(this.form, "beneficiary");
       this.dialog = false;
-      this.form = {}
-    }
+      this.form = {};
+    },
   },
 };
 </script>

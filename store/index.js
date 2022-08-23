@@ -1,7 +1,7 @@
 import codes from "country-codes-list";
 import locales from '~/assets/locales';
 export const state = () => ({
-  name:"meow",
+  name: "meow",
   input_number_format: 2,
   output_number_format: 2,
   list: [1, 2, 3, 4],
@@ -15,11 +15,12 @@ export const state = () => ({
   deletingData: null,
   editingData: null,
   locales,
-  module_name:null,
-  overlay:false,
-  loading:false,
-  loaded:false,
-  post_loading:false,
+  module_name: null,
+  overlay: false,
+  loading: false,
+  loaded: false,
+  post_loading: false,
+  state_dialog: { active: false, name: '' },
 
 })
 
@@ -27,8 +28,14 @@ export const actions = {
   // nuxtServerInit ({ commit,dispatch}, { req }) {
   //   dispatch('setDefaultDigitsNumber')
   // },
-  putHello(cintext,data){
-    cintext.commit("edit_name",data)
+  setDialog({ commit }, name) {
+    commit('set_dialog', name)
+  },
+  closeDialog({ commit }) {
+    commit('close_dialog')
+  },
+  putHello(cintext, data) {
+    cintext.commit("edit_name", data)
   },
   addErrors({
     commit
@@ -95,13 +102,19 @@ export const actions = {
 }
 
 export const mutations = {
-  
-  
-  edit_name(state,bewName){
+
+
+  edit_name(state, bewName) {
     state.name = bewName
   },
   add_error(state, data) {
     state.errors = data
+  },
+  set_dialog(state, name) {
+    state.state_dialog = { name, active: true }
+  },
+  close_dialog(state) {
+    state.state_dialog = { name: '', active: false }
   },
   push_context(state, data) {
     state.context = data
@@ -147,7 +160,7 @@ export const mutations = {
   set_loading: (state, value) => {
     console.log(value);
     state.loading = value;
-    state.loaded= !value;
+    state.loaded = !value;
   },
   set_post_loading: (state, value) => {
     console.log(value);

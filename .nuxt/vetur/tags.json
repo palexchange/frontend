@@ -1,4 +1,7 @@
 {
+  "AddBeneficiary": {
+    "description": "Auto imported from components/AddBeneficiary.vue"
+  },
   "AutoComplete": {
     "description": "Auto imported from components/AutoComplete.vue"
   },

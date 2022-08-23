@@ -44,8 +44,8 @@ export default (context) => {
   {
     child: 'beneficiary',
     parent: '',
-    load_after_store:true,
-    headers:['id','name','id_no','created_at','address','default_currency','mobile'],
+    load_after_store: true,
+    headers: ['id', 'name', 'id_no', 'created_at', 'address', 'default_currency', 'mobile'],
   },
   {
     child: 'user',

@@ -1,3 +1,4 @@
+export { default as AddBeneficiary } from '../..\\components\\AddBeneficiary.vue'
 export { default as AutoComplete } from '../..\\components\\AutoComplete.vue'
 export { default as BaseFilter } from '../..\\components\\BaseFilter.vue'
 export { default as Boxes } from '../..\\components\\Boxes.vue'

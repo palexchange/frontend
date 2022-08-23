@@ -82,6 +82,17 @@
               ></v-progress-circular>
             </v-overlay> -->
       </v-container>
+      <v-dialog
+        transition="dialog-top-transition"
+        @keydown.esc="$store.dispatch('closeDialog')"
+        @click:outside="$store.dispatch('closeDialog')"
+        width="800"
+        v-model="state_dialog.active"
+      >
+        <v-card>
+          <component :is="state_dialog.name"></component>
+        </v-card>
+      </v-dialog>
       <div class="text-center">
         {{ new Date().getFullYear() }}
         @
@@ -136,6 +147,7 @@ export default {
       locales: (state) => state.locales,
       user: (state) => state.auth.user,
       overlay: (state) => state.overlay,
+      state_dialog: (state) => state.state_dialog,
     }),
   },
   watch: {

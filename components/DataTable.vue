@@ -1,15 +1,16 @@
  
 <template>
   <div>
-    <!-- :items-per-page="meta.per_page ? Number(meta.per_page) : -1" -->
-    <!-- :headers="$translateHeaders(headers.concat(['actions']))" -->
     <v-data-table
       class="my-table elevation-0"
       :options.sync="options"
       :page.sync="options.page"
       item-key="id"
+      hide-default-footer
+      :items-per-page="meta.per_page ? Number(meta.per_page) : -1"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
+      :headers="$translateHeaders(headers.concat(['actions']))"
       :items="all"
       multi-sort
       @contextmenu:row="$context_menu"
@@ -120,10 +121,12 @@
     <v-pagination
       :hidden="hide_pagination"
       v-model="options.page"
-      circle
-      color="primary"
+      :length="meta.last_page"
+      style="width: fit-content; margin: auto; background-color: #f5f5f5"
+      :next-icon="$t('nextt')"
+      :prev-icon="$t('prevv')"
+      color="transparent"
     ></v-pagination>
-    <!-- :length="meta.last_page" -->
   </div>
 </template>
 <script>
@@ -188,14 +191,12 @@ export default {
       },
       meta: function (state) {
         if (this.module) {
-          return state[this.module].meta;
+          return state[this.module]?.meta || [];
         }
       },
       headers: function (state) {
         if (this.module) {
-          return state[this.module].headers.filter(
-            (i) => !(this.hidden_headers || []).some((h) => h == i)
-          );
+          return state[this.module]?.headers || [];
         }
       },
       functions: function (state) {

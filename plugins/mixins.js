@@ -34,7 +34,7 @@ export default (context, inject) => {
   inject('save', async (item, resource, form_ref = null, redirect = null, file_attribute = null) => {
     console.log("From $save: ");
     console.log(item);
-    console.log("Resource: ",resource);
+    console.log("Resource: ", resource);
     let file = null;
     if (file_attribute) {
       file = item[file_attribute];
@@ -92,17 +92,17 @@ export default (context, inject) => {
     return setting.value;
   });
   inject('translateHeaders', (heads) => {
-    // if (heads) {
-    //   console.log(typeof heads);
-    //   let new_headers = heads.slice(0, heads.length).map((v) => {
-    //     return v.text ? v : {
-    //       value: v,
-    //       text: context.app.i18n.t(v.replaceAll('.', '_'))
-    //     }
-    //   });
-    //   console.log(new_headers);
-    //   return new_headers
-    // }
+    if (heads) {
+      console.log(typeof heads);
+      let new_headers = heads.slice(0, heads.length).map((v) => {
+        return v.text ? v : {
+          value: v,
+          text: context.app.i18n.t(v.replaceAll('.', '_'))
+        }
+      });
+      console.log(new_headers);
+      return new_headers
+    }
     return heads
   });
   inject('allowed', (code, action) => {

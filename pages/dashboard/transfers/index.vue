@@ -11,8 +11,8 @@
         <span> {{ $t("add incoming transfer") }} </span>
       </v-btn>
     </CrudHeader>
-    
-       <DataTable />
+
+    <DataTable module="beneficiary" />
 
     <Card class="pa-5">
       <v-row>

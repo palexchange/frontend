@@ -73,7 +73,11 @@
               holder="beneficiary"
               required
               :value="item.sender_party_id"
-            />
+            >
+              <template v-slot:prepend-item>
+                <v-btn depressed block> test </v-btn>
+              </template>
+            </AutoComplete>
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
             <InputField

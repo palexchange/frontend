@@ -19,7 +19,11 @@
       :placeholder="$t(holder)"
       item-text="name"
       item-value="id"
-    ></v-autocomplete>
+    >
+      <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope"
+        ><slot :name="slot" v-bind="scope"
+      /></template>
+    </v-autocomplete>
   </div>
 </template>
 

@@ -61,12 +61,15 @@
               </v-list>
             </v-menu>
           </v-list-item>
-          <v-list-item></v-list-item>
+          <v-list-item>
+            <v-btn @click="$auth.logout()"> logout </v-btn>
+          </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
       <v-container>
+        <Boxes />
         <Breadcrumbs />
         <div style="min-height: 75vh">
           <Nuxt />
@@ -92,7 +95,7 @@
 import { mapState } from "vuex";
 export default {
   name: "DefaultLayout",
-  // middleware: "auth",
+  middleware: "auth",
   data() {
     return {
       name: "",

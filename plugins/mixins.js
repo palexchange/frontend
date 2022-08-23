@@ -157,23 +157,74 @@ export default (context, inject) => {
     if (from.id == to.id) {
       return 1;
     } else if (to.id == 1) {
-      return (1 / from.values.buy).toFixed(11);
+      return (1 / from.values.buy).toFixed(5);
     } else if (from.id == 1) {
       return (to.values.buy);
     } else {
-      return ((from.values.buy) * 1 / to.values.buy).toFixed(11);
+      return ((from.values.buy) * 1 / to.values.buy).toFixed(5);
     }
   });
   inject('calcSalePrice', (from, to) => {
     if (from.id == to.id) {
       return 1;
     } else if (to.id == 1) {
-      return (1 / from.values.sale).toFixed(11);
+      return (1 / from.values.sale).toFixed(5);
     } else if (from.id == 1) {
       return (to.values.sale);
     } else {
+      return ((from.values.sale) * 1 / to.values.sale).toFixed(5);
+    }
+  });
+  inject('newCalcBuyPrice', (from, to) => {
+    let from_currency = context.store.state.stock.all.find(v => {
+      return v.currency_id == from.id && v.ref_currency_id == 1
+    });
+    let to_currency = context.store.state.stock.all.find(v => {
+      return v.currency_id == to.id && v.ref_currency_id == 1
+    });
+    if (to_currency && from_currency) {
+      if (from.id == to.id) {
+        return 1;
+      }
+      else if (to.id == 1) {
+        return (1 / from_currency.start_selling_price).toFixed(5);
+      } else if (from.id == 1) {
+        return (to_currency.start_selling_price);
+      } else {
+        let converter = context.store.state.stock.all.find(v => {
+          return v.currency_id == from.id && v.ref_currency_id == to.id
+        });
+        if (converter) {
+          return converter.start_selling_price;
+        }
+        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(5);
+      }
+    }
 
-      return ((from.values.sale) * 1 / to.values.sale).toFixed(11);
+  });
+  inject('newCalcSalePrice', (from, to) => {
+    let from_currency = context.store.state.stock.all.find(v => {
+      return v.currency_id == from.id && v.ref_currency_id == 1
+    });
+    let to_currency = context.store.state.stock.all.find(v => {
+      return v.currency_id == to.id && v.ref_currency_id == 1
+    });
+    if (to_currency && from_currency) {
+      if (from.id == to.id) {
+        return 1;
+      } else if (to.id == 1) {
+        return (1 / from_currency.start_purchasing_price).toFixed(5);
+      } else if (from.id == 1) {
+        return (to_currency.start_purchasing_price);
+      } else {
+        let converter = context.store.state.stock.all.find(v => {
+          return v.currency_id == from.id && v.ref_currency_id == to.id
+        });
+        if (converter) {
+          return converter.start_purchasing_price;
+        }
+        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(5);
+      }
     }
   });
 }

@@ -14,20 +14,32 @@ export default (context) => {
   {
     child: 'item',
     parent: '',
-    load_after_store:true,
-    headers:['id','image_url','name','category.name','price','price1','price2','price3','description','created_at']
+    load_after_store: true,
+    headers: ['id', 'image_url', 'name', 'category.name', 'price', 'price1', 'price2', 'price3', 'description', 'created_at']
+  },
+  {
+    child: 'currency',
+    parent: '',
+    load_after_store: true,
+    // headers:['id','image_url','name','category.name','price','price1','price2','price3','description','created_at']
+  },
+  {
+    child: 'stock',
+    parent: '',
+    load_after_store: true,
+    // headers:['id','image_url','name','category.name','price','price1','price2','price3','description','created_at']
   },
   {
     child: 'daily_meal',
     parent: '',
-    load_after_store:true,
-    headers:['id','item.name','item.image_url','date']
+    load_after_store: true,
+    headers: ['id', 'item.name', 'item.image_url', 'date']
   },
   {
     child: 'order',
     parent: '',
-    load_after_store:true,
-    headers:['id','user.name','total','created_at','status','notes'],
+    load_after_store: true,
+    headers: ['id', 'user.name', 'total', 'created_at', 'status', 'notes'],
   },
   {
     child: 'beneficiary',
@@ -38,26 +50,26 @@ export default (context) => {
   {
     child: 'user',
     parent: '',
-    load_after_store:true,
-    headers:['id','name','email','phone','address','status','category','created_at'],
+    load_after_store: true,
+    headers: ['id', 'name', 'email', 'phone', 'address', 'status', 'category', 'created_at'],
   },
   {
     child: 'category',
     parent: '',
-    load_after_store:true,
-    headers:['id','image_url','name','description','created_at'],
+    load_after_store: true,
+    headers: ['id', 'image_url', 'name', 'description', 'created_at'],
   },
   {
     child: 'order_item',
     parent: 'order',
-    load_after_store:true,
-    headers:['id','order_id','item.name','qty','item_price']
+    load_after_store: true,
+    headers: ['id', 'order_id', 'item.name', 'qty', 'item_price']
   },
   {
     child: 'report',
     parent: '',
     has_headers: true
   },
-];
-return resources;
+  ];
+  return resources;
 }

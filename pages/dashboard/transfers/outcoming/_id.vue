@@ -68,19 +68,42 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" lg="3" md="4" sm="6">
-            <AutoComplete text="beneficiary" holder="beneficiary" required :value="item.sender_party_id" />
+            <AutoComplete
+              text="beneficiary"
+              holder="beneficiary"
+              required
+              :value="item.sender_party_id"
+            />
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
-            <InputField holder="id number" text="id number" required :value="item.sender_id_no" />
+            <InputField
+              holder="id number"
+              text="id number"
+              required
+              :value="item.sender_id_no"
+            />
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
-            <InputField holder="mobile" text="mobile" required :value="item.sender_phone" />
+            <InputField
+              holder="mobile"
+              text="mobile"
+              required
+              :value="item.sender_phone"
+            />
           </v-col>
           <v-col cols="12" lg="3" md="4" sm="6">
-            <InputField holder="address" text="address" :value="item.sender_address" />
+            <InputField
+              holder="address"
+              text="address"
+              :value="item.sender_address"
+            />
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
-            <InputField holder="notes" text="notes" :value="item.sender_notes" />
+            <InputField
+              holder="notes"
+              text="notes"
+              :value="item.sender_notes"
+            />
           </v-col>
         </v-row>
       </v-card-text>
@@ -90,22 +113,51 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" md="4" lg="3" sm="6">
-            <AutoComplete text="beneficiary" holder="beneficiary" required :value="item.reciver_party_id" />
+            <AutoComplete
+              text="beneficiary"
+              holder="beneficiary"
+              required
+              :value="item.reciver_party_id"
+            />
           </v-col>
           <v-col cols="12" md="4" lg="2" sm="6">
-            <InputField holder="id number" text="id number" required :value="item.reciver_id_no" />
+            <InputField
+              holder="id number"
+              text="id number"
+              required
+              :value="item.reciver_id_no"
+            />
           </v-col>
           <v-col cols="12" md="4" lg="2" sm="6">
-            <InputField holder="mobile" text="mobile" required :value="item.reciver_phone" />
+            <InputField
+              holder="mobile"
+              text="mobile"
+              required
+              :value="item.reciver_phone"
+            />
           </v-col>
           <v-col cols="12" md="4" lg="1" sm="6">
-            <AutoComplete text="country" holder="country" required :value="item.reciver_country_id" />
+            <AutoComplete
+              text="country"
+              holder="country"
+              required
+              :value="item.reciver_country_id"
+            />
           </v-col>
           <v-col cols="12" md="4" lg="2" sm="6">
-            <AutoComplete text="city" holder="city" required :value="item.city_id" />
+            <AutoComplete
+              text="city"
+              holder="city"
+              required
+              :value="item.city_id"
+            />
           </v-col>
           <v-col cols="12" md="4" lg="2" sm="6">
-            <InputField holder="address" text="address" :value="item.reciver_address" />
+            <InputField
+              holder="address"
+              text="address"
+              :value="item.reciver_address"
+            />
           </v-col>
         </v-row>
       </v-card-text>
@@ -129,14 +181,19 @@
               slot="append"
               hide-details
               :label="
-                item.is_commision_percentage ? `${$t('commission')} %` : $t('commission')
+                item.is_commision_percentage
+                  ? `${$t('commission')} %`
+                  : $t('commission')
               "
               :append-icon="
                 item.is_commision_percentage == false
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
-              @click:append="() => (item.is_commision_percentage = !item.is_commision_percentage)"
+              @click:append="
+                () =>
+                  (item.is_commision_percentage = !item.is_commision_percentage)
+              "
               v-model.number="item.commission"
             >
             </v-text-field>
@@ -159,7 +216,13 @@
           <v-col>
             <AutoComplete
               @change="
-                (v) => signCurrency('exchange_rate_to_delivery_currency', 'buy', v, currencies[0])
+                (v) =>
+                  signCurrency(
+                    'exchange_rate_to_delivery_currency',
+                    'buy',
+                    v,
+                    currencies[0]
+                  )
               "
               v-model="item.delivery_currency"
               :items="currencies"
@@ -328,14 +391,18 @@
               hide-details
               required
               :label="
-                item.office_commision_type ? `${$t('commission')} %` : $t('commission')
+                item.office_commision_type
+                  ? `${$t('commission')} %`
+                  : $t('commission')
               "
               :append-icon="
                 item.office_commision_type == false
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
-              @click:append="() => (item.office_commision_type = !item.office_commision_type)"
+              @click:append="
+                () => (item.office_commision_type = !item.office_commision_type)
+              "
             >
             </v-text-field>
           </v-col>
@@ -365,7 +432,9 @@
     <v-row class="justify-center">
       <v-card color="transparent" flat>
         <v-card-actions>
-          <v-btn @click="confirmProcess" class="px-16" color="primary">إتمام العملة</v-btn>
+          <v-btn @click="confirmProcess" class="px-16" color="primary"
+            >إتمام العملة</v-btn
+          >
           &nbsp; &nbsp;
           <v-menu offset-x left>
             <template v-slot:activator="{ on, attrs }">
@@ -442,7 +511,9 @@ export default {
         this.item.exchange_rate_to_delivery_currency == undefined
       )
         return;
-      return this.item.to_send_amount * this.item.exchange_rate_to_delivery_currency;
+      return (
+        this.item.to_send_amount * this.item.exchange_rate_to_delivery_currency
+      );
     },
     totalAmountInUSDComp() {
       let convert_param = this.item.exchange_rate_to_delivery_currency || 1;
@@ -527,8 +598,8 @@ export default {
 
       return amount;
     },
-    confirmProcess(){
-      console.log(this.item)
+    confirmProcess() {
+      console.log(this.item);
     },
   },
   filters: {

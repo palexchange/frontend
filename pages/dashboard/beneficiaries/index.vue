@@ -9,7 +9,7 @@
           <v-col cols="12" sm="6" xs="12" class="text-left">
             <v-icon> fas fa-solid fa-search </v-icon>
             <span>&nbsp;&nbsp;</span>
-            <v-dialog transition="dialog-top-transition" max-width="800">
+            <v-dialog transition="dialog-top-transition" max-width="800" v-model="dialog">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn color="primary" v-bind="attrs" v-on="on">{{
                   $t("add beneficiary")
@@ -41,7 +41,7 @@
                     </v-row>
                     <v-row class="button-responsive">
                       <v-col class="text-center">
-                        <v-btn @click="$save(form,'beneficiary')" color="primary" height="45">
+                        <v-btn @click="save" color="primary" height="45">
                           {{ $t("save") }}</v-btn
                         >
                       </v-col>
@@ -179,6 +179,10 @@ export default {
         },
       ],
       form: {},
+      item: {
+        showDialgo: false
+      },
+      dialog: false
     };
   },
   methods: {
@@ -190,6 +194,11 @@ export default {
       index = (index + 1) % this.headers.length;
       this.sortBy = this.headers[index].value;
     },
+    save() {
+      this.$save(this.form,'beneficiary');
+      this.dialog = false;
+      this.form = {}
+    }
   },
 };
 </script>

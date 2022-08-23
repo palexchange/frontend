@@ -204,5 +204,9 @@
     "beneficiary name": "إسم المستفيد",
     "default currency": "العملة الافتراضية",
     "converting amount": "سعر التحويل",
+    "derhm": "درهم",
+    "add currency": "إضافة عملة",
+    "from": "من",
+    "to": "إلي",
     "close": "إغلاق"
 }

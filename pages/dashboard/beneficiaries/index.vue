@@ -9,7 +9,7 @@
           <v-col cols="12" sm="6" xs="12" class="text-left">
             <v-icon> fas fa-solid fa-search </v-icon>
             <span>&nbsp;&nbsp;</span>
-            <v-dialog transition="dialog-top-transition" max-width="800">
+            <v-dialog transition="dialog-top-transition" max-width="800" v-model="dialog">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn color="primary" v-bind="attrs" v-on="on">{{
                   $t("add beneficiary")
@@ -24,24 +24,24 @@
                   <v-card-text class="pa-6">
                     <v-row>
                       <v-col cols="12" sm="4" xs="12">
-                        <InputField holder="beneficiary name"></InputField>
+                        <InputField v-model="form.name" holder="beneficiary name"></InputField>
                       </v-col>
                       <v-col cols="12" sm="4" xs="12">
-                        <InputField holder="mobile"></InputField>
+                        <InputField v-model="form.mobile" holder="mobile"></InputField>
                       </v-col>
                       <v-col cols="12" sm="4" xs="12">
-                        <InputField holder="id number"></InputField>
+                        <InputField v-model="form.id_no" holder="id number"></InputField>
                       </v-col>
                       <v-col cols="12" sm="4" xs="12">
-                        <InputField holder="address"></InputField>
+                        <InputField v-model="form.address" holder="address"></InputField>
                       </v-col>
                       <v-col cols="12" sm="4" xs="12">
-                        <InputField holder="default currency"></InputField>
+                        <InputField v-model="form.default_currency" holder="default currency"></InputField>
                       </v-col>
                     </v-row>
                     <v-row class="button-responsive">
                       <v-col class="text-center">
-                        <v-btn color="primary" height="45">
+                        <v-btn @click="save" color="primary" height="45">
                           {{ $t("save") }}</v-btn
                         >
                       </v-col>
@@ -178,6 +178,11 @@ export default {
           iron: "6%",
         },
       ],
+      form: {},
+      item: {
+        showDialgo: false
+      },
+      dialog: false
     };
   },
   methods: {
@@ -189,6 +194,11 @@ export default {
       index = (index + 1) % this.headers.length;
       this.sortBy = this.headers[index].value;
     },
+    save() {
+      this.$save(this.form,'beneficiary');
+      this.dialog = false;
+      this.form = {}
+    }
   },
 };
 </script>

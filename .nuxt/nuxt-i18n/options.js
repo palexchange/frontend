@@ -22,7 +22,7 @@ export const options = {
   sortRoutes: true,
   strategy: "no_prefix",
   lazy: false,
-  langDir: "C:\\Users\\acer\\Desktop\\New folder (9)\\frontend\\locales\\",
+  langDir: "C:\\Users\\acer\\Desktop\\palExchange\\frontend\\locales\\",
   rootRedirect: null,
   detectBrowserLanguage: {"alwaysRedirect":true,"cookieCrossOrigin":false,"cookieDomain":null,"cookieKey":"i18n_redirected","cookieSecure":false,"fallbackLocale":"ar","redirectOn":"root","useCookie":true,"onlyOnRoot":true},
   differentDomains: true,

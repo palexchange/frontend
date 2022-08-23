@@ -1,6 +1,7 @@
 <template>
   <div :class="dashed ? 'dashing' : ''">
     <label
+      v-if="!no_lable"
       style="color: rgba(139, 139, 139, 0.93)"
       :class="required ? 'required form-label' : 'form-label'"
       >{{ $t(text) }}</label
@@ -39,6 +40,10 @@ export default {
       default: false,
     },
     dashed: {
+      type: Boolean,
+      default: false,
+    },
+    no_lable: {
       type: Boolean,
       default: false,
     },

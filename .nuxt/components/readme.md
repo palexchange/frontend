@@ -8,6 +8,7 @@ You can directly use them in pages and other components without the need to impo
 
 - `<AutoComplete>` | `<auto-complete>` (components/AutoComplete.vue)
 - `<BaseFilter>` | `<base-filter>` (components/BaseFilter.vue)
+- `<Boxes>` | `<boxes>` (components/Boxes.vue)
 - `<Breadcrumbs>` | `<breadcrumbs>` (components/Breadcrumbs.vue)
 - `<Card>` | `<card>` (components/Card.vue)
 - `<CrudHeader>` | `<crud-header>` (components/CrudHeader.vue)

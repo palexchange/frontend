@@ -5,7 +5,7 @@
       <div>
         <v-row>
           <v-col>
-            <TimePicker hide_details disabled />
+            <TimePicker v-model="time" hide_details disabled />
           </v-col>
           <v-col>
             <DatePicker hide_details disabled />
@@ -15,6 +15,26 @@
     </v-card-title>
 
     <v-card-text>
+      <v-dialog width="500" v-model="dialog">
+        <v-card>
+          <v-card-title>
+            <Title title="add currency"> </Title>
+          </v-card-title>
+          <v-card-text>
+            <InputField v-model="currency.name" text="name" holder="name" />
+          </v-card-text>
+          <v-card-actions class="justify-center">
+            <v-btn
+              @click="
+                $save(currency, 'currency');
+                dialog = false;
+              "
+            >
+              {{ $t("add currency") }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <!-- <v-row>
         <v-col class="text-center">
           <h2>أسعار الصرف</h2>
@@ -24,40 +44,73 @@
       <v-row>
         <v-col
           :key="currency.id"
-          v-for="currency in currencies"
+          v-for="currency in stocks"
           cols="12"
-          md="4"
+          md="6"
           sm="12"
         >
           <v-row>
-            <v-col
-              class="text-center align-self-center"
-              style="font-size: 25px"
-              cols="3"
-              >{{ $t(currency.name) }}</v-col
-            >
+            <v-col class="align-self-center" cols="3">
+              <AutoComplete
+                required
+                no_lable
+                v-model="currency.ref_currency_id"
+                :label="$t('from')"
+                hide-details
+                readonly
+                :items="all_currencies"
+              />
+            </v-col>
+            <v-col class="align-self-center" cols="3">
+              <AutoComplete
+                required
+                no_lable
+                :label="$t('to')"
+                hide-details
+                v-model="currency.currency_id"
+                :items="all_currencies"
+              />
+            </v-col>
             <v-col cols="3">
               <label for="">{{ $t("sale") }}</label>
-              <v-text-field v-model.number="currency.values.sale" dense>
-              </v-text-field
+              <v-text-field
+                v-model.number="currency.start_selling_price"
+                dense
+              ></v-text-field
             ></v-col>
             <v-col cols="3">
               <label for="">{{ $t("buy") }}</label>
               <v-text-field
-                v-model.number="currency.values.buy"
+                v-model.number="currency.start_purchasing_price"
                 dense
               ></v-text-field
             ></v-col>
           </v-row>
         </v-col>
+        <v-col cols="3">
+          <v-btn
+            @click="
+              stocks.push({
+                ref_currency_id: 1,
+                date: date,
+                opened_at: date + ' ' + time,
+              })
+            "
+            color="primary"
+            >add stock</v-btn
+          >
+        </v-col>
+        <v-col cols="12" class="align-self-center">
+          <v-btn @click="dialog = true" block depressed>
+            {{ $t("add currency") }}
+          </v-btn>
+        </v-col>
       </v-row>
     </v-card-text>
     <v-divider class="py-5"></v-divider>
+ 
     <v-card-text>
-      
-      {{myname}}
-      <v-btn @click="t">test</v-btn>
-      <v-simple-table  class="my-test">
+      <v-simple-table class="my-test">
         <template v-slot:default>
           <thead>
             <tr>
@@ -75,48 +128,38 @@
               </th>
               <th
                 :key="index"
-                v-for="(header, index) in headers"
+                v-for="(header, index) in all_currencies"
                 class="text-center fs-18"
               >
-                {{ $t(header) }}
+                {{ $t(header.name) }}
               </th>
             </tr>
           </thead>
           <tbody>
             <tr
               :key="from_index"
-              v-for="(from, from_index) in headers"
+              v-for="(from, from_index) in all_currencies"
               class="text-center main-row"
             >
-              <td class="fs-18">{{ $t(from) }}</td>
+              <td class="fs-18">{{ $t(from.name) }}</td>
               <td
                 :class="from == to ? 'bg-disabled' : ''"
                 :key="to_index"
-                v-for="(to, to_index) in headers"
+                v-for="(to, to_index) in all_currencies"
               >
                 <v-row dense>
                   <v-col
                     >{{ $t("sale") }}
                     <br />
                     <span>
-                      {{
-                        $calcSalePrice(
-                          currencies[from_index],
-                          currencies[to_index]
-                        )
-                      }}
+                      {{ $newCalcSalePrice(from, to) }}
                     </span>
                   </v-col>
                   <v-col
                     >{{ $t("buy") }}
                     <br />
                     <span>
-                      {{
-                        $calcBuyPrice(
-                          currencies[from_index],
-                          currencies[to_index]
-                        )
-                      }}
+                      {{ $newCalcBuyPrice(from, to) }}
                     </span>
                   </v-col>
                 </v-row>
@@ -127,15 +170,22 @@
       </v-simple-table>
     </v-card-text>
     <v-card-actions>
-      <v-btn> save </v-btn>
+      <v-btn @click="$save(stocks, 'stock')"> save </v-btn>
     </v-card-actions>
   </Card>
 </template>
 <script>
-import { mapState,mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
+  name: "pricing",
   data() {
     return {
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      dialog: false,
+      currency: {},
+      stocks: [],
       currencies: [
         { id: 1, name: "dollar", values: { sale: 1, buy: 1 } },
         { id: 2, name: "denar", values: { sale: 0.708, buy: 0.706 } },
@@ -146,30 +196,50 @@ export default {
 
       numebr: 0,
       headers: ["dollar", "denar", "shekel", "euro", "pound"],
-      items: [
-        {
-          name: "dollar",
-          calories: 159,
-        },
-        {
-          name: "denar",
-          calories: 237,
-        },
-        {
-          name: "shekel",
-          calories: 262,
-        },
-        {
-          name: "euro",
-          calories: 305,
-        },
-      ],
     };
   },
-  mounted() {
+  created() {
+    this.$store.dispatch("currency/index");
+    this.$store.dispatch("stock/index");
     // setInterval(() => {
     //   this.numebr++;
     // }, 10);
+  },
+  computed: {
+    ...mapState({
+      all_currencies: (state) => JSON.parse(JSON.stringify(state.currency.all)),
+      all_stocks: (state) => JSON.parse(JSON.stringify(state.stock.all)),
+    }),
+  },
+  methods: {
+    // generate_stocks(items) {
+    //   return items.map((currency) => {
+    //     return {
+    //       currency_id: currency.id,
+    //       ref_currency_id: 1,
+    //       start_selling_price: 0,
+    //       final_selling_price: 0,
+    //       start_purchasing_price: 0,
+    //       final_purchasing_price: 0,
+    //       date: this.date,
+    //       opened_at: this.date + " " + this.time,
+    //     };
+    //   });
+    // },
+  },
+  watch: {
+    // all_currencies(val) {
+    //   if (val[0]) {
+    //     if (!this.all_stocks[0]) {
+    //       this.stocks = this.generate_stocks(val);
+    //     }
+    //   }
+    // },
+    all_stocks(val) {
+      if (val) {
+        this.stocks = val;
+      }
+    },
   },
 };
 </script>

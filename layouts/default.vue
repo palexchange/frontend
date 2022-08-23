@@ -69,6 +69,7 @@
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
       <v-container>
+        <Boxes />
         <Breadcrumbs />
         <div style="min-height: 75vh">
           <Nuxt />

@@ -144,6 +144,7 @@ export default {
       action: (state) => state.context.action,
       item: (state) => state.context.item,
       module_name: (state) => state.module_name,
+      redirect: (state) => state.redirect,
       locales: (state) => state.locales,
       user: (state) => state.auth.user,
       overlay: (state) => state.overlay,
@@ -151,6 +152,11 @@ export default {
     }),
   },
   watch: {
+    redirect(val) {
+      if (val) {
+        this.$router.push(val);
+      }
+    },
     action(val) {
       if (this[val]) {
         this[val](this.item);

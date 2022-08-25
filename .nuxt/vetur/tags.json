@@ -8,6 +8,9 @@
   "BaseFilter": {
     "description": "Auto imported from components/BaseFilter.vue"
   },
+  "BeneficiaryAutocomplete": {
+    "description": "Auto imported from components/BeneficiaryAutocomplete.vue"
+  },
   "Boxes": {
     "description": "Auto imported from components/Boxes.vue"
   },

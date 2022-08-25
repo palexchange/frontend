@@ -34,7 +34,7 @@
       <template v-for="key in formatted_numbers" v-slot:[getKey(key)]="scope">
         {{ $inputNumberFormat(scope.item[key]) }}
       </template>
-      <template v-slot:top>
+      <!-- <template v-slot:top>
         <v-row>
           <v-col class="text-left">
             <span>
@@ -48,7 +48,7 @@
                 >
               </v-btn>
             </span>
-            <!-- <v-menu offset-y>
+            <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn color="primary" v-bind="attrs" v-on="on" icon>
                   <v-icon> fas fa-cloud-download-alt </v-icon>
@@ -72,10 +72,10 @@
                   </v-list-item-icon>
                 </v-list-item>
               </v-list>
-            </v-menu> -->
+            </v-menu>
           </v-col>
         </v-row>
-      </template>
+      </template> -->
       <template v-slot:item.actions="{ item }">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -168,7 +168,7 @@ export default {
       this.options.sortDesc = sotingObj.sortDesc;
     }
   },
-  fetch() {
+  created() {
     if (this.module) {
       this.$store.dispatch(`${this.module}/index`, {
         ...this.options,

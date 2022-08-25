@@ -7,22 +7,36 @@
       <v-row>
         <v-col cols="12" sm="4" xs="12">
           <InputField
+            :label="$t('beneficiary name')"
             v-model="form.name"
             holder="beneficiary name"
           ></InputField>
         </v-col>
         <v-col cols="12" sm="4" xs="12">
-          <InputField v-model="form.mobile" holder="mobile"></InputField>
-        </v-col>
-        <v-col cols="12" sm="4" xs="12">
-          <InputField v-model="form.id_no" holder="id number"></InputField>
-        </v-col>
-        <v-col cols="12" sm="4" xs="12">
-          <InputField v-model="form.address" holder="address"></InputField>
+          <InputField
+            :label="$t('mobile')"
+            v-model="form.mobile"
+            holder="mobile"
+          ></InputField>
         </v-col>
         <v-col cols="12" sm="4" xs="12">
           <InputField
-            v-model="form.default_currency"
+            :label="$t('id number')"
+            v-model="form.id_no"
+            holder="id number"
+          ></InputField>
+        </v-col>
+        <v-col cols="12" sm="4" xs="12">
+          <InputField
+            :label="$t('address')"
+            v-model="form.address"
+            holder="address"
+          ></InputField>
+        </v-col>
+        <v-col cols="12" sm="4" xs="12">
+          <InputField
+            :label="$t('default currency')"
+            v-model="form.default_currency_id"
             holder="default currency"
           ></InputField>
         </v-col>
@@ -31,7 +45,7 @@
         <v-col class="text-center">
           <v-btn
             @click="
-              $save(form, 'beneficiary');
+              $save(form, 'party');
               form = {};
               $store.dispatch('closeDialog');
             "

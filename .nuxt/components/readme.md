@@ -9,6 +9,7 @@ You can directly use them in pages and other components without the need to impo
 - `<AddBeneficiary>` | `<add-beneficiary>` (components/AddBeneficiary.vue)
 - `<AutoComplete>` | `<auto-complete>` (components/AutoComplete.vue)
 - `<BaseFilter>` | `<base-filter>` (components/BaseFilter.vue)
+- `<BeneficiaryAutocomplete>` | `<beneficiary-autocomplete>` (components/BeneficiaryAutocomplete.vue)
 - `<Boxes>` | `<boxes>` (components/Boxes.vue)
 - `<Breadcrumbs>` | `<breadcrumbs>` (components/Breadcrumbs.vue)
 - `<Card>` | `<card>` (components/Card.vue)

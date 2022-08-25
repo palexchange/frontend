@@ -42,10 +42,23 @@ export default (context) => {
     headers: ['id', 'user.name', 'total', 'created_at', 'status', 'notes'],
   },
   {
-    child: 'beneficiary',
+    child: 'party',
     parent: '',
     load_after_store: true,
     headers: ['id', 'name', 'id_no', 'created_at', 'address', 'default_currency', 'mobile'],
+  },
+  {
+    child: 'transfer',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'type', 'issued_at', 'status',  'sender_id_no', 'sender_phone', 'sender_address'],
+    functions: [{
+      key: 'type',
+      f: v => {
+        return v == 1 ? 'حوالة صادرة' : 'حوالة واردة'
+      }
+    }
+    ]
   },
   {
     child: 'user',

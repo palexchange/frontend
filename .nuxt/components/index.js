@@ -1,6 +1,7 @@
 export { default as AddBeneficiary } from '../..\\components\\AddBeneficiary.vue'
 export { default as AutoComplete } from '../..\\components\\AutoComplete.vue'
 export { default as BaseFilter } from '../..\\components\\BaseFilter.vue'
+export { default as BeneficiaryAutocomplete } from '../..\\components\\BeneficiaryAutocomplete.vue'
 export { default as Boxes } from '../..\\components\\Boxes.vue'
 export { default as Breadcrumbs } from '../..\\components\\Breadcrumbs.vue'
 export { default as Card } from '../..\\components\\Card.vue'

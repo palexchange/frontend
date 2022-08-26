@@ -203,7 +203,6 @@ export default (context, inject) => {
 
   });
   inject('newCalcSalePrice', (from, to) => {
-    console.log("NEw ");
     let from_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == from.id && v.ref_currency_id == 1
     });

@@ -16,12 +16,12 @@
                     text="beneficiary"
                     holder="beneficiary"
                     required
-                    v-model="item.beneficairy"
+                    v-model="exchange.beneficairy"
                   />
                 </v-col>
                 <v-col cols="12" xs="12" sm="6" lg="6">
                   <DatePicker
-                    v-model="item.date"
+                    v-model="exchange.date"
                     required
                     text="transfer date"
                     holder="test"
@@ -38,7 +38,7 @@
               justify="left"
             >
               {{ $t("process id") }}:<span class="show-text mr-4"
-                >{{ item.processNo }}#</span
+                >{{ exchange.processNo }}#</span
               >
             </v-col>
           </v-row>
@@ -94,13 +94,13 @@
               text="amount to exchange"
               holder="amount to exchange"
               required
-              v-model.number="item.amount"
+              v-model.number="exchange.amount"
             />
           </v-col>
           <v-col cols="12" xs="12" sm="4" md="3" class="ml-40">
             <AutoComplete
               :items="all_currencies"
-              v-model="item.currency"
+              v-model="exchange.currency"
               text="currency"
               return-object
               holder="currency"
@@ -131,7 +131,7 @@
             <span>
               {{ $t("exchange profit") }}:
               <span class="text-h6">{{ exchange_profit }}</span
-              >$
+              >
             </span>
           </v-col>
         </v-row>
@@ -226,7 +226,7 @@
                 />
               </td>
               <td>
-                <v-btn class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
+                <v-btn @click="setRow(i, currency)" class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
               </td>
               <td>
                 <v-btn
@@ -261,7 +261,7 @@
 
     <v-row justify="center" class="mt-5 mb-5">
       <v-col class="d-flex justify-center">
-        <v-btn height="50" class="text-center" color="primary">
+        <v-btn @click="save(exchange,'exchange')" height="50" class="text-center" color="primary">
           {{ $t("execute process") }}
           <v-icon dence>fas fa-solid fa-check</v-icon>
         </v-btn>
@@ -315,7 +315,10 @@ export default {
         reminder: null,
       },
       items: [],
-      stocks:[],
+      stocks: [],
+      exchange: {
+        currency: {},
+      },
     };
   },
   computed: {
@@ -329,18 +332,25 @@ export default {
         profit = 0.0;
       this.items.forEach((e, index) => {
         amount = parseFloat(e.exchanged_amount || 0);
-        sale_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 1);
+        buy_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 1);
 
         // console.log(this.stocks[index]);
-        buy_factor = parseFloat(this.$newCalcBuyPrice(this.item.currency,this.all_currencies[index]) || 1);
-        profit += amount * (sale_factor - buy_factor);
+        sale_factor = parseFloat(
+          this.$newCalcBuyPrice(
+            this.exchange.currency,
+            this.all_currencies[index]
+          ) || 1
+        );
+
+        console.log("Buy: ", buy_factor, "\nSale: ", sale_factor);
+        profit += (amount / buy_factor) * (sale_factor - buy_factor);
       });
-      return profit;
+      return profit.toFixed(7);
     },
   },
   methods: {
     setRow(index, item) {
-      let amount = this.item.amount || 0;
+      let amount = this.exchange.amount || 0;
       let reminder = parseFloat(this.item.reminder || 0);
       let item_ex_amount = parseFloat(this.items[index].exchanged_amount || 0);
       let item_ex_factor = parseFloat(this.items[index].exchanged_vactor || 1);
@@ -360,13 +370,13 @@ export default {
 
       console.log(index);
       console.log(this.$all_currencies);
-      let from = this.item.currency;
+      let from = this.exchange.currency;
       let to = item;
 
-      let temp = this.$newCalcSalePrice(from, to);
+      let temp = parseFloat(this.$newCalcSalePrice(from, to));
       console.log(temp, from, to, amount);
-      this.items[index].exchanged_vactor = temp;
-      this.items[index].exchanged_amount = amount * temp;
+      this.items[index].exchanged_vactor = temp.toFixed(7);
+      this.items[index].exchanged_amount = (amount * temp).toFixed(7);
       this.items[index].modified_factor = null;
       this.number = this.number + 1;
     },
@@ -377,7 +387,7 @@ export default {
     changed_ex_amount(element, index, new_value) {
       element.exchanged_amount = new_value;
 
-      let amount = this.item.amount || 0;
+      let amount = this.exchange.amount || 0;
 
       let ex_amount = element.exchanged_amount || 0;
 
@@ -390,7 +400,7 @@ export default {
         return false;
       }
 
-      this.item.reminder = amount - sum;
+      this.item.reminder = (amount - sum).toFixed(7);
     },
     changed_ex_factor(element, event) {
       let new_value = event.target.value;
@@ -398,8 +408,8 @@ export default {
       // element.exchanged_vactor = new_value;
       let old_amount = element.exchanged_amount / parseFloat(old_value);
       let new_ex_amount = old_amount * new_value;
-      element.exchanged_vactor = new_value;
-      element.exchanged_amount = new_ex_amount;
+      element.exchanged_vactor = new_value.toFixed(7);
+      element.exchanged_amount = new_ex_amount.toFixed(7);
       console.log(element, old_value, new_value);
       console.log(new_value, new_ex_amount);
     },
@@ -412,7 +422,7 @@ export default {
             ? n.modified_factor
             : parseFloat(n.exchanged_vactor || 1);
         return e + parseFloat(n.exchanged_amount || 0) / factor;
-      }, 0);
+      }, 0).toFixed(7);
     },
     round_amount(element, index) {
       let ex_amount = element.exchanged_amount || 0;
@@ -420,8 +430,8 @@ export default {
       let new_amount = Math.round(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor;
-      element.exchanged_amount = new_amount;
+      element.modified_factor = new_factor.toFixed(7);
+      element.exchanged_amount = new_amount.toFixed(7);
       console.log(element);
     },
     delete_factors(element, index) {
@@ -430,8 +440,8 @@ export default {
       let new_amount = Math.floor(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor;
-      element.exchanged_amount = new_amount;
+      element.modified_factor = new_factor.toFixed(7);
+      element.exchanged_amount = new_amount.toFixed(7);
       console.log(element);
     },
     complete_factor(element, index) {
@@ -440,8 +450,8 @@ export default {
       let new_amount = Math.ceil(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor;
-      element.exchanged_amount = new_amount;
+      element.modified_factor = new_factor.toFixed(7);
+      element.exchanged_amount = new_amount.toFixed(7);
       // element.modified_factor = 8;
     },
   },

@@ -3,210 +3,180 @@
     "name": "dashboard",
     "path": "/dashboard",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\index.vue",
-    "chunkName": "pages/dashboard/index",
-    "_name": "_4c3e5e5c"
+    "chunkName": "pages/dashboard/index"
   },
   {
     "name": "inspire",
     "path": "/inspire",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\inspire.vue",
-    "chunkName": "pages/inspire",
-    "_name": "_5f3099a8"
+    "chunkName": "pages/inspire"
   },
   {
     "name": "auth-login",
     "path": "/auth/login",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\auth\\\\login.vue",
-    "chunkName": "pages/auth/login",
-    "_name": "_38ac5dda"
+    "chunkName": "pages/auth/login"
   },
   {
     "name": "auth-register",
     "path": "/auth/register",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\auth\\\\register.vue",
-    "chunkName": "pages/auth/register",
-    "_name": "_2d124ae9"
+    "chunkName": "pages/auth/register"
   },
   {
     "name": "dashboard-beneficiaries",
     "path": "/dashboard/beneficiaries",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\index.vue",
-    "chunkName": "pages/dashboard/beneficiaries/index",
-    "_name": "_489562d6"
+    "chunkName": "pages/dashboard/beneficiaries/index"
   },
   {
     "name": "dashboard-entries",
     "path": "/dashboard/entries",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\index.vue",
-    "chunkName": "pages/dashboard/entries/index",
-    "_name": "_e73fc6b0"
+    "chunkName": "pages/dashboard/entries/index"
   },
   {
     "name": "dashboard-exchange",
     "path": "/dashboard/exchange",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\index.vue",
-    "chunkName": "pages/dashboard/exchange/index",
-    "_name": "_2bc1ca59"
+    "chunkName": "pages/dashboard/exchange/index"
   },
   {
     "name": "dashboard-inputs",
     "path": "/dashboard/inputs",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\index.vue",
-    "chunkName": "pages/dashboard/inputs/index",
-    "_name": "_ca0b195a"
+    "chunkName": "pages/dashboard/inputs/index"
   },
   {
     "name": "dashboard-outputs",
     "path": "/dashboard/outputs",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\index.vue",
-    "chunkName": "pages/dashboard/outputs/index",
-    "_name": "_4b140466"
+    "chunkName": "pages/dashboard/outputs/index"
   },
   {
     "name": "dashboard-reports",
     "path": "/dashboard/reports",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\index.vue",
-    "chunkName": "pages/dashboard/reports/index",
-    "_name": "_086f8c19"
+    "chunkName": "pages/dashboard/reports/index"
   },
   {
     "name": "dashboard-settings",
     "path": "/dashboard/settings",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\index.vue",
-    "chunkName": "pages/dashboard/settings/index",
-    "_name": "_0620474e"
+    "chunkName": "pages/dashboard/settings/index"
   },
   {
     "name": "dashboard-transfers",
     "path": "/dashboard/transfers",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\index.vue",
-    "chunkName": "pages/dashboard/transfers/index",
-    "_name": "_21228e60"
+    "chunkName": "pages/dashboard/transfers/index"
   },
   {
     "name": "dashboard-beneficiaries-form",
     "path": "/dashboard/beneficiaries/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/beneficiaries/form/index",
-    "_name": "_48b83791"
+    "chunkName": "pages/dashboard/beneficiaries/form/index"
   },
   {
     "name": "dashboard-entries-form",
     "path": "/dashboard/entries/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/entries/form/index",
-    "_name": "_fab22938"
+    "chunkName": "pages/dashboard/entries/form/index"
   },
   {
     "name": "dashboard-exchange-form",
     "path": "/dashboard/exchange/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/exchange/form/index",
-    "_name": "_7e81d055"
+    "chunkName": "pages/dashboard/exchange/form/index"
   },
   {
     "name": "dashboard-inputs-form",
     "path": "/dashboard/inputs/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/inputs/form/index",
-    "_name": "_637255cf"
+    "chunkName": "pages/dashboard/inputs/form/index"
   },
   {
     "name": "dashboard-outputs-form",
     "path": "/dashboard/outputs/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/outputs/form/index",
-    "_name": "_31718ca2"
+    "chunkName": "pages/dashboard/outputs/form/index"
   },
   {
     "name": "dashboard-reports-form",
     "path": "/dashboard/reports/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/reports/form/index",
-    "_name": "_b6717bd6"
+    "chunkName": "pages/dashboard/reports/form/index"
   },
   {
     "name": "dashboard-settings-form",
     "path": "/dashboard/settings/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/settings/form/index",
-    "_name": "_655a6255"
+    "chunkName": "pages/dashboard/settings/form/index"
   },
   {
     "name": "dashboard-settings-pricing",
     "path": "/dashboard/settings/pricing",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\pricing.vue",
-    "chunkName": "pages/dashboard/settings/pricing",
-    "_name": "_67ac0ce6"
+    "chunkName": "pages/dashboard/settings/pricing"
   },
   {
     "name": "dashboard-beneficiaries-form-id",
     "path": "/dashboard/beneficiaries/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/beneficiaries/form/_id",
-    "_name": "_253e2b8e"
+    "chunkName": "pages/dashboard/beneficiaries/form/_id"
   },
   {
     "name": "dashboard-entries-form-id",
     "path": "/dashboard/entries/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/entries/form/_id",
-    "_name": "_ddff1268"
+    "chunkName": "pages/dashboard/entries/form/_id"
   },
   {
     "name": "dashboard-exchange-form-id",
     "path": "/dashboard/exchange/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/exchange/form/_id",
-    "_name": "_2781e3fd"
+    "chunkName": "pages/dashboard/exchange/form/_id"
   },
   {
     "name": "dashboard-inputs-form-id",
     "path": "/dashboard/inputs/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/inputs/form/_id",
-    "_name": "_f02d0012"
+    "chunkName": "pages/dashboard/inputs/form/_id"
   },
   {
     "name": "dashboard-outputs-form-id",
     "path": "/dashboard/outputs/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/outputs/form/_id",
-    "_name": "_7fde4f8a"
+    "chunkName": "pages/dashboard/outputs/form/_id"
   },
   {
     "name": "dashboard-reports-form-id",
     "path": "/dashboard/reports/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/reports/form/_id",
-    "_name": "_e00e7486"
+    "chunkName": "pages/dashboard/reports/form/_id"
   },
   {
     "name": "dashboard-settings-form-id",
     "path": "/dashboard/settings/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/settings/form/_id",
-    "_name": "_a1521406"
+    "chunkName": "pages/dashboard/settings/form/_id"
   },
   {
     "name": "dashboard-transfers-incoming-id",
     "path": "/dashboard/transfers/incoming/:id?",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\_id.vue",
-    "chunkName": "pages/dashboard/transfers/incoming/_id",
-    "_name": "_8503425c"
+    "chunkName": "pages/dashboard/transfers/incoming/_id"
   },
   {
     "name": "dashboard-transfers-outcoming-id",
     "path": "/dashboard/transfers/outcoming/:id?",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\outcoming\\\\_id.vue",
-    "chunkName": "pages/dashboard/transfers/outcoming/_id",
-    "_name": "_323b717d"
+    "chunkName": "pages/dashboard/transfers/outcoming/_id"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\index.vue",
-    "chunkName": "pages/index",
-    "_name": "_b71bd8b8"
+    "chunkName": "pages/index"
   }
 ]

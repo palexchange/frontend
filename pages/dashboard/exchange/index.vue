@@ -16,6 +16,7 @@
                     text="beneficiary"
                     holder="beneficiary"
                     required
+                    v-model="item.beneficairy"
                   />
                 </v-col>
                 <v-col cols="12" xs="12" sm="6" lg="6">
@@ -36,7 +37,9 @@
               class="text-h5 mt-5 text-left"
               justify="left"
             >
-              {{ $t("process id") }}:<span class="show-text mr-4">1616#</span>
+              {{ $t("process id") }}:<span class="show-text mr-4"
+                >{{ item.processNo }}#</span
+              >
             </v-col>
           </v-row>
         </Card>
@@ -50,7 +53,9 @@
             <v-col cols="6" class="mr-5">
               {{ $t("user") }}
             </v-col>
-            <v-col cols="4"> <span class="show-text">1616#</span> </v-col>
+            <v-col cols="4">
+              <span class="show-text">{{ item.user }}#</span>
+            </v-col>
           </v-row>
           <v-row class="text-right text-h6 mt-5 mr-5">
             <v-col cols="1">
@@ -60,7 +65,9 @@
               {{ $t("today transactions profit") }}
               <!--<span class="show-text">1616#</span> -->
             </v-col>
-            <v-col cols="4"> <span class="show-text">1616#</span> </v-col>
+            <v-col cols="4">
+              <span class="show-text">{{ item.today_profit }}#</span>
+            </v-col>
           </v-row>
           <v-row class="text-right text-h6 mt-5 mr-5 mb-5">
             <v-col cols="1">
@@ -70,7 +77,9 @@
               {{ $t("today transactions count") }}
               <!--<span class="show-text">1616#</span> -->
             </v-col>
-            <v-col cols="4"> <span class="show-text">1616#</span> </v-col>
+            <v-col cols="4">
+              <span class="show-text">{{ item.number_of_process }}#</span>
+            </v-col>
           </v-row>
           <!-- </v-row> -->
         </Card>
@@ -85,12 +94,13 @@
               text="amount to exchange"
               holder="amount to exchange"
               required
+              v-model.number="item.amount"
             />
           </v-col>
           <v-col cols="12" xs="12" sm="4" md="3" class="ml-40">
             <AutoComplete
-              :items="currensies"
-              v-model="selected"
+              :items="all_currencies"
+              v-model="item.currency"
               text="currency"
               return-object
               holder="currency"
@@ -108,7 +118,7 @@
             lg="1"
             class="text-center column-text font-weight-black py-2"
           >
-            <span> {{ $t("reminder") }}:0 </span>
+            <span> {{ $t("reminder") }}:{{ item.reminder }} </span>
           </v-col>
           <v-col
             cols="12"
@@ -119,7 +129,9 @@
             class="text-h6 d-flex justify-end"
           >
             <span>
-              {{ $t("exchange profit") }}: <span class="text-h6">0.05</span>$
+              {{ $t("exchange profit") }}:
+              <span class="text-h6">{{ item.exchange_profit }}</span
+              >$
             </span>
           </v-col>
         </v-row>
@@ -156,7 +168,11 @@
             </tr>
           </thead>
           <tbody :key="number">
-            <tr :key="i" v-for="(currency, i) in currensies" class="text-right">
+            <tr
+              :key="i"
+              v-for="(currency, i) in all_currencies"
+              class="text-right"
+            >
               <td>
                 <v-btn
                   @click="setRow(i, currency)"
@@ -169,7 +185,12 @@
               <td>
                 <v-text-field
                   hide-details
-                  :value="items[i].exchanged_amount"
+                  v-model="items[i].exchanged_amount"
+                  @input="
+                    (v) => {
+                      changed_ex_amount(items[i], i, v);
+                    }
+                  "
                   class="mt-4"
                   min="0"
                   color="#FF7171"
@@ -180,8 +201,9 @@
               </td>
               <td>
                 <v-text-field
-                  v-model="items[i].exchanged_vactor"
+                  :value="items[i].exchanged_vactor"
                   hide-details
+                  @blur="changed_ex_factor(items[i], $event)"
                   class="mt-4"
                   min="0"
                   color="#FF7171"
@@ -192,33 +214,43 @@
               </td>
               <td>
                 <v-text-field
+                  v-model="items[i].modified_factor"
                   hide-details
                   class="mt-4"
                   min="0"
-                  background-color="#e7e6e6"
                   style="border-radius: 7px !important"
                   dense
                   outlined
-                  disabled
+                  color="red"
+                  readonly
                 />
               </td>
               <td>
                 <v-btn class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
               </td>
               <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("amount rounding")
-                }}</v-btn>
+                <v-btn
+                  @click="round_amount(items[i], i)"
+                  class="mt-4"
+                  color="primary"
+                  >{{ $t("amount rounding") }}</v-btn
+                >
               </td>
               <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("delete fraction")
-                }}</v-btn>
+                <v-btn
+                  @click="delete_factors(items[i], i)"
+                  class="mt-4"
+                  color="primary"
+                  >{{ $t("delete fraction") }}</v-btn
+                >
               </td>
               <td>
-                <v-btn class="mt-4" color="primary">{{
-                  $t("complete fraction")
-                }}</v-btn>
+                <v-btn
+                  @click="complete_factor(items[i], i)"
+                  class="mt-4"
+                  color="primary"
+                  >{{ $t("complete fraction") }}</v-btn
+                >
               </td>
             </tr>
             <!-- HI KILLUA  -->
@@ -244,6 +276,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "extchange",
   data() {
@@ -277,22 +310,151 @@ export default {
           values: { sale: 15, buy: 14 },
         },
       ],
-      item: {},
+      item: {
+        currency: {},
+        reminder: null,
+      },
       items: [{}, {}, {}, {}, {}, {}],
     };
   },
+  computed: {
+    ...mapState({
+      all_currencies: (state) => state.currency.all,
+    }),
+  },
   methods: {
     setRow(index, item) {
+      let amount = this.item.amount || 0;
+      let reminder = parseFloat(this.item.reminder || 0);
+      let item_ex_amount = parseFloat(this.items[index].exchanged_amount || 0);
+      let item_ex_factor = parseFloat(this.items[index].exchanged_vactor || 1);
+      if (reminder > 0) {
+        amount = parseFloat(this.item.reminder);
+        if (item_ex_amount >= 0) {
+          amount += item_ex_amount / item_ex_factor;
+        }
+        this.item.reminder = 0;
+      } else {
+        this.items = this.all_currencies.map((item) => {
+          return { modified_factor: null, exchanged_amount: null };
+        });
+      }
+
       console.log(index);
+      console.log(this.$all_all_currencies);
+      let from = this.item.currency;
+      let to = item;
+
+      let temp = this.$newCalcSalePrice(from, to);
+      console.log(temp, from, to, amount);
       this.items[index] = {
-        exchanged_vactor: item.values.sale,
-        exchanged_amount: this.calc(item.values.sale),
+        exchanged_vactor: temp,
+        exchanged_amount: amount * temp,
       };
       this.number = this.number + 1;
     },
     calc(sale) {
       // let sale = this.selected.values.sale;
       return (100 / 0.29).toFixed(2);
+    },
+    changed_ex_amount(element, index, new_value) {
+      element.exchanged_amount = new_value;
+      console.log("0");
+      let amount = this.item.amount || 0;
+      console.log("1");
+      let ex_amount = element.exchanged_amount || 0;
+      console.log("2");
+      let ex_vector = element.exchanged_vactor || 1;
+      console.log("3");
+      console.log(amount, ex_amount, ex_vector);
+      let sum = this.sum_fields();
+      console.log("4");
+      if (sum > amount) {
+        this.item.reminder = 0;
+        return false;
+      }
+
+      this.item.reminder = amount - sum;
+    },
+    changed_ex_factor(element, event) {
+      let new_value = event.target.value;
+      let old_value = element.exchanged_vactor;
+      // element.exchanged_vactor = new_value;
+      let old_amount = element.exchanged_amount / element.exchanged_vactor;
+      let new_ex_amount = old_amount * new_value;
+      element.exchanged_vactor = new_value;
+      element.exchanged_amount = new_ex_amount;
+      console.log(element, old_amount, new_ex_amount);
+    },
+    sum_fields() {
+      console.log("Enterd Sum: >>>");
+      if (!this.items[0]) return 0;
+      return this.items.reduce((e, n) => {
+        let factor =
+          parseFloat(n.modified_factor || 0) > 0
+            ? n.modified_factor
+            : parseFloat(n.exchanged_vactor || 1);
+        return e + parseFloat(n.exchanged_amount || 0) / factor;
+      }, 0);
+    },
+    round_amount(element, index) {
+      let ex_amount = element.exchanged_amount || 0;
+      let ex_factor = element.exchanged_vactor || 1;
+      let new_amount = Math.round(parseFloat(ex_amount));
+      let amount = ex_amount / ex_factor;
+      let new_factor = new_amount / amount;
+      element.modified_factor = new_factor;
+      element.exchanged_amount = new_amount;
+      console.log(element);
+    },
+    delete_factors(element, index) {
+      let ex_amount = element.exchanged_amount || 0;
+      let ex_factor = element.exchanged_vactor || 1;
+      let new_amount = Math.floor(parseFloat(ex_amount));
+      let amount = ex_amount / ex_factor;
+      let new_factor = new_amount / amount;
+      element.modified_factor = new_factor;
+      element.exchanged_amount = new_amount;
+      console.log(element);
+    },
+    complete_factor(element, index) {
+      console.log("1");
+      let ex_amount = element.exchanged_amount || 0;
+      console.log("2");
+      let ex_factor = element.exchanged_vactor || 1;
+      console.log("3");
+      let new_amount = Math.ceil(parseFloat(ex_amount));
+      console.log("4");
+      let amount = ex_amount / ex_factor;
+      console.log("5");
+      let new_factor = new_amount / amount;
+      console.log("6");
+      element.modified_factor = new_factor;
+      console.log("7");
+      element.exchanged_amount = new_amount;
+      console.log("8");
+      console.log(element);
+    },
+  },
+  created() {
+    this.$store.dispatch("currency/index");
+    this.$store.dispatch("stock/index");
+
+    for (let e of this.items) {
+      e.modified_factor = null;
+      e.exchanged_amount = null;
+      e.exchanged_vactor = null;
+    }
+  },
+  watch: {
+    all_currencies(val) {
+      if (val[0])
+        this.items = val.map((item) => {
+          return {
+            modified_factor: null,
+            exchanged_amount: null,
+          };
+        });
     },
   },
 };

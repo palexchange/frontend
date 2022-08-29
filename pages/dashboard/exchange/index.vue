@@ -15,8 +15,9 @@
                   <AutoComplete
                     text="beneficiary"
                     holder="beneficiary"
+                    :items="all_parties"
                     required
-                    v-model="exchange.beneficairy"
+                    v-model="item.beneficairy"
                   />
                 </v-col>
                 <v-col cols="12" xs="12" sm="6" lg="6">
@@ -100,7 +101,7 @@
           <v-col cols="12" xs="12" sm="4" md="3" class="ml-40">
             <AutoComplete
               :items="all_currencies"
-              v-model="exchange.currency"
+              v-model="item.currency"
               text="currency"
               return-object
               holder="currency"
@@ -130,8 +131,7 @@
           >
             <span>
               {{ $t("exchange profit") }}:
-              <span class="text-h6">{{ exchange_profit }}</span
-              >
+              <span class="text-h6">{{ exchange_profit }}</span>
             </span>
           </v-col>
         </v-row>
@@ -226,7 +226,12 @@
                 />
               </td>
               <td>
-                <v-btn @click="setRow(i, currency)" class="mt-4" color="primary">{{ $t("reminder") }}</v-btn>
+                <v-btn
+                  @click="setRow(i, currency)"
+                  class="mt-4"
+                  color="primary"
+                  >{{ $t("reminder") }}</v-btn
+                >
               </td>
               <td>
                 <v-btn
@@ -261,7 +266,7 @@
 
     <v-row justify="center" class="mt-5 mb-5">
       <v-col class="d-flex justify-center">
-        <v-btn @click="save(exchange,'exchange')" height="50" class="text-center" color="primary">
+        <v-btn @click="save" height="50" class="text-center" color="primary">
           {{ $t("execute process") }}
           <v-icon dence>fas fa-solid fa-check</v-icon>
         </v-btn>
@@ -316,14 +321,13 @@ export default {
       },
       items: [],
       stocks: [],
-      exchange: {
-        currency: {},
-      },
+      exchange: {},
     };
   },
   computed: {
     ...mapState({
       all_currencies: (state) => state.currency.all,
+      all_parties: (state) => state.party.all,
     }),
     exchange_profit() {
       let amount,
@@ -337,7 +341,7 @@ export default {
         // console.log(this.stocks[index]);
         sale_factor = parseFloat(
           this.$newCalcBuyPrice(
-            this.exchange.currency,
+            this.item.currency,
             this.all_currencies[index]
           ) || 1
         );
@@ -370,7 +374,7 @@ export default {
 
       console.log(index);
       console.log(this.$all_currencies);
-      let from = this.exchange.currency;
+      let from = this.item.currency;
       let to = item;
 
       let temp = parseFloat(this.$newCalcSalePrice(from, to));
@@ -403,8 +407,8 @@ export default {
       this.item.reminder = (amount - sum).toFixed(7);
     },
     changed_ex_factor(element, event) {
-      let new_value = event.target.value;
-      let old_value = element.exchanged_vactor;
+      let new_value = parseFloat(event.target.value);
+      let old_value = parseFloat(element.exchanged_vactor);
       // element.exchanged_vactor = new_value;
       let old_amount = element.exchanged_amount / parseFloat(old_value);
       let new_ex_amount = old_amount * new_value;
@@ -416,13 +420,15 @@ export default {
     sum_fields() {
       console.log("Enterd Sum: >>>");
       if (!this.items[0]) return 0;
-      return this.items.reduce((e, n) => {
-        let factor =
-          parseFloat(n.modified_factor || 0) > 0
-            ? n.modified_factor
-            : parseFloat(n.exchanged_vactor || 1);
-        return e + parseFloat(n.exchanged_amount || 0) / factor;
-      }, 0).toFixed(7);
+      return this.items
+        .reduce((e, n) => {
+          let factor =
+            parseFloat(n.modified_factor || 0) > 0
+              ? n.modified_factor
+              : parseFloat(n.exchanged_vactor || 1);
+          return e + parseFloat(n.exchanged_amount || 0) / factor;
+        }, 0)
+        .toFixed(7);
     },
     round_amount(element, index) {
       let ex_amount = element.exchanged_amount || 0;
@@ -454,9 +460,32 @@ export default {
       element.exchanged_amount = new_amount.toFixed(7);
       // element.modified_factor = 8;
     },
+    async save() {
+      this.exchange.currency_id = this.item.currency.id;
+      this.exchange.beneficiary_id = this.item.beneficairy;
+      let ex_id;
+      let response = await this.$store.dispatch("exchange/store",this.exchange ) 
+      let details = {
+        exchange_id: response.id,
+      }
+      console.log("rEEEE", details);
+      for(let i = 0; i < this.items.length; i++) {
+        let e = this.items[i];
+        let c = this.all_currencies[i];
+        if(e.modified_factor || e.exchanged_vactor)
+            details.factor = parseFloat(e.modified_factor || e.exchanged_vactor);
+        else continue;
+        details.currency_id = c.id,
+        details.amount_after = e.exchanged_amount;
+        details.amount = e.exchanged_amount / details.factor,
+
+        this.$save(details, "exchange_detail");
+      }
+    },
   },
   mounted() {
-    if (this.all_currencies[0]) {
+    this.$store.dispatch("currency/index");
+    if (this.all_currencies[0] && this.items.length == 0) {
       this.all_currencies.map((item) => {
         this.items.push({
           modified_factor: null,
@@ -467,12 +496,17 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("currency/index");
+    
     this.$store.dispatch("stock/index");
-    for (let e of this.items) {
-      e.modified_factor = null;
-      e.exchanged_amount = null;
-      e.exchanged_vactor = null;
+    this.$store.dispatch("party/index");
+    if (this.all_currencies[0] && this.items.length == 0) {
+      this.all_currencies.map((item) => {
+        this.items.push({
+          modified_factor: null,
+          exchanged_vactor: null,
+          exchanged_amount: null,
+        });
+      });
     }
   },
   watch: {

@@ -12,7 +12,7 @@
       </v-btn>
     </CrudHeader>
 
-    <DataTable module="beneficiary" />
+    <DataTable module="transfers" />
 
     <Card class="pa-5">
       <v-row>

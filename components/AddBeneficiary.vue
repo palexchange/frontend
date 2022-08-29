@@ -31,7 +31,9 @@
         <v-col class="text-center">
           <v-btn
             @click="
-              $save(form, 'beneficiary');
+            console.log('gvf',form);
+            
+              $save(form, 'party');
               form = {};
               $store.dispatch('closeDialog');
             "

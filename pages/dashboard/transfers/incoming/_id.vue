@@ -260,13 +260,15 @@
           <v-col>
             <AutoComplete
               @change="
-                (v) =>
+                (v) => {
                   signCurrency(
                     'exchange_rate_to_reference_currency',
                     'sale',
                     this.currencies[0],
                     v
-                  )
+                  );
+                  item.received_currency_id = v.id;
+                }
               "
               v-model="item.received_currency"
               return-object
@@ -307,20 +309,23 @@
               holder="beneficiary"
               text="beneficiary"
               required
+              v-model="item.office_id"
             />
           </v-col>
 
           <v-col>
             <AutoComplete
-              v-model="item.officeCurrencyAuto"
+              v-model="item.office_currency"
               @change="
-                (v) =>
+                (v) => {
                   signCurrency(
                     'exchange_rate_to_office_currency',
                     'buy',
                     item.received_currency,
                     v
-                  )
+                  );
+                  item.office_currency_id = v.id;
+                }
               "
               return-object
               :items="currencies"
@@ -349,7 +354,7 @@
           </v-col>
           <v-col>
             <label class="required form-label">
-              >{{ item.office_commision_type == 1 ? "%" : "" }}
+              {{ item.office_commision_type == 1 ? "%" : "" }}
               عمولة المكتب
             </label>
             <v-text-field
@@ -496,6 +501,7 @@ export default {
       let ratio = this.item.exchange_rate_to_reference_currency || null;
       if (ratio == null) return;
       let amountToDelv = recvAmountInUSD * ratio;
+      this.item.received_amount = amountToDelv;
       return amountToDelv;
     },
     officeAmount() {
@@ -516,9 +522,9 @@ export default {
       return tempVar <= 0 ? null : tempVar;
     },
     officeProfitComp() {
-      let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
+      let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
       let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
-      console.table({ fromInDoller, finalOfficeAmount });
+
       let recvCurr = this.item.office_currency || null;
       if (recvCurr == undefined) return;
       let convParam = this.$newCalcBuyPrice(recvCurr, this.currencies[0]);
@@ -532,6 +538,10 @@ export default {
     }),
   },
   methods: {
+    confirmProcess() {
+      this.$save(this.item, "transfer", null, "/dashboard/transfers");
+      // console.log(this.item);
+    },
     setReceiverDate(item) {
       this.item.reciver_id_no = item.id_no;
       this.item.reciver_phone = item.mobile;

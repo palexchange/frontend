@@ -51,7 +51,7 @@ export default (context) => {
     child: 'transfer',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'type', 'issued_at', 'status',  'sender_id_no', 'sender_phone', 'sender_address'],
+    headers: ['id', 'type', 'issued_at', 'status', 'sender_id_no', 'sender_phone', 'sender_address'],
     functions: [{
       key: 'type',
       f: v => {
@@ -82,6 +82,21 @@ export default (context) => {
     child: 'report',
     parent: '',
     has_headers: true
+
+  },
+  {
+    child: 'exchange_detail',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'order_id', 'item.name', 'qty', 'item_price']
+
+
+  },
+  {
+    child: 'exchange',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'order_id', 'item.name', 'qty', 'item_price']
   },
   ];
   return resources;

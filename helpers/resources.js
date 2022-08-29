@@ -45,7 +45,19 @@ export default (context) => {
     child: 'party',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name', 'id_no', 'created_at', 'address', 'default_currency', 'mobile'],
+    headers: ['id', 'name', 'id_no', 'created_at', 'address', 'default_currency', 'phone'],
+  },
+  {
+    child: 'exchange',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'date', 'amount', 'currency_id', 'beneficiary_id', 'number'],
+  },
+  {
+    child: 'exchange_detail',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'exhange_id', 'amount', 'currency_id', 'factor', 'amount_after'],
   },
   {
     child: 'transfer',
@@ -79,25 +91,24 @@ export default (context) => {
     headers: ['id', 'order_id', 'item.name', 'qty', 'item_price']
   },
   {
+    child: 'country',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'name', 'iso3', 'currency_id']
+  },
+  {
+    child: 'city',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'name']
+  },
+  {
     child: 'report',
     parent: '',
     has_headers: true
 
   },
-  {
-    child: 'exchange_detail',
-    parent: '',
-    load_after_store: true,
-    headers: ['id', 'order_id', 'item.name', 'qty', 'item_price']
 
-
-  },
-  {
-    child: 'exchange',
-    parent: '',
-    load_after_store: true,
-    headers: ['id', 'order_id', 'item.name', 'qty', 'item_price']
-  },
   ];
   return resources;
 }

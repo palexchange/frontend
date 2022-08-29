@@ -464,25 +464,22 @@ export default {
       this.exchange.currency_id = this.item.currency.id;
       this.exchange.beneficiary_id = this.item.beneficairy;
       let ex_id;
-      let response = await this.$store.dispatch(
-        "exchange/store",
-        this.exchange
-      );
+      let response = await this.$store.dispatch("exchange/store",this.exchange ) 
       let details = {
-        // exchange_id: response.id,
-      };
-      details.exchange_id = response.id;
+        exchange_id: response.id,
+      }
       console.log("rEEEE", details);
-      for (let i = 0; i < this.items.length; i++) {
+      for(let i = 0; i < this.items.length; i++) {
         let e = this.items[i];
         let c = this.all_currencies[i];
-        if (e.modified_factor || e.exchanged_vactor)
-          details.factor = parseFloat(e.modified_factor || e.exchanged_vactor);
+        if(e.modified_factor || e.exchanged_vactor)
+            details.factor = parseFloat(e.modified_factor || e.exchanged_vactor);
         else continue;
-        (details.currency_id = c.id),
-          (details.amount_after = e.exchanged_amount);
-        (details.amount = e.exchanged_amount / details.factor),
-          this.$save(details, "exchange_detail");
+        details.currency_id = c.id,
+        details.amount_after = e.exchanged_amount;
+        details.amount = e.exchanged_amount / details.factor,
+
+        this.$save(details, "exchange_detail");
       }
     },
   },
@@ -499,6 +496,7 @@ export default {
     }
   },
   created() {
+    
     this.$store.dispatch("stock/index");
     this.$store.dispatch("party/index");
     if (this.all_currencies[0] && this.items.length == 0) {

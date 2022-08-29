@@ -13,6 +13,23 @@
     </CrudHeader>
 
     <DataTable module="transfer" />
+
+    <Card class="pa-5">
+      <v-row>
+        <v-col><InputField required text="رقم الهوية" holder="ahmad" /></v-col>
+        <v-col>
+          <InputField dashed required text="رقم الهوية" holder="ahmad"
+        /></v-col>
+        <v-col><AutoComplete text="رقم الهوية" holder="ahmad" /></v-col>
+
+        <v-col>
+          <AutoComplete dashed required text="رقم الهوية" holder="ahmad" />
+        </v-col>
+        <v-col
+          ><DatePicker required text="تاريخ الانتاج" holder="ahmad"
+        /></v-col>
+      </v-row>
+    </Card>
   </div>
 </template>
 

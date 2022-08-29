@@ -155,6 +155,7 @@
     "nextt": "السابق",
     "prevv": "التالي",
     "id number": "رقم الهوية",
+    "id_no": "رقم الهوية",
     "id image": "صورة الهوية",
     "beneficiary": "المستفيد",
     "another expenses": "مصاريف اخري",
@@ -208,5 +209,6 @@
     "add currency": "إضافة عملة",
     "from": "من",
     "to": "إلي",
-    "close": "إغلاق"
+    "close": "إغلاق",
+    "default_currency": "العملة الافتراضية"
 }

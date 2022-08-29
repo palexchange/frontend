@@ -172,7 +172,8 @@ export default (context, inject) => {
       return ((from.values.sale) * 1 / to.values.sale).toFixed(5);
     }
   });
-  inject('newCalcBuyPrice', (from, to) => {
+  inject('newCalcSalePrice', (from, to) => {
+    if(!(from && to)) return 0;
     let from_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == from.id && v.ref_currency_id == 1
     });
@@ -208,7 +209,8 @@ export default (context, inject) => {
 
 
   });
-  inject('newCalcSalePrice', (from, to) => {
+  inject('newCalcBuyPrice', (from, to) => {
+    if(!(from && to)) return 0;
     let from_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == from.id && v.ref_currency_id == 1
     });

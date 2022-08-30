@@ -51,7 +51,7 @@ export default (context) => {
     child: 'exchange',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'date', 'amount', 'currency_id', 'beneficiary_id', 'number'],
+    headers: ['id', 'date', 'amount', 'currency', 'party_name', 'number'],
   },
   {
     child: 'exchange_detail',

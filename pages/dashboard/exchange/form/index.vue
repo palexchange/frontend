@@ -1,9 +1,12 @@
 <template>
-  <h1>form</h1>
+  <div>
+    <DataTable module="exchange"></DataTable>
+  </div>
 </template>
 
 <script>
-export default {};
+import DataTable from '~/transfers/components/DataTable.vue';
+export default { components: { DataTable } };
 </script>
 
 <style>

@@ -276,6 +276,12 @@
           <v-icon dence>fas fa-solid fa-print</v-icon>
         </v-btn>
       </v-col>
+      <v-col class="justify-end">
+        <v-btn href="/dashboard/exchange/form" height="50" class="text-center" color="primary">
+          {{$t("show exchange processes")}}
+        </v-btn>
+      </v-col>
+
     </v-row>
   </div>
 </template>

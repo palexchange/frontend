@@ -210,5 +210,7 @@
     "from": "من",
     "to": "إلي",
     "close": "إغلاق",
-    "default_currency": "العملة الافتراضية"
+    "default_currency": "العملة الافتراضية",
+    "party_name" : "اسم المستفيد",
+    "show exchange processes" : "إظهار عمليات الصرافة"
 }

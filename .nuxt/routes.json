@@ -1,5 +1,11 @@
 [
   {
+    "name": "child",
+    "path": "/child",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\child.vue",
+    "chunkName": "pages/child"
+  },
+  {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\index.vue",
@@ -10,6 +16,12 @@
     "path": "/inspire",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\inspire.vue",
     "chunkName": "pages/inspire"
+  },
+  {
+    "name": "parent",
+    "path": "/parent",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\palExchange\\\\frontend\\\\pages\\\\parent.vue",
+    "chunkName": "pages/parent"
   },
   {
     "name": "auth-login",

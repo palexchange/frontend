@@ -229,6 +229,7 @@
                 (v) => {
                   signCurrency(
                     'exchange_rate_to_delivery_currency',
+                    'exchange_rate_to_delivery_currency_view',
                     'sale',
                     v,
                     currencies[0]
@@ -247,7 +248,15 @@
           </v-col>
           <v-col>
             <InputField
-              v-model.number="item.exchange_rate_to_delivery_currency"
+              v-model.number="item.exchange_rate_to_delivery_currency_view"
+              @input=" (new_value) => {
+                showConversionFactor(
+                  currencies.find((e) => e.id == 1),
+                  'exchange_rate_to_delivery_currency',
+                  new_value
+                )
+              }
+              "
               holder="converting to dollar amount"
               text="converting to dollar amount"
               required
@@ -296,6 +305,7 @@
               @change="
                 (v) => {
                   signCurrency(
+                    'exchange_rate_to_reference_currency',
                     'exchange_rate_to_reference_currency',
                     'sale',
                     this.currencies[0],
@@ -370,6 +380,7 @@
                 (v) => {
                   signCurrency(
                     'exchange_rate_to_office_currency',
+                    'exchange_rate_to_office_currency_view',
                     'buy',
                     item.received_currency,
                     v
@@ -389,7 +400,15 @@
 
           <v-col>
             <InputField
-              v-model.number="item.exchange_rate_to_office_currency"
+              v-model.number="item.exchange_rate_to_office_currency_view"
+              @input=" (new_value) => {
+                showConversionFactor(
+                  item.office_currency,
+                  'exchange_rate_to_office_currency',
+                  new_value
+                )
+              }
+              "
               holder="conversion price"
               text="conversion price"
               required
@@ -526,9 +545,12 @@ export default {
         is_commission_percentage: false,
         office_commission_type: 0,
         exchange_rate_to_delivery_currency: null,
+        exchange_rate_to_delivery_currency_view: null,
         exchange_rate_to_reference_currency: null,
         exchange_rate_to_office_currency: null,
+        exchange_rate_to_office_currency_view: null,
       },
+      usdCurr: null,
     };
   },
   computed: {
@@ -623,9 +645,22 @@ export default {
       this.item.sender_phone = item.phone;
       this.item.sender_address = item.address;
     },
-    signCurrency(vName, type, fromCurr, toCurr) {
+    signCurrency(vCalc, vModel, type, fromCurr, toCurr) {
       if (fromCurr == null || toCurr == null) return;
-      this.item[vName] = parseFloat(
+
+      this.item[vCalc] = parseFloat(
+        type == "buy"
+          ? this.$newCalcBuyPrice(fromCurr, toCurr)
+          : this.$newCalcSalePrice(fromCurr, toCurr)
+      );
+
+      if (toCurr.id == 1) {
+        let temp = toCurr;
+        toCurr = fromCurr;
+        fromCurr = temp;
+      }
+
+      this.item[vModel] = parseFloat(
         type == "buy"
           ? this.$newCalcBuyPrice(fromCurr, toCurr)
           : this.$newCalcSalePrice(fromCurr, toCurr)
@@ -647,6 +682,14 @@ export default {
     confirmProcess() {
       this.$save(this.item, "transfer", null, "/dashboard/transfers");
       console.log(this.item);
+    },
+    showConversionFactor(to, factorModel, new_value) {
+      console.log(to,factorModel,new_value);
+      if(!to || !factorModel) return;
+      this.item[factorModel] =
+        to.id == 1
+          ? parseFloat(1 / parseFloat(new_value)).toFixed(7)
+          : parseFloat(new_value).toFixed(7);
     },
   },
   filters: {

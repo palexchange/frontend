@@ -215,5 +215,9 @@
     "default_currency_id": "العملة الافتراضية",
     "country_id": "الدولة",
     "dashboard-beneficiaries": "المستفيدين",
-    "default_currency": "العملة الافتراضية"
+    "default_currency": "العملة الافتراضية",
+    "party_name": "اسم المستفيد",
+    "show exchange processes": "إظهار عمليات الصرافة",
+    "add receipts": "إضافة مقبوضات",
+    "add withdrawals": "إضافة مسحوبات"
 }

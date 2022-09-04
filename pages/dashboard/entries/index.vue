@@ -1,20 +1,16 @@
 <template>
   <v-row>
     <v-col>
-      <AutoComplete
-        @change="(v) => signCurrency('convertToUSD', 'sale', v)"
-        v-model="item.fromConvertingCurrency"
-        :items="currencies"
-        item-name="name"
-        return-object
-        text="currency"
-        holder="currency"
+      <BeneficiaryAutocomplete
+        holder="beneficiary"
+        text="beneficiary"
         required
+        v-model="form.party_id"
       />
     </v-col>
     <v-col>
       <InputField
-        v-model.number="item.convertToUSD"
+        v-model.number="form.amount"
         holder="converting to dollar amount"
         text="converting to dollar amount"
         required
@@ -49,6 +45,7 @@ export default {
       this.item[vName] = currencey.values[type];
     },
   },
+  components: { AddBeneficiary },
 };
 </script>
 

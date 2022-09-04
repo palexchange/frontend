@@ -21,7 +21,9 @@
       @update:sort-desc="updateSortDesc($event)"
     >
       <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope"
-        ><slot :name="slot" v-bind="scope"
+        >
+
+        <slot :name="slot" v-bind="scope"
       /></template>
       <template v-for="func in functions" v-slot:[getKey(func.key)]="scope">
         {{
@@ -148,6 +150,7 @@ export default {
   },
   data() {
     return {
+      hmad: "gvhjb",
       // loading: false,
       options: {
         sortBy: [],
@@ -157,10 +160,11 @@ export default {
       // loaded: false,
       sortingData: { sortBy: [], sortDesc: [] },
       menu_name: null,
-      item: null,
+      item: {},
     };
   },
   mounted() {
+    // this.test = this.$scopedSlots;
     let sorting = localStorage.getItem(`${this.$route.path}/sorting`);
     let sotingObj = sorting != null ? JSON.parse(sorting) : null;
     if (sotingObj) {
@@ -307,6 +311,7 @@ export default {
       this.$store.dispatch("setModule", this.module);
     },
   },
+
 };
 </script>
  <style >

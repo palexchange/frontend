@@ -4,8 +4,10 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
+const _6230aa24 = () => interopDefault(import('..\\pages\\child.vue' /* webpackChunkName: "pages/child" */))
 const _4c3e5e5c = () => interopDefault(import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _5f3099a8 = () => interopDefault(import('..\\pages\\inspire.vue' /* webpackChunkName: "pages/inspire" */))
+const _9d5ae770 = () => interopDefault(import('..\\pages\\parent.vue' /* webpackChunkName: "pages/parent" */))
 const _38ac5dda = () => interopDefault(import('..\\pages\\auth\\login.vue' /* webpackChunkName: "pages/auth/login" */))
 const _2d124ae9 = () => interopDefault(import('..\\pages\\auth\\register.vue' /* webpackChunkName: "pages/auth/register" */))
 const _489562d6 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/index" */))
@@ -47,6 +49,10 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
+    path: "/child",
+    component: _6230aa24,
+    name: "child"
+  }, {
     path: "/dashboard",
     component: _4c3e5e5c,
     name: "dashboard"
@@ -54,6 +60,10 @@ export const routerOptions = {
     path: "/inspire",
     component: _5f3099a8,
     name: "inspire"
+  }, {
+    path: "/parent",
+    component: _9d5ae770,
+    name: "parent"
   }, {
     path: "/auth/login",
     component: _38ac5dda,

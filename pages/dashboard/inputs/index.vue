@@ -1,53 +1,49 @@
 <template>
   <div>
-    <Card class="pb-3">
+    <Card>
       <v-card-title>
-        <Title title="statement" />
-      </v-card-title>
+      <Title title="add receipts" />
+    </v-card-title>
       <v-card-text>
-        <v-row class="mt-5 lg5-custome-row">
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <AutoComplete class="rounding" holder="beneficiary" />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <InputField holder="recived amount"> </InputField>
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <AutoComplete holder="currency" />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <DatePicker v-model="item.date" holder="date" />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <TimePicker> </TimePicker>
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <InputField holder="conversion factor"></InputField>
-          </v-col>
-        </v-row>
-
-      
-        <v-row justify="center">
-          <v-col cols="2">
-            <v-btn height="40" color="primary" block>
-              {{ $t("approve") }}
+      <v-row>
+        <v-col cols="12" class="text-left">
+            <v-btn @click="$router.push('inputs/form')" color="primary">
+              {{$t("add receipts")}}
             </v-btn>
-          </v-col>
-        </v-row>
-      </v-card-text>
+        </v-col>
+      </v-row>
+    </v-card-text>
     </Card>
+    <Card>
+    <DataTable module="receipt" :params="{type:0}" />
+  </Card>
   </div>
 </template>
 
 <script>
-
+import { mapState } from "vuex";
+import DataTable from "~/transfers/components/DataTable.vue";
+import Card from "~/transfers/components/Card.vue";
+import Title from "~/transfers/components/Title.vue";
 export default {
-   
-  data() {
-    return {
-      item: {},
-    };
-  },
+    data() {
+        return {
+            item: {},
+            form: {
+                type: "0",
+                main_currency_id: 1,
+            },
+        };
+    },
+    computed: {
+        ...mapState({
+            all_currencies: (state) => state.currency.all,
+        }),
+    },
+    mounted() {
+        this.$store.dispatch("currency/index");
+    },
+    components: { DataTable, Card, Title }
 };
 </script>
   
@@ -55,18 +51,6 @@ export default {
 .rounding {
   border-radius: 4px !important;
 }
-
-@media (max-width: 600px) {
-  .responseveCols > div {
-    min-width: 100%;
-  }
-}
-@media (max-width: 1280px) {
-  .responseveCols > div {
-    min-width: 50%;
-  }
-}
-
 @media (min-width: 1264px) {
   .lg5-custome-row > div {
     width: 20% !important;

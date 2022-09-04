@@ -15,12 +15,14 @@
       <v-list height="135px" class="d-flex justify-center px-2">
         <v-list-item class="justify-center">
           <v-list-item-avatar class="justify-center">
-            <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+            <v-img
+              src="https://randomuser.me/api/portraits/women/70.jpg"
+            ></v-img>
           </v-list-item-avatar>
 
           <v-list-item-title class="text-center">
-            user.name
-            <v-list-item-subtitle> user.email </v-list-item-subtitle>
+            {{ user.name }}
+            <v-list-item-subtitle> {{ user.email }} </v-list-item-subtitle>
           </v-list-item-title>
         </v-list-item>
       </v-list>

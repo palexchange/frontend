@@ -6,6 +6,10 @@
       :options="options"
       @vdropzone-removed-file="removed"
       @vdropzone-success="success"
+      @vdropzone-sending="vsending"
+      @vdropzone-canceled="vcanceled"
+      @vdropzone-duplicate-file="vduplicate"
+      @vdropzone-files-added="vadded"
     ></dropzone>
     <!-- @vdropzone-file-added="added" -->
     <!--   @vdropzone-sending="vsending" -->
@@ -28,6 +32,7 @@ export default {
   },
   data() {
     return {
+      files: null,
       is_destroying: false,
       id: null,
       options: {
@@ -37,19 +42,52 @@ export default {
          * Use acceptedFiles instead.
          */
         // acceptedMimeTypes: null,
-        url: `https://kitchen-backend1.herokuapp.com/api/file`,
+        url: "null",
         params: {},
         uploadMultiple: false,
         addRemoveLinks: true,
+        preventDuplicates: true,
+        duplicateCheck: true,
+        dictDuplicateFile: "Duplicate Files Cannot Be Uploaded",
         dictDefaultMessage: this.template(),
         createImageThumbnails: true,
         dictMaxFilesExceeded: this.$t("cant upload more than one file"),
-        maxFiles: 1,
+        maxFiles: 5,
         headers: { Authorization: this.$auth.strategy.token.get() },
       },
     };
   },
   methods: {
+    getAllFiles() {
+      this.files = this.$refs.el.getAcceptedFiles();
+    },
+    vadded(file) {
+      this.getAllFiles();
+      console.log(file);
+      if (this.files.length) {
+        var i, len, pre;
+        for (i = 0, len = this.files.length; i < len - 1; i++) {
+          if (this.files[i].name == file.name) {
+            alert("The Doc.: " + file.name + " is already registered.");
+            var _ref;
+            return (_ref = file.previewElement) != null
+              ? _ref.parentNode.removeChild(file.previewElement)
+              : void 0;
+          }
+        }
+      }
+    },
+    vduplicate() {
+      console.log("vduplicate");
+      alert("vduplicate");
+    },
+    vcanceled() {
+      this.id = null;
+    },
+    vsending(file, xhr, formData) {
+      xhr.abort();
+      this.id = file;
+    },
     removedfile: function (file) {
       var _ref;
       return (_ref = file.previewElement) != null

@@ -20,7 +20,7 @@ export const state = () => ({
   loading: false,
   loaded: false,
   post_loading: false,
-  state_dialog: { active: false, name: '' },
+  state_dialog: { item: {}, active: false, name: '' },
 
 })
 
@@ -28,8 +28,8 @@ export const actions = {
   // nuxtServerInit ({ commit,dispatch}, { req }) {
   //   dispatch('setDefaultDigitsNumber')
   // },
-  setDialog({ commit }, name) {
-    commit('set_dialog', name)
+  setDialog({ commit }, data) {
+    commit('set_dialog', data)
   },
   closeDialog({ commit }) {
     commit('close_dialog')
@@ -44,7 +44,7 @@ export const actions = {
 
   },
   testAxios() {
-    console.log("testAxios");
+
 
   },
   // nuxtServerInit({
@@ -66,6 +66,9 @@ export const actions = {
   setRedirect({ commit }, redirect) {
     commit('setRedirect', redirect);
   },
+  clearRedirect({ commit }) {
+    commit('clearRedirect');
+  },
   setSuccessMsg({ commit }, msg) {
     commit('setSuccessMsg', msg);
   },
@@ -77,7 +80,7 @@ export const actions = {
   },
   async setDefaultDigitsNumber({ commit }) {
     let response = await this.$axios.get("/financial_setting/digits_number");
-    console.log(response);
+
     commit('setDefaultDigitsNumber', response.data.data.value);
   },
   setDeleteData({ commit }, data) {
@@ -110,11 +113,12 @@ export const mutations = {
   add_error(state, data) {
     state.errors = data
   },
-  set_dialog(state, name) {
-    state.state_dialog = { name, active: true }
+  set_dialog(state, data) {
+
+    state.state_dialog = { ...data, active: true }
   },
   close_dialog(state) {
-    state.state_dialog = { name: '', active: false }
+    state.state_dialog = { item: {}, name: '', active: false }
   },
   push_context(state, data) {
     state.context = data
@@ -130,6 +134,9 @@ export const mutations = {
   },
   setRedirect: (state, redirect) => {
     state.redirect = redirect;
+  },
+  clearRedirect: (state) => {
+    state.redirect = null;
   },
   setSuccessMsg: (state, msg) => {
     state.success_msg = msg;
@@ -158,12 +165,12 @@ export const mutations = {
     state.overlay = data;
   },
   set_loading: (state, value) => {
-    console.log(value);
+
     state.loading = value;
     state.loaded = !value;
   },
   set_post_loading: (state, value) => {
-    console.log(value);
+
     state.post_loading = value;
   },
 }

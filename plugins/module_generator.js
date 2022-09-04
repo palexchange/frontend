@@ -21,7 +21,7 @@ export default (context, inject) => {
         html: null,
         params: {},
         formatted_numbers: [],
-        loading:false,
+        loading: false,
       };
     };
     let getters = {
@@ -46,7 +46,7 @@ export default (context, inject) => {
         // if (JSON.stringify(params) == JSON.stringify(state.meta)) {
         //   return state.all;
         // }
-       if (resource.cachable)
+        if (resource.cachable)
           await del(module_name);
 
         let cache_data = await get(module_name);
@@ -63,7 +63,7 @@ export default (context, inject) => {
           path = path + '/' + params[resource.parent + '_id'] + '/' + resource.child;
         }
         let response;
-        commit('setParams',params);
+        commit('setParams', params);
         try {
           dispatch('setLoading', true, {
             root: true
@@ -134,7 +134,7 @@ export default (context, inject) => {
         }
 
 
-        console.log("test 3")
+        // console.log("test 3")
         commit('loadedData');
         return response.data;
       },
@@ -209,7 +209,7 @@ export default (context, inject) => {
             root: true
           });
           if (resource.load_after_store)
-          dispatch('index', state.params);
+            dispatch('index', state.params);
         } catch (ex) {
           if (ex.response) {
             let errors = (ex.response.data.errors);
@@ -226,7 +226,7 @@ export default (context, inject) => {
         dispatch
       }, data) {
         try {
-          console.log(data);
+          // console.log(data);
           let post_data = {};
           let parent_id = data[resource.parent + '_id'];
           let params = {};
@@ -325,9 +325,9 @@ export default (context, inject) => {
       },
       setParams({
         commit
-      },params) {
+      }, params) {
         console.log(params);
-        commit('setParams',params);
+        commit('setParams', params);
       },
 
     };
@@ -360,7 +360,7 @@ export default (context, inject) => {
         state.html = null;
       },
       setParams: (state, params) => state.params = params,
-      
+
     }
     let module = {
       namespaced: true,

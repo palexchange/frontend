@@ -25,7 +25,7 @@
         <v-btn
           depressed
           block
-          @click="$store.dispatch('setDialog', 'AddBeneficiary')"
+          @click="$store.dispatch('setDialog', { name: 'AddBeneficiary' })"
         >
           {{ $t("add beneficiary") }}
         </v-btn>
@@ -62,6 +62,10 @@ export default {
     maxlength: {
       type: Number,
     },
+    no_fetch: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -69,7 +73,7 @@ export default {
     };
   },
   created() {
-    if (!this.all[0]) {
+    if (!this.all[0] && !this.no_fetch) {
       this.$store.dispatch("party/index", { per_page: 900 });
     }
   },

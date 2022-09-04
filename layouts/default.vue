@@ -154,6 +154,7 @@ export default {
   watch: {
     redirect(val) {
       if (val) {
+        this.$store.dispatch("clearRedirect");
         this.$router.push(val);
       }
     },

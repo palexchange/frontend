@@ -200,6 +200,7 @@
     "approve": "اعتماد",
     "show beneficiaries": "عرض المستفيدين",
     "add beneficiary": "إضافة مستفيد",
+    "edit beneficiary": "تعديل مستفيد",
     "identity": "هوية",
     "denar": "دينار",
     "beneficiary name": "إسم المستفيد",
@@ -210,5 +211,9 @@
     "from": "من",
     "to": "إلي",
     "close": "إغلاق",
+    "add city": "إضافة مدينة",
+    "default_currency_id": "العملة الافتراضية",
+    "country_id": "الدولة",
+    "dashboard-beneficiaries": "المستفيدين",
     "default_currency": "العملة الافتراضية"
 }

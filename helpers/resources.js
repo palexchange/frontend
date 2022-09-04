@@ -42,10 +42,17 @@ export default (context) => {
     headers: ['id', 'user.name', 'total', 'created_at', 'status', 'notes'],
   },
   {
+    child: 'file',
+    parent: '',
+    has_files: true,
+    // load_after_store: true,
+    // headers: ['id', 'user.name', 'total', 'created_at', 'status', 'notes'],
+  },
+  {
     child: 'party',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name', 'id_no', 'created_at', 'address', 'default_currency', 'phone'],
+    headers: ['id', 'image', 'name', 'id_no', 'created_at', 'address', 'default_currency_id', 'country_id', 'phone'],
   },
   {
     child: 'exchange',

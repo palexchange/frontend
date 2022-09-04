@@ -1,34 +1,37 @@
 export default {
-    user: {
+    party: {
         menu_btns: [
             {
                 title: "edit",
                 icon: "fas fa-pen",
-            },
-            {
-                title: "activate",
-                icon: "fas fa-check",
-            },
-            {
-                title: "stop",
-                icon: "fas fa-ban",
             },
             // {
-            //     title: "delete",
-            //     icon: "fas fa-times",
-
+            //     title: "activate",
+            //     icon: "fas fa-check",
             // },
+            // {
+            //     title: "stop",
+            //     icon: "fas fa-ban",
+            // },
+            {
+                title: "delete",
+                icon: "fas fa-trash",
+            },
         ],
     },
-    item: {
+    transfer: {
         menu_btns: [
             {
                 title: "edit",
                 icon: "fas fa-pen",
             },
+            // {
+            //     title: "show",
+            //     icon: "fas fa-eye",
+            // },
             {
                 title: "delete",
-                icon: "fas fa-times",
+                icon: "fas fa-trash",
 
             },
         ],

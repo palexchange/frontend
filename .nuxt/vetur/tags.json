@@ -26,8 +26,14 @@
   "CityAutocomplete": {
     "description": "Auto imported from components/CityAutocomplete.vue"
   },
+  "CountryAutocomplete": {
+    "description": "Auto imported from components/CountryAutocomplete.vue"
+  },
   "CrudHeader": {
     "description": "Auto imported from components/CrudHeader.vue"
+  },
+  "CurrencyAutoComplete": {
+    "description": "Auto imported from components/CurrencyAutoComplete.vue"
   },
   "CurrencySheet": {
     "description": "Auto imported from components/CurrencySheet.vue"

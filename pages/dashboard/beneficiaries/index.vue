@@ -9,91 +9,24 @@
           <v-col cols="12" sm="6" xs="12" class="text-left">
             <v-icon> fas fa-solid fa-search </v-icon>
             <span>&nbsp;&nbsp;</span>
-            <v-dialog
-              transition="dialog-top-transition"
-              max-width="800"
-              v-model="dialog"
+
+            <v-btn
+              @click="$store.dispatch('setDialog', { name: 'AddBeneficiary' })"
+              color="primary"
+              v-bind="attrs"
+              v-on="on"
+              >{{ $t("add beneficiary") }}</v-btn
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn color="primary" v-bind="attrs" v-on="on">{{
-                  $t("add beneficiary")
-                }}</v-btn>
-              </template>
-              <template v-slot:default="dialog">
-                <v-card>
-                  <v-toolbar color="primary" dark
-                    ><v-spacer></v-spacer> {{ $t("add beneficiary") }}
-                    <v-spacer></v-spacer
-                  ></v-toolbar>
-                  <v-card-text class="pa-6">
-                    <v-row>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField
-                          v-model="form.name"
-                          holder="beneficiary name"
-                        ></InputField>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField
-                          v-model="form.phone"
-                          holder="phone"
-                        ></InputField>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField
-                          v-model="form.id_no"
-                          holder="id number"
-                        ></InputField>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <InputField
-                          v-model="form.address"
-                          holder="address"
-                        ></InputField>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <AutoComplete
-                          :items="all_countries"
-                          v-model="form.country_id"
-                          holder="country"
-                        >
-                        </AutoComplete>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <CityAutocomplete v-model="form.city_id">
-                        </CityAutocomplete>
-                      </v-col>
-                      <v-col cols="12" sm="4" xs="12">
-                        <AutoComplete
-                          :items="all_currencies"
-                          v-model="form.currency_id"
-                          holder="default currency"
-                        >
-                        </AutoComplete>
-                      </v-col>
-                    </v-row>
-                    <v-row class="button-responsive">
-                      <v-col class="text-center">
-                        <v-btn @click="save" color="primary" height="45">
-                          {{ $t("save") }}</v-btn
-                        >
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                  <v-card-actions class="justify-end">
-                    <v-btn color="primary" @click="dialog.value = false">{{
-                      $t("close")
-                    }}</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </template>
-            </v-dialog>
           </v-col>
         </v-row>
       </v-card-actions>
     </Card>
 
-    <DataTable module="party"></DataTable>
+    <DataTable module="party">
+      <template v-slot:item.image="{ item }">
+        <img :src="item.image ? item.image.url : ''" alt="" />
+      </template>
+    </DataTable>
   </div>
 </template>
 
@@ -103,37 +36,21 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      sortDesc: false,
-      headers: [
-        {
-          text: "beneficiary",
-          align: "start",
-          value: "name",
-        },
-        { text: "mobile", value: "calories" },
-        { text: "address", value: "fat" },
-        { text: "identity", value: "carbs" },
-        { text: "actions", value: "protein" },
-      ],
       form: {
         type: 0,
       },
-      item: {
-        showDialgo: false,
-      },
-      dialog: false,
     };
   },
-  computed: {
-    ...mapState({
-      all_currencies: (state) => state.currency.all,
-      all_countries: (state) => state.country.all,
-      all_cities: (state) => state.city.all,
-    }),
-  },
+
   methods: {
-    toggleOrder() {
-      this.sortDesc = !this.sortDesc;
+    edit(item) {
+      this.$store.dispatch("setDialog", {
+        name: "AddBeneficiary",
+        item,
+      });
+    },
+    delete(item) {
+      this.$store.dispatch("setModule", "party");
     },
     nextSort() {
       let index = this.headers.findIndex((h) => h.value === this.sortBy);
@@ -149,9 +66,18 @@ export default {
       this.$store.dispatch[("party", index)];
     },
   },
-  created() {
-    this.$store.dispatch("currency/index");
-    this.$store.dispatch("country/index");
+  computed: {
+    ...mapState({
+      action: (state) => state.context.action,
+      item: (state) => state.context.item,
+    }),
+  },
+  watch: {
+    action(val) {
+      if (val) {
+        this[val](this.item);
+      }
+    },
   },
   // components: { AutoComplete },
 };

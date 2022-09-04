@@ -28,7 +28,7 @@
           @click:append="show1 = !show1"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           hint="At least 8 characters"
-          counter
+           
           prepend-inner-icon="fas fa-lock"
         ></v-text-field>
         <!-- <v-checkbox label="Remember Me" dense></v-checkbox> -->
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Login",
   layout: "guest",
@@ -64,12 +65,27 @@ export default {
   },
   methods: {
     async login() {
-      this.loading = true;
-      const { username, password } = this.user;
-      await this.$auth.loginWith("local", {
-        data: { email: username, password },
-      });
-      this.loading = false;
+      try {
+        this.loading = true;
+        const { username, password } = this.user;
+        await this.$auth.loginWith("local", {
+          data: { email: username, password },
+        });
+        this.loading = false;
+      } catch (e) {
+        this.loading = false;
+        console.log("Error Response", e.response);
+      }
+    },
+  },
+  computed: {
+    ...mapState({
+      errors: (state) => state.errors,
+    }),
+  },
+  watch: {
+    errors(val) {
+      alert(val);
     },
   },
 };

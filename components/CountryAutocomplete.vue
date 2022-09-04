@@ -18,18 +18,9 @@
       v-on="$listeners"
       :rules="required ? rulesss.requiredRules : []"
       :placeholder="$t(holder)"
-      item-text="name"
+      item-text="name_ar"
       item-value="id"
     >
-      <template v-slot:prepend-item>
-        <v-btn
-          depressed
-          block
-          @click="$store.dispatch('setDialog', { name: 'AddCity' })"
-        >
-          {{ $t("add city") }}
-        </v-btn>
-      </template>
     </v-autocomplete>
   </div>
 </template>
@@ -70,12 +61,12 @@ export default {
   },
   created() {
     if (!this.all[0]) {
-      this.$store.dispatch("city/index", { per_page: 900 });
+      this.$store.dispatch("country/index", { per_page: 900 });
     }
   },
   computed: {
     ...mapState({
-      all: (state) => state.city.all,
+      all: (state) => state.country.all,
     }),
   },
 };

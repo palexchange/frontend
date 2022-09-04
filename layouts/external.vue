@@ -1,5 +1,5 @@
 <template>
-  <v-app class="main-guest">
+  <v-app>
     <Nuxt />
   </v-app>
 </template>
@@ -20,9 +20,9 @@ export default {
 * {
   font-family: Tajawal;
 }
-.main-guest {
+/* .main-guest {
   background-color: #000 !important;
   background-repeat: no-repeat;
   background-size: cover;
-}
+} */
 </style>

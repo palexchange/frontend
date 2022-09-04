@@ -12,13 +12,25 @@
               </v-row>
               <v-row class="mb-4">
                 <v-col cols="12" xs="12" sm="6" lg="6">
-                  <AutoComplete
+                  <BeneficiaryAutocomplete
+                    text="beneficiary"
+                    holder="beneficiary"
+                    required
+                    v-model="item.beneficairy"
+                    return-object
+                    @change="
+                      (v) => {
+                        setSenderCurrecny(v);
+                      }
+                    "
+                  />
+                  <!-- <AutoComplete
                     text="beneficiary"
                     holder="beneficiary"
                     :items="all_parties"
                     required
                     v-model="item.beneficairy"
-                  />
+                  /> -->
                 </v-col>
                 <v-col cols="12" xs="12" sm="6" lg="6">
                   <DatePicker
@@ -265,7 +277,7 @@
     </Card>
 
     <v-row justify="center" class="mt-5 mb-5">
-      <v-col class="d-flex justify-center">
+      <v-col cols="8" class="d-flex justify-end">
         <v-btn @click="save" height="50" class="text-center" color="primary">
           {{ $t("execute process") }}
           <v-icon dence>fas fa-solid fa-check</v-icon>
@@ -276,18 +288,23 @@
           <v-icon dence>fas fa-solid fa-print</v-icon>
         </v-btn>
       </v-col>
-      <v-col class="justify-end">
-        <v-btn href="/dashboard/exchange/form" height="50" class="text-center" color="primary">
-          {{$t("show exchange processes")}}
+      <v-col cols="4" class="text-left">
+        <v-btn
+          @click="$router.push('exchange/form')"
+          height="50"
+          class="text-center"
+          color="primary"
+        >
+          {{ $t("show exchange processes") }}
         </v-btn>
       </v-col>
-
     </v-row>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import BeneficiaryAutocomplete from "~/components/BeneficiaryAutocomplete.vue";
 export default {
   name: "extchange",
   data() {
@@ -333,17 +350,15 @@ export default {
   computed: {
     ...mapState({
       all_currencies: (state) => state.currency.all,
-      all_parties: (state) => state.party.all,
     }),
     exchange_profit() {
       let amount,
         sale_factor,
         buy_factor,
-        profit = 0.0;
+        profit = 0;
       this.items.forEach((e, index) => {
         amount = parseFloat(e.exchanged_amount || 0);
         buy_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 1);
-
         // console.log(this.stocks[index]);
         sale_factor = parseFloat(
           this.$newCalcBuyPrice(
@@ -351,7 +366,6 @@ export default {
             this.all_currencies[index]
           ) || 1
         );
-
         console.log("Buy: ", buy_factor, "\nSale: ", sale_factor);
         profit += (amount / buy_factor) * (sale_factor - buy_factor);
       });
@@ -359,6 +373,9 @@ export default {
     },
   },
   methods: {
+    setSenderCurrecny(partyObj) {
+      this.item.currency = this.all_currencies.find((e) =>  e.id == partyObj.currency_id);
+    },
     setRow(index, item) {
       let amount = this.exchange.amount || 0;
       let reminder = parseFloat(this.item.reminder || 0);
@@ -377,12 +394,10 @@ export default {
           this.items[index].modified_factor = null;
         });
       }
-
       console.log(index);
       console.log(this.$all_currencies);
       let from = this.item.currency;
       let to = item;
-
       let temp = parseFloat(this.$newCalcSalePrice(from, to));
       console.log(temp, from, to, amount);
       this.items[index].exchanged_vactor = temp.toFixed(7);
@@ -396,20 +411,14 @@ export default {
     },
     changed_ex_amount(element, index, new_value) {
       element.exchanged_amount = new_value;
-
       let amount = this.exchange.amount || 0;
-
       let ex_amount = element.exchanged_amount || 0;
-
       let ex_vector = element.exchanged_vactor || 1;
-
       let sum = this.sum_fields();
-
       if (sum > amount) {
         this.item.reminder = 0;
         return false;
       }
-
       this.item.reminder = (amount - sum).toFixed(7);
     },
     changed_ex_factor(element, event) {
@@ -468,24 +477,26 @@ export default {
     },
     async save() {
       this.exchange.currency_id = this.item.currency.id;
-      this.exchange.beneficiary_id = this.item.beneficairy;
+      this.exchange.beneficiary_id = this.item.beneficairy.id;
       let ex_id;
-      let response = await this.$store.dispatch("exchange/store",this.exchange ) 
+      let response = await this.$store.dispatch(
+        "exchange/store",
+        this.exchange
+      );
       let details = {
         exchange_id: response.id,
-      }
+      };
       console.log("rEEEE", details);
-      for(let i = 0; i < this.items.length; i++) {
+      for (let i = 0; i < this.items.length; i++) {
         let e = this.items[i];
         let c = this.all_currencies[i];
-        if(e.modified_factor || e.exchanged_vactor)
-            details.factor = parseFloat(e.modified_factor || e.exchanged_vactor);
+        if (e.modified_factor || e.exchanged_vactor)
+          details.factor = parseFloat(e.modified_factor || e.exchanged_vactor);
         else continue;
-        details.currency_id = c.id,
-        details.amount_after = e.exchanged_amount;
-        details.amount = e.exchanged_amount / details.factor,
-
-        this.$save(details, "exchange_detail");
+        (details.currency_id = c.id),
+          (details.amount_after = e.exchanged_amount);
+        (details.amount = e.exchanged_amount / details.factor),
+          this.$save(details, "exchange_detail");
       }
     },
   },
@@ -502,9 +513,7 @@ export default {
     }
   },
   created() {
-    
     this.$store.dispatch("stock/index");
-    this.$store.dispatch("party/index");
     if (this.all_currencies[0] && this.items.length == 0) {
       this.all_currencies.map((item) => {
         this.items.push({
@@ -520,7 +529,6 @@ export default {
       console.log("#########\n\n");
       console.log(val);
       console.log("#########\n\n");
-
       if (!this.items[0]) {
         val.map((item) => {
           this.items.push({
@@ -535,6 +543,7 @@ export default {
       this.stocks = val;
     },
   },
+  components: { BeneficiaryAutocomplete },
 };
 </script>
 

@@ -71,17 +71,18 @@
                 :items="all_currencies"
               />
             </v-col>
-            <v-col cols="3">
-              <label for="">{{ $t("sale") }}</label>
-              <v-text-field
-                v-model.number="currency.start_selling_price"
-                dense
-              ></v-text-field
-            ></v-col>
+
             <v-col cols="3">
               <label for="">{{ $t("buy") }}</label>
               <v-text-field
                 v-model.number="currency.start_purchasing_price"
+                dense
+              ></v-text-field
+            ></v-col>
+            <v-col cols="3">
+              <label for="">{{ $t("sale") }}</label>
+              <v-text-field
+                v-model.number="currency.start_selling_price"
                 dense
               ></v-text-field
             ></v-col>
@@ -108,7 +109,7 @@
       </v-row>
     </v-card-text>
     <v-divider class="py-5"></v-divider>
- 
+
     <v-card-text>
       <v-simple-table class="my-test">
         <template v-slot:default>
@@ -149,14 +150,14 @@
               >
                 <v-row dense>
                   <v-col
-                    >{{ $t("sale") }}
+                    >{{ $t("buy") }}
                     <br />
                     <span>
                       {{ $newCalcSalePrice(from, to) }}
                     </span>
                   </v-col>
                   <v-col
-                    >{{ $t("buy") }}
+                    >{{ $t("sale") }}
                     <br />
                     <span>
                       {{ $newCalcBuyPrice(from, to) }}

@@ -21,7 +21,9 @@
       @update:sort-desc="updateSortDesc($event)"
     >
       <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope"
-        ><slot :name="slot" v-bind="scope"
+        >
+
+        <slot :name="slot" v-bind="scope"
       /></template>
       <template v-for="func in functions" v-slot:[getKey(func.key)]="scope">
         {{
@@ -34,7 +36,7 @@
       <template v-for="key in formatted_numbers" v-slot:[getKey(key)]="scope">
         {{ $inputNumberFormat(scope.item[key]) }}
       </template>
-      <template v-slot:top>
+      <!-- <template v-slot:top>
         <v-row>
           <v-col class="text-left">
             <span>
@@ -48,7 +50,7 @@
                 >
               </v-btn>
             </span>
-            <!-- <v-menu offset-y>
+            <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn color="primary" v-bind="attrs" v-on="on" icon>
                   <v-icon> fas fa-cloud-download-alt </v-icon>
@@ -72,10 +74,10 @@
                   </v-list-item-icon>
                 </v-list-item>
               </v-list>
-            </v-menu> -->
+            </v-menu>
           </v-col>
         </v-row>
-      </template>
+      </template> -->
       <template v-slot:item.actions="{ item }">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -148,6 +150,7 @@ export default {
   },
   data() {
     return {
+      hmad: "gvhjb",
       // loading: false,
       options: {
         sortBy: [],
@@ -157,10 +160,11 @@ export default {
       // loaded: false,
       sortingData: { sortBy: [], sortDesc: [] },
       menu_name: null,
-      item: null,
+      item: {},
     };
   },
   mounted() {
+    // this.test = this.$scopedSlots;
     let sorting = localStorage.getItem(`${this.$route.path}/sorting`);
     let sotingObj = sorting != null ? JSON.parse(sorting) : null;
     if (sotingObj) {
@@ -168,7 +172,7 @@ export default {
       this.options.sortDesc = sotingObj.sortDesc;
     }
   },
-  fetch() {
+  created() {
     if (this.module) {
       this.$store.dispatch(`${this.module}/index`, {
         ...this.options,
@@ -307,6 +311,7 @@ export default {
       this.$store.dispatch("setModule", this.module);
     },
   },
+
 };
 </script>
  <style >

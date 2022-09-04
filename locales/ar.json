@@ -212,5 +212,7 @@
     "close": "إغلاق",
     "default_currency": "العملة الافتراضية",
     "party_name" : "اسم المستفيد",
-    "show exchange processes" : "إظهار عمليات الصرافة"
+    "show exchange processes" : "إظهار عمليات الصرافة",
+    "add receipts" : "إضافة مقبوضات",
+    "add withdrawals" : "إضافة مسحوبات"
 }

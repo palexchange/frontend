@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="main-guest">
     <Nuxt />
   </v-app>
 </template>
@@ -9,7 +9,7 @@ export default {
   // middleware: "auth",
   // auth: "guest",
   beforeCreate() {
-    this.$vuetify.rtl = this.$i18n.locale == "ar" || this.$i18n.locale=="he" ;
+    this.$vuetify.rtl = this.$i18n.locale == "ar" || this.$i18n.locale == "he";
   },
 };
 </script>
@@ -21,7 +21,7 @@ export default {
   font-family: Tajawal;
 }
 .main-guest {
-  background: #f5f5f5;
+  background-color: #000 !important;
   background-repeat: no-repeat;
   background-size: cover;
 }

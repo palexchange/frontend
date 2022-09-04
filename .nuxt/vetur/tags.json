@@ -2,11 +2,17 @@
   "AddBeneficiary": {
     "description": "Auto imported from components/AddBeneficiary.vue"
   },
+  "AddCity": {
+    "description": "Auto imported from components/AddCity.vue"
+  },
   "AutoComplete": {
     "description": "Auto imported from components/AutoComplete.vue"
   },
   "BaseFilter": {
     "description": "Auto imported from components/BaseFilter.vue"
+  },
+  "BeneficiaryAutocomplete": {
+    "description": "Auto imported from components/BeneficiaryAutocomplete.vue"
   },
   "Boxes": {
     "description": "Auto imported from components/Boxes.vue"
@@ -16,6 +22,9 @@
   },
   "Card": {
     "description": "Auto imported from components/Card.vue"
+  },
+  "CityAutocomplete": {
+    "description": "Auto imported from components/CityAutocomplete.vue"
   },
   "CrudHeader": {
     "description": "Auto imported from components/CrudHeader.vue"

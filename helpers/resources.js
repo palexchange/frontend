@@ -54,10 +54,29 @@ export default (context) => {
     headers: ['id', 'date', 'amount', 'currency', 'party_name', 'number'],
   },
   {
+    child: 'receipt',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'party_name', 'amount', 'currency', 'date', 'factor'],
+  },
+  {
     child: 'exchange_detail',
     parent: '',
     load_after_store: true,
     headers: ['id', 'exhange_id', 'amount', 'currency_id', 'factor', 'amount_after'],
+  },
+  {
+    child: 'transfer',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'type', 'issued_at', 'status', 'sender_id_no', 'sender_phone', 'sender_address'],
+    functions: [{
+      key: 'type',
+      f: v => {
+        return v == 1 ? 'حوالة صادرة' : 'حوالة واردة'
+      }
+    }
+    ]
   },
   {
     child: 'user',
@@ -81,7 +100,7 @@ export default (context) => {
     child: 'country',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name','iso3','currency_id']
+    headers: ['id', 'name', 'iso3', 'currency_id']
   },
   {
     child: 'city',
@@ -93,7 +112,9 @@ export default (context) => {
     child: 'report',
     parent: '',
     has_headers: true
+
   },
+
   ];
   return resources;
 }

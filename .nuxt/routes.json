@@ -1,5 +1,11 @@
 [
   {
+    "name": "child",
+    "path": "/child",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\child.vue",
+    "chunkName": "pages/child"
+  },
+  {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\index.vue",
@@ -10,6 +16,12 @@
     "path": "/inspire",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\inspire.vue",
     "chunkName": "pages/inspire"
+  },
+  {
+    "name": "parent",
+    "path": "/parent",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\parent.vue",
+    "chunkName": "pages/parent"
   },
   {
     "name": "auth-login",

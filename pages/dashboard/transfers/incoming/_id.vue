@@ -12,6 +12,7 @@
             <v-col cols="12" sm="12" md="4">
               <AutoComplete
                 required
+                v-model="item.delivering_type"
                 :items="transfer_types"
                 text="transfer type"
                 holder="transfer type"
@@ -19,14 +20,18 @@
             </v-col>
             <v-col>
               <DatePicker
-                v-model="item.date"
+                v-model="item.issued_at"
                 required
                 text="transfer date"
                 holder="test"
               />
             </v-col>
             <v-col cols="12" md="4" sm="12">
-              <InputField :value="officeProfitComp | money" dashed text="palestinian profit" />
+              <InputField
+                :value="officeProfitComp | money"
+                dashed
+                text="palestinian profit"
+              />
             </v-col>
           </v-row>
         </v-col>
@@ -55,13 +60,32 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" md="3" sm="6">
-            <AutoComplete text="beneficiary" holder="beneficiary" required />
+            <BeneficiaryAutocomplete
+              text="beneficiary"
+              holder="beneficiary"
+              required
+              return-object
+              @change="
+                (v) => {
+                  setSenderDate(v);
+                  item.sender_party_id = v.id;
+                }
+              "
+            />
           </v-col>
           <v-col cols="12" md="3" sm="6">
-            <InputField holder="address" text="address" />
+            <InputField
+              holder="address"
+              text="address"
+              v-model="item.sender_address"
+            />
           </v-col>
           <v-col cols="12" md="3" sm="6">
-            <InputField holder="notes" text="notes" />
+            <InputField
+              holder="notes"
+              text="notes"
+              v-model="item.sender_notes"
+            />
           </v-col>
         </v-row>
       </v-card-text>
@@ -72,7 +96,19 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" md="4" sm="6" lg="2">
-            <AutoComplete text="beneficiary" holder="beneficiary" required />
+            <BeneficiaryAutocomplete
+              text="beneficiary"
+              holder="beneficiary"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
+              "
+              return-object
+              :value="item.reciver_party_id"
+            />
           </v-col>
           <v-col ccols="12" md="4" sm="6" lg="2">
             <label
@@ -96,17 +132,29 @@
             />
           </v-col>
           <v-col cols="12" md="4" sm="6" lg="2">
-            <InputField holder="mobile" text="mobile" required />
+            <InputField
+              holder="mobile"
+              text="mobile"
+              required
+              v-model="item.reciver_phone"
+            />
           </v-col>
-          <v-col cols="12" md="4" sm="6" lg="2">
+          <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <AutoComplete text="country" holder="country" required />
+          </v-col> -->
+          <v-col cols="12" md="3" sm="6">
+            <InputField
+              holder="address"
+              text="address"
+              v-model="item.reciver_address"
+            />
           </v-col>
-          <v-col cols="12" md="4" sm="6" lg="2">
+          <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <AutoComplete text="city" holder="city" required />
-          </v-col>
-          <v-col cols="12" md="4" sm="6" lg="2">
+          </v-col> -->
+          <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField holder="address" text="address" />
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-card-text>
     </Card>
@@ -115,8 +163,8 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" md="3" sm="12">
-            <v-radio-group mandatory v-model="item.commission_on" row>
-              <v-radio value="2" label="العمولة علي المستلم"></v-radio>
+            <v-radio-group mandatory v-model="item.commision_side" row>
+              <v-radio :value="2" label="العمولة علي المستلم"></v-radio>
             </v-radio-group>
           </v-col>
 
@@ -129,14 +177,19 @@
               slot="append"
               hide-details
               :label="
-                item.is_percentage ? `${$t('commission')} %` : $t('commission')
+                item.is_commision_percentage
+                  ? `${$t('commission')} %`
+                  : $t('commission')
               "
               :append-icon="
-                item.is_percentage == false
+                item.is_commision_percentage == false
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
-              @click:append="() => (item.is_percentage = !item.is_percentage)"
+              @click:append="
+                () =>
+                  (item.is_commision_percentage = !item.is_commision_percentage)
+              "
               v-model.number="item.commission"
             >
             </v-text-field>
@@ -151,17 +204,27 @@
         <v-row class="justify-center responseveCols">
           <v-col>
             <InputField
-              v-model.number="item.transferringAmount"
+              v-model.number="item.to_send_amount"
               holder="transfirrig amount"
               text="transfirrig amount"
               required
             />
           </v-col>
           <v-col>
-            <AutoComplete @change="
-                (v) => signCurrency('RatioToUSD', 'buy', v, currencies[0])
+            <AutoComplete
+              @change="
+                (v) => {
+                  signCurrency(
+                    'exchange_rate_to_delivery_currency',
+                    'exchange_rate_to_delivery_currency_view',
+                    'sale',
+                    v,
+                    currencies[0]
+                  );
+                  item.delivery_currency_id = v.id;
+                }
               "
-              v-model="item.senderConvertingCurrAuto"
+              v-model="item.delivery_currency"
               :items="currencies"
               item-name="name"
               return-object
@@ -172,7 +235,15 @@
           </v-col>
           <v-col>
             <InputField
-              v-model.number="item.RatioToUSD"
+              v-model.number="item.exchange_rate_to_delivery_currency_view"
+              @input=" (new_value) => {
+                showConversionFactor(
+                  currencies.find((e) => e.id == 1),
+                  'exchange_rate_to_office_currency',
+                  new_value
+                )
+              }
+              "
               holder="converting to dollar amount"
               text="converting to dollar amount"
               required
@@ -198,15 +269,18 @@
           <v-col>
             <AutoComplete
               @change="
-                (v) =>
+                (v) => {
                   signCurrency(
-                    'recvCurrParam',
-                    'buy',
+                    'exchange_rate_to_reference_currency',
+                    'exchange_rate_to_reference_currency',
+                    'sale',
                     this.currencies[0],
                     v
-                  )
+                  );
+                  item.received_currency_id = v.id;
+                }
               "
-              v-model="item.recvCurrAuto"
+              v-model="item.received_currency"
               return-object
               :items="currencies"
               item-name="name"
@@ -217,7 +291,7 @@
           </v-col>
           <v-col>
             <InputField
-              v-model.number="item.recvCurrParam"
+              v-model.number="item.exchange_rate_to_reference_currency"
               holder="convert to receiver currency"
               text="convert to receiver currency"
               required
@@ -241,20 +315,28 @@
       <v-card-text>
         <v-row class="justify-center responseveCols">
           <v-col cols="3">
-            <AutoComplete holder="beneficiary" text="beneficiary" required />
+            <BeneficiaryAutocomplete
+              holder="beneficiary"
+              text="beneficiary"
+              required
+              v-model="item.office_id"
+            />
           </v-col>
 
           <v-col>
             <AutoComplete
-              v-model="item.officeCurrencyAuto"
+              v-model="item.office_currency"
               @change="
-                (v) =>
+                (v) => {
                   signCurrency(
-                    'officeConversionParam',
-                    'sale',
-                    item.recvCurrAuto,
+                    'exchange_rate_to_office_currency',
+                    'exchange_rate_to_office_currency_view',
+                    'buy',
+                    item.received_currency,
                     v
-                  )
+                  );
+                  item.office_currency_id = v.id;
+                }
               "
               return-object
               :items="currencies"
@@ -267,7 +349,15 @@
 
           <v-col>
             <InputField
-              v-model.number="item.officeConversionParam"
+              v-model.number="item.exchange_rate_to_office_currency_view"
+              @input=" (new_value) => {
+                showConversionFactor(
+                  item.office_currency,
+                  'exchange_rate_to_office_currency',
+                  new_value
+                )
+              }
+              "
               holder="conversion price"
               text="conversion price"
               required
@@ -282,9 +372,12 @@
             />
           </v-col>
           <v-col>
-            <label class="required form-label">عمولة المكتب</label>
+            <label class="required form-label">
+              {{ item.office_commision_type == 1 ? "%" : "" }}
+              عمولة المكتب
+            </label>
             <v-text-field
-              v-model.number="item.officeCommission"
+              v-model.number="item.office_commision"
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
@@ -292,21 +385,22 @@
               slot="append"
               hide-details
               required
-              :label="
-                item.is_percentageO ? `${$t('commission')} %` : $t('commission')
-              "
               :append-icon="
-                item.is_percentageO == false
+                item.office_commision_type == 0
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
-              @click:append="() => (item.is_percentageO = !item.is_percentageO)"
+              @click:append="
+                () =>
+                  (item.office_commision_type =
+                    item.office_commision_type == 1 ? 0 : 1)
+              "
             >
             </v-text-field>
           </v-col>
           <v-col cols="1">
             <InputField
-              v-model.number="item.officeReturn"
+              v-model.number="item.returned_commision"
               holder="returned"
               text="returned"
               required
@@ -332,7 +426,9 @@
     <v-row class="justify-center">
       <v-card color="transparent" flat>
         <v-card-actions>
-          <v-btn class="px-16" color="primary">إتمام العملة</v-btn>
+          <v-btn @click="confirmProcess" class="px-16" color="primary"
+            >إتمام العملة</v-btn
+          >
           &nbsp; &nbsp;
           <v-menu offset-x left>
             <template v-slot:activator="{ on, attrs }">
@@ -368,6 +464,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import ruless from "~/helpers/rules";
 export default {
   data() {
@@ -375,23 +472,26 @@ export default {
       rulesss: ruless(this),
       transfer_types: [
         { id: 1, name: "تسليم يد" },
-        { id: 1, name: "موني غرام" },
+        { id: 2, name: "موني غرام" },
       ],
-      currencies: [
-        { id: 1, name: this.$t("dollar"), values: { sale: 1, buy: 1 } },
-        { id: 2, name: this.$t("denar"), values: { sale: 0.7, buy: 0.69 } },
-        { id: 3, name: this.$t("shekel"), values: { sale: 3.23, buy: 3.22 } },
-        { id: 3, name: this.$t("shekel"), values: { sale: 3.32, buy: 3.3 } },
-        { id: 4, name: this.$t("euro"), values: { sale: 1.03, buy: 1.01 } },
-        { id: 5, name: this.$t("pound"), values: { sale: 16, buy: 15 } },
-        { id: 6, name: this.$t("derhm"), values: { sale: 3.63, buy: 3.6 } },
-      ],
+      prices: [],
       item: {
-        is_percentage: false,
-        is_percentageO: false,
-        RatioToUSD: null,
-        recvCurrParam: null,
-        officeConversionParam: null,
+        commision_side: 2,
+        type: 2,
+        reference_currency_id: 1,
+        reciver_phone: null,
+        reciver_address: null,
+        receiver_notes: null,
+        sender_id_no: null,
+        sender_phone: null,
+        sender_address: null,
+        is_commision_percentage: false,
+        office_commision_type: 0,
+        exchange_rate_to_delivery_currency: null,
+        exchange_rate_to_delivery_currency_view: null,
+        exchange_rate_to_reference_currency: null,
+        exchange_rate_to_office_currency: null,
+        exchange_rate_to_office_currency_view: null,
       },
       // a:0,
       // b:0,
@@ -411,78 +511,111 @@ export default {
   // },
   computed: {
     recivedAmountInUSDComp() {
-      let amount = this.item.transferringAmount || 0;
-      let ratio = this.item.RatioToUSD || 0;
+      let amount = this.item.to_send_amount || 0;
+      let ratio = this.item.exchange_rate_to_delivery_currency || 0;
       let commVal = parseFloat(this.calcCommisson() || 0);
-      let res = (amount - commVal) * ratio ;
+      let res = (amount - commVal) * ratio;
       return res == 0 ? null : res;
     },
     finalAmountToDeliverComp() {
       let recvAmountInUSD = parseFloat(this.recivedAmountInUSDComp || 0);
-      let ratio = this.item.recvCurrParam || null;
-      if(ratio == null) return;
+      let ratio = this.item.exchange_rate_to_reference_currency || null;
+      if (ratio == null) return;
       let amountToDelv = recvAmountInUSD * ratio;
+      this.item.received_amount = amountToDelv;
       return amountToDelv;
     },
     officeAmount() {
-      let conversionParam = this.item.officeConversionParam || 1,
+      let conversionParam = this.item.exchange_rate_to_office_currency || 1,
         totalRecvAmount = parseFloat(this.finalAmountToDeliverComp || 0);
       let officeAmount = totalRecvAmount * conversionParam;
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      let commission = this.item.officeCommission || 0,
+      let commission = this.item.office_commision || 0,
         officeAmount = parseFloat(this.officeAmount || 0);
-      let returned = this.item.officeReturn || 0;
-      commission = this.item.is_percentageO
-        ? (commission / 100) * officeAmount
-        : commission;
-      let res = officeAmount + commission - returned;
-      return res <= 0 ? null : res;
+      let returned = this.item.returned_commision || 0;
+      commission =
+        this.item.office_commision_type == 1
+          ? (commission / 100) * officeAmount
+          : commission;
+      let tempVar = officeAmount - commission + returned;
+      return tempVar <= 0 ? null : tempVar;
     },
     officeProfitComp() {
       let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
       let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
-      console.table({ fromInDoller, finalOfficeAmount });
-      let recvCurr = this.item.officeCurrencyAuto || null;
+
+      let recvCurr = this.item.office_currency || null;
       if (recvCurr == undefined) return;
-      let convParam = this.$calcBuyPrice(recvCurr, this.currencies[0]);
+      let convParam = this.$newCalcBuyPrice(recvCurr, this.currencies[0]);
       let res = fromInDoller - finalOfficeAmount * convParam;
       console.table({ fromInDoller, finalOfficeAmount, convParam, res });
-      return res;
+      let otherExp = this.item.other_amounts_on_receiver || 0;
+      return res - otherExp;
     },
+    ...mapState({
+      currencies: (state) => state.currency.all,
+    }),
   },
   methods: {
+    confirmProcess() {
+      this.$save(this.item, "transfer", null, "/dashboard/transfers");
+      // console.log(this.item);
+    },
+    setReceiverDate(item) {
+      this.item.reciver_id_no = item.id_no;
+      this.item.reciver_phone = item.mobile;
+      this.item.reciver_address = item.address;
+    },
+    setSenderDate(item) {
+      this.item.sender_id_no = item.id_no;
+      this.item.sender_phone = item.mobile;
+      this.item.sender_address = item.address;
+    },
     calcCommisson() {
-      let transferringAmount = this.item.transferringAmount || 0;
+      let to_send_amount = this.item.to_send_amount || 0;
       let commisson_amount = this.item.commission || 0;
-      let percentage = this.item.is_percentage;
+      let percentage = this.item.is_commision_percentage;
       let amount = 0;
       if (commisson_amount > 0) {
         amount = percentage
-          ? (transferringAmount * commisson_amount) / 100
+          ? (to_send_amount * commisson_amount) / 100
           : commisson_amount;
       }
 
       return amount;
     },
-    signCurrency(vName, type, fromCurr, toCurr) {
-      console.log(vName);
-      console.log(type);
-      console.log(fromCurr);
-      console.log(toCurr);
+    signCurrency(vCalc, vModel, type, fromCurr, toCurr) {
+      if (fromCurr == null || toCurr == null) return;
 
-      let fromCurrObj = fromCurr;
-      let toCurrObj = toCurr;
-
-      if (fromCurrObj == null || toCurrObj == null) return;
-
-      this.item[vName] = parseFloat(
+      this.item[vCalc] = parseFloat(
         type == "buy"
-          ? this.$calcBuyPrice(fromCurrObj, toCurrObj)
-          : this.$calcSalePrice(fromCurrObj, toCurrObj)
+          ? this.$newCalcBuyPrice(fromCurr, toCurr)
+          : this.$newCalcSalePrice(fromCurr, toCurr)
+      );
+
+      if (toCurr.id == 1) {
+        let temp = toCurr;
+        toCurr = fromCurr;
+        fromCurr = temp;
+      }
+
+      this.item[vModel] = parseFloat(
+        type == "buy"
+          ? this.$newCalcBuyPrice(fromCurr, toCurr)
+          : this.$newCalcSalePrice(fromCurr, toCurr)
       );
     },
+    showConversionFactor(to, factorModel, new_value) {
+      console.log(to,factorModel,new_value);
+      if(!to || !factorModel) return;
+      this.item[factorModel] =
+        to.id == 1
+          ? parseFloat(1 / parseFloat(new_value)).toFixed(7)
+          : parseFloat(new_value).toFixed(7);
+    },
+
   },
   filters: {
     money(value) {
@@ -490,6 +623,10 @@ export default {
         return value.toLocaleString(undefined, { minimumFractionDigits: 2 });
       }
     },
+  },
+  created() {
+    this.$store.dispatch("currency/index");
+    this.$store.dispatch("stock/index");
   },
 };
 </script>
@@ -503,6 +640,11 @@ export default {
   margin: 20px 18px;
 }
 
+.theme--light.v-input--is-disabled input {
+  color: rgb(0, 0, 0, 1) !important;
+  opacity: 1 !important;
+  font-size: 20px !important ;
+}
 @media (max-width: 600px) {
   .responseveCols > div {
     min-width: 100% !important;

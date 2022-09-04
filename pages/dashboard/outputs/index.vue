@@ -1,49 +1,45 @@
 <template>
   <div>
-    <Card class="pb-3">
+    <Card>
       <v-card-title>
-        <Title title="statement" />
-      </v-card-title>
+      <Title title="add withdrawals" />
+    </v-card-title>
       <v-card-text>
-        <v-row class="mt-5 lg5-custome-row">
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <AutoComplete class="rounding" holder="beneficiary" />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <InputField holder="recived amount"> </InputField>
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <AutoComplete holder="currency" />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <DatePicker v-model="item.date" holder="date" />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <TimePicker> </TimePicker>
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <InputField holder="conversion factor"></InputField>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="2">
-            <v-btn height="40" color="primary" block>
-              {{ $t("approve") }}
+      <v-row>
+        <v-col cols="12" class="text-left">
+            <v-btn @click="$router.push('outputs/form')" color="primary">
+              {{$t("add withdrawals")}}
             </v-btn>
-          </v-col>
-        </v-row>
-      </v-card-text>
+        </v-col>
+      </v-row>
+    </v-card-text>
     </Card>
+    <Card>
+    <DataTable module="receipt" :params="{type:1}" />
+  </Card>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  data() {
-    return {
-      item: {},
-    };
-  },
+    data() {
+        return {
+            item: {},
+            form: {
+                type: "1",
+                main_currency_id: 1,
+            },
+        };
+    },
+    computed: {
+        ...mapState({
+            all_currencies: (state) => state.currency.all,
+        }),
+    },
+    mounted() {
+        this.$store.dispatch("currency/index");
+    },
 };
 </script>
   

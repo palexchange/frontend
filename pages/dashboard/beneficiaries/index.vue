@@ -60,12 +60,8 @@
                         </AutoComplete>
                       </v-col>
                       <v-col cols="12" sm="4" xs="12">
-                        <AutoComplete
-                          :items="all_cities"
-                          v-model="form.city_id"
-                          holder="city"
-                        >
-                        </AutoComplete>
+                        <CityAutocomplete v-model="form.city_id">
+                        </CityAutocomplete>
                       </v-col>
                       <v-col cols="12" sm="4" xs="12">
                         <AutoComplete
@@ -97,13 +93,13 @@
       </v-card-actions>
     </Card>
 
-    <DataTable module='party'></DataTable>
+    <DataTable module="party"></DataTable>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import AutoComplete from "~/transfers/components/AutoComplete.vue";
+// import AutoComplete from "~/transfers/components/AutoComplete.vue";
 export default {
   data() {
     return {
@@ -156,10 +152,8 @@ export default {
   created() {
     this.$store.dispatch("currency/index");
     this.$store.dispatch("country/index");
-    this.$store.dispatch("city/index");
-
   },
-  components: { AutoComplete },
+  // components: { AutoComplete },
 };
 </script>
 

@@ -22,9 +22,7 @@
 
 <script>
 import { mapState } from "vuex";
-import DataTable from "~/transfers/components/DataTable.vue";
-import Card from "~/transfers/components/Card.vue";
-import Title from "~/transfers/components/Title.vue";
+
 export default {
     data() {
         return {
@@ -43,7 +41,7 @@ export default {
     mounted() {
         this.$store.dispatch("currency/index");
     },
-    components: { DataTable, Card, Title }
+  
 };
 </script>
   

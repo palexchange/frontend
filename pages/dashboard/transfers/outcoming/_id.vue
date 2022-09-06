@@ -249,13 +249,14 @@
           <v-col>
             <InputField
               v-model.number="item.exchange_rate_to_delivery_currency_view"
-              @input=" (new_value) => {
-                showConversionFactor(
-                  currencies.find((e) => e.id == 1),
-                  'exchange_rate_to_delivery_currency',
-                  new_value
-                )
-              }
+              @input="
+                (new_value) => {
+                  showConversionFactor(
+                    currencies.find((e) => e.id == 1),
+                    'exchange_rate_to_delivery_currency',
+                    new_value
+                  );
+                }
               "
               holder="converting to dollar amount"
               text="converting to dollar amount"
@@ -401,13 +402,14 @@
           <v-col>
             <InputField
               v-model.number="item.exchange_rate_to_office_currency_view"
-              @input=" (new_value) => {
-                showConversionFactor(
-                  item.office_currency,
-                  'exchange_rate_to_office_currency',
-                  new_value
-                )
-              }
+              @input="
+                (new_value) => {
+                  showConversionFactor(
+                    item.office_currency,
+                    'exchange_rate_to_office_currency',
+                    new_value
+                  );
+                }
               "
               holder="conversion price"
               text="conversion price"
@@ -684,8 +686,8 @@ export default {
       console.log(this.item);
     },
     showConversionFactor(to, factorModel, new_value) {
-      console.log(to,factorModel,new_value);
-      if(!to || !factorModel) return;
+      console.log(to, factorModel, new_value);
+      if (!to || !factorModel) return;
       this.item[factorModel] =
         to.id == 1
           ? parseFloat(1 / parseFloat(new_value)).toFixed(7)
@@ -714,7 +716,7 @@ export default {
   watch: {
     one(val) {
       if (val) {
-        this.item = JSON.parse(JSON.stringify(val));
+        this.item = { ...val }; //JSON.parse(JSON.stringify(val));
       }
     },
   },

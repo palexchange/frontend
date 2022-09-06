@@ -355,6 +355,7 @@ export default {
       let amount,
         sale_factor,
         buy_factor,
+        toUSD,
         profit = 0;
       this.items.forEach((e, index) => {
         amount = parseFloat(e.exchanged_amount || 0);
@@ -366,8 +367,10 @@ export default {
             this.all_currencies[index]
           ) || 1
         );
+        toUSD = parseFloat(this.$newCalcSalePrice(this.all_currencies[index],this.all_currencies.find((e) => e.id == 1)));
         console.log("Buy: ", buy_factor, "\nSale: ", sale_factor);
-        profit += (amount / buy_factor) * (sale_factor - buy_factor);
+        console.log("amount: ",amount, " toUSD: ",toUSD);
+        profit += ((((amount / buy_factor) * (sale_factor + buy_factor) / 2) - ( amount )) / toUSD);
       });
       return profit.toFixed(7);
     },

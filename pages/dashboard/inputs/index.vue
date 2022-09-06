@@ -21,29 +21,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import DataTable from "~/transfers/components/DataTable.vue";
-import Card from "~/transfers/components/Card.vue";
-import Title from "~/transfers/components/Title.vue";
 export default {
-    data() {
-        return {
-            item: {},
-            form: {
-                type: "0",
-                main_currency_id: 1,
-            },
-        };
-    },
-    computed: {
-        ...mapState({
-            all_currencies: (state) => state.currency.all,
-        }),
-    },
-    mounted() {
-        this.$store.dispatch("currency/index");
-    },
-    components: { DataTable, Card, Title }
+
 };
 </script>
   

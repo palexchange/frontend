@@ -1,37 +1,38 @@
 <template>
   <div>
     <!-- <Card> -->
-    <DataTable module="exchange" show-expand :expanded="expanded_item">
-      <template v-slot:expanded-item="{ headers, item }">
-        {{rr()}}
-        <td :colspan="headers.length">
-          <DataTable
-            module="exchange_detail"
-            :params="params2"
-          />
-          
+    <DataTable single-expand module="exchange" show-expand :expanded.sync="expanded_item">
+      <template v-slot:expanded-item="{ headers }">
+        <td :colspan="headers.length" class="pa-0">
+          <v-card color="grey" flat class="px-8">
+            <DataTable
+              hide_pagination
+              no_class
+              module="exchange_detail"
+              :params="params2"
+            />
+          </v-card>
         </td>
       </template>
     </DataTable>
-  <!-- </Card> -->
+    <!-- </Card> -->
   </div>
 </template>
 
 <script>
 export default {
-  date() {
+  data() {
     return {
       expanded_item: [],
-      params2:{},
+      params2: {},
       va: 0,
-    }
+    };
   },
   watch: {
     expanded_item(val) {
-      console.log("\n#############\n",val,"\n%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
       if (val[0]) {
         this.params2 = {
-          id: val[0].exchange_id ? val[0].exchange_id : "",
+          exchange_id: val[0].id ? val[0].id : "",
           per_page: 999,
         };
       }
@@ -39,10 +40,10 @@ export default {
   },
   methods: {
     rr() {
-      this.va = Math.random()*100;
-      console.log("VA ======>>>>>>>>>>> ",this.va);
-    }
-  }
+      this.va = Math.random() * 100;
+      console.log("VA ======>>>>>>>>>>> ", this.va);
+    },
+  },
 };
 </script>
 

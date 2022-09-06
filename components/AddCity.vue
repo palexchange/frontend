@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-8">
+  <v-card class="pa-8">
     <v-form v-model="validated">
       <v-row>
         <v-col>
@@ -17,18 +17,14 @@
           <v-btn
             :disabled="!validated"
             color="primary"
-            @click="
-              $save(item, 'city');
-              item = {};
-              $store.dispatch('closeDialog');
-            "
+            @click="saveCity"
           >
             {{ $t("save") }}
           </v-btn>
         </v-col>
       </v-row>
     </v-form>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -40,6 +36,13 @@ export default {
       item: {},
     };
   },
+  methods: {
+    async saveCity() {
+      let response = await this.$save(this.item,'city');
+      this.$emit('close',response.id);
+      this.item = {};
+    },
+  }
 };
 </script>
 

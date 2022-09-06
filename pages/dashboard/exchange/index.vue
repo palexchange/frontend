@@ -143,7 +143,7 @@
           >
             <span>
               {{ $t("exchange profit") }}:
-              <span class="text-h6">{{ exchange_profit }}</span>
+              <span class="text-h6">{{ exchange_profit }} $</span>
             </span>
           </v-col>
         </v-row>
@@ -198,6 +198,9 @@
                 <v-text-field
                   hide-details
                   v-model="items[i].exchanged_amount"
+                  @keydown.enter="
+                    (v) => changed_ex_amount(items[i], i, v.target.value)
+                  "
                   @input="
                     (v) => {
                       changed_ex_amount(items[i], i, v);
@@ -215,6 +218,7 @@
                 <v-text-field
                   :value="items[i].exchanged_vactor"
                   hide-details
+                  @keydown.enter="changed_ex_factor(items[i], $event)"
                   @blur="changed_ex_factor(items[i], $event)"
                   class="mt-4"
                   min="0"
@@ -311,33 +315,7 @@ export default {
     return {
       selected: {},
       number: 1,
-      currensies: [
-        {
-          id: 1,
-          name: "dollar",
-          values: { sale: 1, buy: 1 },
-        },
-        {
-          id: 2,
-          name: "shekel",
-          values: { sale: 0.29, buy: 0.3 },
-        },
-        {
-          id: 3,
-          name: "dinar",
-          values: { sale: 0.7, buy: 0.69 },
-        },
-        {
-          id: 4,
-          name: "euro",
-          values: { sale: 0.6, buy: 0.59 },
-        },
-        {
-          id: 5,
-          name: "pound",
-          values: { sale: 15, buy: 14 },
-        },
-      ],
+
       item: {
         currency: {},
         reminder: null,
@@ -356,28 +334,56 @@ export default {
         sale_factor,
         buy_factor,
         toUSD,
+        test_profit = 0,
         profit = 0;
+      console.log("start");
       this.items.forEach((e, index) => {
         amount = parseFloat(e.exchanged_amount || 0);
-        buy_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 1);
+        console.log("Test");
+        if (amount == 0) return;
+        sale_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 1);
         // console.log(this.stocks[index]);
-        sale_factor = parseFloat(
+        buy_factor = parseFloat(
           this.$newCalcBuyPrice(
             this.item.currency,
             this.all_currencies[index]
           ) || 1
         );
-        toUSD = parseFloat(this.$newCalcSalePrice(this.all_currencies[index],this.all_currencies.find((e) => e.id == 1)));
+
+        console.table({ amount, sale_factor, buy_factor });
+
+        test_profit += amount - (amount / sale_factor) * buy_factor;
+
+        console.table({ test_profit });
         console.log("Buy: ", buy_factor, "\nSale: ", sale_factor);
-        console.log("amount: ",amount, " toUSD: ",toUSD);
-        profit += ((((amount / buy_factor) * (sale_factor + buy_factor) / 2) - ( amount )) / toUSD);
+        // profit +=
+        //   ((amount / sale_factor) * (sale_factor - buy_factor)) / buy_factor;
+        toUSD = parseFloat(
+          this.$newCalcSalePrice(
+            this.all_currencies[index],
+            this.all_currencies.find((e) => e.id == 1)
+          )
+        );
+        console.table({ amount, toUSD, buy_factor, sale_factor });
+        profit +=
+          (((amount / sale_factor) * (sale_factor + buy_factor)) / 2 - amount) *
+          toUSD;
       });
-      return profit.toFixed(7);
+
+      console.log("out");
+      return Math.abs(profit.toFixed(7));
     },
   },
   methods: {
+    test(event_maybe) {
+      console.log(event_maybe);
+      console.log("event_mayb");
+      console.log("event_mayb");
+    },
     setSenderCurrecny(partyObj) {
-      this.item.currency = this.all_currencies.find((e) =>  e.id == partyObj.currency_id);
+      this.item.currency = this.all_currencies.find(
+        (e) => e.id == partyObj.currency_id
+      );
     },
     setRow(index, item) {
       let amount = this.exchange.amount || 0;
@@ -402,7 +408,13 @@ export default {
       let from = this.item.currency;
       let to = item;
       let temp = parseFloat(this.$newCalcSalePrice(from, to));
+      if (to.id == 1) {
+        if (1/temp < 1 ) {
+          temp = parseFloat(this.$newCalcBuyPrice(from, to));
+        }
+      }
       console.log(temp, from, to, amount);
+
       this.items[index].exchanged_vactor = temp.toFixed(7);
       this.items[index].exchanged_amount = (amount * temp).toFixed(7);
       this.items[index].modified_factor = null;

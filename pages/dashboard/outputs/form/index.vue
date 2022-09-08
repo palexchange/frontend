@@ -41,7 +41,7 @@
             <v-btn
               @click="
                 form.date = form.date + ' ' + form.time;
-                $save(form, 'receipt');
+                $save(form, 'receipt',null,'/dashboard/outputs');
                 form = {};
               "
               height="40"

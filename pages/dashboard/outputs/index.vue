@@ -2,44 +2,41 @@
   <div>
     <Card>
       <v-card-title>
-      <Title title="add withdrawals" />
-    </v-card-title>
-      <v-card-text>
-      <v-row>
-        <v-col cols="12" class="text-left">
+        <Title title="withdrawals" />
+        <v-row>
+          <v-col cols="12" class="text-left">
             <v-btn @click="$router.push('outputs/form')" color="primary">
-              {{$t("add withdrawals")}}
+              {{ $t("add withdrawals") }}
             </v-btn>
-        </v-col>
-      </v-row>
-    </v-card-text>
+          </v-col>
+        </v-row>
+      </v-card-title>
     </Card>
-    <Card>
-    <DataTable module="receipt" :params="{type:1}" />
-  </Card>
+
+    <DataTable module="receipt" :params="{ type: 1 }" />
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 export default {
-    data() {
-        return {
-            item: {},
-            form: {
-                type: "1",
-                main_currency_id: 1,
-            },
-        };
-    },
-    computed: {
-        ...mapState({
-            all_currencies: (state) => state.currency.all,
-        }),
-    },
-    mounted() {
-        this.$store.dispatch("currency/index");
-    },
+  data() {
+    return {
+      item: {},
+      form: {
+        type: "1",
+        main_currency_id: 1,
+      },
+    };
+  },
+  computed: {
+    ...mapState({
+      all_currencies: (state) => state.currency.all,
+    }),
+  },
+  mounted() {
+    // this.$store.dispatch("currency/index");
+  },
 };
 </script>
   

@@ -48,6 +48,7 @@
             </v-col>
             <v-col cols="12" sm="4" xs="12">
               <CityAutocomplete
+                @close="change_city"
                 v-model="form.city_id"
                 holder="city"
                 text="city"
@@ -101,6 +102,7 @@ export default {
       photo: null,
       form: {
         type: 0,
+        city_id: 0,
       },
     };
   },
@@ -118,6 +120,11 @@ export default {
       this.form = {};
       this.$store.dispatch("closeDialog");
     },
+    change_city(city_id) {
+      console.log("Reeeacchhhh");
+      if(city_id)
+      this.form.city_id = city_id;
+    }
   },
   computed: {
     ...mapState({

@@ -70,7 +70,14 @@ export default (context) => {
     child: 'exchange_detail',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'exhange_id', 'amount', 'currency_id', 'factor', 'amount_after'],
+    headers: ['id', 'exchange_id', 'amount', 'name', 'currency', 'factor', 'amount_after'],
+    functions: [{
+      key: 'name',
+      f: v => {
+        return v.context.app.i18n
+      }
+    }
+    ]
   },
   {
     child: 'transfer',

@@ -2,12 +2,13 @@
 <template>
   <div>
     <v-data-table
-      class="my-table elevation-0"
+      class="elevation-0"
+      :class="no_class ? '' : 'my-table'"
       :options.sync="options"
       :page.sync="options.page"
       item-key="id"
       hide-default-footer
-      :items-per-page="meta.per_page ? Number(meta.per_page) : -1"
+      :items-per-page="meta.per_page ? Number(meta.per_page) :15"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
       :headers="$translateHeaders(headers.concat(['actions']))"
@@ -16,13 +17,10 @@
       @contextmenu:row="$context_menu"
       v-bind="$attrs"
       v-on="$listeners"
-      :loading="loading"
       @update:sort-by="updateSortBy($event)"
       @update:sort-desc="updateSortDesc($event)"
     >
-      <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope"
-        >
-
+      <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope">
         <slot :name="slot" v-bind="scope"
       /></template>
       <template v-for="func in functions" v-slot:[getKey(func.key)]="scope">
@@ -121,6 +119,7 @@
       </template>
     </v-data-table>
     <v-pagination
+    class="mt-5"
       :hidden="hide_pagination"
       v-model="options.page"
       :length="meta.last_page"
@@ -146,6 +145,10 @@ export default {
       default: {},
     },
     hide_pagination: Boolean,
+    no_class: {
+      type: Boolean,
+      defualt: false,
+    },
     hidden_headers: Array,
   },
   data() {
@@ -155,7 +158,7 @@ export default {
       options: {
         sortBy: [],
         sortDesc: [],
-        itemKey: "item.",
+      itemKey: "item.",
       },
       // loaded: false,
       sortingData: { sortBy: [], sortDesc: [] },
@@ -165,15 +168,15 @@ export default {
   },
   mounted() {
     // this.test = this.$scopedSlots;
-    let sorting = localStorage.getItem(`${this.$route.path}/sorting`);
-    let sotingObj = sorting != null ? JSON.parse(sorting) : null;
-    if (sotingObj) {
-      this.options.sortBy = sotingObj.sortBy;
-      this.options.sortDesc = sotingObj.sortDesc;
-    }
+    // let sorting = localStorage.getItem(`${this.$route.path}/sorting`);
+    // let sotingObj = sorting != null ? JSON.parse(sorting) : null;
+    // if (sotingObj) {
+    //   this.options.sortBy = sotingObj.sortBy;
+    //   this.options.sortDesc = sotingObj.sortDesc;
+    // }
   },
   created() {
-    if (this.module) {
+    if (this.module && this.options.itemsPerPage > -2) {
       this.$store.dispatch(`${this.module}/index`, {
         ...this.options,
         ...this.params,
@@ -237,7 +240,7 @@ export default {
     options: {
       handler(val) {
         // this.loading = true;
-        if (this.loaded) {
+        if (this.loaded && this.options.itemsPerPage > -2) {
           this.$store.dispatch(`${this.module}/index`, {
             ...val,
             ...this.params,
@@ -245,10 +248,11 @@ export default {
         }
       },
       deep: true,
+      // immediate: true,
     },
     params: {
       handler(val) {
-        if (this.loaded) {
+        if (this.loaded && Object.keys(this.params).length > 0) {
           this.$store.dispatch(`${this.module}/index`, {
             ...val,
             ...this.options,
@@ -256,7 +260,7 @@ export default {
         }
       },
       deep: true,
-      immediate: true,
+      // immediate: true,
     },
   },
   methods: {
@@ -311,11 +315,10 @@ export default {
       this.$store.dispatch("setModule", this.module);
     },
   },
-
 };
 </script>
  <style >
-.my-table th {
+/* .my-table th {
   padding: 20px 0px !important;
   font-weight: normal;
   color: #000 !important;
@@ -326,7 +329,6 @@ export default {
 .my-table th::after {
   content: " | ";
   display: inline-block;
-  /* padding-left: 10px; */
   padding: 0px 20px;
   color: rgba(67, 46, 140, 0.5);
 }
@@ -348,9 +350,7 @@ export default {
   padding: 20px 0px !important;
   text-align: center !important;
 }
-.my-table tbody > tr:hover {
-  background-color: transparent !important;
-}
+
 
 .my-table tbody,
 .my-table td {
@@ -359,6 +359,9 @@ export default {
   font-weight: normal;
   color: #000 !important;
   font-size: 13px !important;
+} */
+.my-table tbody > tr:hover {
+  background-color: rgb(247, 247, 247) !important;
 }
 .v-pagination__item {
   box-shadow: none !important;

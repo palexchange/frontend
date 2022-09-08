@@ -2,21 +2,18 @@
   <div>
     <Card>
       <v-card-title>
-      <Title title="add receipts" />
-    </v-card-title>
-      <v-card-text>
-      <v-row>
-        <v-col cols="12" class="text-left">
+        <Title title="add receipts" />
+        <v-row>
+          <v-col cols="12" class="text-left">
             <v-btn @click="$router.push('inputs/form')" color="primary">
-              {{$t("add receipts")}}
+              {{ $t("add receipts") }}
             </v-btn>
-        </v-col>
-      </v-row>
-    </v-card-text>
+          </v-col>
+        </v-row>
+      </v-card-title>
     </Card>
-    <Card>
-    <DataTable module="receipt" :params="{type:0}" />
-  </Card>
+
+    <DataTable module="receipt" :params="{ type: 0 }" />
   </div>
 </template>
 
@@ -24,24 +21,23 @@
 import { mapState } from "vuex";
 
 export default {
-    data() {
-        return {
-            item: {},
-            form: {
-                type: "0",
-                main_currency_id: 1,
-            },
-        };
-    },
-    computed: {
-        ...mapState({
-            all_currencies: (state) => state.currency.all,
-        }),
-    },
-    mounted() {
-        this.$store.dispatch("currency/index");
-    },
-  
+  data() {
+    return {
+      item: {},
+      form: {
+        type: "0",
+        main_currency_id: 1,
+      },
+    };
+  },
+  computed: {
+    ...mapState({
+      all_currencies: (state) => state.currency.all,
+    }),
+  },
+  mounted() {
+    this.$store.dispatch("currency/index");
+  },
 };
 </script>
   

@@ -22,15 +22,14 @@
       item-value="id"
     >
       <template v-slot:prepend-item>
-        <v-btn
-          depressed
-          block
-          @click="$store.dispatch('setDialog', { name: 'AddCity' })"
-        >
+        <v-btn depressed block @click="dialog = true">
           {{ $t("add city") }}
         </v-btn>
       </template>
     </v-autocomplete>
+    <v-dialog width="800" v-model="dialog">
+      <component @close="close" :is="'AddCity'"></component>
+    </v-dialog>
   </div>
 </template>
 
@@ -65,6 +64,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       rulesss: ruless(this),
     };
   },
@@ -78,6 +78,16 @@ export default {
       all: (state) => state.city.all,
     }),
   },
+  methods: {
+    close(cityId) {
+      this.$store.dispatch("city/index", { per_page: 900 });
+      this.dialog = false;
+      if(cityId) {
+        this.$emit('close', cityId);
+      }
+
+    }
+  }
 };
 </script>
 

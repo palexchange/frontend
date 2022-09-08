@@ -331,7 +331,7 @@
                   signCurrency(
                     'exchange_rate_to_office_currency',
                     'exchange_rate_to_office_currency_view',
-                    'buy',
+                    'sale',
                     item.received_currency,
                     v
                   );
@@ -528,6 +528,10 @@ export default {
     officeAmount() {
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
         totalRecvAmount = parseFloat(this.finalAmountToDeliverComp || 0);
+      if (this.item.delivering_type == 2) {
+        return this.recivedAmountInUSDComp;
+      }
+
       let officeAmount = totalRecvAmount * conversionParam;
       return officeAmount <= 0 ? null : officeAmount;
     },
@@ -548,7 +552,7 @@ export default {
 
       let recvCurr = this.item.office_currency || null;
       if (recvCurr == undefined) return;
-      let convParam = this.$newCalcBuyPrice(recvCurr, this.currencies[0]);
+      let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
       let res = fromInDoller - finalOfficeAmount * convParam;
       console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       let otherExp = this.item.other_amounts_on_receiver || 0;
@@ -615,7 +619,6 @@ export default {
           ? parseFloat(1 / parseFloat(new_value)).toFixed(7)
           : parseFloat(new_value).toFixed(7);
     },
-
   },
   filters: {
     money(value) {

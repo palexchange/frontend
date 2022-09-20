@@ -8,6 +8,12 @@
   "AddCity": {
     "description": "Auto imported from components/AddCity.vue"
   },
+  "AddType": {
+    "description": "Auto imported from components/AddType.vue"
+  },
+  "AutoAccount": {
+    "description": "Auto imported from components/AutoAccount.vue"
+  },
   "AutoComplete": {
     "description": "Auto imported from components/AutoComplete.vue"
   },
@@ -79,6 +85,9 @@
   },
   "Tutorial": {
     "description": "Auto imported from components/Tutorial.vue"
+  },
+  "TypeAutoComplete": {
+    "description": "Auto imported from components/TypeAutoComplete.vue"
   },
   "VuetifyLogo": {
     "description": "Auto imported from components/VuetifyLogo.vue"

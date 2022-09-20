@@ -221,13 +221,13 @@
     "show exchange processes": "إظهار عمليات الصرافة",
     "add receipts": "إضافة مقبوضات",
     "add withdrawals": "إضافة مسحوبات",
-    "balanced": "متزن",
     "account": "الحساب",
     "type": "النوع",
-    "unbalanced": "غير متزن",
-    "shortage in box": "نقص في الصندوق",
-    "excess in box": "فائض في الصندوق",
     "currencies report": "صناديق العملات",
     "report create": "إنشاء تقرير",
-    "empty": "تفريغ"
+    "balanced": "متزن",
+    "unbalanced": "غير متزن",
+    "empty": "تفريغ",
+    "shortage in box": "نقص في الصندوق",
+    "excess in box": "فائض في الصندوق"
 }

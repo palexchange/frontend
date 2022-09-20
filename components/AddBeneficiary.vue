@@ -5,7 +5,7 @@
       {{ $t(`${dialog_item ? "edit" : "add"} beneficiary`) }}
       <v-spacer></v-spacer
     ></v-toolbar>
-    <div >
+    <div>
       <v-form v-model="validated">
         <v-card-text class="pa-6">
           <v-row>
@@ -63,7 +63,15 @@
               >
               </CurrencyAutoComplete>
             </v-col>
-            <v-col cols="12" sm="8" xs="12">
+            <v-col cols="12" sm="4" xs="12">
+              <AutoAccount
+                text="account"
+                holder="account"
+                required
+                v-model="form.account_id"
+              />
+            </v-col>
+            <v-col class="pa-0" cols="12" xs="12">
               <FileUpload
                 v-model="photo"
                 holder="default currency"
@@ -71,9 +79,10 @@
               >
               </FileUpload>
             </v-col>
-            <v-col cols="12" sm="8" xs="12">
+            <v-col cols="12" xs="12">
               <img :src="form.image ? form.image.url : ''" alt="" />
             </v-col>
+
           </v-row>
           <v-row class="button-responsive">
             <v-col class="text-center">
@@ -95,6 +104,7 @@
 
 <script>
 import { mapState } from "vuex";
+import AutoAccount from "./AutoAccount.vue";
 export default {
   data() {
     return {
@@ -102,7 +112,7 @@ export default {
       photo: null,
       form: {
         type: 0,
-        city_id: 0,
+     
       },
     };
   },
@@ -122,9 +132,8 @@ export default {
     },
     change_city(city_id) {
       console.log("Reeeacchhhh");
-      if(city_id)
-      this.form.city_id = city_id;
-    }
+      if (city_id) this.form.city_id = city_id;
+    },
   },
   computed: {
     ...mapState({
@@ -137,6 +146,7 @@ export default {
       this.form = JSON.parse(JSON.stringify(this.dialog_item));
     }
   },
+  components: { AutoAccount },
 };
 </script>
 

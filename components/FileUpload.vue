@@ -99,12 +99,11 @@ export default {
          <div style="justify-self:center">
       <div>
         <img
-          style="width: 60px"
+          style="width: 50px"
           src="/upload.jpeg"
           alt=""
         />
       </div>
-      <h5>اسحب الصورة هنا ليتم رفعها او قم بتحميل صورة للمنتج من الجهاز </h5>
       <p>صغية الملفات المسموح بها : png , jpg اقصي حجم للرفع 2 ميجا بايت </p>
     </div>
       
@@ -161,10 +160,13 @@ export default {
   justify-content: center;
   background: #f5f5f5;
   padding: 8px;
-  padding-top: 20px;
-  border-radius: 10px;
+  padding-top: 0px;
+  border-radius: 0px;
 }
 .dropzone {
   border: dashed 2px #8d8d8d;
+}
+.vue-dropzone {
+  padding: 0px;
 }
 </style>

@@ -6,8 +6,11 @@ You can directly use them in pages and other components without the need to impo
 
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
+- `<AddAccount>` | `<add-account>` (components/AddAccount.vue)
 - `<AddBeneficiary>` | `<add-beneficiary>` (components/AddBeneficiary.vue)
 - `<AddCity>` | `<add-city>` (components/AddCity.vue)
+- `<AddType>` | `<add-type>` (components/AddType.vue)
+- `<AutoAccount>` | `<auto-account>` (components/AutoAccount.vue)
 - `<AutoComplete>` | `<auto-complete>` (components/AutoComplete.vue)
 - `<BaseFilter>` | `<base-filter>` (components/BaseFilter.vue)
 - `<BeneficiaryAutocomplete>` | `<beneficiary-autocomplete>` (components/BeneficiaryAutocomplete.vue)
@@ -32,6 +35,7 @@ You can directly use them in pages and other components without the need to impo
 - `<TimePicker>` | `<time-picker>` (components/TimePicker.vue)
 - `<Title>` | `<title>` (components/Title.vue)
 - `<Tutorial>` | `<tutorial>` (components/Tutorial.vue)
+- `<TypeAutoComplete>` | `<type-auto-complete>` (components/TypeAutoComplete.vue)
 - `<VuetifyLogo>` | `<vuetify-logo>` (components/VuetifyLogo.vue)
 - `<FiltersBookFilter>` | `<filters-book-filter>` (components/filters/BookFilter.vue)
 - `<FiltersCategoryFilter>` | `<filters-category-filter>` (components/filters/CategoryFilter.vue)

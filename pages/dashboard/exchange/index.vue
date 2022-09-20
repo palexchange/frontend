@@ -493,11 +493,18 @@ export default {
     async save() {
       this.exchange.currency_id = this.item.currency.id;
       this.exchange.beneficiary_id = this.item.beneficairy.id;
-      let ex_id;
+      this.exchange.reference_currency_id = 1;
+      this.exchange.status = 1;
+      this.exchange.exchange_rate = parseFloat(this.$newCalcSalePrice(this.item.currency,this.all_currencies.find((e) => e.id == 1)));
+      this.exchange.amount_after = parseFloat(this.exchange.amount * this.exchange.exchange_rate);
+      
+      // console.log("Curr: ",this.exchange.currency_id);
+      // console.log("Ben: ",this.exchange.beneficiary_id);
       let response = await this.$store.dispatch(
         "exchange/store",
         this.exchange
       );
+      console.log("Res: ",response);
       let details = {
         exchange_id: response.id,
       };
@@ -558,7 +565,6 @@ export default {
       this.stocks = val;
     },
   },
-  components: { BeneficiaryAutocomplete },
 };
 </script>
 

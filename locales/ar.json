@@ -221,5 +221,8 @@
     "add receipts": "إضافة مقبوضات",
     "add withdrawals": "إضافة مسحوبات",
     "balanced" : "متزن",
-    "empty" : "تفريغ"
+    "unbalanced" : "غير متزن",
+    "empty" : "تفريغ",
+    "shortage in box" : "نقص في الصندوق",
+    "excess in box" : "فائض في الصندوق"
 }

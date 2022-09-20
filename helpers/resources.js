@@ -4,7 +4,7 @@ export default (context) => {
   let resources = [{
     child: 'account',
     parent: '',
-    load_after_store: false,
+    load_after_store: true,
     headers: ['actions', 'account_number', 'name', 'code', 'type.name', 'is_transaction', 'description'],
     functions: [{
       key: 'is_transaction',
@@ -58,7 +58,7 @@ export default (context) => {
     child: 'exchange',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'date', 'amount', 'currency', 'party_name', 'number'],
+    headers: ['id', 'date', 'amount', 'currency_name', 'party_name', 'number'],
   },
   {
     child: 'receipt',
@@ -67,10 +67,16 @@ export default (context) => {
     headers: ['id', 'party_name', 'amount', 'currency', 'date', 'factor'],
   },
   {
+    child: 'account_type',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'name', 'parent_name'],
+  },
+  {
     child: 'exchange_detail',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'exchange_id', 'amount', 'currency', 'factor', 'amount_after'],
+    headers: ['id', 'exchange_id', 'amount', 'currency_name', 'factor', 'amount_after'],
   },
   {
     child: 'transfer',
@@ -114,6 +120,12 @@ export default (context) => {
     parent: '',
     load_after_store: true,
     headers: ['id', 'name']
+  },
+  {
+    child: 'setting',
+    parent: '',
+    load_after_store: true,
+    headers: ['id','name', 'type']
   },
   {
     child: 'report',

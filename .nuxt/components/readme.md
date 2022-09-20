@@ -6,6 +6,7 @@ You can directly use them in pages and other components without the need to impo
 
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
+- `<AccountAutocomplete>` | `<account-autocomplete>` (components/AccountAutocomplete.vue)
 - `<AddBeneficiary>` | `<add-beneficiary>` (components/AddBeneficiary.vue)
 - `<AddCity>` | `<add-city>` (components/AddCity.vue)
 - `<AutoComplete>` | `<auto-complete>` (components/AutoComplete.vue)
@@ -41,3 +42,4 @@ You can directly use them in pages and other components without the need to impo
 - `<FiltersItemFilter>` | `<filters-item-filter>` (components/filters/ItemFilter.vue)
 - `<FiltersOrderFilter>` | `<filters-order-filter>` (components/filters/OrderFilter.vue)
 - `<FiltersReportFilter>` | `<filters-report-filter>` (components/filters/ReportFilter.vue)
+- `<ReportsAccountingReport>` | `<reports-accounting-report>` (components/reports/AccountingReport.vue)

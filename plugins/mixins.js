@@ -154,26 +154,26 @@ export default (context, inject) => {
     if (from.id == to.id) {
       return 1;
     } else if (to.id == 1) {
-      return (1 / from.values.buy).toFixed(5);
+      return (1 / from.values.buy).toFixed(7);
     } else if (from.id == 1) {
       return (to.values.buy);
     } else {
-      return ((from.values.buy) * 1 / to.values.buy).toFixed(5);
+      return ((from.values.buy) * 1 / to.values.buy).toFixed(7);
     }
   });
   inject('calcSalePrice', (from, to) => {
     if (from.id == to.id) {
       return 1;
     } else if (to.id == 1) {
-      return (1 / from.values.sale).toFixed(5);
+      return (1 / from.values.sale).toFixed(7);
     } else if (from.id == 1) {
       return (to.values.sale);
     } else {
-      return ((from.values.sale) * 1 / to.values.sale).toFixed(5);
+      return ((from.values.sale) * 1 / to.values.sale).toFixed(7);
     }
   });
   inject('newCalcBuyPrice', (from, to) => {
-    if(!(from && to)) return 0;
+    if (!(from && to)) return 0;
     let from_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == from.id && v.ref_currency_id == 1
     });
@@ -187,7 +187,7 @@ export default (context, inject) => {
     else if (to.id == 1) {
       if (from_currency) {
 
-        return (1 / from_currency.start_selling_price).toFixed(5);
+        return (1 / from_currency.start_selling_price).toFixed(7);
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -203,14 +203,14 @@ export default (context, inject) => {
       }
       if (to_currency && from_currency) {
 
-        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(5);
+        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(7);
       }
     }
 
 
   });
   inject('newCalcSalePrice', (from, to) => {
-    if(!(from && to)) return 0;
+    if (!(from && to)) return 0;
     let from_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == from.id && v.ref_currency_id == 1
     });
@@ -222,7 +222,7 @@ export default (context, inject) => {
       return 1;
     } else if (to.id == 1) {
       if (from_currency) {
-        return (1 / from_currency.start_purchasing_price).toFixed(5);
+        return (1 / from_currency.start_purchasing_price).toFixed(7);
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -237,7 +237,7 @@ export default (context, inject) => {
         return converter.start_purchasing_price;
       }
       if (to_currency && from_currency) {
-        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(5);
+        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(7);
       }
     }
 

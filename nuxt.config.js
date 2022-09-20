@@ -4,7 +4,7 @@ import en from 'vuetify/lib/locale/en';
 export default {
   target: 'server',
   // Global page headers: https://go.nuxtjs.dev/config-head
-  ssr: true,
+  ssr: false,
   server: {
     host: '0.0.0.0',
     port: process.env.PORT || 3000

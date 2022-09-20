@@ -1,3 +1,4 @@
+export { default as AccountAutocomplete } from '../..\\components\\AccountAutocomplete.vue'
 export { default as AddBeneficiary } from '../..\\components\\AddBeneficiary.vue'
 export { default as AddCity } from '../..\\components\\AddCity.vue'
 export { default as AutoComplete } from '../..\\components\\AutoComplete.vue'
@@ -33,6 +34,7 @@ export { default as FiltersInventoryBatchFilter } from '../..\\components\\filte
 export { default as FiltersItemFilter } from '../..\\components\\filters\\ItemFilter.vue'
 export { default as FiltersOrderFilter } from '../..\\components\\filters\\OrderFilter.vue'
 export { default as FiltersReportFilter } from '../..\\components\\filters\\ReportFilter.vue'
+export { default as ReportsAccountingReport } from '../..\\components\\reports\\AccountingReport.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

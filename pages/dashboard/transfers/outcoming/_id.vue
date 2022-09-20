@@ -82,7 +82,6 @@
             <InputField
               holder="id number"
               text="id number"
-              required
               v-model="item.sender_id_no"
             />
           </v-col>
@@ -135,7 +134,6 @@
             <InputField
               holder="id number"
               text="id number"
-              required
               v-model="item.receiver_id_no"
             />
           </v-col>
@@ -204,7 +202,7 @@
                   (item.is_commission_percentage =
                     !item.is_commission_percentage)
               "
-              v-model.number="item.commission"
+              v-model.number="item.transfer_commission"
             >
             </v-text-field>
           </v-col>
@@ -349,12 +347,20 @@
               text="another expenses on receiver"
             />
           </v-col>
-          <v-col cols="3">
+          <v-col>
             <InputField
               :value="totalRecvAmountComp | money"
               dashed
               holder="final amount to give"
               text="final amount to give"
+            />
+          </v-col>
+          <v-col>
+            <InputField
+              :value="item.a_received_amount | money"
+              dashed
+              holder="المبلغ للتسليم بالدولار"
+              text="المبلغ للتسليم بالدولار"
             />
           </v-col>
         </v-row>
@@ -483,8 +489,7 @@
           &nbsp; &nbsp;
           <v-menu offset-x left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" color="primary" outlined
-                >الإجراءات</v-btn
+              <v-btn v-bind="attrs" v-on="on" color="primary" outlined>الإجراءات</v-btn
               >
             </template>
             <v-list>
@@ -536,7 +541,8 @@ export default {
       ],
       item: {
         commission_side: 1,
-        type: 1,
+        type: 0,
+        status: 1,
         reference_currency_id: 1,
         reciver_phone: null,
         reciver_address: null,
@@ -582,6 +588,7 @@ export default {
           : 0;
       let otherExp = (this.item.other_amounts_on_sender || 0) * convert_param;
       let final = commVal + total + otherExp;
+      this.item.final_received_amount = final;
       return final > 0 ? final : null;
     },
     recivedAmountComp() {
@@ -598,6 +605,19 @@ export default {
         this.item.commission_side == 1 ? 0 : this.calcCommisson() || 0;
       let otherExp = this.item.other_amounts_on_receiver || 0;
       let res = (amountInUSD - commission - otherExp) * conversionParam;
+      let factor = this.$newCalcBuyPrice(
+        { id: this.item.received_currency_id },
+        { id: 1 }
+      );
+      let sub_factor = this.$newCalcSalePrice(
+        { id: this.item.received_currency_id },
+        { id: 1 }
+      );
+      console.log("factor");
+      console.log(factor);
+      this.item.a_received_amount = factor
+        ? res * (factor < 1 ? factor : sub_factor)
+        : null;
       return res <= 0 ? null : res;
     },
     officeAmount() {
@@ -609,12 +629,14 @@ export default {
     totalOfficeAmount() {
       let commission = this.item.office_commission || 0,
         officeAmount = parseFloat(this.officeAmount || 0);
+
       let returned = this.item.returned_commission || 0;
       commission =
         this.item.office_commission_type == 1
           ? (commission / 100) * officeAmount
           : commission;
       let tempVar = officeAmount + commission - returned;
+      this.item.office_amount = tempVar;
       return tempVar <= 0 ? null : tempVar;
     },
     officeProfitComp() {
@@ -670,7 +692,7 @@ export default {
     },
     calcCommisson() {
       let transferringAmount = this.item.to_send_amount || 0;
-      let commisson_amount = this.item.commission || 0;
+      let commisson_amount = this.item.transfer_commission || 0;
       let percentage = this.item.is_commission_percentage;
       let amount = 0;
       if (commisson_amount > 0) {
@@ -703,7 +725,6 @@ export default {
   },
   created() {
     if (process.client) {
-      console.log("9877777777777777777777777777777777777777777777");
       if (this.$route.params.id) {
         console.log("test created ");
         this.$store.dispatch("transfer/show", this.$route.params.id);

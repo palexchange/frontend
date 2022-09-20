@@ -1,10 +1,15 @@
 <template>
   <div>
     <!-- <Card> -->
-    <DataTable single-expand module="exchange" show-expand :expanded.sync="expanded_item">
+    <DataTable
+      single-expand
+      module="exchange"
+      show-expand
+      :expanded.sync="expanded_item"
+    >
       <template v-slot:expanded-item="{ headers }">
         <td :colspan="headers.length" class="pa-0">
-          <v-card color="grey" flat class="px-8">
+          <v-card color="primary" flat class="px-8">
             <DataTable
               hide_pagination
               no_class

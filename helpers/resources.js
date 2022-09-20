@@ -71,23 +71,23 @@ export default (context) => {
     parent: '',
     load_after_store: true,
     headers: ['id', 'exchange_id', 'amount', 'name', 'currency', 'factor', 'amount_after'],
-    functions: [{
-      key: 'name',
-      f: v => {
-        return v.context.app.i18n
-      }
-    }
-    ]
+    // functions: [{
+    //   key: 'name',
+    //   f: v => {
+    //     return v.context.app.i18n
+    //   }
+    // }
+    // ]
   },
   {
     child: 'transfer',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'type', 'issued_at', 'status', 'sender_id_no', 'sender_phone', 'sender_address'],
+    headers: ['id', 'type', 'issued_at', 'status', 'sender_party_id'],
     functions: [{
       key: 'type',
       f: v => {
-        return v == 1 ? 'حوالة صادرة' : 'حوالة واردة'
+        return v == 0 ? 'حوالة صادرة' : 'حوالة واردة'
       }
     }
     ]
@@ -126,7 +126,6 @@ export default (context) => {
     child: 'report',
     parent: '',
     has_headers: true
-
   },
 
   ];

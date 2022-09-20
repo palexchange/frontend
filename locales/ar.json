@@ -93,7 +93,7 @@
     "confirm_order": "اعتماد الطلبية",
     "finalize": "تم التجهيز",
     "report_filter": "فلتر التقرير",
-    "detailed_report_filt                        er": "فلتر تقرير كشف الحساب التفصيلي",
+    "detailed_report_filter": "فلتر تقرير كشف الحساب التفصيلي",
     "register": "تسجيل",
     "login": "تسجيل الدخول",
     "register_form": "نموذج التسجيل",
@@ -138,7 +138,7 @@
     "returned": "المرجع",
     "currency to give": "العملة للتسليم",
     "final amount to office": "مبلغ المكتب النهائي",
-    "convert to receiver currency": "سعر التحويل لعملة التسليم",
+    "convert to receiver currency": "السعر  لعملة التسليم",
     "amount to give": "المبلغ للتسليم",
     "transfer date": "تاريخ الحوالة",
     "another expenses on receiver": "مصاريف علي المستلم",
@@ -220,5 +220,14 @@
     "withdrawals": "السحوبات",
     "show exchange processes": "إظهار عمليات الصرافة",
     "add receipts": "إضافة مقبوضات",
-    "add withdrawals": "إضافة مسحوبات"
+    "add withdrawals": "إضافة مسحوبات",
+    "balanced": "متزن",
+    "account": "الحساب",
+    "type": "النوع",
+    "unbalanced": "غير متزن",
+    "shortage in box": "نقص في الصندوق",
+    "excess in box": "فائض في الصندوق",
+    "currencies report": "صناديق العملات",
+    "report create": "إنشاء تقرير",
+    "empty": "تفريغ"
 }

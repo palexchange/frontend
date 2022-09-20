@@ -28,7 +28,7 @@ export default {
   methods: {
     edit(item) {
       this.$router.push({
-        name: `dashboard-transfers-${item.type == 1 ? "out" : "in"}coming-id`,
+        name: `dashboard-transfers-${item.type == 0 ? "out" : "in"}coming-id`,
         params: {
           id: item.id,
         },

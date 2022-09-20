@@ -94,6 +94,7 @@ export default (context, inject) => {
 
 
         if (resource.has_headers) {
+          console.log("test headers here ");
           commit('setData', response.items);
           commit('setHeaders', response.headers);
           return response.items;

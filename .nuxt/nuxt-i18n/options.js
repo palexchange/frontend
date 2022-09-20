@@ -8,7 +8,7 @@ export const Constants = {
   REDIRECT_ON_OPTIONS: {"ALL":"all","ROOT":"root","NO_PREFIX":"no prefix"},
 }
 export const nuxtOptions = {
-  isUniversalMode: true,
+  isUniversalMode: false,
   trailingSlash: undefined,
 }
 export const options = {
@@ -22,7 +22,7 @@ export const options = {
   sortRoutes: true,
   strategy: "no_prefix",
   lazy: false,
-  langDir: "C:\\Users\\acer\\Desktop\\palExchange\\frontend\\locales\\",
+  langDir: "C:\\Users\\acer\\Desktop\\allfiles\\palExchange\\frontend\\locales\\",
   rootRedirect: null,
   detectBrowserLanguage: {"alwaysRedirect":true,"cookieCrossOrigin":false,"cookieDomain":null,"cookieKey":"i18n_redirected","cookieSecure":false,"fallbackLocale":"ar","redirectOn":"root","useCookie":true,"onlyOnRoot":true},
   differentDomains: true,

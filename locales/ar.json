@@ -228,6 +228,9 @@
     "balanced": "متزن",
     "unbalanced": "غير متزن",
     "empty": "تفريغ",
+    "show": "عرض",
+    "outcoming-transfers": "حوالة صادرة",
+    "outcoming transfer": "حوالة صادرة",
     "shortage in box": "نقص في الصندوق",
     "excess in box": "فائض في الصندوق"
 }

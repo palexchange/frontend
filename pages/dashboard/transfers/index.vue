@@ -34,6 +34,13 @@ export default {
         },
       });
     },
+    show(item) {
+      this.$router.push(
+        `/dashboard/transfers/${item.type == 0 ? "out" : "in"}coming/${
+          item.id
+        }?show=true`
+      );
+    },
     // delete(item) {
     //   this.$remove(item, "item");
     // },

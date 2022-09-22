@@ -101,7 +101,7 @@
 
     <Card>
       <v-card-text>
-        <v-row class="" align="center">
+        <v-row align="center">
           <v-col cols="12" xs="12" sm="4" md="3">
             <InputField
               text="amount to exchange"
@@ -330,48 +330,37 @@ export default {
       all_currencies: (state) => state.currency.all,
     }),
     exchange_profit() {
-      let amount,
-        sale_factor,
-        buy_factor,
-        toUSD,
-        test_profit = 0,
-        profit = 0;
-      console.log("start");
+      let main_amount = parseFloat(this.exchange.amount || 0);
+      let final_profit = 0;
+      if(main_amount == 0) return 0;
       this.items.forEach((e, index) => {
-        amount = parseFloat(e.exchanged_amount || 0);
-        console.log("Test");
-        if (amount == 0) return;
-        sale_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 1);
-        // console.log(this.stocks[index]);
-        buy_factor = parseFloat(
-          this.$newCalcBuyPrice(
-            this.item.currency,
-            this.all_currencies[index]
-          ) || 1
-        );
+        let obj = {};
+        obj.exchanged_amount = parseFloat(e.exchanged_amount || 0);
+        if(obj.exchanged_amount == 0) return;
 
-        console.table({ amount, sale_factor, buy_factor });
-
-        test_profit += amount - (amount / sale_factor) * buy_factor;
-
-        console.table({ test_profit });
-        console.log("Buy: ", buy_factor, "\nSale: ", sale_factor);
-        // profit +=
-        //   ((amount / sale_factor) * (sale_factor - buy_factor)) / buy_factor;
-        toUSD = parseFloat(
-          this.$newCalcSalePrice(
-            this.all_currencies[index],
-            this.all_currencies.find((e) => e.id == 1)
-          )
-        );
-        console.table({ amount, toUSD, buy_factor, sale_factor });
-        profit +=
-          (((amount / sale_factor) * (sale_factor + buy_factor)) / 2 - amount) *
-          toUSD;
+        obj.sale_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 0);
+        if(obj.sale_factor == 0) return;
+        
+        obj.amount = parseFloat(obj.exchanged_amount / obj.sale_factor);
+        obj.buy_factor_sidework = parseFloat(this.$newCalcSalePrice(this.item.currency,this.all_currencies[index]));
+        obj.avg_sale_buy_factor = parseFloat((obj.buy_factor + obj.sale_factor) / 2);
+        obj.profit_factor = parseFloat(obj.avg_sale_buy_factor - obj.sale_factor);
+        obj.pre_profit = parseFloat(obj.amount * obj.profit_factor);
+        obj.buy_factor = parseFloat(this.$newCalcBuyPrice(this.item.currency,this.all_currencies[index]));
+        obj.factor_to_usd_buy = parseFloat(this.$newCalcBuyPrice(this.all_currencies[index],this.all_currencies[0]));
+        obj.factor_to_usd_sale = parseFloat(this.$newCalcSalePrice(this.all_currencies[index],this.all_currencies[0]));
+        obj.avg_factor_to_usd = parseFloat((obj.factor_to_usd_buy + obj.factor_to_usd_sale) / 2);
+        obj.profit = parseFloat(obj.pre_profit * obj.avg_factor_to_usd);
+        final_profit += obj.profit;
+        console.log("---------------------------------");
+        console.log("---------------------------------");
+        console.table(obj);
+        console.log("---------------------------------");
+        console.log("---------------------------------");
       });
 
       console.log("out");
-      return Math.abs(profit.toFixed(7));
+      return final_profit;
     },
   },
   methods: {
@@ -408,11 +397,17 @@ export default {
       let from = this.item.currency;
       let to = item;
       let temp = parseFloat(this.$newCalcSalePrice(from, to));
-      if (to.id == 1) {
-        if (1/temp < 1 ) {
-          temp = parseFloat(this.$newCalcBuyPrice(from, to));
-        }
-      }
+      // if (to.id == 1) {
+      //   if (temp < 1) {
+      //     temp = parseFloat(this.$newCalcBuyPrice(from, to));
+      //   }
+      //   if (1 / temp < 1) {
+      //     temp = parseFloat(this.$newCalcBuyPrice(from, to));
+      //   }
+      // }
+      // if (temp < 1) {
+      //   temp = parseFloat(this.$newCalcBuyPrice(from, to));
+      // }
       console.log(temp, from, to, amount);
 
       this.items[index].exchanged_vactor = temp.toFixed(7);
@@ -495,16 +490,23 @@ export default {
       this.exchange.beneficiary_id = this.item.beneficairy.id;
       this.exchange.reference_currency_id = 1;
       this.exchange.status = 1;
-      this.exchange.exchange_rate = parseFloat(this.$newCalcSalePrice(this.item.currency,this.all_currencies.find((e) => e.id == 1)));
-      this.exchange.amount_after = parseFloat(this.exchange.amount * this.exchange.exchange_rate);
-      
+      this.exchange.exchange_rate = parseFloat(
+        this.$newCalcSalePrice(
+          this.item.currency,
+          this.all_currencies.find((e) => e.id == 1)
+        )
+      );
+      this.exchange.amount_after = parseFloat(
+        this.exchange.amount * this.exchange.exchange_rate
+      );
+
       // console.log("Curr: ",this.exchange.currency_id);
       // console.log("Ben: ",this.exchange.beneficiary_id);
       let response = await this.$store.dispatch(
         "exchange/store",
         this.exchange
       );
-      console.log("Res: ",response);
+      console.log("Res: ", response);
       let details = {
         exchange_id: response.id,
       };

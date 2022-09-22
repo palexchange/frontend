@@ -5,12 +5,15 @@
         <v-col cols="12" md="6" sm="12">
           <v-row>
             <v-col cols="12" sm="12" md="4">
-              <Title title="add outcomming transfer"></Title>
+              <Title
+                :title="`${$route.params.id ? '' : 'add '}outcoming transfer`"
+              ></Title>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" sm="12" md="4">
               <AutoComplete
+                :readonly="showReadOnly"
                 required
                 v-model="item.delivering_type"
                 :items="transfer_types"
@@ -20,6 +23,7 @@
             </v-col>
             <v-col>
               <DatePicker
+                :readonly="showReadOnly"
                 v-model="item.issued_at"
                 required
                 text="transfer date"
@@ -28,6 +32,7 @@
             </v-col>
             <v-col cols="12" md="4" sm="12">
               <InputField
+                :readonly="showReadOnly"
                 v-bind="item.officeProfit"
                 dashed
                 text="palestinian profit"
@@ -64,6 +69,7 @@
         <v-row>
           <v-col cols="12" lg="3" md="4" sm="6">
             <BeneficiaryAutocomplete
+              :readonly="showReadOnly"
               v-model="item.sender_party_id"
               no_fetch
               text="beneficiary"
@@ -80,6 +86,7 @@
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
+              :readonly="showReadOnly"
               holder="id number"
               text="id number"
               v-model="item.sender_id_no"
@@ -87,6 +94,7 @@
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
+              :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
               required
@@ -95,6 +103,7 @@
           </v-col>
           <v-col cols="12" lg="3" md="4" sm="6">
             <InputField
+              :readonly="showReadOnly"
               holder="address"
               text="address"
               v-model="item.sender_address"
@@ -102,6 +111,7 @@
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
+              :readonly="showReadOnly"
               holder="notes"
               text="notes"
               v-model="item.sender_notes"
@@ -116,6 +126,7 @@
         <v-row>
           <v-col cols="12" md="4" lg="3" sm="6">
             <BeneficiaryAutocomplete
+              :readonly="showReadOnly"
               v-model="item.receiver_party_id"
               no_fetch
               text="beneficiary"
@@ -132,6 +143,7 @@
           </v-col>
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <InputField
+              :readonly="showReadOnly"
               holder="id number"
               text="id number"
               v-model="item.receiver_id_no"
@@ -139,6 +151,7 @@
           </v-col>
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <InputField
+              :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
               required
@@ -161,6 +174,7 @@
           </v-col>
           <v-col class="lg16" cols="12" md="3" sm="6">
             <InputField
+              :readonly="showReadOnly"
               holder="address"
               text="address"
               v-model="item.receiver_address"
@@ -215,6 +229,7 @@
         <v-row class="justify-center responseveCols">
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.to_send_amount"
               holder="transfirrig amount"
               text="transfirrig amount"
@@ -223,6 +238,7 @@
           </v-col>
           <v-col>
             <AutoComplete
+              :readonly="showReadOnly"
               @change="
                 (v) => {
                   signCurrency(
@@ -246,6 +262,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.exchange_rate_to_delivery_currency_view"
               @input="
                 (new_value) => {
@@ -263,6 +280,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               holder="another expenses"
               text="another expenses"
               v-model.number="item.other_amounts_on_sender"
@@ -270,6 +288,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="amountWithCommissionAndExpensesComp | money"
               dashed
               holder="مبلغ شامل عمولة"
@@ -278,6 +297,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="amountInUSDComp | money"
               dashed
               holder="مبلغ مستلم بالدولار"
@@ -286,6 +306,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="totalAmountInUSDComp | money"
               dashed
               holder="شامل العمولة"
@@ -301,6 +322,7 @@
         <v-row class="justify-center responseveCols">
           <v-col>
             <AutoComplete
+              :readonly="showReadOnly"
               @change="
                 (v) => {
                   signCurrency(
@@ -325,6 +347,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.exchange_rate_to_reference_currency"
               holder="convert to receiver currency"
               text="convert to receiver currency"
@@ -333,6 +356,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="recivedAmountComp | money"
               dashed
               holder="amount to give"
@@ -342,6 +366,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.other_amounts_on_receiver"
               holder="another expenses on receiver"
               text="another expenses on receiver"
@@ -349,6 +374,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="totalRecvAmountComp | money"
               dashed
               holder="final amount to give"
@@ -357,6 +383,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="item.a_received_amount | money"
               dashed
               holder="المبلغ للتسليم بالدولار"
@@ -372,6 +399,7 @@
         <v-row class="justify-center responseveCols">
           <v-col cols="3">
             <BeneficiaryAutocomplete
+              :readonly="showReadOnly"
               no_fetch
               holder="beneficiary"
               text="beneficiary"
@@ -382,6 +410,7 @@
 
           <v-col>
             <AutoComplete
+              :readonly="showReadOnly"
               v-model="item.office_currency_id"
               @change="
                 (v) => {
@@ -407,6 +436,7 @@
 
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.exchange_rate_to_office_currency_view"
               @input="
                 (new_value) => {
@@ -424,6 +454,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="officeAmount | money"
               dashed
               holder="office amount"
@@ -459,6 +490,7 @@
           </v-col>
           <v-col cols="1">
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.returned_commission"
               holder="returned"
               text="returned"
@@ -466,6 +498,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="totalOfficeAmount | money"
               dashed
               holder="final amount to office"
@@ -483,13 +516,14 @@
     <v-row class="justify-center">
       <v-card color="transparent" flat>
         <v-card-actions>
-          <v-btn @click="confirmProcess" class="px-16" color="primary"
+          <v-btn @click="confirmProcess(1)" class="px-16" color="primary"
             >إتمام العملة</v-btn
           >
           &nbsp; &nbsp;
           <v-menu offset-x left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" color="primary" outlined>الإجراءات</v-btn
+              <v-btn v-bind="attrs" v-on="on" color="primary" outlined
+                >الإجراءات</v-btn
               >
             </template>
             <v-list>
@@ -499,7 +533,7 @@
                   <v-icon small>fas fa-print</v-icon>
                 </v-list-item-icon>
               </v-list-item>
-              <v-list-item>
+              <v-list-item @click="confirmProcess(0)">
                 <v-list-item-title> {{ $t("حفظ كمسودة") }}</v-list-item-title>
                 <v-list-item-icon>
                   <v-icon small>fas fa-save</v-icon>
@@ -525,6 +559,7 @@ export default {
   name: "transfer-form",
   data() {
     return {
+      showReadOnly: false,
       currencies_test: [
         { id: 1, name: this.$t("dollar"), values: { sale: 1, buy: 1 } },
         { id: 2, name: this.$t("denar"), values: { sale: 0.7, buy: 0.69 } },
@@ -542,7 +577,7 @@ export default {
       item: {
         commission_side: 1,
         type: 0,
-        status: 1,
+
         reference_currency_id: 1,
         reciver_phone: null,
         reciver_address: null,
@@ -703,7 +738,8 @@ export default {
 
       return amount;
     },
-    confirmProcess() {
+    confirmProcess(status) {
+      this.item.status = status;
       this.$save(this.item, "transfer", null, "/dashboard/transfers");
       console.log(this.item);
     },
@@ -741,11 +777,11 @@ export default {
       }
     },
   },
-  // mounted() {
-  //   if (this.one) {
-  //     this.itme = this.one;
-  //   }
-  // },
+  mounted() {
+    if (this.$route.query.show && this.$route.query.show == "true") {
+      this.showReadOnly = true;
+    }
+  },
 };
 </script>
 

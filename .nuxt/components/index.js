@@ -1,4 +1,5 @@
 export { default as AccountAutocomplete } from '../..\\components\\AccountAutocomplete.vue'
+export { default as AddAccount } from '../..\\components\\AddAccount.vue'
 export { default as AddBeneficiary } from '../..\\components\\AddBeneficiary.vue'
 export { default as AddCity } from '../..\\components\\AddCity.vue'
 export { default as AddType } from '../..\\components\\AddType.vue'

@@ -2,6 +2,9 @@
   "AccountAutocomplete": {
     "description": "Auto imported from components/AccountAutocomplete.vue"
   },
+  "AddAccount": {
+    "description": "Auto imported from components/AddAccount.vue"
+  },
   "AddBeneficiary": {
     "description": "Auto imported from components/AddBeneficiary.vue"
   },

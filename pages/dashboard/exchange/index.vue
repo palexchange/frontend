@@ -344,7 +344,7 @@ export default {
         sale_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 1);
         // console.log(this.stocks[index]);
         buy_factor = parseFloat(
-          this.$newCalcBuyPrice(
+          this.$newCalcSalePrice(
             this.item.currency,
             this.all_currencies[index]
           ) || 1
@@ -359,7 +359,7 @@ export default {
         // profit +=
         //   ((amount / sale_factor) * (sale_factor - buy_factor)) / buy_factor;
         toUSD = parseFloat(
-          this.$newCalcSalePrice(
+          this.$newCalcBuyPrice(
             this.all_currencies[index],
             this.all_currencies.find((e) => e.id == 1)
           )
@@ -407,17 +407,17 @@ export default {
       console.log(this.$all_currencies);
       let from = this.item.currency;
       let to = item;
-      let temp = parseFloat(this.$newCalcSalePrice(from, to));
+      let temp = parseFloat(this.$newCalcBuyPrice(from, to));
       if (to.id == 1) {
         if (temp < 1) {
-          temp = parseFloat(this.$newCalcBuyPrice(from, to));
+          temp = parseFloat(this.$newCalcSalePrice(from, to));
         }
         if (1 / temp < 1) {
-          temp = parseFloat(this.$newCalcBuyPrice(from, to));
+          temp = parseFloat(this.$newCalcSalePrice(from, to));
         }
       }
       // if (temp < 1) {
-      //   temp = parseFloat(this.$newCalcBuyPrice(from, to));
+      //   temp = parseFloat(this.$newCalcSalePrice(from, to));
       // }
       console.log(temp, from, to, amount);
 
@@ -502,7 +502,7 @@ export default {
       this.exchange.reference_currency_id = 1;
       this.exchange.status = 1;
       this.exchange.exchange_rate = parseFloat(
-        this.$newCalcSalePrice(
+        this.$newCalcBuyPrice(
           this.item.currency,
           this.all_currencies.find((e) => e.id == 1)
         )

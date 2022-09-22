@@ -153,14 +153,14 @@
                     >{{ $t("buy") }}
                     <br />
                     <span>
-                      {{ $newCalcSalePrice(from, to) }}
+                      {{ $newCalcBuyPrice(from, to) }}
                     </span>
                   </v-col>
                   <v-col
                     >{{ $t("sale") }}
                     <br />
                     <span>
-                      {{ $newCalcBuyPrice(from, to) }}
+                      {{ $newCalcSalePrice(from, to) }}
                     </span>
                   </v-col>
                 </v-row>

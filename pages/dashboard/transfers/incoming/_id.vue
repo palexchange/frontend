@@ -554,7 +554,7 @@ export default {
 
       let recvCurr = this.item.office_currency || null;
       if (recvCurr == undefined) return;
-      let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
+      let convParam = this.$newCalcBuyPrice(recvCurr, this.currencies[0]);
       let res = fromInDoller - finalOfficeAmount * convParam;
       console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       let otherExp = this.item.other_amounts_on_receiver || 0;
@@ -597,8 +597,8 @@ export default {
 
       this.item[vCalc] = parseFloat(
         type == "buy"
-          ? this.$newCalcBuyPrice(fromCurr, toCurr)
-          : this.$newCalcSalePrice(fromCurr, toCurr)
+          ? this.$newCalcSalePrice(fromCurr, toCurr)
+          : this.$newCalcBuyPrice(fromCurr, toCurr)
       );
 
       if (toCurr.id == 1) {
@@ -609,8 +609,8 @@ export default {
 
       this.item[vModel] = parseFloat(
         type == "buy"
-          ? this.$newCalcBuyPrice(fromCurr, toCurr)
-          : this.$newCalcSalePrice(fromCurr, toCurr)
+          ? this.$newCalcSalePrice(fromCurr, toCurr)
+          : this.$newCalcBuyPrice(fromCurr, toCurr)
       );
     },
     showConversionFactor(to, factorModel, new_value) {

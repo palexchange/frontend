@@ -336,10 +336,10 @@ export default {
         toUSD,
         test_profit = 0,
         profit = 0;
-      console.log("start");
+
       this.items.forEach((e, index) => {
         amount = parseFloat(e.exchanged_amount || 0);
-        console.log("Test");
+
         if (amount == 0) return;
         sale_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 1);
         // console.log(this.stocks[index]);
@@ -350,11 +350,11 @@ export default {
           ) || 1
         );
 
-        console.table({ amount, sale_factor, buy_factor });
+        // console.table({ amount, sale_factor, buy_factor });
 
         test_profit += amount - (amount / sale_factor) * buy_factor;
 
-        console.table({ test_profit });
+        // console.table({ test_profit });
         console.log("Buy: ", buy_factor, "\nSale: ", sale_factor);
         // profit +=
         //   ((amount / sale_factor) * (sale_factor - buy_factor)) / buy_factor;
@@ -364,7 +364,7 @@ export default {
             this.all_currencies.find((e) => e.id == 1)
           )
         );
-        console.table({ amount, toUSD, buy_factor, sale_factor });
+        // console.table({ amount, toUSD, buy_factor, sale_factor });
         profit +=
           (((amount / sale_factor) * (sale_factor + buy_factor)) / 2 - amount) *
           toUSD;
@@ -409,10 +409,16 @@ export default {
       let to = item;
       let temp = parseFloat(this.$newCalcSalePrice(from, to));
       if (to.id == 1) {
-        if (1/temp < 1 ) {
+        if (temp < 1) {
+          temp = parseFloat(this.$newCalcBuyPrice(from, to));
+        }
+        if (1 / temp < 1) {
           temp = parseFloat(this.$newCalcBuyPrice(from, to));
         }
       }
+      // if (temp < 1) {
+      //   temp = parseFloat(this.$newCalcBuyPrice(from, to));
+      // }
       console.log(temp, from, to, amount);
 
       this.items[index].exchanged_vactor = temp.toFixed(7);
@@ -495,16 +501,23 @@ export default {
       this.exchange.beneficiary_id = this.item.beneficairy.id;
       this.exchange.reference_currency_id = 1;
       this.exchange.status = 1;
-      this.exchange.exchange_rate = parseFloat(this.$newCalcSalePrice(this.item.currency,this.all_currencies.find((e) => e.id == 1)));
-      this.exchange.amount_after = parseFloat(this.exchange.amount * this.exchange.exchange_rate);
-      
+      this.exchange.exchange_rate = parseFloat(
+        this.$newCalcSalePrice(
+          this.item.currency,
+          this.all_currencies.find((e) => e.id == 1)
+        )
+      );
+      this.exchange.amount_after = parseFloat(
+        this.exchange.amount * this.exchange.exchange_rate
+      );
+
       // console.log("Curr: ",this.exchange.currency_id);
       // console.log("Ben: ",this.exchange.beneficiary_id);
       let response = await this.$store.dispatch(
         "exchange/store",
         this.exchange
       );
-      console.log("Res: ",response);
+      console.log("Res: ", response);
       let details = {
         exchange_id: response.id,
       };

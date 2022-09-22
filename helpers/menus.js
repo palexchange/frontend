@@ -25,10 +25,10 @@ export default {
                 title: "edit",
                 icon: "fas fa-pen",
             },
-            // {
-            //     title: "show",
-            //     icon: "fas fa-eye",
-            // },
+            {
+                title: "show",
+                icon: "fas fa-eye",
+            },
             {
                 title: "delete",
                 icon: "fas fa-trash",

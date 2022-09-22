@@ -150,15 +150,56 @@ export default {
       user: (state) => state.auth.user,
       overlay: (state) => state.overlay,
       state_dialog: (state) => state.state_dialog,
+      success_msg: (state) => state.success_msg,
+      errors_msg: (state) => state.errors,
     }),
   },
   watch: {
-    redirect(val) {
+    success_msg(val) {
       if (val) {
-        this.$store.dispatch("clearRedirect");
-        this.$router.push(val);
+        this.$swal
+          .fire({
+            title: this.$t("Success"),
+            text: this.$t(val),
+            icon: "success",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#41b882",
+          })
+          .then(() => {
+            if (this.redirect) {
+              this.$router.push(this.redirect);
+            }
+            this.$store
+              .dispatch("clearSuccessMsg")
+              .then(() => this.$store.dispatch("resetMainDialog"));
+          });
       }
     },
+    errors_msg(val) {
+      if (val) {
+        let values = Object.values(val);
+        this.$swal
+          .fire({
+            title: this.$t("Error Happend"),
+            text: this.$t(...values),
+            icon: "error",
+            confirmButtonText: this.$t("ok"),
+            confirmButtonColor: "#41b882",
+          })
+          .then(() => {
+            // if (this.redirect) {
+            //   this.$router.push(this.redirect);
+            // }
+            this.$store.dispatch("clearErrors");
+          });
+      }
+    },
+    // redirect(val) {
+    //   if (val) {
+    //     this.$store.dispatch("clearRedirect");
+    //     this.$router.push(val);
+    //   }
+    // },
     action(val) {
       if (this[val]) {
         this[val](this.item);

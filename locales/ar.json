@@ -232,5 +232,9 @@
     "outcoming-transfers": "حوالة صادرة",
     "outcoming transfer": "حوالة صادرة",
     "shortage in box": "نقص في الصندوق",
+    "Success": "نجاح",
+    "Error Happend": "حدث خطأ",
+    "added_successfully": "تم الحفظ بنجاح",
+    "final amount to office in usd": "مبلغ المكتب النهائي بالدولار",
     "excess in box": "فائض في الصندوق"
 }

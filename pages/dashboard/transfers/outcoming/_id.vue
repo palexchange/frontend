@@ -36,7 +36,7 @@
                 v-bind="item.officeProfit"
                 dashed
                 text="palestinian profit"
-                :value="officeProfitComp | money"
+                :value="(item.profit || officeProfitComp) | money"
               />
             </v-col>
           </v-row>
@@ -45,19 +45,25 @@
           <v-row no-gutters class="flex-column text-h6">
             <v-col cols="12" class="align-self-strach text-left mb-4">
               <span>
-                {{ $t("todays profit") }}<span class="show-text">0400</span>
+                {{ $t("todays profit") }}<span class="show-text">000</span>
               </span>
               <span>
                 {{ $t("transfer number") }}
-                <span class="show-text">1616#</span>
+                <span class="show-text">{{ item.id }}#</span>
               </span>
             </v-col>
 
             <v-col class="text-left mb-4">
-              {{ $t("refrence number") }}<span class="show-text">1616#</span>
+              {{ $t("refrence number")
+              }}<span class="show-text"
+                >{{ this.$route.params.id ? item.refreance_numebr : "" }}#</span
+              >
             </v-col>
             <v-col class="text-left mb-4">
-              {{ $t("transfer stats") }}<span class="show-text">مسودة</span>
+              {{ $t("transfer stats")
+              }}<span class="show-text">{{
+                item.status == 1 ? "معتمدة" : "مسودة"
+              }}</span>
             </v-col>
           </v-row>
         </v-col>
@@ -263,7 +269,7 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
-              v-model.number="item.exchange_rate_to_delivery_currency_view"
+              v-model.number="computed_exchange_rate_to_delivery_currency"
               @input="
                 (new_value) => {
                   showConversionFactor(
@@ -437,7 +443,7 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
-              v-model.number="item.exchange_rate_to_office_currency_view"
+              v-model.number="computed_exchange_rate_to_office_currency"
               @input="
                 (new_value) => {
                   showConversionFactor(
@@ -503,6 +509,17 @@
               dashed
               holder="final amount to office"
               text="final amount to office"
+            />
+          </v-col>
+        </v-row>
+        <v-row dense>
+          <v-col cols="3">
+            <InputField
+              :readonly="showReadOnly"
+              :value="item.office_amount | money"
+              dashed
+              holder="final amount to office in usd"
+              text="final amount to office in usd"
             />
           </v-col>
         </v-row>
@@ -597,6 +614,26 @@ export default {
     };
   },
   computed: {
+    computed_exchange_rate_to_delivery_currency: {
+      get: function () {
+        return this.item.exchange_rate_to_delivery_currency_view
+          ? this.item.exchange_rate_to_delivery_currency_view
+          : parseFloat(this.item.exchange_rate_to_delivery_currency) || null;
+      },
+      set: function (newValue) {
+        this.item.exchange_rate_to_delivery_currency_view = newValue;
+      },
+    },
+    computed_exchange_rate_to_office_currency: {
+      get: function () {
+        return this.item.exchange_rate_to_office_currency_view
+          ? this.item.exchange_rate_to_office_currency_view
+          : parseFloat(this.item.exchange_rate_to_office_currency) || null;
+      },
+      set: function (newValue) {
+        this.item.exchange_rate_to_office_currency_view = newValue;
+      },
+    },
     amountWithCommissionAndExpensesComp() {
       let otherExp = this.item.other_amounts_on_sender || 0;
       let transferringAmount = this.item.to_send_amount || 0;
@@ -648,8 +685,6 @@ export default {
         { id: this.item.received_currency_id },
         { id: 1 }
       );
-      console.log("factor");
-      console.log(factor);
       this.item.a_received_amount = factor
         ? res * (factor < 1 ? factor : sub_factor)
         : null;
@@ -671,18 +706,21 @@ export default {
           ? (commission / 100) * officeAmount
           : commission;
       let tempVar = officeAmount + commission - returned;
-      this.item.office_amount = tempVar;
+      //  $newCalcBuyPrice(item.office_currency,{id:1}) ;
+      this.item.office_amount = this.item.office_currency_id
+        ? tempVar *
+          this.$newCalcBuyPrice({ id: this.item.office_currency_id }, { id: 1 })
+        : tempVar;
+
       return tempVar <= 0 ? null : tempVar;
     },
     officeProfitComp() {
       let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
       let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
-      console.table({ fromInDoller, finalOfficeAmount });
       let recvCurr = this.item.office_currency || null;
       if (recvCurr == undefined) return;
       let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
       let res = fromInDoller - finalOfficeAmount * convParam;
-      console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       let otherExp = this.item.other_amounts_on_receiver || 0;
       return res - otherExp;
     },
@@ -741,10 +779,8 @@ export default {
     confirmProcess(status) {
       this.item.status = status;
       this.$save(this.item, "transfer", null, "/dashboard/transfers");
-      console.log(this.item);
     },
     showConversionFactor(to, factorModel, new_value) {
-      console.log(to, factorModel, new_value);
       if (!to || !factorModel) return;
       this.item[factorModel] =
         to.id == 1
@@ -762,7 +798,6 @@ export default {
   created() {
     if (process.client) {
       if (this.$route.params.id) {
-        console.log("test created ");
         this.$store.dispatch("transfer/show", this.$route.params.id);
       }
       this.$store.dispatch("party/index", { per_page: 900 });

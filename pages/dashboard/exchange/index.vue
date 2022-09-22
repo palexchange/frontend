@@ -403,24 +403,12 @@ export default {
           this.items[index].modified_factor = null;
         });
       }
-      console.log(index);
-      console.log(this.$all_currencies);
+
       let from = this.item.currency;
       let to = item;
-      let temp = parseFloat(this.$newCalcBuyPrice(from, to));
-      if (to.id == 1) {
-        if (temp < 1) {
-          temp = parseFloat(this.$newCalcSalePrice(from, to));
-        }
-        if (1 / temp < 1) {
-          temp = parseFloat(this.$newCalcSalePrice(from, to));
-        }
-      }
-      // if (temp < 1) {
-      //   temp = parseFloat(this.$newCalcSalePrice(from, to));
-      // }
-      console.log(temp, from, to, amount);
-
+      let sale = this.$newCalcSalePrice(from, to);
+      let buy = this.$newCalcBuyPrice(from, to);
+      let temp = Math.min(buy, sale);
       this.items[index].exchanged_vactor = temp.toFixed(7);
       this.items[index].exchanged_amount = (amount * temp).toFixed(7);
       this.items[index].modified_factor = null;

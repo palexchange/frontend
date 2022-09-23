@@ -63,11 +63,13 @@
             <v-col cols="1">
               <v-icon class="mr-4 ml-3">fas fa-solid fa-user</v-icon>
             </v-col>
-            <v-col cols="6" class="mr-5">
+            <v-col cols="4" class="mr-5">
               {{ $t("user") }}
             </v-col>
-            <v-col cols="4">
-              <span class="show-text">{{ item.user }}#</span>
+            <v-col cols="5">
+              <span style="white-space: nowrap" class="show-text"
+                >{{ $auth.user.name + "  " }}#</span
+              >
             </v-col>
           </v-row>
           <v-row class="text-right text-h6 mt-5 mr-5">
@@ -395,18 +397,16 @@ export default {
 
       let from = this.item.currency;
       let to = item;
-      let sale = parseFloat(this.$newCalcSalePrice(from, to));
-      let buy = parseFloat(this.$newCalcBuyPrice(from, to));
+      let sale = this.$newCalcSalePrice(from, to);
+      let buy = this.$newCalcBuyPrice(from, to);
+      console.table({ sale, buy });
       let temp = Math.min(buy, sale);
       this.items[index].exchanged_vactor = buy.toFixed(7);
       this.items[index].exchanged_amount = (amount * buy).toFixed(7);
       this.items[index].modified_factor = null;
       this.number = this.number + 1;
     },
-    calc(sale) {
-      // let sale = this.selected.values.sale;
-      return (100 / 0.29).toFixed(2);
-    },
+
     changed_ex_amount(element, index, new_value) {
       element.exchanged_amount = new_value;
       let amount = this.exchange.amount || 0;
@@ -560,6 +560,7 @@ export default {
 
 <style>
 .show-text {
+  font-size: 18px;
   background-color: #e6e6e6;
   border-radius: 4px;
   padding: 5px 8px;

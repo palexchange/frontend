@@ -47,7 +47,7 @@ export default (context, inject) => {
       data = await context.store.dispatch(`${resource}/update`, item);
       context.$upload(file, resource, data);
       context.store.dispatch('setOverlay', false);
-      context.$toast.success(context.app.i18n.t('updated'));
+      // context.$toast.success(context.app.i18n.t('updated'));
       if (form_ref)
         form_ref.reset();
 
@@ -56,7 +56,7 @@ export default (context, inject) => {
       data = await context.store.dispatch(`${resource}/store`, item);
       await context.$upload(file, resource, data);
       context.store.dispatch('setOverlay', false);
-      context.$toast.success(context.app.i18n.t('saved'));
+      // context.$toast.success(context.app.i18n.t('saved'));
       if (form_ref)
         form_ref.reset();
     }

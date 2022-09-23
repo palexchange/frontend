@@ -640,11 +640,11 @@ export default {
         this.item.commission_side == 1 ? 0 : this.calcCommisson() || 0;
       let otherExp = this.item.other_amounts_on_receiver || 0;
       let res = (amountInUSD - commission - otherExp) * conversionParam;
-      let factor = this.$newCalcBuyPrice(
+      let factor = this.$newCalcSalePrice(
         { id: this.item.received_currency_id },
         { id: 1 }
       );
-      let sub_factor = this.$newCalcSalePrice(
+      let sub_factor = this.$newCalcBuyPrice(
         { id: this.item.received_currency_id },
         { id: 1 }
       );
@@ -680,7 +680,7 @@ export default {
       console.table({ fromInDoller, finalOfficeAmount });
       let recvCurr = this.item.office_currency || null;
       if (recvCurr == undefined) return;
-      let convParam = this.$newCalcBuyPrice(recvCurr, this.currencies[0]);
+      let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
       let res = fromInDoller - finalOfficeAmount * convParam;
       console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       let otherExp = this.item.other_amounts_on_receiver || 0;
@@ -709,8 +709,8 @@ export default {
 
       this.item[vCalc] = parseFloat(
         type == "buy"
-          ? this.$newCalcBuyPrice(fromCurr, toCurr)
-          : this.$newCalcSalePrice(fromCurr, toCurr)
+          ? this.$newCalcSalePrice(fromCurr, toCurr)
+          : this.$newCalcBuyPrice(fromCurr, toCurr)
       );
 
       if (toCurr.id == 1) {
@@ -721,8 +721,8 @@ export default {
 
       this.item[vModel] = parseFloat(
         type == "buy"
-          ? this.$newCalcBuyPrice(fromCurr, toCurr)
-          : this.$newCalcSalePrice(fromCurr, toCurr)
+          ? this.$newCalcSalePrice(fromCurr, toCurr)
+          : this.$newCalcBuyPrice(fromCurr, toCurr)
       );
     },
     calcCommisson() {

@@ -334,48 +334,50 @@ export default {
     exchange_profit() {
       let main_amount = parseFloat(this.exchange.amount || 0);
       let final_profit = 0;
-      if(main_amount == 0) return 0;
+      if (main_amount == 0) return 0;
       this.items.forEach((e, index) => {
         let obj = {};
         obj.exchanged_amount = parseFloat(e.exchanged_amount || 0);
-        if(obj.exchanged_amount == 0) return;
+        if (obj.exchanged_amount == 0) return;
 
-        obj.buy_factor = parseFloat(e.modified_factor || e.exchanged_vactor || 0);
-        if(obj.sale_factor == 0) return;
-        
-        obj.sale_factor = parseFloat(this.$newCalcSalePrice(this.item.currency,this.all_currencies[index]));
-        obj.amount = parseFloat(obj.exchanged_amount / obj.buy_factor);
-        obj.buy_factor_sidework = parseFloat(this.$newCalcBuyPrice(this.item.currency,this.all_currencies[index]));
-        obj.avg_sale_buy_factor = parseFloat((obj.buy_factor + obj.sale_factor) / 2);
-        obj.profit_factor = parseFloat(obj.avg_sale_buy_factor - obj.buy_factor);
-        obj.pre_profit = parseFloat(obj.amount * obj.profit_factor);
-        obj.factor_to_usd_buy = parseFloat(this.$newCalcBuyPrice(this.all_currencies[index],this.all_currencies[0]));
-        obj.factor_to_usd_sale = parseFloat(this.$newCalcSalePrice(this.all_currencies[index],this.all_currencies[0]));
-        obj.avg_factor_to_usd = parseFloat((obj.factor_to_usd_buy + obj.factor_to_usd_sale) / 2);
-        obj.profit = parseFloat(obj.pre_profit * obj.avg_factor_to_usd);
+        obj.used_factor = parseFloat(
+          e.modified_factor || e.exchanged_vactor || 0
+        );
+        if (obj.sale_factor == 0) return;
+
+        obj.sale_factor = parseFloat(
+          this.$newCalcSalePrice(this.item.currency, this.all_currencies[index])
+        );
+        obj.buy_factor = parseFloat(
+          this.$newCalcBuyPrice(this.item.currency, this.all_currencies[index])
+        );
+        obj.calc_profit_factor = Math.max(obj.buy_factor, obj.sale_factor);
+        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor);
+        obj.new_amount = parseFloat(obj.amount * obj.calc_profit_factor);
+        obj.profit_in_to_currency = obj.new_amount - obj.exchanged_amount;
+        obj.sale_factor_from_to_currency = parseFloat(
+          this.$newCalcSalePrice(this.all_currencies[index], { id: 1 })
+        );
+        obj.buy_factor_from_to_currency = parseFloat(
+          this.$newCalcBuyPrice(this.all_currencies[index], { id: 1 })
+        );
+        obj.calc_new_factor =
+          (obj.sale_factor_from_to_currency + obj.buy_factor_from_to_currency) /
+          2;
+        obj.profit = obj.profit_in_to_currency * obj.calc_new_factor;
         final_profit += obj.profit;
-        console.log("---------------------------------");
-        console.log("---------------------------------");
-        console.table(obj);
-        console.log("---------------------------------");
-        console.log("---------------------------------");
       });
 
-      return final_profit;
-      
+      return parseFloat(final_profit).toFixed(3);
     },
   },
   methods: {
-    test(event_maybe) {
-      console.log(event_maybe);
-      console.log("event_mayb");
-      console.log("event_mayb");
-    },
     setSenderCurrecny(partyObj) {
       this.item.currency = this.all_currencies.find(
         (e) => e.id == partyObj.currency_id
       );
     },
+
     setRow(index, item) {
       let amount = this.exchange.amount || 0;
       let reminder = parseFloat(this.item.reminder || 0);
@@ -401,8 +403,8 @@ export default {
       let buy = this.$newCalcBuyPrice(from, to);
       console.table({ sale, buy });
       let temp = Math.min(buy, sale);
-      this.items[index].exchanged_vactor = buy.toFixed(7);
-      this.items[index].exchanged_amount = (amount * buy).toFixed(7);
+      this.items[index].exchanged_vactor = temp.toFixed(7);
+      this.items[index].exchanged_amount = (amount * temp).toFixed(7);
       this.items[index].modified_factor = null;
       this.number = this.number + 1;
     },
@@ -538,9 +540,6 @@ export default {
   },
   watch: {
     all_currencies(val) {
-      console.log("#########\n\n");
-      console.log(val);
-      console.log("#########\n\n");
       if (!this.items[0]) {
         val.map((item) => {
           this.items.push({

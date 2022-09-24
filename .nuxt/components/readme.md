@@ -38,7 +38,6 @@ You can directly use them in pages and other components without the need to impo
 - `<Tutorial>` | `<tutorial>` (components/Tutorial.vue)
 - `<TypeAutoComplete>` | `<type-auto-complete>` (components/TypeAutoComplete.vue)
 - `<VuetifyLogo>` | `<vuetify-logo>` (components/VuetifyLogo.vue)
-- `<ReportsAccountingReport>` | `<reports-accounting-report>` (components/reports/AccountingReport.vue)
 - `<FiltersBookFilter>` | `<filters-book-filter>` (components/filters/BookFilter.vue)
 - `<FiltersCategoryFilter>` | `<filters-category-filter>` (components/filters/CategoryFilter.vue)
 - `<FiltersCustomerFilter>` | `<filters-customer-filter>` (components/filters/CustomerFilter.vue)
@@ -47,3 +46,4 @@ You can directly use them in pages and other components without the need to impo
 - `<FiltersItemFilter>` | `<filters-item-filter>` (components/filters/ItemFilter.vue)
 - `<FiltersOrderFilter>` | `<filters-order-filter>` (components/filters/OrderFilter.vue)
 - `<FiltersReportFilter>` | `<filters-report-filter>` (components/filters/ReportFilter.vue)
+- `<ReportsAccountingReport>` | `<reports-accounting-report>` (components/reports/AccountingReport.vue)

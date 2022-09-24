@@ -30,6 +30,7 @@ export { default as Title } from '../..\\components\\Title.vue'
 export { default as Tutorial } from '../..\\components\\Tutorial.vue'
 export { default as TypeAutoComplete } from '../..\\components\\TypeAutoComplete.vue'
 export { default as VuetifyLogo } from '../..\\components\\VuetifyLogo.vue'
+export { default as ReportsAccountingReport } from '../..\\components\\reports\\AccountingReport.vue'
 export { default as FiltersBookFilter } from '../..\\components\\filters\\BookFilter.vue'
 export { default as FiltersCategoryFilter } from '../..\\components\\filters\\CategoryFilter.vue'
 export { default as FiltersCustomerFilter } from '../..\\components\\filters\\CustomerFilter.vue'
@@ -38,7 +39,6 @@ export { default as FiltersInventoryBatchFilter } from '../..\\components\\filte
 export { default as FiltersItemFilter } from '../..\\components\\filters\\ItemFilter.vue'
 export { default as FiltersOrderFilter } from '../..\\components\\filters\\OrderFilter.vue'
 export { default as FiltersReportFilter } from '../..\\components\\filters\\ReportFilter.vue'
-export { default as ReportsAccountingReport } from '../..\\components\\reports\\AccountingReport.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

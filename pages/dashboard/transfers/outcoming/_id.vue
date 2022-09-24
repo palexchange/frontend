@@ -44,7 +44,7 @@
         <v-col cols="12" md="6" sm="12">
           <v-row no-gutters class="flex-column text-h6">
             <v-col cols="12" class="align-self-strach text-left mb-4">
-              <span>
+              <span v-if="!showReadOnly">
                 {{ $t("todays profit") }}<span class="show-text">000</span>
               </span>
               <span>
@@ -169,10 +169,12 @@
               v-model="item.receiver_country_id"
               text="country"
               holder="country"
+              :readonly="showReadOnly"
             />
           </v-col>
           <v-col>
             <CityAutocomplete
+              :readonly="showReadOnly"
               v-model="item.receiver_city_id"
               text="city"
               holder="city"
@@ -193,7 +195,12 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" md="5" sm="12">
-            <v-radio-group mandatory v-model="item.commission_side" row>
+            <v-radio-group
+              :readonly="showReadOnly"
+              mandatory
+              v-model="item.commission_side"
+              row
+            >
               <v-radio :value="1" label="العمولة علي المحول"></v-radio>
               <v-radio :value="2" label="العمولة علي المستلم"></v-radio>
             </v-radio-group>
@@ -204,6 +211,7 @@
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
+              :readonly="showReadOnly"
               outlined
               slot="append"
               hide-details
@@ -219,8 +227,10 @@
               "
               @click:append="
                 () =>
-                  (item.is_commission_percentage =
-                    !item.is_commission_percentage)
+                  showReadOnly
+                    ? ''
+                    : (item.is_commission_percentage =
+                        !item.is_commission_percentage)
               "
               v-model.number="item.transfer_commission"
             >
@@ -473,6 +483,7 @@
               عمولة المكتب
             </label>
             <v-text-field
+              :readonly="showReadOnly"
               v-model.number="item.office_commission"
               color="#FF7171"
               style="border-radius: 0px !important"
@@ -488,8 +499,10 @@
               "
               @click:append="
                 () =>
-                  (item.office_commission_type =
-                    item.office_commission_type == 1 ? 0 : 1)
+                  showReadOnly
+                    ? ''
+                    : (item.office_commission_type =
+                        item.office_commission_type == 1 ? 0 : 1)
               "
             >
             </v-text-field>
@@ -532,7 +545,16 @@
     </v-row>
     <v-row class="justify-center">
       <v-card color="transparent" flat>
-        <v-card-actions>
+        <v-card-actions v-if="showReadOnly">
+          <v-btn
+            outlined
+            @click="$router.push('/dashboard/transfers')"
+            class="px-16"
+            color="primary"
+            >إغلاق</v-btn
+          >
+        </v-card-actions>
+        <v-card-actions v-else>
           <v-btn @click="confirmProcess(1)" class="px-16" color="primary"
             >إتمام العملة</v-btn
           >

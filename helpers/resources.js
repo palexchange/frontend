@@ -125,12 +125,26 @@ export default (context) => {
     child: 'setting',
     parent: '',
     load_after_store: true,
-    headers: ['id','name', 'type']
+    headers: ['id', 'name', 'type']
   },
   {
     child: 'report',
     parent: '',
-    has_headers: true
+    has_headers: true,
+    functions: [
+      {
+        key: 'type_name',
+        f: v => t(v)
+      },
+      // {
+      //   key: 'a_balance',
+      //   f: v => parseFloat(v).toFixed(4)
+      // },
+      // {
+      //   key: 'balance',
+      //   f: v => parseFloat(v).toFixed(4)
+      // },
+    ]
   },
 
   ];

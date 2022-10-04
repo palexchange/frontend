@@ -18,6 +18,9 @@
       </v-app-bar-nav-icon>
 
       <v-toolbar-title>{{ $t(this.$route.name) }}</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      {{ this.$auth.user.name }}
       <v-spacer></v-spacer>
       <v-menu :close-on-content-click="false" offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -30,13 +33,11 @@
             <template v-slot:activator>
               <v-list-item-title>{{ $t("settings") }}</v-list-item-title>
             </template>
-            <v-list-item>
-              <v-btn to="/dashboard/settings/pricing" block depressed>
-                {{ $t("exchange prices") }}
-              </v-btn>
+            <v-list-item to="/dashboard/settings/pricing">
+              {{ $t("exchange prices") }}
             </v-list-item>
-            <v-list-item>
-              <v-btn block depressed> {{ $t("exchange prices") }} </v-btn>
+            <v-list-item to="">
+              {{ $t("permissions") }}
             </v-list-item>
           </v-list-group>
 
@@ -69,7 +70,7 @@
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
       <v-container>
-        <Boxes />
+        <!-- <Boxes /> -->
 
         <Breadcrumbs />
         <div style="min-height: 75vh">

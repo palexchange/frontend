@@ -235,6 +235,9 @@
     "Success": "نجاح",
     "Error Happend": "حدث خطأ",
     "added_successfully": "تم الحفظ بنجاح",
+    "_1": "حوالة",
+    "_3": "صرافة",
+    "This action is unauthorized.": "لا تمتلك الصلاحية لإستكمال هذا الاجراء",
     "final amount to office in usd": "مبلغ المكتب النهائي بالدولار",
     "excess in box": "فائض في الصندوق"
 }

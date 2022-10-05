@@ -43,17 +43,17 @@ export default (context, inject) => {
     redirect = null;
     let data = null;
     if (item.id) {
-      context.store.dispatch('setOverlay', true);
-      data = await context.store.dispatch(`${resource}/update`, item);
+      // context.store.dispatch('setOverlay', true);
+      return context.store.dispatch(`${resource}/update`, item);
       context.$upload(file, resource, data);
-      context.store.dispatch('setOverlay', false);
+      // context.store.dispatch('setOverlay', false);
       // context.$toast.success(context.app.i18n.t('updated'));
       if (form_ref)
         form_ref.reset();
 
     } else {
-      context.store.dispatch('setOverlay', true);
-      data = await context.store.dispatch(`${resource}/store`, item);
+      // context.store.dispatch('setOverlay', true);
+      return context.store.dispatch(`${resource}/store`, item);
       await context.$upload(file, resource, data);
       context.store.dispatch('setOverlay', false);
       // context.$toast.success(context.app.i18n.t('saved'));

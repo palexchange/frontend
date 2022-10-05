@@ -24,7 +24,6 @@ const _e593706a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\f
 const _3eab9a76 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inputs/form/index" */))
 const _5b354e6c = () => interopDefault(import('..\\pages\\dashboard\\outputs\\form\\index.vue' /* webpackChunkName: "pages/dashboard/outputs/form/index" */))
 const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
-const _740ed9cb = () => interopDefault(import('..\\pages\\dashboard\\settings\\form\\index.vue' /* webpackChunkName: "pages/dashboard/settings/form/index" */))
 const _04809c03 = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
 const _287ab703 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
 const _637e2316 = () => interopDefault(import('..\\pages\\dashboard\\entries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/entries/form/_id" */))
@@ -32,7 +31,6 @@ const _b68c7e1a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\f
 const _7f7fbb26 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/inputs/form/_id" */))
 const _525bfbd4 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/outputs/form/_id" */))
 const _62767207 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/reports/form/_id" */))
-const _2c8ed2f3 = () => interopDefault(import('..\\pages\\dashboard\\settings\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/settings/form/_id" */))
 const _0ecfa8c8 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\_id.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/_id" */))
 const _5a5b3df3 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\outcoming\\_id.vue' /* webpackChunkName: "pages/dashboard/transfers/outcoming/_id" */))
 const _bfd10424 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
@@ -129,10 +127,6 @@ export const routerOptions = {
     component: _62e9f842,
     name: "dashboard-reports-form"
   }, {
-    path: "/dashboard/settings/form",
-    component: _740ed9cb,
-    name: "dashboard-settings-form"
-  }, {
     path: "/dashboard/settings/pricing",
     component: _04809c03,
     name: "dashboard-settings-pricing"
@@ -160,10 +154,6 @@ export const routerOptions = {
     path: "/dashboard/reports/form/:id",
     component: _62767207,
     name: "dashboard-reports-form-id"
-  }, {
-    path: "/dashboard/settings/form/:id",
-    component: _2c8ed2f3,
-    name: "dashboard-settings-form-id"
   }, {
     path: "/dashboard/transfers/incoming/:id?",
     component: _0ecfa8c8,

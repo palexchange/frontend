@@ -36,8 +36,8 @@
             <v-list-item to="/dashboard/settings/pricing">
               {{ $t("exchange prices") }}
             </v-list-item>
-            <v-list-item to="">
-              {{ $t("permissions") }}
+            <v-list-item to="/dashboard/settings">
+              {{ $t("accounting settings") }}
             </v-list-item>
           </v-list-group>
 
@@ -62,9 +62,9 @@
               </v-list>
             </v-menu>
           </v-list-item>
-          <v-list-item>
+          <!-- <v-list-item>
             <v-btn @click="$auth.logout()"> logout </v-btn>
-          </v-list-item>
+          </v-list-item> -->
         </v-list>
       </v-menu>
     </v-app-bar>

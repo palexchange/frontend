@@ -64,7 +64,7 @@
               </CurrencyAutoComplete>
             </v-col>
             <v-col cols="12" sm="4" xs="12">
-              <AutoAccount
+              <AccountAutocomplete
                 text="account"
                 holder="account"
                 required
@@ -82,7 +82,6 @@
             <v-col cols="12" xs="12">
               <img :src="form.image ? form.image.url : ''" alt="" />
             </v-col>
-
           </v-row>
           <v-row class="button-responsive">
             <v-col class="text-center">
@@ -104,7 +103,6 @@
 
 <script>
 import { mapState } from "vuex";
-import AutoAccount from "./AutoAccount.vue";
 export default {
   data() {
     return {
@@ -112,7 +110,6 @@ export default {
       photo: null,
       form: {
         type: 0,
-     
       },
     };
   },
@@ -146,7 +143,6 @@ export default {
       this.form = JSON.parse(JSON.stringify(this.dialog_item));
     }
   },
-  components: { AutoAccount },
 };
 </script>
 

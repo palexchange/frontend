@@ -1,5 +1,7 @@
 <template>
-  <h1>form _id</h1>
+  <div>
+    <data-table module="account"> </data-table>
+  </div>
 </template>
 
 <script>

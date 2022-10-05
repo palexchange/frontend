@@ -2,12 +2,10 @@
   <div :class="dashed ? 'dashing' : ''">
     <label
       style="color: rgba(139, 139, 139, 0.93)"
-       
       :class="required ? 'required form-label' : 'form-label'"
       >{{ $t(text) }}</label
     >
     <v-text-field
-       
       min="0"
       color="#FF7171"
       style="border-radius: 0px !important"
@@ -57,11 +55,7 @@ export default {
   data() {
     return {
       rulesss: ruless(this),
-      id: null,
     };
-  },
-  mounted() {
-    this.id = this._uid;
   },
 };
 </script>

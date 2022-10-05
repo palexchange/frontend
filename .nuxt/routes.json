@@ -120,12 +120,6 @@
     "chunkName": "pages/dashboard/reports/form/index"
   },
   {
-    "name": "dashboard-settings-form",
-    "path": "/dashboard/settings/form",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/settings/form/index"
-  },
-  {
     "name": "dashboard-settings-pricing",
     "path": "/dashboard/settings/pricing",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\pricing.vue",
@@ -166,12 +160,6 @@
     "path": "/dashboard/reports/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/reports/form/_id"
-  },
-  {
-    "name": "dashboard-settings-form-id",
-    "path": "/dashboard/settings/form/:id",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/settings/form/_id"
   },
   {
     "name": "dashboard-transfers-incoming-id",

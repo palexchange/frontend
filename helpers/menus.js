@@ -36,6 +36,40 @@ export default {
             },
         ],
     },
+    user: {
+        menu_btns: [
+            {
+                title: "edit",
+                icon: "fas fa-pen",
+            },
+            {
+                title: "show",
+                icon: "fas fa-eye",
+            },
+            {
+                title: "delete",
+                icon: "fas fa-trash",
+
+            },
+        ],
+    },
+    account: {
+        menu_btns: [
+            {
+                title: "edit",
+                icon: "fas fa-pen",
+            },
+            {
+                title: "show",
+                icon: "fas fa-eye",
+            },
+            {
+                title: "delete",
+                icon: "fas fa-trash",
+
+            },
+        ],
+    },
     daily_meal: {
         menu_btns: [
             {

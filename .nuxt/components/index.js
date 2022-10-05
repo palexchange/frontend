@@ -1,5 +1,6 @@
 export { default as AccountAutocomplete } from '../..\\components\\AccountAutocomplete.vue'
 export { default as AddAccount } from '../..\\components\\AddAccount.vue'
+export { default as AddAccountType } from '../..\\components\\AddAccountType.vue'
 export { default as AddBeneficiary } from '../..\\components\\AddBeneficiary.vue'
 export { default as AddCity } from '../..\\components\\AddCity.vue'
 export { default as AddType } from '../..\\components\\AddType.vue'
@@ -29,6 +30,7 @@ export { default as TimePicker } from '../..\\components\\TimePicker.vue'
 export { default as Title } from '../..\\components\\Title.vue'
 export { default as Tutorial } from '../..\\components\\Tutorial.vue'
 export { default as TypeAutoComplete } from '../..\\components\\TypeAutoComplete.vue'
+export { default as UserAutocomplete } from '../..\\components\\UserAutocomplete.vue'
 export { default as VuetifyLogo } from '../..\\components\\VuetifyLogo.vue'
 export { default as ChartsEighth } from '../..\\components\\charts\\eighth.vue'
 export { default as ChartsFifth } from '../..\\components\\charts\\Fifth.vue'
@@ -40,6 +42,7 @@ export { default as ChartsSeventh } from '../..\\components\\charts\\seventh.vue
 export { default as ChartsSixth } from '../..\\components\\charts\\Sixth.vue'
 export { default as ChartsTenth } from '../..\\components\\charts\\tenth.vue'
 export { default as ChartsThird } from '../..\\components\\charts\\Third.vue'
+export { default as ReportsAccountingReport } from '../..\\components\\reports\\AccountingReport.vue'
 export { default as FiltersBookFilter } from '../..\\components\\filters\\BookFilter.vue'
 export { default as FiltersCategoryFilter } from '../..\\components\\filters\\CategoryFilter.vue'
 export { default as FiltersCustomerFilter } from '../..\\components\\filters\\CustomerFilter.vue'
@@ -48,7 +51,9 @@ export { default as FiltersInventoryBatchFilter } from '../..\\components\\filte
 export { default as FiltersItemFilter } from '../..\\components\\filters\\ItemFilter.vue'
 export { default as FiltersOrderFilter } from '../..\\components\\filters\\OrderFilter.vue'
 export { default as FiltersReportFilter } from '../..\\components\\filters\\ReportFilter.vue'
-export { default as ReportsAccountingReport } from '../..\\components\\reports\\AccountingReport.vue'
+export { default as SettingsAccounts } from '../..\\components\\settings\\Accounts\\Index.vue'
+export { default as SettingsUsersCreate } from '../..\\components\\settings\\Users\\Create.vue'
+export { default as SettingsUsers } from '../..\\components\\settings\\Users\\Index.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

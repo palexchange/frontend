@@ -5,6 +5,9 @@
   "AddAccount": {
     "description": "Auto imported from components/AddAccount.vue"
   },
+  "AddAccountType": {
+    "description": "Auto imported from components/AddAccountType.vue"
+  },
   "AddBeneficiary": {
     "description": "Auto imported from components/AddBeneficiary.vue"
   },
@@ -92,6 +95,9 @@
   "TypeAutoComplete": {
     "description": "Auto imported from components/TypeAutoComplete.vue"
   },
+  "UserAutocomplete": {
+    "description": "Auto imported from components/UserAutocomplete.vue"
+  },
   "VuetifyLogo": {
     "description": "Auto imported from components/VuetifyLogo.vue"
   },
@@ -125,6 +131,9 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
+  "ReportsAccountingReport": {
+    "description": "Auto imported from components/reports/AccountingReport.vue"
+  },
   "FiltersBookFilter": {
     "description": "Auto imported from components/filters/BookFilter.vue"
   },
@@ -149,7 +158,13 @@
   "FiltersReportFilter": {
     "description": "Auto imported from components/filters/ReportFilter.vue"
   },
-  "ReportsAccountingReport": {
-    "description": "Auto imported from components/reports/AccountingReport.vue"
+  "SettingsAccounts": {
+    "description": "Auto imported from components/settings/Accounts/Index.vue"
+  },
+  "SettingsUsersCreate": {
+    "description": "Auto imported from components/settings/Users/Create.vue"
+  },
+  "SettingsUsers": {
+    "description": "Auto imported from components/settings/Users/Index.vue"
   }
 }

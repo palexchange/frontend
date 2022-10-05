@@ -5,7 +5,7 @@ export default (context) => {
     child: 'account',
     parent: '',
     load_after_store: true,
-    headers: ['actions', 'account_number', 'name', 'code', 'type.name', 'is_transaction', 'description'],
+    headers: ['id', 'account_number', 'name', 'code', 'type.name', 'is_transaction', 'description'],
     functions: [{
       key: 'is_transaction',
       f: (v) => boolean_string(v)
@@ -95,7 +95,16 @@ export default (context) => {
     child: 'user',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name', 'email', 'phone', 'address', 'status', 'category', 'created_at'],
+    headers: ['id', 'name', 'email', 'status', 'role', 'created_at'],
+    functions: [{
+      key: 'status',
+      f: (v) => v == 1 ? t('active') : t('inactive')
+    },
+    {
+      key: 'role',
+      f: (v) => v == 1 ? t('admin') : t('user')
+    }
+    ],
   },
   {
     child: 'category',
@@ -145,6 +154,13 @@ export default (context) => {
       //   f: v => parseFloat(v).toFixed(4)
       // },
     ]
+  },
+  {
+    child: 'user_account',
+    parent: '',
+    silent: true,
+    load_after_store: false,
+
   },
 
   ];

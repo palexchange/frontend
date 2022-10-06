@@ -26,6 +26,7 @@ const _14f71f74 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\fo
 const _68da25b9 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
 const _23a3f331 = () => interopDefault(import('..\\pages\\dashboard\\settings\\form\\index.vue' /* webpackChunkName: "pages/dashboard/settings/form/index" */))
 const _10934f2e = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
+const _d09a8ac0 = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
 const _3f5d4846 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
 const _52001920 = () => interopDefault(import('..\\pages\\dashboard\\entries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/entries/form/_id" */))
 const _bd1c084e = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/exchange/form/_id" */))
@@ -136,6 +137,10 @@ export const routerOptions = {
     path: "/dashboard/settings/pricing",
     component: _10934f2e,
     name: "dashboard-settings-pricing"
+  }, {
+    path: "/dashboard/settings/roles",
+    component: _d09a8ac0,
+    name: "dashboard-settings-roles"
   }, {
     path: "/dashboard/beneficiaries/form/:id",
     component: _3f5d4846,

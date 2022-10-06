@@ -11,6 +11,9 @@
   "AddCity": {
     "description": "Auto imported from components/AddCity.vue"
   },
+  "AddRole": {
+    "description": "Auto imported from components/AddRole.vue"
+  },
   "AddType": {
     "description": "Auto imported from components/AddType.vue"
   },
@@ -56,6 +59,9 @@
   "DatePicker": {
     "description": "Auto imported from components/DatePicker.vue"
   },
+  "EditRole": {
+    "description": "Auto imported from components/EditRole.vue"
+  },
   "ExchangeRow": {
     "description": "Auto imported from components/ExchangeRow.vue"
   },
@@ -95,6 +101,36 @@
   "VuetifyLogo": {
     "description": "Auto imported from components/VuetifyLogo.vue"
   },
+  "ChartsEighth": {
+    "description": "Auto imported from components/charts/eighth.vue"
+  },
+  "ChartsFifth": {
+    "description": "Auto imported from components/charts/Fifth.vue"
+  },
+  "ChartsFirst": {
+    "description": "Auto imported from components/charts/first.vue"
+  },
+  "ChartsFourth": {
+    "description": "Auto imported from components/charts/Fourth.vue"
+  },
+  "ChartsNinth": {
+    "description": "Auto imported from components/charts/ninth.vue"
+  },
+  "ChartsSecond": {
+    "description": "Auto imported from components/charts/Second.vue"
+  },
+  "ChartsSeventh": {
+    "description": "Auto imported from components/charts/seventh.vue"
+  },
+  "ChartsSixth": {
+    "description": "Auto imported from components/charts/Sixth.vue"
+  },
+  "ChartsTenth": {
+    "description": "Auto imported from components/charts/tenth.vue"
+  },
+  "ChartsThird": {
+    "description": "Auto imported from components/charts/Third.vue"
+  },
   "FiltersBookFilter": {
     "description": "Auto imported from components/filters/BookFilter.vue"
   },
@@ -121,5 +157,14 @@
   },
   "ReportsAccountingReport": {
     "description": "Auto imported from components/reports/AccountingReport.vue"
+  },
+  "RoleAdd": {
+    "description": "Auto imported from components/role/Add.vue"
+  },
+  "RoleBindPermission": {
+    "description": "Auto imported from components/role/BindPermission.vue"
+  },
+  "RoleShowPermission": {
+    "description": "Auto imported from components/role/ShowPermission.vue"
   }
 }

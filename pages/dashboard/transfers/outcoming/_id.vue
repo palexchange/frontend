@@ -260,7 +260,7 @@
                   signCurrency(
                     'exchange_rate_to_delivery_currency',
                     'exchange_rate_to_delivery_currency_view',
-                    'sale',
+                    'buy',
                     v,
                     currencies[0]
                   );

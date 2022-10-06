@@ -99,5 +99,25 @@ export default {
             },
         ],
     },
+    role: {
+        menu_btns: [
+            {
+                title: "edit",
+                icon: "fas fa-pen",
+            },
+            // {
+            //     title: "activate",
+            //     icon: "fas fa-check",
+            // },
+            // {
+            //     title: "stop",
+            //     icon: "fas fa-ban",
+            // },
+            {
+                title: "delete",
+                icon: "fas fa-trash",
+            },
+        ],
+    },
 
 }

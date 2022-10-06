@@ -167,13 +167,15 @@ export default {
     };
   },
   mounted() {
-    // this.test = this.$scopedSlots;
-    // let sorting = localStorage.getItem(`${this.$route.path}/sorting`);
-    // let sotingObj = sorting != null ? JSON.parse(sorting) : null;
-    // if (sotingObj) {
-    //   this.options.sortBy = sotingObj.sortBy;
-    //   this.options.sortDesc = sotingObj.sortDesc;
-    // }
+    if (!this.all[0]) {
+      this.$store.dispatch(`${this.module}/index`, {
+        ...this.options,
+        ...this.params,
+      });
+      let val = this.meta;
+      if (val) {
+        this.options.page = val.current_page;
+      }}
   },
   created() {
     if (this.module && this.options.itemsPerPage > -2) {

@@ -55,6 +55,18 @@ export default (context) => {
     headers: ['id', 'image', 'name', 'id_no', 'created_at', 'address', 'default_currency_id', 'country_id', 'phone'],
   },
   {
+    child: 'role',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'name'],
+  },
+  {
+    child: 'permission',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'name'],
+  },
+  {
     child: 'exchange',
     parent: '',
     load_after_store: true,
@@ -125,12 +137,26 @@ export default (context) => {
     child: 'setting',
     parent: '',
     load_after_store: true,
-    headers: ['id','name', 'type']
+    headers: ['id', 'name', 'type']
   },
   {
     child: 'report',
     parent: '',
-    has_headers: true
+    has_headers: true,
+    functions: [
+      {
+        key: 'type_name',
+        f: v => t(v)
+      },
+      // {
+      //   key: 'a_balance',
+      //   f: v => parseFloat(v).toFixed(4)
+      // },
+      // {
+      //   key: 'balance',
+      //   f: v => parseFloat(v).toFixed(4)
+      // },
+    ]
   },
 
   ];

@@ -3,192 +3,231 @@
     "name": "child",
     "path": "/child",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\child.vue",
-    "chunkName": "pages/child"
+    "chunkName": "pages/child",
+    "_name": "_0bedd392"
   },
   {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\index.vue",
-    "chunkName": "pages/dashboard/index"
+    "chunkName": "pages/dashboard/index",
+    "_name": "_7f1d2738"
   },
   {
     "name": "inspire",
     "path": "/inspire",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\inspire.vue",
-    "chunkName": "pages/inspire"
+    "chunkName": "pages/inspire",
+    "_name": "_36f37a60"
   },
   {
     "name": "parent",
     "path": "/parent",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\parent.vue",
-    "chunkName": "pages/parent"
+    "chunkName": "pages/parent",
+    "_name": "_15117824"
   },
   {
     "name": "auth-login",
     "path": "/auth/login",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\auth\\\\login.vue",
-    "chunkName": "pages/auth/login"
+    "chunkName": "pages/auth/login",
+    "_name": "_be202292"
   },
   {
     "name": "auth-register",
     "path": "/auth/register",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\auth\\\\register.vue",
-    "chunkName": "pages/auth/register"
+    "chunkName": "pages/auth/register",
+    "_name": "_2f859ac5"
   },
   {
     "name": "dashboard-beneficiaries",
     "path": "/dashboard/beneficiaries",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\beneficiaries\\\\index.vue",
-    "chunkName": "pages/dashboard/beneficiaries/index"
+    "chunkName": "pages/dashboard/beneficiaries/index",
+    "_name": "_c06f9b8e"
   },
   {
     "name": "dashboard-entries",
     "path": "/dashboard/entries",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\entries\\\\index.vue",
-    "chunkName": "pages/dashboard/entries/index"
+    "chunkName": "pages/dashboard/entries/index",
+    "_name": "_02bf8b4c"
   },
   {
     "name": "dashboard-exchange",
     "path": "/dashboard/exchange",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\exchange\\\\index.vue",
-    "chunkName": "pages/dashboard/exchange/index"
+    "chunkName": "pages/dashboard/exchange/index",
+    "_name": "_fd5f9f96"
   },
   {
     "name": "dashboard-inputs",
     "path": "/dashboard/inputs",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\inputs\\\\index.vue",
-    "chunkName": "pages/dashboard/inputs/index"
+    "chunkName": "pages/dashboard/inputs/index",
+    "_name": "_1d3ebfa2"
   },
   {
     "name": "dashboard-outputs",
     "path": "/dashboard/outputs",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\outputs\\\\index.vue",
-    "chunkName": "pages/dashboard/outputs/index"
+    "chunkName": "pages/dashboard/outputs/index",
+    "_name": "_7d1919ec"
   },
   {
     "name": "dashboard-reports",
     "path": "/dashboard/reports",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\reports\\\\index.vue",
-    "chunkName": "pages/dashboard/reports/index"
+    "chunkName": "pages/dashboard/reports/index",
+    "_name": "_7ecefabd"
   },
   {
     "name": "dashboard-settings",
     "path": "/dashboard/settings",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\settings\\\\index.vue",
-    "chunkName": "pages/dashboard/settings/index"
+    "chunkName": "pages/dashboard/settings/index",
+    "_name": "_527e4235"
   },
   {
     "name": "dashboard-transfers",
     "path": "/dashboard/transfers",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\transfers\\\\index.vue",
-    "chunkName": "pages/dashboard/transfers/index"
+    "chunkName": "pages/dashboard/transfers/index",
+    "_name": "_4bad0e74"
   },
   {
     "name": "dashboard-beneficiaries-form",
     "path": "/dashboard/beneficiaries/form",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/beneficiaries/form/index"
+    "chunkName": "pages/dashboard/beneficiaries/form/index",
+    "_name": "_4152d035"
   },
   {
     "name": "dashboard-entries-form",
     "path": "/dashboard/entries/form",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\entries\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/entries/form/index"
+    "chunkName": "pages/dashboard/entries/form/index",
+    "_name": "_46b9cf08"
   },
   {
     "name": "dashboard-exchange-form",
     "path": "/dashboard/exchange/form",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/exchange/form/index"
+    "chunkName": "pages/dashboard/exchange/form/index",
+    "_name": "_3ccb6131"
   },
   {
     "name": "dashboard-inputs-form",
     "path": "/dashboard/inputs/form",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/inputs/form/index"
+    "chunkName": "pages/dashboard/inputs/form/index",
+    "_name": "_453b24aa"
   },
   {
     "name": "dashboard-outputs-form",
     "path": "/dashboard/outputs/form",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/outputs/form/index"
+    "chunkName": "pages/dashboard/outputs/form/index",
+    "_name": "_14f71f74"
   },
   {
     "name": "dashboard-reports-form",
     "path": "/dashboard/reports/form",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\reports\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/reports/form/index"
+    "chunkName": "pages/dashboard/reports/form/index",
+    "_name": "_68da25b9"
   },
   {
     "name": "dashboard-settings-form",
     "path": "/dashboard/settings/form",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\settings\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/settings/form/index"
+    "chunkName": "pages/dashboard/settings/form/index",
+    "_name": "_23a3f331"
   },
   {
     "name": "dashboard-settings-pricing",
     "path": "/dashboard/settings/pricing",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\settings\\\\pricing.vue",
-    "chunkName": "pages/dashboard/settings/pricing"
+    "chunkName": "pages/dashboard/settings/pricing",
+    "_name": "_10934f2e"
+  },
+  {
+    "name": "dashboard-settings-roles",
+    "path": "/dashboard/settings/roles",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\settings\\\\roles.vue",
+    "chunkName": "pages/dashboard/settings/roles",
+    "_name": "_d09a8ac0"
   },
   {
     "name": "dashboard-beneficiaries-form-id",
     "path": "/dashboard/beneficiaries/form/:id",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/beneficiaries/form/_id"
+    "chunkName": "pages/dashboard/beneficiaries/form/_id",
+    "_name": "_3f5d4846"
   },
   {
     "name": "dashboard-entries-form-id",
     "path": "/dashboard/entries/form/:id",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\entries\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/entries/form/_id"
+    "chunkName": "pages/dashboard/entries/form/_id",
+    "_name": "_52001920"
   },
   {
     "name": "dashboard-exchange-form-id",
     "path": "/dashboard/exchange/form/:id",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/exchange/form/_id"
+    "chunkName": "pages/dashboard/exchange/form/_id",
+    "_name": "_bd1c084e"
   },
   {
     "name": "dashboard-inputs-form-id",
     "path": "/dashboard/inputs/form/:id",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/inputs/form/_id"
+    "chunkName": "pages/dashboard/inputs/form/_id",
+    "_name": "_9914425a"
   },
   {
     "name": "dashboard-outputs-form-id",
     "path": "/dashboard/outputs/form/:id",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/outputs/form/_id"
+    "chunkName": "pages/dashboard/outputs/form/_id",
+    "_name": "_744467a4"
   },
   {
     "name": "dashboard-reports-form-id",
     "path": "/dashboard/reports/form/:id",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\reports\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/reports/form/_id"
+    "chunkName": "pages/dashboard/reports/form/_id",
+    "_name": "_540f7b3e"
   },
   {
     "name": "dashboard-settings-form-id",
     "path": "/dashboard/settings/form/:id",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\settings\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/settings/form/_id"
+    "chunkName": "pages/dashboard/settings/form/_id",
+    "_name": "_29470dd9"
   },
   {
     "name": "dashboard-transfers-incoming-id",
     "path": "/dashboard/transfers/incoming/:id?",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\_id.vue",
-    "chunkName": "pages/dashboard/transfers/incoming/_id"
+    "chunkName": "pages/dashboard/transfers/incoming/_id",
+    "_name": "_9f225f14"
   },
   {
     "name": "dashboard-transfers-outcoming-id",
     "path": "/dashboard/transfers/outcoming/:id?",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\transfers\\\\outcoming\\\\_id.vue",
-    "chunkName": "pages/dashboard/transfers/outcoming/_id"
+    "chunkName": "pages/dashboard/transfers/outcoming/_id",
+    "_name": "_c54d974e"
   },
   {
     "name": "index",
     "path": "/",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_3d0f8770"
   }
 ]

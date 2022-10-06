@@ -22,6 +22,8 @@ export default function ({ $axios, redirect, store, response, app }) {
         else if (error.response.status === 421 && error.response.data.message) {
             app.$toast(error.response.data.message);
             console.log("TEST 422");
+        } else if (error.response.status === 403 && error.response.data) {
+            store.dispatch('addErrors', { error: store.$i18n.t(error.response.data.message) })
         }
         // else if(error.response.status === 422 && error.response.data.errors ){
         //   let data = error.response.data.errors

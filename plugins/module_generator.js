@@ -207,9 +207,11 @@ export default (context, inject) => {
           });
           // commit('setOne', response.data);
           if (!resource.silent) {
-            dispatch('setSuccessMsg', 'updated_successfully', {
-              root: true
-            });
+            if (!data.silent) {
+              dispatch('setSuccessMsg', 'updated_successfully', {
+                root: true
+              });
+            }
           }
 
           if (resource.load_after_store)

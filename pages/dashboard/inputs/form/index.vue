@@ -7,30 +7,45 @@
       <v-card-text>
         <v-row class="mt-5 lg5-custome-row">
           <v-col cols="12" lg="4" xs="12" sm="6">
-            <BeneficiaryAutocomplete
+            <AccountAutocomplete
+              required
+              :params="{ type_id: 1, per_page: -1 }"
+              text="beneficiary"
               holder="beneficiary"
-              v-model="form.beneficiary_id"
+              v-model="form.from_account_id"
             />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <InputField holder="recived amount" v-model.number="form.amount">
-            </InputField>
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <AutoComplete
-              holder="currency"
-              :items="all_currencies"
-              v-model="form.currency_id"
-            />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <DatePicker v-model="form.date" holder="date" />
-          </v-col>
-          <v-col cols="12" lg="4" xs="12" sm="6">
-            <TimePicker v-model="form.time"> </TimePicker>
           </v-col>
           <v-col cols="12" lg="4" xs="12" sm="6">
             <InputField
+              required
+              text="recived amount"
+              holder="recived amount"
+              v-model.number="form.amount"
+            >
+            </InputField>
+          </v-col>
+          <v-col cols="12" lg="4" xs="12" sm="6">
+            <CurrencyAutoComplete
+              required
+              text="currency"
+              holder="currency"
+              v-model="form.to_account_id"
+            />
+          </v-col>
+
+          <v-col cols="12" lg="4" xs="12" sm="6">
+            <InputField
+              required
+              text="conversion factor"
+              holder="conversion factor"
+              v-model="form.exchange_id"
+            ></InputField>
+          </v-col>
+
+          <v-col cols="12" lg="4" xs="12" sm="6">
+            <InputField
+              required
+              text="conversion factor"
               holder="conversion factor"
               v-model="form.factor"
             ></InputField>
@@ -40,9 +55,9 @@
           <v-col cols="2">
             <v-btn
               @click="
-              form.date = form.date + ' ' + form.time;
-              $save(form, 'receipt',null,'/dashboard/inputs');
-              form = {};
+                form.date = form.date + ' ' + form.time;
+                $save(form, 'receipt', null, '/dashboard/inputs');
+                form = {};
               "
               height="40"
               color="primary"

@@ -578,12 +578,6 @@
                   <v-icon small>fas fa-save</v-icon>
                 </v-list-item-icon>
               </v-list-item>
-              <v-list-item>
-                <v-list-item-title> ترحيل علي الحساب</v-list-item-title>
-                <v-list-item-icon>
-                  <v-icon small>fas fa-arrow-left</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
             </v-list>
           </v-menu>
         </v-card-actions>
@@ -612,6 +606,7 @@ export default {
       transfer_types: [
         { id: 1, name: "تسليم يد" },
         { id: 2, name: "موني غرام" },
+        { id: 3, name: "علي الحساب" },
       ],
       item: {
         commission_side: 1,

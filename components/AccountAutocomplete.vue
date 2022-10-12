@@ -13,7 +13,7 @@
       dense
       :disabled="dashed"
       :required="this.required ? true : false"
-      outlined
+      :outlined="outlined"
       v-bind="$attrs"
       v-on="$listeners"
       :rules="required ? rulesss.requiredRules : []"
@@ -70,6 +70,14 @@ export default {
       type: String,
       default: "id",
     },
+    outlined: {
+      type: Boolean,
+      default: true,
+    },
+    params: {
+      type: Object,
+      default: { per_page: -1 },
+    },
   },
   data() {
     return {
@@ -78,7 +86,7 @@ export default {
   },
   created() {
     if (!this.all[0] && !this.no_fetch) {
-      this.$store.dispatch("account/index", { per_page: 900 });
+      this.$store.dispatch("account/index", this.params);
     }
   },
   computed: {

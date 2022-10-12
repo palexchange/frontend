@@ -12,7 +12,7 @@
       dense
       :disabled="dashed || disabledd"
       :required="this.required ? true : false"
-      outlined
+      :outlined="outlined"
       v-bind="$attrs"
       v-on="$listeners"
       :rules="required ? rulesss.requiredRules : []"
@@ -50,6 +50,10 @@ export default {
     disabledd: {
       type: Boolean,
       default: false,
+    },
+    outlined: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

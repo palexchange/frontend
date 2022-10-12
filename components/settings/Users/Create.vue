@@ -131,7 +131,7 @@ export default {
     return {
       expand: false,
       validated: false,
-      photo: null,
+
       user_account: [],
       form: {
         type: 0,
@@ -160,7 +160,6 @@ export default {
   },
   computed: {
     ...mapState({
-      all_currencies: (state) => state.currency.all,
       dialog_item: (state) => state.state_dialog.item,
       user_accounts: (state) => state.user_account.all,
     }),

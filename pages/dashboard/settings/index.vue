@@ -31,6 +31,14 @@ export default {
           header: this.$t("accounts"),
           component_name: "SettingsAccounts",
         },
+        {
+          header: this.$t("accounts balances"),
+          component_name: "SettingsAccountsBalance",
+        },
+        {
+          header: this.$t("entries"),
+          component_name: "SettingsEntry",
+        },
         // { header: "currencies report", component_name: "Card" },
         // { header: "courier report", component_name: "Card" },
       ],

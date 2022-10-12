@@ -27,7 +27,7 @@
           block
           @click="$store.dispatch('setDialog', { name: 'AddAccountType' })"
         >
-          {{ $t("add account") }}
+          {{ $t("add account type") }}
         </v-btn>
       </template>
     </v-autocomplete>
@@ -74,7 +74,7 @@ export default {
   },
   created() {
     if (!this.all[0] && !this.no_fetch) {
-      this.$store.dispatch("account_type/index", { per_page: 900 });
+      this.$store.dispatch("account_type/index", { per_page: -1 });
     }
   },
   computed: {

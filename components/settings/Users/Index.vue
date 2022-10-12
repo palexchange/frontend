@@ -21,10 +21,9 @@ export default {
   },
 
   methods: {
-    addUser(item) {
+    addUser() {
       this.$store.dispatch("setDialog", {
         name: "SettingsUsersCreate",
-        item,
       });
     },
     edit(item) {

@@ -78,12 +78,12 @@ export default (context) => {
     load_after_store: true,
     headers: ['id', 'date', 'amount', 'currency_name', 'party_name', 'number'],
   },
-  {
-    child: 'receipt',
-    parent: '',
-    load_after_store: true,
-    headers: ['id', 'party_name', 'amount', 'currency', 'date', 'factor'],
-  },
+  // {
+  //   child: 'receipt',
+  //   parent: '',
+  //   load_after_store: true,
+  //   headers: ['id', 'party_name', 'amount', 'currency', 'date', 'factor'],
+  // },
   {
     child: 'account_type',
     parent: '',
@@ -93,7 +93,7 @@ export default (context) => {
   {
     child: 'exchange_detail',
     parent: '',
-    load_after_store: true,
+    load_after_store: false,
     headers: ['id', 'exchange_id', 'amount', 'currency_name', 'factor', 'amount_after'],
   },
   {
@@ -179,6 +179,32 @@ export default (context) => {
     silent: true,
     load_after_store: false,
 
+  },
+  {
+    child: 'entry',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'statement', 'created_at'],
+    functions: [
+      {
+        key: 'statement',
+        f: v => t(v)
+      },
+
+    ]
+  },
+  {
+    child: 'entry_transaction',
+    parent: '',
+    silent: true,
+    load_after_store: false,
+    headers: ['id', 'account_name', 'debtor', 'creditor', 'exchange_rate', 'ac_debtor', 'ac_creditor'],
+  },
+  {
+    child: 'receipt',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'type', 'from_account_name', 'to_account_name', 'from_amount', 'exchange_rate', 'to_amount', 'created_at']
   },
 
   ];

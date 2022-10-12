@@ -206,11 +206,15 @@ export default (context, inject) => {
             root: true
           });
           // commit('setOne', response.data);
-          dispatch('setSuccessMsg', 'updated_successfully', {
-            root: true
-          });
+          if (!resource.silent) {
+            dispatch('setSuccessMsg', 'updated_successfully', {
+              root: true
+            });
+          }
+
           if (resource.load_after_store)
             dispatch('index', state.params);
+          return response.data;
         } catch (ex) {
           if (ex.response) {
             let errors = (ex.response.data.errors);
@@ -221,6 +225,7 @@ export default (context, inject) => {
             console.log(ex);
           }
         }
+
       },
       async store({
         commit,
@@ -251,9 +256,13 @@ export default (context, inject) => {
             root: true
           });
           if (!resource.is_html) {
-            dispatch('setSuccessMsg', 'added_successfully', {
-              root: true
-            });
+            if (!resource.silent) {
+
+              dispatch('setSuccessMsg', 'added_successfully', {
+                root: true
+              });
+            }
+
             if (resource.load_after_store)
               dispatch('index', params);
             // commit('setOne', response.data);
@@ -283,9 +292,11 @@ export default (context, inject) => {
         // rq: async () => {
         let url = (resource.parent ? `/${resource.parent}/${data[resource.parent + '_id']}/` : '') + resource.child + '/' + data.id;
         const response = await this.$axios.$delete(url);
-        dispatch('setSuccessMsg', 'deleted_successfully', {
-          root: true
-        });
+        if (!resource.silent) {
+          dispatch('setSuccessMsg', 'deleted_successfully', {
+            root: true
+          });
+        }
         let params = {};
         if (resource.parent) {
           params[resource.parent + '_id'] = data[resource.parent + '_id'];

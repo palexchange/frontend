@@ -5,6 +5,9 @@
   "AddAccount": {
     "description": "Auto imported from components/AddAccount.vue"
   },
+  "AddAccountType": {
+    "description": "Auto imported from components/AddAccountType.vue"
+  },
   "AddBeneficiary": {
     "description": "Auto imported from components/AddBeneficiary.vue"
   },
@@ -80,6 +83,9 @@
   "NuxtLogo": {
     "description": "Auto imported from components/NuxtLogo.vue"
   },
+  "RoleAutocomplete": {
+    "description": "Auto imported from components/RoleAutocomplete.vue"
+  },
   "SideMenu": {
     "description": "Auto imported from components/SideMenu.vue"
   },
@@ -97,6 +103,9 @@
   },
   "TypeAutoComplete": {
     "description": "Auto imported from components/TypeAutoComplete.vue"
+  },
+  "UserAutocomplete": {
+    "description": "Auto imported from components/UserAutocomplete.vue"
   },
   "VuetifyLogo": {
     "description": "Auto imported from components/VuetifyLogo.vue"
@@ -166,5 +175,17 @@
   },
   "RoleShowPermission": {
     "description": "Auto imported from components/role/ShowPermission.vue"
+  },
+  "SettingsAccounts": {
+    "description": "Auto imported from components/settings/Accounts/Index.vue"
+  },
+  "SettingsUsersCreate": {
+    "description": "Auto imported from components/settings/Users/Create.vue"
+  },
+  "SettingsUsers": {
+    "description": "Auto imported from components/settings/Users/Index.vue"
+  },
+  "SettingsUsersRoleManagement": {
+    "description": "Auto imported from components/settings/Users/RoleManagement.vue"
   }
 }

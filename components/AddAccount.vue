@@ -17,19 +17,20 @@
                 holder="name"
               ></InputField>
             </v-col>
+
             <v-col cols="12" sm="4" xs="12">
-              <AutoAccount
-                v-model="form.parent_id"
-                text="parent"
-                holder="parent"
-              ></AutoAccount>
-            </v-col>
-            <v-col cols="12" sm="4" xs="12">
-              <TypeAutoComplete
+              <AccountAutocomplete
                 v-model="form.type_id"
                 text="parent account number"
                 holder="parent account number"
-              ></TypeAutoComplete>
+              ></AccountAutocomplete>
+            </v-col>
+            <v-col cols="12" sm="4" xs="12">
+              <AutoAccount
+                v-model="form.parent_id"
+                text="type"
+                holder="type"
+              ></AutoAccount>
             </v-col>
             <v-col cols="12" sm="4" xs="12">
               <InputField
@@ -53,7 +54,27 @@
               ></InputField>
             </v-col>
             <v-col cols="12" sm="4" xs="12">
-              <v-checkbox v-model="form.is_transaction" color="primary" label="is_transaction" />
+              <UserAutocomplete
+                clearable
+                v-model="form.user_id"
+                text="sign account to user"
+                holder="sign account to user"
+              ></UserAutocomplete>
+            </v-col>
+            <v-col cols="12" sm="4" xs="12">
+              <CurrencyAutoComplete
+                clearable
+                v-model="form.currency_id"
+                text="box currency"
+                holder="box currency"
+              ></CurrencyAutoComplete>
+            </v-col>
+            <v-col cols="12" sm="4" xs="12">
+              <v-checkbox
+                v-model="form.is_transaction"
+                color="primary"
+                label="is_transaction"
+              />
             </v-col>
           </v-row>
           <v-row class="button-responsive">
@@ -84,15 +105,15 @@ export default {
   },
   methods: {
     save() {
-      this.$save(this.form, "account")
+      this.$save(this.form, "account");
       this.dialog = false;
       this.form = {};
       this.$store.dispatch("closeDialog");
     },
-    change_city(city_id) {
-      console.log("Reeeacchhhh");
-      if (city_id) this.form.city_id = city_id;
-    },
+    // change_city(city_id) {
+    //   console.log("Reeeacchhhh");
+    //   if (city_id) this.form.city_id = city_id;
+    // },
   },
   computed: {
     ...mapState({

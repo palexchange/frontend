@@ -140,13 +140,6 @@
     "_name": "_68da25b9"
   },
   {
-    "name": "dashboard-settings-form",
-    "path": "/dashboard/settings/form",
-    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\settings\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/settings/form/index",
-    "_name": "_23a3f331"
-  },
-  {
     "name": "dashboard-settings-pricing",
     "path": "/dashboard/settings/pricing",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\settings\\\\pricing.vue",
@@ -201,13 +194,6 @@
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\reports\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/reports/form/_id",
     "_name": "_540f7b3e"
-  },
-  {
-    "name": "dashboard-settings-form-id",
-    "path": "/dashboard/settings/form/:id",
-    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\dashboard\\\\settings\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/settings/form/_id",
-    "_name": "_29470dd9"
   },
   {
     "name": "dashboard-transfers-incoming-id",

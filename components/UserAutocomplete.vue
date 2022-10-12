@@ -19,17 +19,17 @@
       :rules="required ? rulesss.requiredRules : []"
       :placeholder="$t(holder)"
       item-text="name"
-      :item-value="item_value ? item_value : 'id'"
+      item-value="id"
     >
-      <template v-slot:prepend-item>
+      <!-- <template v-slot:prepend-item>
         <v-btn
           depressed
           block
-          @click="$store.dispatch('setDialog', { name: 'AddAccount' })"
+          @click="$store.dispatch('setDialog', { name: 'Adduser' })"
         >
-          {{ $t("add account") }}
+          {{ $t("add user") }}
         </v-btn>
-      </template>
+      </template> -->
     </v-autocomplete>
   </div>
 </template>
@@ -66,10 +66,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    item_value: {
-      type: String,
-      default: "id",
-    },
   },
   data() {
     return {
@@ -78,12 +74,12 @@ export default {
   },
   created() {
     if (!this.all[0] && !this.no_fetch) {
-      this.$store.dispatch("account/index", { per_page: 900 });
+      this.$store.dispatch("user/index", { per_page: 900 });
     }
   },
   computed: {
     ...mapState({
-      all: (state) => JSON.parse(JSON.stringify(state.account.all)),
+      all: (state) => state.user.all,
     }),
   },
 };

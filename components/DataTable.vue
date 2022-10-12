@@ -8,7 +8,7 @@
       :page.sync="options.page"
       item-key="id"
       hide-default-footer
-      :items-per-page="meta.per_page ? Number(meta.per_page) :15"
+      :items-per-page="meta.per_page ? Number(meta.per_page) : 15"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
       :headers="$translateHeaders(headers.concat(['actions']))"
@@ -34,48 +34,7 @@
       <template v-for="key in formatted_numbers" v-slot:[getKey(key)]="scope">
         {{ $inputNumberFormat(scope.item[key]) }}
       </template>
-      <!-- <template v-slot:top>
-        <v-row>
-          <v-col class="text-left">
-            <span>
-              <v-btn icon>
-                <v-icon
-                  class="justify-content"
-                  color="primary"
-                  @click="$fetch()"
-                  small
-                  >fas fa-redo-alt</v-icon
-                >
-              </v-btn>
-            </span>
-            <v-menu offset-y>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn color="primary" v-bind="attrs" v-on="on" icon>
-                  <v-icon> fas fa-cloud-download-alt </v-icon>
-                </v-btn>
-              </template>
-              <v-list dense>
-                <v-list-item @click="download('xlsx')">
-                  <v-list-item-title>
-                    {{ $t("excel") }}
-                  </v-list-item-title>
-                  <v-list-item-icon>
-                    <v-icon>fas fa-file-excel</v-icon>
-                  </v-list-item-icon>
-                </v-list-item>
-                <v-list-item @click="download('pdf')">
-                  <v-list-item-title>
-                    {{ $t("pdf") }}
-                  </v-list-item-title>
-                  <v-list-item-icon>
-                    <v-icon>fas fa-file-pdf</v-icon>
-                  </v-list-item-icon>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-col>
-        </v-row>
-      </template> -->
+ 
       <template v-slot:item.actions="{ item }">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -119,7 +78,7 @@
       </template>
     </v-data-table>
     <v-pagination
-    class="mt-5"
+      class="mt-5"
       :hidden="hide_pagination"
       v-model="options.page"
       :length="meta.last_page"
@@ -153,12 +112,11 @@ export default {
   },
   data() {
     return {
-      hmad: "gvhjb",
       // loading: false,
       options: {
         sortBy: [],
         sortDesc: [],
-      itemKey: "item.",
+        itemKey: "item.",
       },
       // loaded: false,
       sortingData: { sortBy: [], sortDesc: [] },
@@ -175,7 +133,9 @@ export default {
       let val = this.meta;
       if (val) {
         this.options.page = val.current_page;
-      }}
+      }
+      // this.loaded = true;
+    }
   },
   created() {
     if (this.module && this.options.itemsPerPage > -2) {
@@ -262,7 +222,7 @@ export default {
         }
       },
       deep: true,
-      // immediate: true,
+      immediate: true,
     },
   },
   methods: {

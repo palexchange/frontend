@@ -20,8 +20,8 @@
             <v-col cols="12" sm="4" xs="12">
               <AutoAccount
                 v-model="form.parent_id"
-                text="parent account number"
-                holder="parent account number"
+                text="parent type"
+                holder="parent type"
               ></AutoAccount>
             </v-col>
           </v-row>
@@ -53,10 +53,11 @@ export default {
   },
   methods: {
     save() {
-      this.$save(this.form, "account");
-      this.dialog = false;
-      this.form = {};
-      this.$store.dispatch("closeDialog");
+      this.$save(this.form, "account_type").then((data) => {
+        if (data && data.id) {
+          this.$store.dispatch("closeDialog");
+        }
+      });
     },
     // change_city(city_id) {
     //   console.log("Reeeacchhhh");

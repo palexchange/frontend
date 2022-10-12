@@ -131,9 +131,6 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
-  "ReportsAccountingReport": {
-    "description": "Auto imported from components/reports/AccountingReport.vue"
-  },
   "FiltersBookFilter": {
     "description": "Auto imported from components/filters/BookFilter.vue"
   },
@@ -158,13 +155,34 @@
   "FiltersReportFilter": {
     "description": "Auto imported from components/filters/ReportFilter.vue"
   },
+  "ReportsAccountingReport": {
+    "description": "Auto imported from components/reports/AccountingReport.vue"
+  },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
+  },
+  "SettingsAccountsBalanceClose": {
+    "description": "Auto imported from components/settings/AccountsBalance/Close.vue"
+  },
+  "SettingsAccountsBalanceCreate": {
+    "description": "Auto imported from components/settings/AccountsBalance/Create.vue"
+  },
+  "SettingsAccountsBalance": {
+    "description": "Auto imported from components/settings/AccountsBalance/Index.vue"
+  },
+  "SettingsAccountsBalanceOpen": {
+    "description": "Auto imported from components/settings/AccountsBalance/Open.vue"
   },
   "SettingsUsersCreate": {
     "description": "Auto imported from components/settings/Users/Create.vue"
   },
   "SettingsUsers": {
     "description": "Auto imported from components/settings/Users/Index.vue"
+  },
+  "SettingsEntryCreate": {
+    "description": "Auto imported from components/settings/Entry/Create.vue"
+  },
+  "SettingsEntry": {
+    "description": "Auto imported from components/settings/Entry/Index.vue"
   }
 }

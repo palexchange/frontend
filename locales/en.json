@@ -119,5 +119,6 @@
   "items_update_form": "Item Update Form",
   "customer_update_form": "Customer Data Update Form",
   "print": "Print",
+  "is_transaction": "is transaction",
   "categories_form": "Categories Form"
 }

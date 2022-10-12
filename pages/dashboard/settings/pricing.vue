@@ -101,15 +101,17 @@
             >add stock</v-btn
           >
         </v-col>
-        <v-col cols="12" class="align-self-center">
+        <!-- <v-col cols="12" class="align-self-center">
           <v-btn @click="dialog = true" block depressed>
             {{ $t("add currency") }}
           </v-btn>
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-card-text>
     <v-divider class="py-5"></v-divider>
-
+    <v-card-actions class="justify-center">
+      <v-btn class="primary" @click="$save(stocks, 'stock')"> save </v-btn>
+    </v-card-actions>
     <v-card-text>
       <v-simple-table class="my-test">
         <template v-slot:default>
@@ -170,9 +172,6 @@
         </template>
       </v-simple-table>
     </v-card-text>
-    <v-card-actions>
-      <v-btn @click="$save(stocks, 'stock')"> save </v-btn>
-    </v-card-actions>
   </Card>
 </template>
 <script>

@@ -9,7 +9,7 @@
     <v-autocomplete
       color="#FF7171"
       style="border-radius: 0px !important"
-      :items="all"
+      :items="[...all]"
       dense
       :disabled="dashed"
       :required="this.required ? true : false"

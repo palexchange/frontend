@@ -28,7 +28,6 @@
           @click:append="show1 = !show1"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           hint="At least 8 characters"
-           
           prepend-inner-icon="fas fa-lock"
         ></v-text-field>
         <!-- <v-checkbox label="Remember Me" dense></v-checkbox> -->
@@ -55,8 +54,8 @@ export default {
   data() {
     return {
       user: {
-        username: "test@test.com",
-        password: "a123",
+        username: "admin@admin.com",
+        password: 123456,
       },
       errorMessage: "",
       show1: false,

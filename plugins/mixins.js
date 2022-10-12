@@ -150,6 +150,9 @@ export default (context, inject) => {
         }
       });
   });
+  inject('getDateTime', (from, to) => {
+    return new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10) + " " + new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(11, 8)
+  });
   inject('calcBuyPrice', (from, to) => {
     if (from.id == to.id) {
       return 1;
@@ -172,7 +175,7 @@ export default (context, inject) => {
       return ((from.values.sale) * 1 / to.values.sale).toFixed(7);
     }
   });
-  inject('newCalcSalePrice', (from, to) => {
+  inject('newCalcSalePrice', (from, to, digits) => {
     if (!(from && to)) return 0;
     let from_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == from.id && v.ref_currency_id == 1
@@ -187,7 +190,7 @@ export default (context, inject) => {
     else if (to.id == 1) {
       if (from_currency) {
 
-        return (1 / from_currency.start_selling_price).toFixed(7);
+        return (1 / from_currency.start_selling_price).toFixed(digits || 7);
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -203,13 +206,13 @@ export default (context, inject) => {
       }
       if (to_currency && from_currency) {
 
-        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(7);
+        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(digits || 7);
       }
     }
 
 
   });
-  inject('newCalcBuyPrice', (from, to) => {
+  inject('newCalcBuyPrice', (from, to, digits) => {
     if (!(from && to)) return 0;
     let from_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == from.id && v.ref_currency_id == 1
@@ -222,7 +225,7 @@ export default (context, inject) => {
       return 1;
     } else if (to.id == 1) {
       if (from_currency) {
-        return (1 / from_currency.start_purchasing_price).toFixed(7);
+        return (1 / from_currency.start_purchasing_price).toFixed(digits || 7);
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -237,7 +240,7 @@ export default (context, inject) => {
         return converter.start_purchasing_price;
       }
       if (to_currency && from_currency) {
-        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(7);
+        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(digits || 7);
       }
     }
 

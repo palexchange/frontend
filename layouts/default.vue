@@ -22,46 +22,31 @@
       <v-spacer></v-spacer>
       {{ this.$auth.user.name }}
       <v-spacer></v-spacer>
-      <v-menu :close-on-content-click="false" offset-y>
+      <v-menu :close-on-content-click="true" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon dark color="primary" v-bind="attrs" v-on="on">
             <img src="~/assets/img/vertical_menu.png" alt="" />
           </v-btn>
         </template>
         <v-list width="200">
-          <v-list-group>
-            <template v-slot:activator>
-              <v-list-item-title>{{ $t("settings") }}</v-list-item-title>
-            </template>
-            <v-list-item to="/dashboard/settings/pricing">
-              {{ $t("exchange prices") }}
-            </v-list-item>
-            <v-list-item to="/dashboard/settings">
-              {{ $t("accounting settings") }}
-            </v-list-item>
-          </v-list-group>
-
-          <v-list-item>
-            <v-menu offset-y>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn text block dark color="primary" v-bind="attrs" v-on="on">
-                  lang
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item
-                  v-for="locale in locales"
-                  :key="locale.code"
-                  link
-                  @click="changeLocale(locale)"
-                >
-                  <v-list-item-title>
-                    {{ $t(locale.name) }}
-                  </v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
+          <v-list-item to="/dashboard/settings/pricing">
+            {{ $t("exchange prices") }}
           </v-list-item>
+          <v-list-item to="/dashboard/settings">
+            {{ $t("accounting settings") }}
+          </v-list-item>
+
+          <v-list-item
+            v-for="locale in locales"
+            :key="locale.code"
+            link
+            @click="changeLocale(locale)"
+          >
+            <v-list-item-title>
+              {{ $t(locale.name) }}
+            </v-list-item-title>
+          </v-list-item>
+
           <!-- <v-list-item>
             <v-btn @click="$auth.logout()"> logout </v-btn>
           </v-list-item> -->

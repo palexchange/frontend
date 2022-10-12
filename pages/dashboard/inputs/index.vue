@@ -12,8 +12,7 @@
         </v-row>
       </v-card-title>
     </Card>
-
-    <DataTable module="receipt" :params="{ type: 0 }" />
+    <DataTable module="receipt" :params="{ type: 1 }" />
   </div>
 </template>
 

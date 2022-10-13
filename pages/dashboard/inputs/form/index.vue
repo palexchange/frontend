@@ -20,7 +20,7 @@
               required
               text="recived amount"
               holder="recived amount"
-              v-model.number="form.amount"
+              v-model.number="form.from_amount"
             >
             </InputField>
           </v-col>
@@ -36,18 +36,19 @@
           <v-col cols="12" lg="4" xs="12" sm="6">
             <InputField
               required
-              text="conversion factor"
-              holder="conversion factor"
-              v-model="form.exchange_id"
+              text="conversion factor to usd"
+              holder="conversion factor to usd"
+              v-model="form.exchange_rate"
             ></InputField>
           </v-col>
 
           <v-col cols="12" lg="4" xs="12" sm="6">
             <InputField
+              disabledd
               required
-              text="conversion factor"
-              holder="conversion factor"
-              v-model="form.factor"
+              text="to ammount"
+              holder="to ammount"
+              :value="to_amount"
             ></InputField>
           </v-col>
         </v-row>
@@ -77,9 +78,9 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      item: {},
       form: {
-        type: "0", // (type = 0) => input || (type = 1) => output
+        status: 1,
+        type: 1, // (type = 1) => input || (type =2) => output
         main_currency_id: 1,
       },
     };
@@ -88,6 +89,13 @@ export default {
     ...mapState({
       all_currencies: (state) => state.currency.all,
     }),
+    to_amount() {
+      let factor = this.form.exchange_rate;
+      let amount = this.form.from_amount;
+      let a = amount / factor;
+      this.form.to_amount = a;
+      return a || null;
+    },
   },
   mounted() {
     this.$store.dispatch("currency/index");

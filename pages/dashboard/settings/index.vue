@@ -32,7 +32,11 @@ export default {
           component_name: "SettingsAccounts",
         },
         {
-          header: this.$t("accounts balances"),
+          header: this.$t("opening balance for boxes"),
+          component_name: "SettingsAccountsBalance",
+        },
+        {
+          header: this.$t("accounts closing"),
           component_name: "SettingsAccountsBalance",
         },
         {

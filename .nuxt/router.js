@@ -8,6 +8,7 @@ const _6ae5d590 = () => interopDefault(import('..\\pages\\child.vue' /* webpackC
 const _6166fc5c = () => interopDefault(import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _785bb2f6 = () => interopDefault(import('..\\pages\\inspire.vue' /* webpackChunkName: "pages/inspire" */))
 const _2a5a6b3e = () => interopDefault(import('..\\pages\\parent.vue' /* webpackChunkName: "pages/parent" */))
+const _6ae2fbb4 = () => interopDefault(import('..\\pages\\test.vue' /* webpackChunkName: "pages/test" */))
 const _6ea4dbdd = () => interopDefault(import('..\\pages\\auth\\login.vue' /* webpackChunkName: "pages/auth/login" */))
 const _fdc25842 = () => interopDefault(import('..\\pages\\auth\\register.vue' /* webpackChunkName: "pages/auth/register" */))
 const _0579105f = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/index" */))
@@ -25,6 +26,7 @@ const _3eab9a76 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\for
 const _5b354e6c = () => interopDefault(import('..\\pages\\dashboard\\outputs\\form\\index.vue' /* webpackChunkName: "pages/dashboard/outputs/form/index" */))
 const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
 const _04809c03 = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
+const _9ce5c68c = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
 const _287ab703 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
 const _637e2316 = () => interopDefault(import('..\\pages\\dashboard\\entries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/entries/form/_id" */))
 const _b68c7e1a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/exchange/form/_id" */))
@@ -62,6 +64,10 @@ export const routerOptions = {
     path: "/parent",
     component: _2a5a6b3e,
     name: "parent"
+  }, {
+    path: "/test",
+    component: _6ae2fbb4,
+    name: "test"
   }, {
     path: "/auth/login",
     component: _6ea4dbdd,
@@ -130,6 +136,10 @@ export const routerOptions = {
     path: "/dashboard/settings/pricing",
     component: _04809c03,
     name: "dashboard-settings-pricing"
+  }, {
+    path: "/dashboard/settings/roles",
+    component: _9ce5c68c,
+    name: "dashboard-settings-roles"
   }, {
     path: "/dashboard/beneficiaries/form/:id",
     component: _287ab703,

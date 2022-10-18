@@ -47,6 +47,10 @@ export default {
                 icon: "fas fa-eye",
             },
             {
+                title: "role_management",
+                icon: "fa-regular fa-wrench",
+            },
+            {
                 title: "delete",
                 icon: "fas fa-trash",
 
@@ -66,7 +70,6 @@ export default {
             {
                 title: "delete",
                 icon: "fas fa-trash",
-
             },
         ],
     },
@@ -130,6 +133,26 @@ export default {
                     admin: true,
                     customer: true
                 }
+            },
+        ],
+    },
+    role: {
+        menu_btns: [
+            {
+                title: "edit",
+                icon: "fas fa-pen",
+            },
+            // {
+            //     title: "activate",
+            //     icon: "fas fa-check",
+            // },
+            // {
+            //     title: "stop",
+            //     icon: "fas fa-ban",
+            // },
+            {
+                title: "delete",
+                icon: "fas fa-trash",
             },
         ],
     },

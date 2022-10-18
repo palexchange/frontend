@@ -134,7 +134,6 @@ export default {
   },
   computed: {
     ...mapState({
-      all_currencies: (state) => state.currency.all,
       dialog_item: (state) => state.state_dialog.item,
     }),
   },

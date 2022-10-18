@@ -85,9 +85,7 @@ export default {
     };
   },
   created() {
-    if (!this.all[0] && !this.no_fetch) {
-      this.$store.dispatch("account/index", this.params);
-    }
+    this.$store.dispatch("account/index", this.params);
   },
   computed: {
     ...mapState({

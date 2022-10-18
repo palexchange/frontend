@@ -55,6 +55,24 @@ export default (context) => {
     headers: ['id', 'image', 'name', 'id_no', 'created_at', 'address', 'default_currency_id', 'country_id', 'phone'],
   },
   {
+    child: 'role',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'name'],
+  },
+  {
+    child: 'permission',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'name'],
+  },
+  {
+    child: 'role_permission',
+    parent: '',
+    load_after_store: true,
+    headers: ['id', 'name'],
+  },
+  {
     child: 'exchange',
     parent: '',
     load_after_store: true,
@@ -140,6 +158,7 @@ export default (context) => {
     child: 'report',
     parent: '',
     has_headers: true,
+    is_file: true,
     functions: [
       {
         key: 'type_name',

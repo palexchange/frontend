@@ -73,17 +73,17 @@ export default (context, inject) => {
               page: state.meta.current_page,
               ...params,
             },
-            responseType: (resource.is_file && !params.object_res) ? 'blob' : ''
+            // responseType: (resource.is_file && !params.object_res) ? 'blob' : ''
+            responseType: (resource.is_file && params.is_file) ? 'blob' : ''
           });
-          dispatch('setLoading', false, {
-            root: true
-          });
-          if (resource.cachable) {
-            await set(module_name, response.data);
-          }
+          // dispatch('setLoading', false, {
+          //   root: true
+          // });
+
         } catch (err) {
-          // console.log(err.getMessage());
+          console.log(err);
         }
+ 
         if (resource.functions) {
           commit('setFunctions', resource.functions);
         }
@@ -93,38 +93,23 @@ export default (context, inject) => {
 
 
 
-        if (resource.has_headers) {
-          console.log("test headers here ");
+        if (resource.has_headers && !params.is_file) {
           commit('setData', response.items);
           commit('setHeaders', response.headers);
           return response.items;
         }
 
         if (resource.is_file) {
-          if (typeof response == 'object') { commit('setData', response.data); return response.data ? response.data : response }
+          if (typeof response == 'object') {
+            // commit('setData', response.data);
+            return response.data ? response.data : response
+          }
           return response;
+
         } else if (!resource.has_headers) {
 
 
           if (response.data.length > 0 && resource.headers) {
-            // let headers = (resource.headers).map((header) => {
-            //   let value = header;
-            //   try {
-            //     return {
-            //       text: header ? ((header).replaceAll('.', '_')) : header,
-            //       value
-            //     };
-            //   } catch (err) {
-            //     return {
-            //       text: header,
-            //       value
-            //     }
-            //   }
-            // });
-            // headers.push({
-            //   text: '',
-            //   value: 'actions'
-            // });
             commit('setHeaders', resource.headers);
           }
 

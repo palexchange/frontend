@@ -38,6 +38,12 @@ export default {
         item,
       });
     },
+    role_management(item) {
+      this.$store.dispatch("setDialog", {
+        name: "SettingsUsersRoleManagement",
+        item,
+      });
+    },
   },
   computed: {
     ...mapState({

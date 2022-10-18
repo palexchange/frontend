@@ -1,5 +1,7 @@
 <template>
-  <h1>Open</h1>
+  <div>
+    <Card> Hello, </Card>
+  </div>
 </template>
 
 <script>

@@ -14,6 +14,9 @@
   "AddCity": {
     "description": "Auto imported from components/AddCity.vue"
   },
+  "AddRole": {
+    "description": "Auto imported from components/AddRole.vue"
+  },
   "AddType": {
     "description": "Auto imported from components/AddType.vue"
   },
@@ -59,6 +62,9 @@
   "DatePicker": {
     "description": "Auto imported from components/DatePicker.vue"
   },
+  "EditRole": {
+    "description": "Auto imported from components/EditRole.vue"
+  },
   "ExchangeRow": {
     "description": "Auto imported from components/ExchangeRow.vue"
   },
@@ -76,6 +82,9 @@
   },
   "NuxtLogo": {
     "description": "Auto imported from components/NuxtLogo.vue"
+  },
+  "RoleAutocomplete": {
+    "description": "Auto imported from components/RoleAutocomplete.vue"
   },
   "SideMenu": {
     "description": "Auto imported from components/SideMenu.vue"
@@ -131,8 +140,14 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
-  "ReportsAccountingReport": {
-    "description": "Auto imported from components/reports/AccountingReport.vue"
+  "RoleAdd": {
+    "description": "Auto imported from components/role/Add.vue"
+  },
+  "RoleBindPermission": {
+    "description": "Auto imported from components/role/BindPermission.vue"
+  },
+  "RoleShowPermission": {
+    "description": "Auto imported from components/role/ShowPermission.vue"
   },
   "FiltersBookFilter": {
     "description": "Auto imported from components/filters/BookFilter.vue"
@@ -158,20 +173,23 @@
   "FiltersReportFilter": {
     "description": "Auto imported from components/filters/ReportFilter.vue"
   },
+  "ReportsAccountingReport": {
+    "description": "Auto imported from components/reports/AccountingReport.vue"
+  },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
-  "SettingsAccountsBalanceClose": {
-    "description": "Auto imported from components/settings/AccountsBalance/Close.vue"
+  "SettingsOpeningAccountsCreate": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
   },
-  "SettingsAccountsBalanceCreate": {
-    "description": "Auto imported from components/settings/AccountsBalance/Create.vue"
+  "SettingsOpeningAccounts": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
   },
-  "SettingsAccountsBalance": {
-    "description": "Auto imported from components/settings/AccountsBalance/Index.vue"
+  "SettingsCloseingAccountsCreate": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
   },
-  "SettingsAccountsBalanceOpen": {
-    "description": "Auto imported from components/settings/AccountsBalance/Open.vue"
+  "SettingsCloseingAccounts": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
   },
   "SettingsEntryCreate": {
     "description": "Auto imported from components/settings/Entry/Create.vue"
@@ -184,5 +202,8 @@
   },
   "SettingsUsers": {
     "description": "Auto imported from components/settings/Users/Index.vue"
+  },
+  "SettingsUsersRoleManagement": {
+    "description": "Auto imported from components/settings/Users/RoleManagement.vue"
   }
 }

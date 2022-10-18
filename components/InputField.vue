@@ -7,6 +7,7 @@
     >
     <v-text-field
       min="0"
+      
       color="#FF7171"
       style="border-radius: 0px !important"
       dense

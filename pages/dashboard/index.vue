@@ -33,7 +33,7 @@
       <v-col>
         <Card>
           <v-card-title>
-            <Title title="test"> </Title>
+            <Title title="test1"> </Title>
           </v-card-title>
           <ChartsFirst />
         </Card>
@@ -41,7 +41,7 @@
       <v-col>
         <Card>
           <v-card-title>
-            <Title title="test"> </Title>
+            <Title title="test2"> </Title>
           </v-card-title>
           <ChartsSecond
         /></Card>

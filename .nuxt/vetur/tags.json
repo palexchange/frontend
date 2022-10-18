@@ -167,6 +167,15 @@
   "ReportsAccountingReport": {
     "description": "Auto imported from components/reports/AccountingReport.vue"
   },
+  "RoleAdd": {
+    "description": "Auto imported from components/role/Add.vue"
+  },
+  "RoleBindPermission": {
+    "description": "Auto imported from components/role/BindPermission.vue"
+  },
+  "RoleShowPermission": {
+    "description": "Auto imported from components/role/ShowPermission.vue"
+  },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
@@ -182,16 +191,19 @@
   "SettingsAccountsBalanceOpen": {
     "description": "Auto imported from components/settings/AccountsBalance/Open.vue"
   },
+  "SettingsEntryCreate": {
+    "description": "Auto imported from components/settings/Entry/Create.vue"
+  },
+  "SettingsEntry": {
+    "description": "Auto imported from components/settings/Entry/Index.vue"
+  },
   "SettingsUsersCreate": {
     "description": "Auto imported from components/settings/Users/Create.vue"
   },
   "SettingsUsers": {
     "description": "Auto imported from components/settings/Users/Index.vue"
   },
-  "SettingsEntryCreate": {
-    "description": "Auto imported from components/settings/Entry/Create.vue"
-  },
-  "SettingsEntry": {
-    "description": "Auto imported from components/settings/Entry/Index.vue"
+  "SettingsUsersRoleManagement": {
+    "description": "Auto imported from components/settings/Users/RoleManagement.vue"
   }
 }

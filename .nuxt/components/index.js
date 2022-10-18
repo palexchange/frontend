@@ -54,15 +54,19 @@ export { default as FiltersItemFilter } from '../..\\components\\filters\\ItemFi
 export { default as FiltersOrderFilter } from '../..\\components\\filters\\OrderFilter.vue'
 export { default as FiltersReportFilter } from '../..\\components\\filters\\ReportFilter.vue'
 export { default as ReportsAccountingReport } from '../..\\components\\reports\\AccountingReport.vue'
+export { default as RoleAdd } from '../..\\components\\role\\Add.vue'
+export { default as RoleBindPermission } from '../..\\components\\role\\BindPermission.vue'
+export { default as RoleShowPermission } from '../..\\components\\role\\ShowPermission.vue'
 export { default as SettingsAccounts } from '../..\\components\\settings\\Accounts\\Index.vue'
 export { default as SettingsAccountsBalanceClose } from '../..\\components\\settings\\AccountsBalance\\Close.vue'
 export { default as SettingsAccountsBalanceCreate } from '../..\\components\\settings\\AccountsBalance\\Create.vue'
 export { default as SettingsAccountsBalance } from '../..\\components\\settings\\AccountsBalance\\Index.vue'
 export { default as SettingsAccountsBalanceOpen } from '../..\\components\\settings\\AccountsBalance\\Open.vue'
-export { default as SettingsUsersCreate } from '../..\\components\\settings\\Users\\Create.vue'
-export { default as SettingsUsers } from '../..\\components\\settings\\Users\\Index.vue'
 export { default as SettingsEntryCreate } from '../..\\components\\settings\\Entry\\Create.vue'
 export { default as SettingsEntry } from '../..\\components\\settings\\Entry\\Index.vue'
+export { default as SettingsUsersCreate } from '../..\\components\\settings\\Users\\Create.vue'
+export { default as SettingsUsers } from '../..\\components\\settings\\Users\\Index.vue'
+export { default as SettingsUsersRoleManagement } from '../..\\components\\settings\\Users\\RoleManagement.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

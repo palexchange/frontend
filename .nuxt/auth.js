@@ -67,8 +67,8 @@ export default function (ctx, inject) {
       "url": "/auth/user"
     }
   },
-  "clientId": "1",
-  "clientSecret": "RgjnV7yVGka26zWBQkgqR3geYSx75JhgFwLwHuXn",
+  "clientId": "2",
+  "clientSecret": "X4qpEXMdJvt41fLpg7gcPfroxxgUAgJcBEHdvywm",
   "grantType": "password"
 }))
 

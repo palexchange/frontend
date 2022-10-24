@@ -158,6 +158,7 @@ export default (context) => {
     child: 'report',
     parent: '',
     has_headers: true,
+    is_file: true,
     functions: [
       {
         key: 'type_name',

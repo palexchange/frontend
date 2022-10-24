@@ -8,6 +8,7 @@ const _0bedd392 = () => interopDefault(import('..\\pages\\child.vue' /* webpackC
 const _7f1d2738 = () => interopDefault(import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _36f37a60 = () => interopDefault(import('..\\pages\\inspire.vue' /* webpackChunkName: "pages/inspire" */))
 const _15117824 = () => interopDefault(import('..\\pages\\parent.vue' /* webpackChunkName: "pages/parent" */))
+const _614f908c = () => interopDefault(import('..\\pages\\test.vue' /* webpackChunkName: "pages/test" */))
 const _be202292 = () => interopDefault(import('..\\pages\\auth\\login.vue' /* webpackChunkName: "pages/auth/login" */))
 const _2f859ac5 = () => interopDefault(import('..\\pages\\auth\\register.vue' /* webpackChunkName: "pages/auth/register" */))
 const _c06f9b8e = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/index" */))
@@ -63,6 +64,10 @@ export const routerOptions = {
     path: "/parent",
     component: _15117824,
     name: "parent"
+  }, {
+    path: "/test",
+    component: _614f908c,
+    name: "test"
   }, {
     path: "/auth/login",
     component: _be202292,

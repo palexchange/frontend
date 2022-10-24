@@ -15,9 +15,7 @@
       <v-list height="135px" class="d-flex justify-center px-2">
         <v-list-item class="justify-center">
           <v-list-item-avatar class="justify-center">
-            <v-img
-              src="https://randomuser.me/api/portraits/women/70.jpg"
-            ></v-img>
+            <v-img src="/icons/logo.jpg"></v-img>
           </v-list-item-avatar>
 
           <v-list-item-title class="text-center">

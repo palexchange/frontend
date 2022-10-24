@@ -2,8 +2,8 @@
   <div>
     <v-row>
       <v-col>
-        <v-btn color="primary" @click="addEntry()">
-          {{ $t("add entry") }}</v-btn
+        <v-btn color="primary" @click="addReceipt()">
+          {{ $t("add transaction") }}</v-btn
         >
       </v-col>
     </v-row>
@@ -13,8 +13,8 @@
         single-expand
         module="entry"
         show-expand
+        :params="params"
         :expanded.sync="expanded_item"
-        :noActions="true"
       >
         <template v-slot:expanded-item="{ headers }">
           <td :colspan="headers.length" class="pa-0">
@@ -24,7 +24,6 @@
                 no_class
                 module="entry_transaction"
                 :params="params2"
-                :noActions="true"
               />
             </v-card>
           </td>
@@ -44,12 +43,18 @@ export default {
     return {
       expanded_item: [],
       params2: {},
+      params: {
+        resObjName: "closing_fund",
+        statement: "closing_fund",
+      },
       dialog: false,
     };
   },
   methods: {
-    addEntry() {
-      this.dialog = true;
+    addReceipt() {
+      this.$store.dispatch("setDialog", {
+        name: "SettingsCloseingAccountsCreate",
+      });
     },
   },
   watch: {

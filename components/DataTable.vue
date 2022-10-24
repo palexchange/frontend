@@ -11,7 +11,7 @@
       :items-per-page="meta.per_page ? Number(meta.per_page) : 15"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
-      :headers="$translateHeaders(headers.concat(['actions']))"
+      :headers="noActions ? $translateHeaders(headers) : $translateHeaders(headers.concat(['actions']))"
       :items="all"
       multi-sort
       @contextmenu:row="$context_menu"
@@ -93,6 +93,7 @@
 import { mapState } from "vuex";
 import { saveAs } from "file-saver";
 import menus from "../helpers/menus";
+
 export default {
   props: {
     module: {
@@ -102,6 +103,10 @@ export default {
     params: {
       type: [Object, Array],
       default: {},
+    },
+    noActions: {
+      type: [Boolean],
+      default: false,
     },
     hide_pagination: Boolean,
     no_class: {
@@ -154,6 +159,13 @@ export default {
     ...mapState({
       all: function (state) {
         if (this.module) {
+          if(this.params.resObjName) {
+
+           console.log("---------------------------------333333333");
+           console.log(this.params.resObjName);
+           let temp = state[this.module];
+            return temp[this.params.resObjName] || [];
+          }
           return state[this.module].all;
         }
         return [];

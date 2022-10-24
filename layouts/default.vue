@@ -157,7 +157,7 @@ export default {
             }
             this.$store
               .dispatch("clearSuccessMsg")
-              .then(() => this.$store.dispatch("resetMainDialog"));
+              .then(() => this.$store.dispatch("closeDialog"));
           });
       }
     },

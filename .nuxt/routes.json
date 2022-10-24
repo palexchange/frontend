@@ -28,6 +28,13 @@
     "_name": "_15117824"
   },
   {
+    "name": "test",
+    "path": "/test",
+    "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\test.vue",
+    "chunkName": "pages/test",
+    "_name": "_614f908c"
+  },
+  {
     "name": "auth-login",
     "path": "/auth/login",
     "component": "E:\\\\IbrahimProject\\\\Vue\\\\Serapha\\\\pages\\\\auth\\\\login.vue",

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Boxes :key="keyNum" />
     <v-row>
       <v-col cols="12" xs="12" lg="7">
         <Card class="mb-5 pt-3 pl-3 pr-6">
@@ -18,11 +19,6 @@
                     required
                     v-model="item.beneficairy"
                     return-object
-                    @change="
-                      (v) => {
-                        setSenderCurrecny(v);
-                      }
-                    "
                   />
                   <!-- <AutoComplete
                     text="beneficiary"
@@ -81,7 +77,12 @@
               <!--<span class="show-text">1616#</span> -->
             </v-col>
             <v-col cols="4">
-              <span class="show-text">{{ item.today_profit }}#</span>
+              <span class="show-text"
+                >{{
+                  (parseFloat(user.daily_exchange_profit) || 0).toFixed(2)
+                }}
+                &nbsp; $</span
+              >
             </v-col>
           </v-row>
           <v-row class="text-right text-h6 mt-5 mr-5 mb-5">
@@ -93,7 +94,9 @@
               <!--<span class="show-text">1616#</span> -->
             </v-col>
             <v-col cols="4">
-              <span class="show-text">{{ item.number_of_process }}#</span>
+              <span class="show-text"
+                >{{ user.daily_exchange_transactions || 0 }} &nbsp;#</span
+              >
             </v-col>
           </v-row>
           <!-- </v-row> -->
@@ -310,11 +313,11 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import BeneficiaryAutocomplete from "~/components/BeneficiaryAutocomplete.vue";
 export default {
   name: "extchange",
   data() {
     return {
+      keyNum: 1,
       selected: {},
       number: 1,
 
@@ -330,6 +333,7 @@ export default {
   computed: {
     ...mapState({
       all_currencies: (state) => state.currency.all,
+      user: (state) => state.user.one || {},
     }),
     exchange_profit() {
       let main_amount = parseFloat(this.exchange.amount || 0);
@@ -351,7 +355,7 @@ export default {
         obj.buy_factor = parseFloat(
           this.$newCalcBuyPrice(this.item.currency, this.all_currencies[index])
         );
-        obj.calc_profit_factor = Math.max(obj.buy_factor, obj.sale_factor);
+        obj.calc_profit_factor = (obj.buy_factor + obj.sale_factor) / 2;
         obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor);
         obj.new_amount = parseFloat(obj.amount * obj.calc_profit_factor);
         obj.profit_in_to_currency = obj.new_amount - obj.exchanged_amount;
@@ -373,6 +377,15 @@ export default {
     },
   },
   methods: {
+    addItems() {
+      this.all_currencies.map((item) => {
+        this.items.push({
+          modified_factor: null,
+          exchanged_vactor: null,
+          exchanged_amount: null,
+        });
+      });
+    },
     setSenderCurrecny(partyObj) {
       this.item.currency = this.all_currencies.find(
         (e) => e.id == partyObj.currency_id
@@ -404,8 +417,8 @@ export default {
       let buy = this.$newCalcBuyPrice(from, to);
       console.table({ sale, buy });
       let temp = Math.min(buy, sale);
-      this.items[index].exchanged_vactor = temp.toFixed(7);
-      this.items[index].exchanged_amount = (amount * temp).toFixed(7);
+      this.items[index].exchanged_vactor = temp.toFixed(4);
+      this.items[index].exchanged_amount = (amount * temp).toFixed(4);
       this.items[index].modified_factor = null;
       this.number = this.number + 1;
     },
@@ -420,7 +433,7 @@ export default {
         this.item.reminder = 0;
         return false;
       }
-      this.item.reminder = (amount - sum).toFixed(7);
+      this.item.reminder = (amount - sum).toFixed(4);
     },
     changed_ex_factor(element, event) {
       let new_value = parseFloat(event.target.value);
@@ -428,8 +441,8 @@ export default {
       // element.exchanged_vactor = new_value;
       let old_amount = element.exchanged_amount / parseFloat(old_value);
       let new_ex_amount = old_amount * new_value;
-      element.exchanged_vactor = new_value.toFixed(7);
-      element.exchanged_amount = new_ex_amount.toFixed(7);
+      element.exchanged_vactor = new_value.toFixed(4);
+      element.exchanged_amount = new_ex_amount.toFixed(4);
       console.log(element, old_value, new_value);
       console.log(new_value, new_ex_amount);
     },
@@ -444,7 +457,7 @@ export default {
               : parseFloat(n.exchanged_vactor || 1);
           return e + parseFloat(n.exchanged_amount || 0) / factor;
         }, 0)
-        .toFixed(7);
+        .toFixed(4);
     },
     round_amount(element, index) {
       let ex_amount = element.exchanged_amount || 0;
@@ -452,8 +465,8 @@ export default {
       let new_amount = Math.round(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor.toFixed(7);
-      element.exchanged_amount = new_amount.toFixed(7);
+      element.modified_factor = new_factor.toFixed(4);
+      element.exchanged_amount = new_amount.toFixed(4);
       console.log(element);
     },
     delete_factors(element, index) {
@@ -462,8 +475,8 @@ export default {
       let new_amount = Math.floor(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor.toFixed(7);
-      element.exchanged_amount = new_amount.toFixed(7);
+      element.modified_factor = new_factor.toFixed(4);
+      element.exchanged_amount = new_amount.toFixed(4);
       console.log(element);
     },
     complete_factor(element, index) {
@@ -472,8 +485,8 @@ export default {
       let new_amount = Math.ceil(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor.toFixed(7);
-      element.exchanged_amount = new_amount.toFixed(7);
+      element.modified_factor = new_factor.toFixed(4);
+      element.exchanged_amount = new_amount.toFixed(4);
       // element.modified_factor = 8;
     },
     async save() {
@@ -519,7 +532,6 @@ export default {
         "exchange/store",
         this.exchange
       );
-      console.log("Res: ", response);
       let details = {
         exchange_id: response.id,
       };
@@ -532,32 +544,34 @@ export default {
             1000 /
             ((1000 / parseFloat(e.modified_factor || e.exchanged_vactor)) *
               this.exchange.exchange_rate);
-
-        
         } else continue;
         details.currency_id = c.id;
         details.amount = e.exchanged_amount;
         details.amount_after = e.exchanged_amount / details.factor;
         this.$save(details, "exchange_detail");
       }
-      this.$store.dispatch("exchange/update", {
-        id: response.id,
-        status: 1,
-        silent: true,
-      });
+      this.$store
+        .dispatch("exchange/update", {
+          id: response.id,
+          status: 1,
+          silent: true,
+        })
+        .then(() => {
+          this.$store.dispatch("user/show", this.$auth.user.id);
+        });
+
+      this.item = { G};
+      this.items = [];
+      this.keyNum = this.keyNum + 1;
+      this.addItems();
     },
   },
   mounted() {
     this.$store.dispatch("currency/index");
     if (this.all_currencies[0] && this.items.length == 0) {
-      this.all_currencies.map((item) => {
-        this.items.push({
-          modified_factor: null,
-          exchanged_vactor: null,
-          exchanged_amount: null,
-        });
-      });
+      this.addItems();
     }
+    this.$store.dispatch("user/show", this.$auth.user.id);
   },
   created() {
     this.$store.dispatch("stock/index");

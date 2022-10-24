@@ -10,7 +10,7 @@
     <!-- class="lg5-custome-row"  -->
     <v-row justify="center">
       <v-col
-        v-for="(curr, index) in currencies"
+        v-for="(curr, index) in active_accounts"
         :key="curr.id"
         cols="12"
         sm="6"
@@ -49,8 +49,8 @@
           </v-row>
           <v-card-text class="pa-0 black-font">
             <v-row
-              v-for="(t, index) in trans[index]"
-              :key="index"
+              v-for="(t, i) in trans[index]"
+              :key="i"
               justify="start"
               no-gutters
               class="black-font"
@@ -61,6 +61,14 @@
                 style="border-top: solid grey 1px; width: 100%"
               >
                 &nbsp; {{ t | money }}
+              </v-col>
+              <v-col
+                class="text-left pt-2 pb-1 pl-2"
+                style="border-top: solid grey 1px; width: 100%"
+              >
+                <v-btn icon @click="removeRow(t, index,i)">
+                  <v-icon> fas fa-times </v-icon>
+                </v-btn>
               </v-col>
             </v-row>
           </v-card-text>
@@ -127,6 +135,11 @@ export default {
       trans: [],
       cards: [],
       vall: null,
+      report_data: {
+        has_headers: true,
+        type: "Accounting",
+        sub_type: "currencyCredit",
+      },
     };
   },
   methods: {
@@ -142,21 +155,35 @@ export default {
         while (arr.length > 0) arr.pop();
       }
     },
+    removeRow(val, index, i) {
+      this.trans[index].splice(i,1);
+      this.cards[index].balance += parseFloat(val);
+    },
   },
   computed: {
     ...mapState({
-      currencies: (state) => state.currency.all,
+      active_accounts: (state) => state.auth.user.active_accounts,
+      // report: (state) => state.report.all,
     }),
   },
-  created() {
-    this.$store.dispatch("currency/index");
+  // mounted() {
+  //   this.$store.dispatch("report/index", {
+  //     accounts_ids: this.active_accounts.map(v => v.id),
+  //     ...this.report_data,
+  //   });
 
-    if (this.currencies[0] && !this.cards[0]) {
-      this.currencies.forEach((e) => {
-        this.cards.push({ amount: null, balance: 1000 });
-      });
-    }
-  },
+
+
+  // },
+  // created() {
+  //   // this.$store.dispatch("currency/index");
+
+  //   if (this.active_accounts[0] && !this.cards[0]) {
+  //     this.active_accounts.forEach((e) => {
+  //       this.cards.push({ amount: null, balance: e.balance });
+  //     });
+  //   }
+  // },
   filters: {
     money(value) {
       if (value) {
@@ -165,20 +192,22 @@ export default {
     },
   },
   watch: {
-    currencies: {
+    active_accounts: {
       handler(val) {
         console.log("Run");
         if (val.length > 0) {
           val.forEach((e) => {
             this.trans.push([]);
           });
-          if (this.currencies[0] && !this.cards[0]) {
-            this.currencies.forEach((e) => {
-              this.cards.push({ amount: null, balance: 0 });
+          if (this.active_accounts[0] && !this.cards[0]) {
+            this.active_accounts.forEach((e) => {
+              this.cards.push({ amount: null, balance: e.balance });
             });
           }
         }
       },
+      deep: true,
+      immediate: true,
     },
   },
 };

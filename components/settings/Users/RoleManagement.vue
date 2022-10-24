@@ -10,10 +10,8 @@
         <v-row class="button-responsive align-center">
           <v-col cols="12" xs="12" sm="6" md="4">
             <RoleAutocomplete
-              
               v-model="form.roles_name"
-              text="Availeble Roles"
-         
+              text="Available Roles"
             />
           </v-col>
           <v-col class="text-left" cols="12" xs="12" sm="6" md="8">
@@ -33,7 +31,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      form: {roles_name: null},
+      form: { roles_name: null },
     };
   },
   methods: {
@@ -49,7 +47,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("role_permission/show",  this.dialog_item.id );
+    this.$store.dispatch("role_permission/show", this.dialog_item.id);
   },
   computed: {
     ...mapState({
@@ -60,12 +58,12 @@ export default {
   },
   watch: {
     role_name(new_val) {
-    console.log(new_val,"0000000000");
-    console.log(new_val[0],"0000000000");
-      if (new_val){ 
-        this.form.roles_name =  new_val[0];
-        console.log(new_val[0],"iM iN");
-    }
+      console.log(new_val, "0000000000");
+      console.log(new_val[0], "0000000000");
+      if (new_val) {
+        this.form.roles_name = new_val[0];
+        console.log(new_val[0], "iM iN");
+      }
     },
   },
 };

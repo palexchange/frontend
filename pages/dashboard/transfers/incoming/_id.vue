@@ -40,15 +40,19 @@
             <v-col class="align-self-strach text-left mb-4">
               <span>
                 {{ $t("transfer number") }}
-                <span class="show-text">1616#</span>
+                <span class="show-text">{{ item.id }}#</span>
               </span>
             </v-col>
 
             <v-col class="text-left mb-4">
-              {{ $t("refrence number") }}<span class="show-text">1616#</span>
+              {{ $t("refrence number") }}<span class="show-text"
+                >{{ (charMap[item.delivering_type] || "") + (item.id || "")  }}#</span
+              >
             </v-col>
             <v-col class="text-left mb-4">
-              {{ $t("transfer stats") }}<span class="show-text">مسودة</span>
+              {{ $t("transfer stats") }}<span class="show-text">{{
+                item.status == 1 ? "معتمدة" : "مسودة"
+              }}</span>
             </v-col>
           </v-row>
         </v-col>
@@ -113,7 +117,9 @@
           <v-col ccols="12" md="4" sm="6" lg="2">
             <label
               style="color: rgba(139, 139, 139, 0.93)"
-              class="required form-label"
+              :class="
+                item.delivering_type == 2 ? 'required form-label' : 'form-label'
+              "
               >{{ $t("id image") }}</label
             >
             <v-file-input
@@ -122,7 +128,7 @@
               style="border-radius: 0px !important"
               dense
               :disabled="dashed"
-              :required="true"
+              :required="item.delivering_type == 2 ? true : false"
               outlined
               v-on="$listeners"
               :rules="rulesss.requiredRules"
@@ -205,8 +211,8 @@
           <v-col>
             <InputField
               v-model.number="item.to_send_amount"
-              holder="transfirrig amount"
-              text="transfirrig amount"
+              holder="transferred amount"
+              text="transferred amount"
               required
             />
           </v-col>
@@ -495,6 +501,11 @@ export default {
         exchange_rate_to_office_currency: null,
         exchange_rate_to_office_currency_view: null,
       },
+      charMap: {
+        1 : 'H',
+        2 : 'M',
+      },
+      totalOfficeAmountFraction : 0,
       // a:0,
       // b:0,
       //recivedAmountInUSD:0
@@ -516,7 +527,7 @@ export default {
       let amount = this.item.to_send_amount || 0;
       let ratio = this.item.exchange_rate_to_delivery_currency || 0;
       let commVal = parseFloat(this.calcCommisson() || 0);
-      let res = (amount - commVal) * ratio;
+      let res = amount * ratio - commVal;
       return res == 0 ? null : res;
     },
     finalAmountToDeliverComp() {
@@ -539,14 +550,16 @@ export default {
     },
     totalOfficeAmount() {
       let commission = this.item.office_commision || 0,
-        officeAmount = parseFloat(this.officeAmount || 0);
+        officeAmount = parseFloat(this.item.to_send_amount || 0) * parseFloat(this.item.exchange_rate_to_delivery_currency_view);
       let returned = this.item.returned_commision || 0;
       commission =
         this.item.office_commision_type == 1
           ? (commission / 100) * officeAmount
           : commission;
-      let tempVar = officeAmount - commission + returned;
-      return tempVar <= 0 ? null : tempVar;
+      let res = parseFloat(officeAmount - commission + returned);
+      let rounedRes = parseFloat(Number(res).toFixed(0) || null);
+      this.totalOfficeAmountFraction = -(rounedRes - res);
+      return rounedRes;
     },
     officeProfitComp() {
       let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
@@ -558,7 +571,8 @@ export default {
       let res = fromInDoller - finalOfficeAmount * convParam;
       console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       let otherExp = this.item.other_amounts_on_receiver || 0;
-      return res - otherExp;
+      let profit =  res - otherExp + this.totalOfficeAmountFraction;
+      return profit;
     },
     ...mapState({
       currencies: (state) => state.currency.all,

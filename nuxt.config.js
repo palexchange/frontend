@@ -6,8 +6,8 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   ssr: true,
   server: {
-    host: '0.0.0.0',
-    port: process.env.PORT || 3000
+    host: '127.0.0.1',
+    port: 6214
   },
   head: {
     titleTemplate: '%s - nux2-dashboard',

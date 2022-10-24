@@ -23,7 +23,6 @@ import nuxt_plugin_pluginclient_0d4b8ee2 from 'nuxt_plugin_pluginclient_0d4b8ee2
 import nuxt_plugin_pluginserver_5f13aa17 from 'nuxt_plugin_pluginserver_5f13aa17' // Source: .\\content\\plugin.server.js (mode: 'server')
 import nuxt_plugin_workbox_61a60418 from 'nuxt_plugin_workbox_61a60418' // Source: .\\workbox.js (mode: 'client')
 import nuxt_plugin_metaplugin_3e913ed0 from 'nuxt_plugin_metaplugin_3e913ed0' // Source: .\\pwa\\meta.plugin.js (mode: 'all')
-import nuxt_plugin_iconplugin_3541f3e8 from 'nuxt_plugin_iconplugin_3541f3e8' // Source: .\\pwa\\icon.plugin.js (mode: 'all')
 import nuxt_plugin_axios_74a51dfc from 'nuxt_plugin_axios_74a51dfc' // Source: .\\axios.js (mode: 'all')
 import nuxt_plugin_vuetify_165b1c58 from 'nuxt_plugin_vuetify_165b1c58' // Source: ..\\plugins\\vuetify (mode: 'client')
 import nuxt_plugin_mixins_5013a1f0 from 'nuxt_plugin_mixins_5013a1f0' // Source: ..\\plugins\\mixins (mode: 'all')
@@ -105,7 +104,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"titleTemplate":"%s - nux2-dashboard","title":"nux2-dashboard","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:100,300,400,500,700,900&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002F@mdi\u002Ffont@latest\u002Fcss\u002Fmaterialdesignicons.min.css"}],"style":[],"script":[]},
+    head: {"titleTemplate":"الفلسطينية للصرافة","title":"nux2-dashboard","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:100,300,400,500,700,900&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002F@mdi\u002Ffont@latest\u002Fcss\u002Fmaterialdesignicons.min.css"}],"style":[],"script":[]},
 
     store,
     router,
@@ -272,10 +271,6 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_metaplugin_3e913ed0 === 'function') {
     await nuxt_plugin_metaplugin_3e913ed0(app.context, inject)
-  }
-
-  if (typeof nuxt_plugin_iconplugin_3541f3e8 === 'function') {
-    await nuxt_plugin_iconplugin_3541f3e8(app.context, inject)
   }
 
   if (typeof nuxt_plugin_axios_74a51dfc === 'function') {

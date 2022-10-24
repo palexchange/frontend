@@ -3,7 +3,7 @@
     <v-card>
       <v-toolbar color="primary" dark
         ><v-spacer></v-spacer>
-        {{ $t(`${dialog_item ? "edit" : "add"} receipt`) }}
+        
         <v-spacer></v-spacer
       ></v-toolbar>
       <div>

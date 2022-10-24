@@ -7,7 +7,8 @@
     >
     <v-text-field
       min="0"
-      
+      :maxlength="maxlength || '30'"
+      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);if(this.value<0){this.value= this.value * -1}"
       color="#FF7171"
       style="border-radius: 0px !important"
       dense

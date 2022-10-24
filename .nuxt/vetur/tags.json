@@ -140,15 +140,6 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
-  "RoleAdd": {
-    "description": "Auto imported from components/role/Add.vue"
-  },
-  "RoleBindPermission": {
-    "description": "Auto imported from components/role/BindPermission.vue"
-  },
-  "RoleShowPermission": {
-    "description": "Auto imported from components/role/ShowPermission.vue"
-  },
   "FiltersBookFilter": {
     "description": "Auto imported from components/filters/BookFilter.vue"
   },
@@ -176,14 +167,23 @@
   "ReportsAccountingReport": {
     "description": "Auto imported from components/reports/AccountingReport.vue"
   },
+  "RoleAdd": {
+    "description": "Auto imported from components/role/Add.vue"
+  },
+  "RoleBindPermission": {
+    "description": "Auto imported from components/role/BindPermission.vue"
+  },
+  "RoleShowPermission": {
+    "description": "Auto imported from components/role/ShowPermission.vue"
+  },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
-  "SettingsOpeningAccountsCreate": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
+  "SettingsEntryCreate": {
+    "description": "Auto imported from components/settings/Entry/Create.vue"
   },
-  "SettingsOpeningAccounts": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
+  "SettingsEntry": {
+    "description": "Auto imported from components/settings/Entry/Index.vue"
   },
   "SettingsCloseingAccountsCreate": {
     "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
@@ -191,11 +191,11 @@
   "SettingsCloseingAccounts": {
     "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
   },
-  "SettingsEntryCreate": {
-    "description": "Auto imported from components/settings/Entry/Create.vue"
+  "SettingsOpeningAccountsCreate": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
   },
-  "SettingsEntry": {
-    "description": "Auto imported from components/settings/Entry/Index.vue"
+  "SettingsOpeningAccounts": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
   },
   "SettingsUsersCreate": {
     "description": "Auto imported from components/settings/Users/Create.vue"

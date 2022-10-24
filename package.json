@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "prod": "nuxt --hostname 127.0.0.1 --port 3333 ",
+    "prod2": "cross-env NUXT_HOST=192.168.0.26 NUXT_PORT=3333 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
@@ -38,6 +40,7 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.12.3"
+    "@nuxtjs/vuetify": "^1.12.3",
+    "cross-env": "^7.0.3"
   }
 }

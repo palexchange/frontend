@@ -9,7 +9,7 @@
       <span class="onoffswitch4-active">
         <marquee direction="right" class="scroll-text">
           <v-row dense>
-            <v-col v-for="(currency, i) in currencies" :key="(key, i)">
+            <v-col v-for="(currency, i) in currencies" :key="i">
               <span>
                 {{ currency.name }}
               </span>

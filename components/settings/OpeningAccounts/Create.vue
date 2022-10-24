@@ -3,7 +3,7 @@
     <v-card>
       <v-toolbar color="primary" dark
         ><v-spacer></v-spacer>
-        {{ $t(`${dialog_item ? "edit" : "add"} receipt`) }}
+
         <v-spacer></v-spacer
       ></v-toolbar>
       <div>
@@ -86,6 +86,13 @@
     <v-dialog width="500" v-model="dialog">
       <v-sheet class="pa-5">
         <h4>هل انت متأكد من الترحيل إلي الصناديق ؟</h4>
+        <h5
+          class="py-3"
+          v-if="checkIfCanSave"
+          style="color: red; margin-bottom: 10px"
+        >
+          سيصبح رصيد الخزينة بالسالب!
+        </h5>
         <v-btn
           class="primary"
           @click="
@@ -124,7 +131,7 @@ export default {
       });
     },
     save() {
-      if (!this.checkIfCanSave()) return;
+      if (this.checkIfCanSave) return;
       this.$save(this.entry, "entry").then((res_entry) => {
         if (res_entry && res_entry.id) {
           this.$store.dispatch("entry_transaction/store", {
@@ -146,7 +153,7 @@ export default {
       });
     },
     checkIfCanSave() {
-      return true;
+      return this.transactions_total <= this.main_account.balance;
     },
   },
   computed: {

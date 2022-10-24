@@ -11,7 +11,6 @@
           <v-row>
             <v-col cols="12" sm="4" xs="12">
               <InputField
-                clearable
                 required
                 text="name"
                 v-model="form.name"
@@ -74,7 +73,7 @@
             </v-col> -->
           </v-row>
 
-          <v-row v-if="form.type_id == 3" dense>
+          <!-- <v-row v-if="form.type_id == 3" dense>
             <v-col>
               <v-card flat>
                 <v-card-subtitle>
@@ -126,7 +125,7 @@
                 </v-card-text>
               </v-card>
             </v-col>
-          </v-row>
+          </v-row> -->
           <v-row class="button-responsive">
             <v-col class="text-center">
               <v-btn

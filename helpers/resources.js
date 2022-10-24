@@ -1,6 +1,7 @@
 export default (context) => {
   let t = (v) => context.app.i18n.t(v);
   let boolean_string = (v) => v ? t('yes') : t('no');
+  let documents = (v) => ['', t('transfer')][v]
   let resources = [{
     child: 'account',
     parent: '',
@@ -100,13 +101,20 @@ export default (context) => {
     child: 'transfer',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'type', 'issued_at', 'status', 'sender_party_id'],
-    functions: [{
-      key: 'type',
-      f: v => {
-        return v == 0 ? 'حوالة صادرة' : 'حوالة واردة'
-      }
-    }
+    headers: ['id', 'type', 'issued_at', 'status', 'sender_party.name'],
+    functions: [
+      {
+        key: 'type',
+        f: v => {
+          return v == 0 ? 'حوالة صادرة' : 'حوالة واردة'
+        }
+      },
+      {
+        key: 'status',
+        f: v => {
+          return v == 1 ? 'معتمدة' : 'مسودة'
+        }
+      },
     ]
   },
   {
@@ -164,6 +172,10 @@ export default (context) => {
         key: 'type_name',
         f: v => t(v)
       },
+      {
+        key: 'document_type',
+        f: v => documents(v)
+      },
       // {
       //   key: 'a_balance',
       //   f: v => parseFloat(v).toFixed(4)
@@ -206,6 +218,13 @@ export default (context) => {
     parent: '',
     load_after_store: true,
     headers: ['id', 'type', 'from_account_name', 'to_account_name', 'from_amount', 'exchange_rate', 'to_amount', 'created_at']
+  },
+  {
+    child: 'export_data',
+    parent: '',
+    has_headers: true,
+    is_file: true
+
   },
 
   ];

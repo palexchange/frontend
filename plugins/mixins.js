@@ -9,6 +9,11 @@ export default (context, inject) => {
     let output_number_format = context.store.state.output_number_format || 2
     return number.toFixed(output_number_format)
   });
+  inject('download_excel', () => {
+    return context.store.dispatch(`excel/update`, item).then((data) => {
+
+    });
+  });
   inject('context_menu', (event, item, sidemenu) => {
     event.preventDefault();
     const cont = {}

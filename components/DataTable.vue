@@ -34,7 +34,18 @@
       <template v-for="key in formatted_numbers" v-slot:[getKey(key)]="scope">
         {{ $inputNumberFormat(scope.item[key]) }}
       </template>
- 
+      <template v-slot:top>
+        <v-row class="justify-end">
+          <v-col cols="2">
+            <v-btn
+              v-if="$route.name == 'dashboard-transfers'"
+              @click="download()"
+            >
+              تصدير
+            </v-btn>
+          </v-col>
+        </v-row>
+      </template>
       <template v-slot:item.actions="{ item }">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -102,7 +113,9 @@ export default {
     },
     params: {
       type: [Object, Array],
-      default: {},
+      default: () => {
+        return {};
+      },
     },
     noActions: {
       type: [Boolean],
@@ -130,7 +143,7 @@ export default {
     };
   },
   mounted() {
-    if (!this.all[0]) {
+    // if (!this.all[0]) {
       this.$store.dispatch(`${this.module}/index`, {
         ...this.options,
         ...this.params,
@@ -140,7 +153,7 @@ export default {
         this.options.page = val.current_page;
       }
       // this.loaded = true;
-    }
+    // }
   },
   created() {
     if (this.module && this.options.itemsPerPage > -2) {
@@ -251,29 +264,47 @@ export default {
     getKey(v) {
       return "item." + v;
     },
-    download(ext) {
-      let obj = null;
-      let file_name = `${this.module}_${new Date(Date.now())
-        .toLocaleString("en-GB")
-        .replaceAll("/", "-")}.${ext}`;
-      if (ext) {
-        obj = {
-          ext,
-          document_type: this.$get_type_id(this.module),
-          file_name,
-          ...this.params,
-        };
-      }
-      if (ext)
-        this.$store.dispatch("export_data/index", obj).then((data) => {
+    download() {
+      this.$store
+        .dispatch("export_data/index", {
+          model: this.module,
+          download: true,
+          is_file: true,
+        })
+        .then((data) => {
           if (data) {
-            let blob = new Blob([data], {
-              type: `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`,
-            });
-            saveAs(blob, file_name);
+            if (data.type != "application/json") {
+              let blob = new Blob([data], {
+                type: data.type,
+              });
+              saveAs(blob, this.module);
+            }
           }
         });
     },
+    // download(ext) {
+    //   let obj = null;
+    //   let file_name = `${this.module}_${new Date(Date.now())
+    //     .toLocaleString("en-GB")
+    //     .replaceAll("/", "-")}.${ext}`;
+    //   if (ext) {
+    //     obj = {
+    //       ext,
+    //       document_type: this.$get_type_id(this.module),
+    //       file_name,
+    //       ...this.params,
+    //     };
+    //   }
+    //   if (ext)
+    //     this.$store.dispatch("export_data/index", obj).then((data) => {
+    //       if (data) {
+    //         let blob = new Blob([data], {
+    //           type: `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`,
+    //         });
+    //         saveAs(blob, file_name);
+    //       }
+    //     });
+    // },
     context_menu(e, item) {
       this.menu_name = this.module;
       this.item = item;

@@ -8,7 +8,7 @@
     color="#E0E0FF"
     :mini-variant.sync="$vuetify.breakpoint.mobile ? false : drawer"
     :permanent="!$vuetify.breakpoint.mobile"
-    width="180"
+    width="260"
     :right="$vuetify.rtl"
   >
     <v-card color="#E0E0FF" flat>

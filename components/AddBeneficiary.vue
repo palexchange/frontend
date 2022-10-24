@@ -67,7 +67,6 @@
               <AccountAutocomplete
                 text="account"
                 holder="account"
-                required
                 v-model="form.account_id"
               />
             </v-col>
@@ -83,7 +82,7 @@
               <img :src="form.image ? form.image.url : ''" alt="" />
             </v-col>
           </v-row>
-          <v-row class="button-responsive">
+          <v-row dense class="button-responsive">
             <v-col class="text-center">
               <v-btn
                 :disabled="!validated"

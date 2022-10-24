@@ -144,7 +144,6 @@ export default {
   },
   methods: {
     addTrans(val, index) {
-      console.log("Value: ", val, " Index: ", index, " Type:  ", typeof val);
       if (val.length == 0) return;
       this.trans[index].push(parseFloat(val));
       this.cards[index].amount = null;

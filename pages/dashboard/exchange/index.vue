@@ -38,7 +38,7 @@
                 </v-col>
               </v-row>
             </v-col>
-            <v-col
+            <!-- <v-col
               cols="12"
               xs="12"
               sm="6"
@@ -49,7 +49,7 @@
               {{ $t("process id") }}:<span class="show-text mr-4"
                 >{{ exchange.processNo }}#</span
               >
-            </v-col>
+            </v-col> -->
           </v-row>
         </Card>
       </v-col>
@@ -287,7 +287,13 @@
 
     <v-row justify="center" class="mt-5 mb-5">
       <v-col cols="8" class="d-flex justify-end">
-        <v-btn @click="save" height="50" class="text-center" color="primary">
+        <v-btn
+          :key="numberToReRender"
+          @click.prevent.once="save"
+          height="50"
+          class="text-center"
+          color="primary"
+        >
           {{ $t("execute process") }}
           <v-icon dence>fas fa-solid fa-check</v-icon>
         </v-btn>
@@ -317,6 +323,7 @@ export default {
   name: "extchange",
   data() {
     return {
+      numberToReRender: 1,
       keyNum: 1,
       selected: {},
       number: 1,
@@ -377,6 +384,11 @@ export default {
     },
   },
   methods: {
+    addnumberToReRender() {
+      setTimeout(() => {
+        this.numberToReRender += 1;
+      }, 5000);
+    },
     addItems() {
       this.all_currencies.map((item) => {
         this.items.push({
@@ -490,6 +502,7 @@ export default {
       // element.modified_factor = 8;
     },
     async save() {
+      this.addnumberToReRender();
       if (!(this.item.beneficairy && this.item.beneficairy.id)) {
         this.$swal.fire({
           text: this.$t("choose a party"),
@@ -510,6 +523,7 @@ export default {
 
         return;
       }
+      this.exchange.date = this.$getDateTime();
       this.exchange.currency_id = this.item.currency.id;
       this.exchange.beneficiary_id = this.item.beneficairy.id;
       this.exchange.reference_currency_id = 1;
@@ -548,7 +562,7 @@ export default {
         details.currency_id = c.id;
         details.amount = e.exchanged_amount;
         details.amount_after = e.exchanged_amount / details.factor;
-        this.$save(details, "exchange_detail");
+        this.$save({ ...details, silent: true }, "exchange_detail");
       }
       this.$store
         .dispatch("exchange/update", {
@@ -560,7 +574,7 @@ export default {
           this.$store.dispatch("user/show", this.$auth.user.id);
         });
 
-      this.item = { G};
+      this.item = {};
       this.items = [];
       this.keyNum = this.keyNum + 1;
       this.addItems();

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card :elevation="0" class="p-8 my-5">
-      <v-btn @click="create_one"> donwload </v-btn>
+      <v-btn @click="create_one"> تصدير </v-btn>
       <v-tabs v-model="seted_tab">
         <v-tab :key="i" v-for="(tab, i) in tabs"> {{ $t(tab.header) }}</v-tab>
         <v-tab-item :key="i" v-for="(tab, i) in tabs">

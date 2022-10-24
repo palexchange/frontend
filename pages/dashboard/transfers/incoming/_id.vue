@@ -60,7 +60,7 @@
     </Card>
 
     <Card class="mb-5 px-3">
-      <v-card-title> بيانات المرسل </v-card-title>
+      <v-card-title> بيانات مرسل المبلغ </v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="12" md="3" sm="6">

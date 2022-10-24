@@ -56,7 +56,7 @@ export default {
     },
     edit(item) {
       this.$store.dispatch("setDialog", {
-        name: "SettingsUsersCreate",
+        name: "AddAccount",
         item,
       });
     },

@@ -10,7 +10,7 @@ export default {
     port: 6214
   },
   head: {
-    titleTemplate: '%s - nux2-dashboard',
+    titleTemplate: 'الفلسطينية للصرافة',
     title: 'nux2-dashboard',
     meta: [
       { charset: 'utf-8' },

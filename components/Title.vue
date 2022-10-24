@@ -16,7 +16,7 @@ export default {
 .box-title-sec .title-sec:after {
   content: "";
   display: block;
-  width: 60%;
+  width: 50px;
   height: 3px;
   background-color: #FF7F00;
   margin-top: 3px;

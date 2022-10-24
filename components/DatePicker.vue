@@ -99,7 +99,7 @@ export default {
     } else {
       this.$emit("input", this.date);
     }
-    this.value = this.date;
+    // this.value = this.date;
   },
 };
 </script>

@@ -1,17 +1,24 @@
 <template>
   <div>
     <v-row class="">
-      <v-col v-for="(currency, i) in all_currencies">
+      <v-col cols="2" v-for="(account, i) in $auth.user.active_accounts">
         <v-card flat style="border: 1px solid lightgrey">
           <v-card-text class="text-center text-black">
             <v-row dense>
-              <!-- <v-col cols="3"><img src="/calculator.png" alt="" /></v-col> -->
-              <v-col style="font-size: 18px; color: black">
-                {{ currency.name }}
+              <v-col>
+                <!-- <img
+                  width="50"
+                  :src="`/icons/currencies/${account.id}.png`"
+                  alt=""
+              /> -->
+                {{ account.name }}
               </v-col>
+              <!-- <v-col style="font-size: 18px; color: black">
+                {{ account.name }}
+              </v-col> -->
             </v-row>
             <div style="font-size: 20px; color: black">
-              {{ getBalance(currency) }}
+              {{ parseFloat(account.balance).toFixed(4) }}
             </div>
           </v-card-text>
         </v-card>
@@ -24,41 +31,11 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {
-      currencies: [
-        "دولار $",
-        "شيكل NIS",
-        "JD دينار",
-        "يورو",
-        "ريال",
-        "درهم",
-        "جنيه",
-      ],
-      report_data: {
-        has_headers: true,
-        type: "Accounting",
-        sub_type: "currencyCredit",
-      },
-    };
+    return {};
   },
-  computed: {
-    ...mapState({
-      report: (state) => state.report.all,
-      all_currencies: (state) => state.currency.all,
-    }),
-  },
+
   mounted() {
-    this.$store.dispatch("report/index", {
-      currencies: [1, 2, 3, 4, 5, 6, 7],
-      ...this.report_data,
-    });
-  },
-  methods: {
-    getBalance(currency) {
-      let report = this.report.find((v) => v.account_id == currency.account_id);
-      return report ? parseFloat(report.balance).toFixed(3) : 0;
-      // return "test";
-    },
+    this.$store.dispatch("currency/index");
   },
 };
 </script>

@@ -1,7 +1,8 @@
 export default (context) => {
   let t = (v) => context.app.i18n.t(v);
   let boolean_string = (v) => v ? t('yes') : t('no');
-  let documents = (v) => ['', t('transfer')][v]
+  let documents = (v) => ['', t('transfer'), t('exchange'), t('fund_adjusment'), t('inputs'), t('outputs')][v]
+  let transactions = (v) => [t('outcoming'), t('incoming')][v]
   let resources = [{
     child: 'account',
     parent: '',
@@ -176,10 +177,23 @@ export default (context) => {
         key: 'document_type',
         f: v => documents(v)
       },
-      // {
-      //   key: 'a_balance',
-      //   f: v => parseFloat(v).toFixed(4)
-      // },
+      {
+        key: 'transaction_type',
+        f: v => transactions(v)
+      },
+      {
+        key: 'acc_balance',
+
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 4 })
+      },
+      {
+        key: 'ac_creditor',
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 4 })
+      },
+      {
+        key: 'ac_debtor',
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 4 })
+      },
       // {
       //   key: 'balance',
       //   f: v => parseFloat(v).toFixed(4)
@@ -211,7 +225,7 @@ export default (context) => {
     parent: '',
     silent: true,
     load_after_store: false,
-    headers: ['id', 'account_name', 'debtor', 'creditor', 'exchange_rate', 'ac_debtor', 'ac_creditor'],
+    headers: ['id', 'account_name', 'debtor', 'creditor', 'currency_name', 'exchange_rate', 'ac_debtor', 'ac_creditor'],
   },
   {
     child: 'receipt',

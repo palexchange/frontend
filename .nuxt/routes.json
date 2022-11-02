@@ -56,13 +56,6 @@
     "_name": "_0579105f"
   },
   {
-    "name": "dashboard-entries",
-    "path": "/dashboard/entries",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\index.vue",
-    "chunkName": "pages/dashboard/entries/index",
-    "_name": "_3d637df2"
-  },
-  {
     "name": "dashboard-exchange",
     "path": "/dashboard/exchange",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\index.vue",
@@ -75,6 +68,13 @@
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\index.vue",
     "chunkName": "pages/dashboard/inputs/index",
     "_name": "_3a7e7e6e"
+  },
+  {
+    "name": "dashboard-inventory",
+    "path": "/dashboard/inventory",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\index.vue",
+    "chunkName": "pages/dashboard/inventory/index",
+    "_name": "_0f7a2ba6"
   },
   {
     "name": "dashboard-outputs",
@@ -112,13 +112,6 @@
     "_name": "_2491f9db"
   },
   {
-    "name": "dashboard-entries-form",
-    "path": "/dashboard/entries/form",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\form\\\\index.vue",
-    "chunkName": "pages/dashboard/entries/form/index",
-    "_name": "_a72aa5a4"
-  },
-  {
     "name": "dashboard-exchange-form",
     "path": "/dashboard/exchange/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",
@@ -131,6 +124,13 @@
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/inputs/form/index",
     "_name": "_3eab9a76"
+  },
+  {
+    "name": "dashboard-inventory-form",
+    "path": "/dashboard/inventory/form",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\form\\\\index.vue",
+    "chunkName": "pages/dashboard/inventory/form/index",
+    "_name": "_4425783c"
   },
   {
     "name": "dashboard-outputs-form",
@@ -168,13 +168,6 @@
     "_name": "_287ab703"
   },
   {
-    "name": "dashboard-entries-form-id",
-    "path": "/dashboard/entries/form/:id",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\entries\\\\form\\\\_id.vue",
-    "chunkName": "pages/dashboard/entries/form/_id",
-    "_name": "_637e2316"
-  },
-  {
     "name": "dashboard-exchange-form-id",
     "path": "/dashboard/exchange/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\_id.vue",
@@ -187,6 +180,13 @@
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/inputs/form/_id",
     "_name": "_7f7fbb26"
+  },
+  {
+    "name": "dashboard-inventory-form-id",
+    "path": "/dashboard/inventory/form/:id",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\form\\\\_id.vue",
+    "chunkName": "pages/dashboard/inventory/form/_id",
+    "_name": "_6b42526c"
   },
   {
     "name": "dashboard-outputs-form-id",

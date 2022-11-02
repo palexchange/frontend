@@ -32,8 +32,8 @@
       </DataTable>
       <!-- </Card> -->
     </div>
-    <v-dialog width="1100" v-model="dialog">
-      <SettingsEntryCreate />
+    <v-dialog width="1200" v-model="dialog">
+      <SettingsEntryCreate @closeDialog="() => (dialog = false)" />
     </v-dialog>
   </div>
 </template>

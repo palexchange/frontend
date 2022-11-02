@@ -2,7 +2,7 @@
   <div>
     <Card class="pb-3">
       <v-card-title>
-        <Title title="statement" />
+        <Title title="incoming receipt" />
       </v-card-title>
       <v-card-text>
         <v-form v-model="validated">
@@ -37,7 +37,11 @@
             </v-col>
             <v-col cols="12" lg="4" xs="12" sm="6">
               <AutoComplete
-                :items="user.active_accounts"
+                :items="
+                  user.active_accounts.filter(
+                    (v) => v.currency_id == form.currency_id
+                  )
+                "
                 required
                 text="إلي حساب"
                 holder="إلي حساب"
@@ -49,6 +53,7 @@
               <InputField
                 required
                 text="conversion factor to usd"
+                @input="(v) => this.refreshNum++"
                 holder="conversion factor to usd"
                 v-model="form.exchange_rate"
               ></InputField>
@@ -56,8 +61,8 @@
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
                 disabledd
-                text="to ammount"
-                holder="to ammount"
+                text="amount in usd"
+                holder="amount in usd"
                 :value="to_amount"
               ></InputField>
             </v-col>
@@ -65,7 +70,7 @@
               <InputField
                 text="statement"
                 holder="statement"
-                :value="form.statement"
+                v-model="form.statement"
               ></InputField>
             </v-col>
           </v-row>
@@ -97,6 +102,7 @@ export default {
   data() {
     return {
       validated: false,
+      refreshNum: 0,
       form: {
         status: 1,
         type: 1, // (type = 1) => input || (type =2) => output
@@ -109,6 +115,7 @@ export default {
       user: (state) => state.auth.user,
     }),
     to_amount() {
+      this.refreshNum;
       let factor = this.form.exchange_rate;
       let amount = this.form.from_amount;
       let a = amount / factor;
@@ -121,7 +128,12 @@ export default {
   },
   methods: {
     setToaccount(currency_id) {
+      this.refreshNum++;
       console.log(currency_id);
+      if (!this.user.active_accounts[0]) {
+        this.$error_alert();
+        return;
+      }
       this.form.to_account_id = this.user.active_accounts.find((e) => {
         return e.currency_id == currency_id;
       }).id;

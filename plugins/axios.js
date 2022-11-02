@@ -1,5 +1,14 @@
 export default function ({ $axios, redirect, store, response, app }) {
     // $axios.defaults.headers.common['Content-Language'] = context.app.;
+    $axios.onRequest((config) => {
+        if (store.$auth.user) {
+
+            config.params = config.params || {};
+            config.params.user_id = config.params.user_id || store.$auth.user.id;
+            return config
+
+        }
+    })
     $axios.onError(error => {
         if (error.response.status === 500) {
             store.dispatch('testAxios')

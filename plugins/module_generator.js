@@ -49,6 +49,9 @@ export default (context, inject) => {
         // if (JSON.stringify(params) == JSON.stringify(state.meta)) {
         //   return state.all;
         // }
+        console.log("test here ??");
+        console.log("------------here---------");
+
         if (resource.cachable)
           await del(module_name);
 
@@ -95,9 +98,9 @@ export default (context, inject) => {
         }
 
 
-
         if (resource.has_headers && !params.is_file) {
-          commit('setData', response.items);
+
+          commit('setData', [response.items, params.resObjName]);
           commit('setHeaders', response.headers);
           return response.items;
         }
@@ -340,6 +343,7 @@ export default (context, inject) => {
         console.log("------------daaattttaaaa---------");
         console.log(data)
         if (data[1]) {
+          console.log("data[1]");
           state[data[1]] = [...data[0]];
         }
         else {

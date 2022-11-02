@@ -8,7 +8,7 @@
     color="#E0E0FF"
     :mini-variant.sync="$vuetify.breakpoint.mobile ? false : drawer"
     :permanent="!$vuetify.breakpoint.mobile"
-    width="260"
+    width="230"
     :right="$vuetify.rtl"
   >
     <v-card color="#E0E0FF" flat>
@@ -27,43 +27,11 @@
 
       <v-divider></v-divider>
       <v-list dense>
-        <!-- <v-list-group
-          v-for="item in items.filter((i) => i.items != null)"
-          :key="item.title"
-          v-model="item.active"
-          :prepend-icon="item.icon"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title v-text="$t(item.title)"></v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="child in item.items"
-            :key="child.title"
-            link
-            :to="child.to"
-            :style="`${!$vuetify.rtl ? 'padding-left' : 'padding-right'}:25px;`"
-          >
-            <v-list-item-icon
-              :style="`${!$vuetify.rtl ? 'margin-left' : 'margin-right'}:0px;`"
-            >
-              <v-icon x-small>
-                {{ child.icon }}
-              </v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="$t(child.title)"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group> -->
-
         <!-- active-class="deactive" -->
+
         <v-list-item
           exact-active-class="active"
-          v-for="item in items"
+          v-for="item in items.filter((i) => i.items == null)"
           :key="item.title"
           link
           :to="item.to"
@@ -75,6 +43,37 @@
             <v-list-item-title v-text="$t(item.title)"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-group
+          v-for="item in items.filter((i) => i.items != null)"
+          :key="item.title"
+          prepend-icon="mdi-cog"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title v-text="$t(item.title)"></v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <v-list-item
+            exact-active-class="active"
+            v-for="child in item.items"
+            :key="child.title"
+            link
+            :to="child.to"
+            style="color: black !important"
+            :style="`${!$vuetify.rtl ? 'padding-left' : 'padding-right'}:25px;`"
+          >
+            <v-list-item-icon
+              :style="`${!$vuetify.rtl ? 'margin-left' : 'margin-right'}:0px;`"
+            >
+              <v-icon></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="$t(child.title)"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
       </v-list>
     </v-card>
     <template v-slot:append>

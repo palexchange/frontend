@@ -7,7 +7,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <!-- class="lg5-custome-row"  -->
+    <!-- class="lg5-custome-row" -->
     <v-row justify="center">
       <v-col
         v-for="(curr, index) in active_accounts"
@@ -27,7 +27,7 @@
                 <v-img width="30" height="30" src="/entriesBoxIcon.png" />
               </div>
 
-              <div class="font-wigth-black">{{ "صندوق" }} {{ curr.name }}</div>
+              <div class="font-wigth-black">{{ curr.name }}</div>
 
               <!-- <InputField class="pt-3 pl-3 pr-3"></InputField> -->
             </v-col>
@@ -66,7 +66,7 @@
                 class="text-left pt-2 pb-1 pl-2"
                 style="border-top: solid grey 1px; width: 100%"
               >
-                <v-btn icon @click="removeRow(t, index,i)">
+                <v-btn icon @click="removeRow(t, index, i)">
                   <v-icon> fas fa-times </v-icon>
                 </v-btn>
               </v-col>
@@ -153,10 +153,25 @@ export default {
       for (let arr of this.trans) {
         while (arr.length > 0) arr.pop();
       }
+      this.cards.forEach((e, index) => {
+        e.balance = this.active_accounts[index].balance;
+      });
     },
     removeRow(val, index, i) {
-      this.trans[index].splice(i,1);
+      this.trans[index].splice(i, 1);
       this.cards[index].balance += parseFloat(val);
+    },
+    reset(val) {
+      if (val.length > 0) {
+        val.forEach((e) => {
+          this.trans.push([]);
+        });
+        if (this.active_accounts[0] && !this.cards[0]) {
+          this.active_accounts.forEach((e) => {
+            this.cards.push({ amount: null, balance: e.balance });
+          });
+        }
+      }
     },
   },
   computed: {
@@ -170,8 +185,6 @@ export default {
   //     accounts_ids: this.active_accounts.map(v => v.id),
   //     ...this.report_data,
   //   });
-
-
 
   // },
   // created() {
@@ -193,17 +206,7 @@ export default {
   watch: {
     active_accounts: {
       handler(val) {
-        console.log("Run");
-        if (val.length > 0) {
-          val.forEach((e) => {
-            this.trans.push([]);
-          });
-          if (this.active_accounts[0] && !this.cards[0]) {
-            this.active_accounts.forEach((e) => {
-              this.cards.push({ amount: null, balance: e.balance });
-            });
-          }
-        }
+        this.reset(val);
       },
       deep: true,
       immediate: true,

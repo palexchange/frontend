@@ -3,7 +3,7 @@
     <v-card>
       <v-toolbar color="primary" dark
         ><v-spacer></v-spacer>
-        
+
         <v-spacer></v-spacer
       ></v-toolbar>
       <div>
@@ -150,7 +150,10 @@ export default {
           this.$store.dispatch("entry_transaction/store", {
             entry_id: res_entry.id,
             debtor: this.transactions_total,
+            ac_debtor: this.transactions_total,
             creditor: 0,
+            ac_creditor: 0,
+            currency_id: this.main_account.currency_id,
             account_id: this.main_account.id,
           });
           this.users_accounts.forEach((v) => {
@@ -158,8 +161,11 @@ export default {
             this.$store.dispatch("entry_transaction/store", {
               entry_id: res_entry.id,
               debtor: 0,
+              ac_debtor: 0,
               creditor: v.creditor,
+              ac_creditor: v.creditor,
               account_id: v.on_account_id,
+              currency_id: this.main_account.currency_id,
             });
           });
         }

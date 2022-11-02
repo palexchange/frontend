@@ -11,9 +11,9 @@ export default (context, inject) => {
   });
   inject('download_excel', () => {
     return context.store.dispatch(`excel/update`, item).then((data) => {
-
     });
   });
+
   inject('context_menu', (event, item, sidemenu) => {
     event.preventDefault();
     const cont = {}
@@ -25,6 +25,24 @@ export default (context, inject) => {
     cont.action = null;
     cont.title = null;
     context.store.dispatch('add_context', cont);
+  });
+  inject('error_alert', (msg) => {
+    context.$toast.error(context.app.i18n.t('you dont have active accounts'));
+    // this.$swal
+    //   .fire({
+    //     title: this.$t("Error Happend"),
+    //     text: this.$t(...values),
+    //     icon: "error",
+    //     confirmButtonText: this.$t("ok"),
+    //     confirmButtonColor: "#41b882",
+    //   })
+    //   .then(() => {
+    //     // if (this.redirect) {
+    //     //   this.$router.push(this.redirect);
+    //     // }
+    //     this.$store.dispatch("clearErrors");
+    //   });
+
   });
   inject('upload', (file, resource, data) => {
     if (file) {

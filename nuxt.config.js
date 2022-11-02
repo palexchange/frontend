@@ -149,6 +149,7 @@ export default {
     },
   },
   i18n: {
+    silentTranslationWarn: true,
     baseUrl: process.env.BASE_URL,
     strategy: 'no_prefix',
     differentDomains: true,

@@ -358,6 +358,16 @@
     "This action is unauthorized.": "لا تمتلك الصلاحية لإستكمال هذا الاجراء",
     "final amount to office in usd": "مبلغ المكتب النهائي بالدولار",
     "excess in box": "فائض في الصندوق",
-    "amount to transfer" : "المبلغ للتحويل",
-    "transferred amount" : "المبلغ المحول"
+    "inventory": "الجرد",
+    "amount in usd": "المبلغ بالدولار",
+    "debtor in usd": "مدين بالدولار",
+    "credetor in usd": "دائن بالدولار",
+    "fund feeding": "تغذية مخزون",
+    "incoming receipt": "إيصال قبض",
+    "outcoming receipt": "إيصال صرف",
+    "exchange rate to usd": "معامل التحويل للدولار",
+    "you dont have active accounts": "انت لا تمتلك حسابات للترحيل",
+    "amount to transfer": "المبلغ للتحويل",
+    "dashboard-inventory": "واجهة الجرد",
+    "transferred amount": "المبلغ المحول"
 }

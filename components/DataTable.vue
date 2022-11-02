@@ -11,7 +11,11 @@
       :items-per-page="meta.per_page ? Number(meta.per_page) : 15"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
-      :headers="noActions ? $translateHeaders(headers) : $translateHeaders(headers.concat(['actions']))"
+      :headers="
+        noActions
+          ? $translateHeaders(headers)
+          : $translateHeaders(headers.concat(['actions']))
+      "
       :items="all"
       multi-sort
       @contextmenu:row="$context_menu"
@@ -118,7 +122,7 @@ export default {
       },
     },
     noActions: {
-      type: [Boolean],
+      type: Boolean,
       default: false,
     },
     hide_pagination: Boolean,
@@ -136,7 +140,7 @@ export default {
         sortDesc: [],
         itemKey: "item.",
       },
-      // loaded: false,
+      loaded: true,
       sortingData: { sortBy: [], sortDesc: [] },
       menu_name: null,
       item: {},
@@ -144,15 +148,15 @@ export default {
   },
   mounted() {
     // if (!this.all[0]) {
-      this.$store.dispatch(`${this.module}/index`, {
-        ...this.options,
-        ...this.params,
-      });
-      let val = this.meta;
-      if (val) {
-        this.options.page = val.current_page;
-      }
-      // this.loaded = true;
+    this.$store.dispatch(`${this.module}/index`, {
+      ...this.options,
+      ...this.params,
+    });
+    let val = this.meta;
+    if (val) {
+      this.options.page = val.current_page;
+    }
+    // this.loaded = true;
     // }
   },
   created() {
@@ -172,11 +176,10 @@ export default {
     ...mapState({
       all: function (state) {
         if (this.module) {
-          if(this.params.resObjName) {
-
-           console.log("---------------------------------333333333");
-           console.log(this.params.resObjName);
-           let temp = state[this.module];
+          if (this.params.resObjName) {
+            console.log("---------------------------------333333333");
+            console.log(this.params.resObjName);
+            let temp = state[this.module];
             return temp[this.params.resObjName] || [];
           }
           return state[this.module].all;
@@ -205,7 +208,7 @@ export default {
       },
       user: (state) => state.auth.user,
       loading: (state) => state.loading,
-      loaded: (state) => state.loaded,
+      // loaded: (state) => state.loaded,
     }),
     c_type() {
       let types = ["admin", "customer"];
@@ -226,7 +229,11 @@ export default {
   watch: {
     options: {
       handler(val) {
-        // this.loading = true;
+        console.log("in options");
+        console.log(this.options.itemsPerPage);
+        console.log(this.loaded);
+        console.log("this.loaded");
+        // this.loaded = true;
         if (this.loaded && this.options.itemsPerPage > -2) {
           this.$store.dispatch(`${this.module}/index`, {
             ...val,

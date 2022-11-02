@@ -35,12 +35,21 @@
               text="to"
             />
           </v-col>
+          <v-col cols="12" md="3" sm="12">
+            <CurrencyAutoComplete
+              clearable
+              v-model="report_data.currency_id"
+              holder="currency"
+              text="currency"
+            />
+          </v-col>
         </v-row>
       </v-form>
     </v-col>
 
-    <v-col cols="12" md="2" sm="12">
+    <v-col class="align-self-center" cols="12" md="2" sm="12">
       <v-btn
+        :disabled="!validated"
         :loading="loading"
         @click="getDate()"
         class="primary"

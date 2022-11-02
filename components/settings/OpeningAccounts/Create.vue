@@ -22,11 +22,23 @@
                   holder="حساب الخزينة"
                 ></AccountAutocomplete>
               </v-col>
-              <v-col>
+              <v-col cols="3">
                 <h4 v-if="main_account.id">
                   {{ $t("balance") }} : {{ main_account.balance | money }} (
                   {{ main_account.currency ? main_account.currency.name : "" }})
                 </h4>
+              </v-col>
+              <v-col cols="3">
+                <InputField
+                  required
+                  text="exchange rate to usd"
+                  holder="exchange rate to usd"
+                  v-if="
+                    main_account.currency_id && main_account.currency_id != 1
+                  "
+                  style="width: 200px"
+                  v-model.number="exchange_rate"
+                />
               </v-col>
             </v-row>
             <v-row>
@@ -88,12 +100,13 @@
         <h4>هل انت متأكد من الترحيل إلي الصناديق ؟</h4>
         <h5
           class="py-3"
-          v-if="checkIfCanSave"
+          v-if="!checkIfCanSave"
           style="color: red; margin-bottom: 10px"
         >
           سيصبح رصيد الخزينة بالسالب!
         </h5>
         <v-btn
+          :disabled="!checkIfCanSave"
           class="primary"
           @click="
             dialog = false;
@@ -102,7 +115,11 @@
           style="margin-top: 10px"
           >نعم</v-btn
         >
-        <v-btn @click="dialog = false" style="margin-top: 10px; margin-right: 5px;">لا</v-btn>
+        <v-btn
+          @click="dialog = false"
+          style="margin-top: 10px; margin-right: 5px"
+          >لا</v-btn
+        >
       </v-sheet>
     </v-dialog>
   </div>
@@ -117,6 +134,7 @@ export default {
       main_account: {},
       dialog: false,
       users_accounts: [],
+      exchange_rate: 1,
       entry: {
         date: this.$getDateTime(),
         status: 1,
@@ -132,32 +150,40 @@ export default {
       });
     },
     save() {
-      if (this.checkIfCanSave) return;
+      if (!this.checkIfCanSave) return;
       this.$save(this.entry, "entry").then((res_entry) => {
         if (res_entry && res_entry.id) {
           this.$store.dispatch("entry_transaction/store", {
             entry_id: res_entry.id,
             debtor: 0,
+            ac_debtor: 0,
+            currency_id: this.main_account.currency_id,
             creditor: this.transactions_total,
+            ac_creditor: this.transactions_total / this.exchange_rate,
             account_id: this.main_account.id,
+            exchange_rate: this.exchange_rate,
           });
           this.users_accounts.forEach((v) => {
             if (!(v.debtor >= 0)) return;
             this.$store.dispatch("entry_transaction/store", {
               entry_id: res_entry.id,
               debtor: v.debtor,
+              ac_debtor: v.debtor / this.exchange_rate,
+              currency_id: this.main_account.currency_id,
               creditor: 0,
+              ac_creditor: 0,
               account_id: v.on_account_id,
+              exchange_rate: this.exchange_rate,
             });
           });
         }
       });
     },
+  },
+  computed: {
     checkIfCanSave() {
       return this.transactions_total <= this.main_account.balance;
     },
-  },
-  computed: {
     ...mapState({
       dialog_item: (state) => state.state_dialog.item,
       user_accounts: (state) => state.user_account.all,
@@ -186,6 +212,12 @@ export default {
       if (val && val.id) {
         if (val.currency) {
           this.entry.ref_currency_id = val.currency.id;
+        }
+        if (val.currency_id != 1) {
+          this.exchange_rate = this.$newCalcSalePrice(
+            { id: 1 },
+            { id: val.currency_id }
+          );
         }
       }
     },

@@ -329,6 +329,7 @@ export default {
       number: 1,
 
       item: {
+        beneficairy: 1,
         currency: {},
         reminder: null,
       },
@@ -546,6 +547,9 @@ export default {
         "exchange/store",
         this.exchange
       );
+
+      if (!response) return;
+
       let details = {
         exchange_id: response.id,
       };

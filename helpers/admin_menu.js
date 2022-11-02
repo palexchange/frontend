@@ -5,6 +5,7 @@ export default [
     to: '/dashboard',
     types: {
       admin: true,
+      customer: true
     }
   },
   {
@@ -13,6 +14,7 @@ export default [
     to: '/dashboard/transfers',
     types: {
       admin: true,
+      customer: true
     }
   },
   {
@@ -21,6 +23,7 @@ export default [
     to: '/dashboard/exchange',
     types: {
       admin: true,
+      customer: true
     }
   },
   {
@@ -29,6 +32,7 @@ export default [
     to: '/dashboard/inputs',
     types: {
       admin: true,
+      customer: true
     }
   },
   {
@@ -60,12 +64,37 @@ export default [
   },
   {
     icon: "8.png",
-    title: "entries",
-    to: '/dashboard/entries',
+    title: "inventory",
+    to: '/dashboard/inventory',
     types: {
       admin: true,
       customer: true
     }
+  },
+  {
+    icon: "arrows-exchange.png",
+    title: "settings",
+    to: '/dashboard/settings',
+    types: {
+      admin: true
+    },
+    items: [
+      {
+        icon: "arrows-exchange.png",
+        title: "exchange prices",
+        to: '/dashboard/settings/pricing',
+      },
+      {
+        icon: "arrows-exchange.png",
+        title: "accounting settings",
+        to: '/dashboard/settings',
+      },
+      {
+        icon: "arrows-exchange.png",
+        title: "roles",
+        to: '/dashboard/settings/roles',
+      },
+    ]
   },
 
 ];

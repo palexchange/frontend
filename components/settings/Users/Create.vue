@@ -71,6 +71,7 @@
                         allow-overflow
                         chips
                         return-object
+                        :filter="filter"
                         v-model="user_account"
                         item_value="acount_id"
                         text="account"
@@ -144,8 +145,11 @@ export default {
       this.$save(this.form, "user").then((data) => {
         if (this.expand && this.user_account[0] && data) {
           this.user_account.forEach((v) => {
+            console.log("==============");
+            console.log(v);
             let item = {
               account_id: v.account_id,
+              currency_id: v.currency_id,
               id: v.id,
               user_id: data.id,
               name: v.name,
@@ -156,6 +160,24 @@ export default {
         }
         this.$store.dispatch("closeDialog");
       });
+    },
+    filter() {
+      return (v) => {
+        v.currency_id > 0;
+      };
+    },
+    selectAll() {
+      let ids = this.users.map((v) => v.id);
+      if (this.item.user_ids) {
+        if (ids.length == this.item.user_ids.length) {
+          this.item.user_ids = [];
+        } else {
+          this.item.user_ids = ids;
+        }
+      } else {
+        this.item.user_ids = ids;
+      }
+      this.key++;
     },
   },
   computed: {

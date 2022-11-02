@@ -20,7 +20,11 @@
       <v-toolbar-title>{{ $t(this.$route.name) }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      {{ this.$auth.user.name }}
+
+      <!-- {{ this.$auth.user.name }}
+      <span v-for="account in $auth.user.active_accounts">
+        {{ account.name }}
+      </span> -->
       <v-spacer></v-spacer>
       <v-menu :close-on-content-click="true" offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -29,7 +33,7 @@
           </v-btn>
         </template>
         <v-list width="200">
-          <v-list-item to="/dashboard/settings/pricing">
+          <!-- <v-list-item to="/dashboard/settings/pricing">
             {{ $t("exchange prices") }}
           </v-list-item>
           <v-list-item to="/dashboard/settings">
@@ -37,7 +41,7 @@
           </v-list-item>
           <v-list-item to="/dashboard/settings/roles">
             {{ $t("roles") }}
-          </v-list-item>
+          </v-list-item> -->
 
           <v-list-item
             v-for="locale in locales"
@@ -59,7 +63,7 @@
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
       <v-container>
         <!-- <Boxes /> -->
-
+        <UserActiveAccounts />
         <Breadcrumbs />
         <div style="min-height: 75vh">
           <Nuxt />
@@ -221,6 +225,7 @@ export default {
     },
   },
   beforeCreate() {
+    this.$store.dispatch("stock/index");
     console.log(this.$i18n.locale);
     this.$vuetify.rtl = this.$i18n.locale == "ar";
   },

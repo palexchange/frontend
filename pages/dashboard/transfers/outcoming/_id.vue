@@ -44,9 +44,9 @@
         <v-col cols="12" md="6" sm="12">
           <v-row no-gutters class="flex-column text-h6">
             <v-col cols="12" class="align-self-strach text-left mb-4">
-              <!-- <span v-if="!showReadOnly">
+              <span v-if="!showReadOnly">
                 {{ $t("todays profit") }}<span class="show-text">000</span>
-              </span> -->
+              </span>
               <span>
                 {{ $t("transfer number") }}
                 <span class="show-text">{{ item.id }}#</span>
@@ -100,7 +100,6 @@
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
-              maxlength="11"
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
@@ -150,7 +149,6 @@
           </v-col>
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <InputField
-              maxlength="12"
               :readonly="showReadOnly"
               holder="id number"
               text="id number"
@@ -159,7 +157,6 @@
           </v-col>
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <InputField
-              maxlength="11"
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
@@ -714,7 +711,6 @@ export default {
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
         totalRecvAmount = parseFloat(this.totalRecvAmountComp || 0);
       let officeAmount = totalRecvAmount * conversionParam;
-      this.item.office_amount_in_office_currency = officeAmount;
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
@@ -799,7 +795,6 @@ export default {
     },
     confirmProcess(status) {
       this.item.status = status;
-      this.item.issued_at = this.$getDateTime();
       this.$save(this.item, "transfer", null, "/dashboard/transfers");
     },
     showConversionFactor(to, factorModel, new_value) {

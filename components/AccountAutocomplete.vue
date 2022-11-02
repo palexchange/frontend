@@ -9,7 +9,7 @@
     <v-autocomplete
       color="#FF7171"
       style="border-radius: 0px !important"
-      :items="all"
+      :items="filter ? all.filter(filter) : all"
       dense
       :disabled="dashed"
       :required="this.required ? true : false"
@@ -74,9 +74,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    filter: {
+      type: Function,
+    },
     params: {
       type: Object,
-      default: { per_page: -1 },
+      default: () => {
+        return { per_page: -1 };
+      },
     },
   },
   data() {
@@ -91,6 +96,12 @@ export default {
     ...mapState({
       all: (state) => JSON.parse(JSON.stringify(state.account.all)),
     }),
+  },
+  watch: {
+    filter(val) {
+      console.log("filter");
+      console.log(val);
+    },
   },
 };
 </script>

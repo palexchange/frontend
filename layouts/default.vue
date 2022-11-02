@@ -35,6 +35,9 @@
           <v-list-item to="/dashboard/settings">
             {{ $t("accounting settings") }}
           </v-list-item>
+          <v-list-item to="/dashboard/settings/settings">
+            {{ $t("app settings") }}
+          </v-list-item>
           <v-list-item to="/dashboard/settings/roles">
             {{ $t("roles") }}
           </v-list-item>

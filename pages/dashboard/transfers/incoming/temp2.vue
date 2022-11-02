@@ -45,14 +45,10 @@
             </v-col>
 
             <v-col class="text-left mb-4">
-              {{ $t("refrence number") }}<span class="show-text"
-                >{{ (charMap[item.delivering_type] || "") + (item.id || "")  }}#</span
-              >
+              {{ $t("refrence number") }}<span class="show-text">{{ (charMap[item.delivering_type] || "") + (item.id || "")  }}#</span>
             </v-col>
             <v-col class="text-left mb-4">
-              {{ $t("transfer stats") }}<span class="show-text">{{
-                item.status == 1 ? "معتمدة" : "مسودة"
-              }}</span>
+              {{ $t("transfer stats") }}<span class="show-text">مسودة</span>
             </v-col>
           </v-row>
         </v-col>
@@ -127,23 +123,14 @@
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
-              dashed
-              :required="item.delivering_type == 2 ? true : false"
+              :disabled="dashed"
+              :required="true"
               outlined
               v-on="$listeners"
               :rules="rulesss.requiredRules"
               :placeholder="$t('id image')"
               prepend-icon=""
               prepend-inner-icon="fa-solid fa-image"
-            />
-          </v-col>
-          <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
-            <InputField
-              :maxlength=12
-              :readonly="showReadOnly"
-              holder="id number"
-              text="id number"
-              v-model="item.receiver_id_no"
             />
           </v-col>
           <v-col cols="12" md="4" sm="6" lg="2">
@@ -155,8 +142,8 @@
             />
           </v-col>
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
-            <AutoComplete text="country" holder="country" required />
-          </v-col> -->
+              <AutoComplete text="country" holder="country" required />
+            </v-col> -->
           <v-col cols="12" md="3" sm="6">
             <InputField
               holder="address"
@@ -165,11 +152,11 @@
             />
           </v-col>
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
-            <AutoComplete text="city" holder="city" required />
-          </v-col> -->
+              <AutoComplete text="city" holder="city" required />
+            </v-col> -->
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
-            <InputField holder="address" text="address" />
-          </v-col> -->
+              <InputField holder="address" text="address" />
+            </v-col> -->
         </v-row>
       </v-card-text>
     </Card>
@@ -220,8 +207,8 @@
           <v-col>
             <InputField
               v-model.number="item.to_send_amount"
-              holder="transferred amount"
-              text="transferred amount"
+              holder="transfirrig amount"
+              text="transfirrig amount"
               required
             />
           </v-col>
@@ -232,7 +219,7 @@
                   signCurrency(
                     'exchange_rate_to_delivery_currency',
                     'exchange_rate_to_delivery_currency_view',
-                    'sale',
+                    'buy',
                     v,
                     currencies[0]
                   );
@@ -265,15 +252,7 @@
               required
             />
           </v-col>
-          <v-col>
-            <InputField
-              :value="finalAmountReceivedComp | money"
-              dashed
-              holder="final amount received"
-              text="final amount received"
-              required
-            />
-          </v-col>
+
           <v-col>
             <InputField
               :value="recivedAmountInUSDComp | money"
@@ -297,7 +276,7 @@
                   signCurrency(
                     'exchange_rate_to_reference_currency',
                     'exchange_rate_to_reference_currency',
-                    'buy',
+                    'sale',
                     this.currencies[0],
                     v
                   );
@@ -355,7 +334,7 @@
                   signCurrency(
                     'exchange_rate_to_office_currency',
                     'exchange_rate_to_office_currency_view',
-                    'sale',
+                    'mid',
                     item.delivery_currency,
                     v
                   );
@@ -440,18 +419,6 @@
             />
           </v-col>
         </v-row>
-          <v-row dense>
-          <v-col cols="3">
-            <InputField
-              :readonly="showReadOnly"
-              :value="item.office_amount | money"
-              dashed
-              holder="final amount to office in usd"
-              text="final amount to office in usd"
-            />
-          </v-col>
-          
-        </v-row>
       </v-card-text>
     </Card>
 
@@ -499,19 +466,24 @@
     </v-row>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import { mapState } from "vuex";
 import ruless from "~/helpers/rules";
 export default {
   data() {
     return {
-      showReadOnly: true,
       rulesss: ruless(this),
       transfer_types: [
         { id: 1, name: "تسليم يد" },
         { id: 2, name: "موني غرام" },
       ],
+      charMap: {
+        1: "H",
+        2: "M",
+      },
+      totalOfficeAmountFraction : 0,
+      rounedRes : 0,
       prices: [],
       item: {
         commision_side: 2,
@@ -531,11 +503,6 @@ export default {
         exchange_rate_to_office_currency: null,
         exchange_rate_to_office_currency_view: null,
       },
-      charMap: {
-        1 : 'H',
-        2 : 'M',
-      },
-      totalOfficeAmountFraction : 0,
       // a:0,
       // b:0,
       //recivedAmountInUSD:0
@@ -553,13 +520,6 @@ export default {
   //       }
   // },
   computed: {
-    finalAmountReceivedComp() {
-      let amount = this.item.to_send_amount || 0;
-      let ratio = this.item.exchange_rate_to_delivery_currency || 1;
-      let commVal = parseFloat(this.calcCommisson() || 0);
-      let res = amount - commVal * ratio;
-      return res == 0 ? null : res;
-    },
     recivedAmountInUSDComp() {
       let amount = this.item.to_send_amount || 0;
       let ratio = this.item.exchange_rate_to_delivery_currency || 0;
@@ -577,7 +537,7 @@ export default {
     },
     officeAmount() {
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
-        totalRecvAmount = parseFloat(this.finalAmountReceivedComp || 0);
+        totalRecvAmount = parseFloat(this.item.to_send_amount || 0);
       if (this.item.delivering_type == 2) {
         return this.recivedAmountInUSDComp;
       }
@@ -593,31 +553,25 @@ export default {
         this.item.office_commision_type == 1
           ? (commission / 100) * officeAmount
           : commission;
-      let res = parseFloat(officeAmount - commission + returned);
-      let rounedRes = parseFloat(Number(res).toFixed(0) || null);
-      console.log("Rounded: ", rounedRes);
-      this.totalOfficeAmountFraction = -(rounedRes - res);
+      let tempVar = officeAmount - commission + returned;
 
-      this.item.office_amount = this.item.office_currency_id
-        ? res *
-          this.$newCalcBuyPrice({ id: this.item.office_currency_id }, { id: 1 })
-        : null;
-
-      return rounedRes;
+       this.rounedRes = parseFloat(Number(tempVar).toFixed(0) || null);
+    //   console.log("Rounded: ", rounedRes);
+      this.totalOfficeAmountFraction = -(this.rounedRes - tempVar);
+      return tempVar ? this.rounedRes : null;
     },
     officeProfitComp() {
-      let fromInDoller = parseFloat(this.recivedAmountInUSDComp || 0);
-      let finalOfficeAmountInUSD = parseFloat(this.item.office_amount || 0);
+      let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
+      let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
 
-      // let recvCurr = this.item.office_currency || null;
-      // if (!recvCurr) return;
-      // let convParam = this.$newCalcBuyPrice(recvCurr, this.currencies[0]);
-      // let res = fromInDoller - finalOfficeAmount * parseFloat(this.exchange_rate_to_office_currency || 1);
-      // console.table({ fromInDoller, finalOfficeAmount, convParam, res });
-      // let otherExp = this.item.other_amounts_on_receiver || 0;
-      // let profit =  res - otherExp + parseFloat(this.totalOfficeAmountFraction);
-      let profit = fromInDoller - finalOfficeAmountInUSD;
-      return profit;
+      let recvCurr = this.item.office_currency || null;
+      if (recvCurr == undefined) return;
+      let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
+      let res = fromInDoller - finalOfficeAmount * convParam;
+      console.table({ fromInDoller, finalOfficeAmount, convParam, res });
+    //   let otherExp = this.item.other_amounts_on_receiver || 0;
+    if(this.totalOfficeAmountFraction > 0) res--;
+      return res + parseFloat(this.totalOfficeAmountFraction);
     },
     ...mapState({
       currencies: (state) => state.currency.all,
@@ -654,11 +608,21 @@ export default {
     signCurrency(vCalc, vModel, type, fromCurr, toCurr) {
       if (fromCurr == null || toCurr == null) return;
 
-      this.item[vCalc] = parseFloat(
-        type == "buy"
-          ? this.$newCalcSalePrice(fromCurr, toCurr)
-          : this.$newCalcBuyPrice(fromCurr, toCurr)
-      );
+    //   this.item[vCalc] = parseFloat(
+    //     type == "buy"
+    //       ? this.$newCalcBuyPrice(fromCurr, toCurr)
+    //       : this.$newCalcSalePrice(fromCurr, toCurr)
+    //   );
+
+      if(type == "buy") {
+        this.item[vCalc] = parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr));
+      }
+      else if(type == "sale") {
+        this.item[vCalc] = parseFloat(this.$newCalcSalePrice(fromCurr, toCurr));
+      }
+      else if(type == "mid") {
+        this.item[vCalc] = (parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) + parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))).toFixed(7) / 2;
+      }
 
       if (toCurr.id == 1) {
         let temp = toCurr;
@@ -666,11 +630,21 @@ export default {
         fromCurr = temp;
       }
 
-      this.item[vModel] = parseFloat(
-        type == "buy"
-          ? this.$newCalcSalePrice(fromCurr, toCurr)
-          : this.$newCalcBuyPrice(fromCurr, toCurr)
-      );
+    //   this.item[vModel] = parseFloat(
+    //     type == "buy"
+    //       ? this.$newCalcBuyPrice(fromCurr, toCurr)
+    //       : this.$newCalcSalePrice(fromCurr, toCurr)
+    //   );
+
+      if(type == "buy") {
+        this.item[vModel] = parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr));
+      }
+      else if(type == "sale") {
+        this.item[vModel] = parseFloat(this.$newCalcSalePrice(fromCurr, toCurr));
+      }
+      else if(type == "mid") {
+        this.item[vModel] = (parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) + parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))).toFixed(7) / 2;
+      }
     },
     showConversionFactor(to, factorModel, new_value) {
       console.log(to, factorModel, new_value);
@@ -684,7 +658,7 @@ export default {
   filters: {
     money(value) {
       if (value) {
-        return value.toLocaleString(undefined, { minimumFractionDigits: 2 });
+        return value.toLocaleString(undefined, { minimumFractionDigits: 3 });
       }
     },
   },
@@ -694,8 +668,8 @@ export default {
   },
 };
 </script>
-
-<style>
+  
+  <style>
 .show-text {
   background-color: #e6e6e6;
   border-radius: 4px;

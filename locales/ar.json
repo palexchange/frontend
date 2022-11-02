@@ -359,5 +359,7 @@
     "final amount to office in usd": "مبلغ المكتب النهائي بالدولار",
     "excess in box": "فائض في الصندوق",
     "amount to transfer" : "المبلغ للتحويل",
-    "transferred amount" : "المبلغ المحول"
+    "transferred amount" : "المبلغ المحول",
+    "final amount received" : "المبلغ المستلم",
+    "app settings" : "إعدادات الموقع"
 }

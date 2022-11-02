@@ -13,17 +13,17 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_4d6ea74e from 'nuxt_plugin_plugin_4d6ea74e' // Source: .\\components\\plugin.js (mode: 'all')
-import nuxt_plugin_plugin_72a9163b from 'nuxt_plugin_plugin_72a9163b' // Source: .\\vuetify\\plugin.js (mode: 'all')
-import nuxt_plugin_toast_40d56aab from 'nuxt_plugin_toast_40d56aab' // Source: .\\toast.js (mode: 'client')
-import nuxt_plugin_pluginutils_aac4f01c from 'nuxt_plugin_pluginutils_aac4f01c' // Source: .\\nuxt-i18n\\plugin.utils.js (mode: 'all')
-import nuxt_plugin_pluginrouting_2f5be0bd from 'nuxt_plugin_pluginrouting_2f5be0bd' // Source: .\\nuxt-i18n\\plugin.routing.js (mode: 'all')
-import nuxt_plugin_pluginmain_6b73e85c from 'nuxt_plugin_pluginmain_6b73e85c' // Source: .\\nuxt-i18n\\plugin.main.js (mode: 'all')
-import nuxt_plugin_pluginclient_0d4b8ee2 from 'nuxt_plugin_pluginclient_0d4b8ee2' // Source: .\\content\\plugin.client.js (mode: 'client')
-import nuxt_plugin_pluginserver_5f13aa17 from 'nuxt_plugin_pluginserver_5f13aa17' // Source: .\\content\\plugin.server.js (mode: 'server')
-import nuxt_plugin_workbox_61a60418 from 'nuxt_plugin_workbox_61a60418' // Source: .\\workbox.js (mode: 'client')
-import nuxt_plugin_metaplugin_3e913ed0 from 'nuxt_plugin_metaplugin_3e913ed0' // Source: .\\pwa\\meta.plugin.js (mode: 'all')
-import nuxt_plugin_axios_74a51dfc from 'nuxt_plugin_axios_74a51dfc' // Source: .\\axios.js (mode: 'all')
+import nuxt_plugin_plugin_2712da2e from 'nuxt_plugin_plugin_2712da2e' // Source: .\\components\\plugin.js (mode: 'all')
+import nuxt_plugin_plugin_ce518caa from 'nuxt_plugin_plugin_ce518caa' // Source: .\\vuetify\\plugin.js (mode: 'all')
+import nuxt_plugin_toast_5d86ad8a from 'nuxt_plugin_toast_5d86ad8a' // Source: .\\toast.js (mode: 'client')
+import nuxt_plugin_pluginutils_082d893c from 'nuxt_plugin_pluginutils_082d893c' // Source: .\\nuxt-i18n\\plugin.utils.js (mode: 'all')
+import nuxt_plugin_pluginrouting_5c88782d from 'nuxt_plugin_pluginrouting_5c88782d' // Source: .\\nuxt-i18n\\plugin.routing.js (mode: 'all')
+import nuxt_plugin_pluginmain_2ffe2a62 from 'nuxt_plugin_pluginmain_2ffe2a62' // Source: .\\nuxt-i18n\\plugin.main.js (mode: 'all')
+import nuxt_plugin_pluginclient_5f12571f from 'nuxt_plugin_pluginclient_5f12571f' // Source: .\\content\\plugin.client.js (mode: 'client')
+import nuxt_plugin_pluginserver_76686eb2 from 'nuxt_plugin_pluginserver_76686eb2' // Source: .\\content\\plugin.server.js (mode: 'server')
+import nuxt_plugin_workbox_7537dea8 from 'nuxt_plugin_workbox_7537dea8' // Source: .\\workbox.js (mode: 'client')
+import nuxt_plugin_metaplugin_ff64a9b0 from 'nuxt_plugin_metaplugin_ff64a9b0' // Source: .\\pwa\\meta.plugin.js (mode: 'all')
+import nuxt_plugin_axios_050c5c8c from 'nuxt_plugin_axios_050c5c8c' // Source: .\\axios.js (mode: 'all')
 import nuxt_plugin_vuetify_165b1c58 from 'nuxt_plugin_vuetify_165b1c58' // Source: ..\\plugins\\vuetify (mode: 'client')
 import nuxt_plugin_mixins_5013a1f0 from 'nuxt_plugin_mixins_5013a1f0' // Source: ..\\plugins\\mixins (mode: 'all')
 import nuxt_plugin_vueapexchart_0ea3e8d8 from 'nuxt_plugin_vueapexchart_0ea3e8d8' // Source: ..\\plugins\\vue-apexchart.js (mode: 'client')
@@ -104,7 +104,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"titleTemplate":"الفلسطينية للصرافة","title":"nux2-dashboard","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:100,300,400,500,700,900&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002F@mdi\u002Ffont@latest\u002Fcss\u002Fmaterialdesignicons.min.css"}],"style":[],"script":[]},
+    head: {"titleTemplate":"الفلسطينية للصرافة","title":"nux2-dashboard","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"},{"hid":"charset","charset":"utf-8"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"nux2-dashboard"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"nux2-dashboard"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"nux2-dashboard"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:100,300,400,500,700,900&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002F@mdi\u002Ffont@latest\u002Fcss\u002Fmaterialdesignicons.min.css"},{"hid":"shortcut-icon","rel":"shortcut icon","href":"\u002Ffavicon.ico"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.b003032a.json","hid":"manifest"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
 
     store,
     router,
@@ -273,8 +273,8 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_metaplugin_ff64a9b0(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_axios_74a51dfc === 'function') {
-    await nuxt_plugin_axios_74a51dfc(app.context, inject)
+  if (typeof nuxt_plugin_axios_050c5c8c === 'function') {
+    await nuxt_plugin_axios_050c5c8c(app.context, inject)
   }
 
   if (process.client && typeof nuxt_plugin_vuetify_165b1c58 === 'function') {

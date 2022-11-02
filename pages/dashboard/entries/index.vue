@@ -144,7 +144,7 @@ export default {
   },
   methods: {
     addTrans(val, index) {
-      if (val.length == 0) return;
+      if (val.length == 0 || parseFloat(val) == 0) return;
       this.trans[index].push(parseFloat(val));
       this.cards[index].amount = null;
       this.cards[index].balance -= parseFloat(val);

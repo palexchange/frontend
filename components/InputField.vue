@@ -19,6 +19,7 @@
       v-on="$listeners"
       :rules="required ? rulesss.requiredRules : []"
       :placeholder="$t(holder)"
+      :hide-details="hide_details"
     />
     <!-- :maxlength="maxlength || '20'"
       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" -->
@@ -47,7 +48,7 @@ export default {
       default: false,
     },
     maxlength: {
-      type: Number,
+      type: [Number,String],
     },
     disabledd: {
       type: Boolean,
@@ -56,6 +57,10 @@ export default {
     outlined: {
       type: Boolean,
       default: true,
+    },
+    hide_details: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

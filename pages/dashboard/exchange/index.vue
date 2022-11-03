@@ -329,7 +329,7 @@ export default {
       number: 1,
 
       item: {
-        beneficairy: 1,
+        beneficairy: { id: 1 },
         currency: {},
         reminder: null,
       },
@@ -568,6 +568,7 @@ export default {
         details.amount_after = e.exchanged_amount / details.factor;
         this.$save({ ...details, silent: true }, "exchange_detail");
       }
+      console.log("test __________-------------_______");
       this.$store
         .dispatch("exchange/update", {
           id: response.id,

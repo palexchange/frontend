@@ -184,15 +184,22 @@ export default (context) => {
       {
         key: 'acc_balance',
 
-        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 4 })
+        f: v => {
+          let amount = parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+          return amount < 0 ? ((amount * -1) + ' د') : (amount + ' م')
+        }
       },
       {
         key: 'ac_creditor',
-        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 4 })
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
       },
       {
         key: 'ac_debtor',
-        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 4 })
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+      },
+      {
+        key: 'statement',
+        f: v => t(v)
       },
       // {
       //   key: 'balance',
@@ -226,6 +233,26 @@ export default (context) => {
     silent: true,
     load_after_store: false,
     headers: ['id', 'account_name', 'debtor', 'creditor', 'currency_name', 'exchange_rate', 'ac_debtor', 'ac_creditor'],
+    functions: [
+      {
+        key: 'ac_creditor',
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+      },
+      {
+        key: 'ac_debtor',
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+      },
+      {
+        key: 'creditor',
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+      },
+      {
+        key: 'debtor',
+        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+      },
+
+
+    ]
   },
   {
     child: 'receipt',

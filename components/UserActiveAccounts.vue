@@ -51,6 +51,9 @@ export default {
       this.$save({ id: v.user_account_id, main: true }, "user_account");
     },
   },
+  mounted() {
+    this.$store.dispatch("currency/index");
+  },
 };
 </script>
 

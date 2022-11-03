@@ -44,7 +44,7 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-group
-          v-for="item in items.filter((i) => i.items != null)"
+          v-for="item in items.filter((i) => i.types.role == $auth.user.role)"
           :key="item.title"
           prepend-icon="mdi-cog"
           no-action

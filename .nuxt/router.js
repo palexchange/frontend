@@ -27,6 +27,9 @@ const _5b354e6c = () => interopDefault(import('..\\pages\\dashboard\\outputs\\fo
 const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
 const _04809c03 = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
 const _9ce5c68c = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
+const _6e699d36 = () => interopDefault(import('..\\pages\\dashboard\\settings\\settings.vue' /* webpackChunkName: "pages/dashboard/settings/settings" */))
+const _41abfd3c = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp" */))
+const _a3bd146c = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp_old" */))
 const _287ab703 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
 const _b68c7e1a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/exchange/form/_id" */))
 const _7f7fbb26 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/inputs/form/_id" */))
@@ -140,6 +143,18 @@ export const routerOptions = {
     path: "/dashboard/settings/roles",
     component: _9ce5c68c,
     name: "dashboard-settings-roles"
+  }, {
+    path: "/dashboard/settings/settings",
+    component: _6e699d36,
+    name: "dashboard-settings-settings"
+  }, {
+    path: "/dashboard/transfers/incoming/temp",
+    component: _41abfd3c,
+    name: "dashboard-transfers-incoming-temp"
+  }, {
+    path: "/dashboard/transfers/incoming/temp_old",
+    component: _a3bd146c,
+    name: "dashboard-transfers-incoming-temp_old"
   }, {
     path: "/dashboard/beneficiaries/form/:id",
     component: _287ab703,

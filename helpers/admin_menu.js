@@ -76,7 +76,7 @@ export default [
     title: "settings",
     to: '/dashboard/settings',
     types: {
-      admin: true
+      role: 1
     },
     items: [
       {
@@ -93,6 +93,11 @@ export default [
         icon: "arrows-exchange.png",
         title: "roles",
         to: '/dashboard/settings/roles',
+      },
+      {
+        icon: "arrows-exchange.png",
+        title: "app settings",
+        to: '/dashboard/settings/settings',
       },
     ]
   },

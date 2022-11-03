@@ -19,6 +19,26 @@ export default {
             },
         ],
     },
+    exchange: {
+        menu_btns: [
+            // {
+            //     title: "edit",
+            //     icon: "fas fa-pen",
+            // },
+            // {
+            //     title: "activate",
+            //     icon: "fas fa-check",
+            // },
+            // {
+            //     title: "stop",
+            //     icon: "fas fa-ban",
+            // },
+            {
+                title: "remove",
+                icon: "fas fa-trash",
+            },
+        ],
+    },
     transfer: {
         menu_btns: [
             {

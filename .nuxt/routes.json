@@ -161,6 +161,27 @@
     "_name": "_9ce5c68c"
   },
   {
+    "name": "dashboard-settings-settings",
+    "path": "/dashboard/settings/settings",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\settings.vue",
+    "chunkName": "pages/dashboard/settings/settings",
+    "_name": "_6e699d36"
+  },
+  {
+    "name": "dashboard-transfers-incoming-temp",
+    "path": "/dashboard/transfers/incoming/temp",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\temp.vue",
+    "chunkName": "pages/dashboard/transfers/incoming/temp",
+    "_name": "_41abfd3c"
+  },
+  {
+    "name": "dashboard-transfers-incoming-temp_old",
+    "path": "/dashboard/transfers/incoming/temp_old",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\temp_old.vue",
+    "chunkName": "pages/dashboard/transfers/incoming/temp_old",
+    "_name": "_a3bd146c"
+  },
+  {
     "name": "dashboard-beneficiaries-form-id",
     "path": "/dashboard/beneficiaries/form/:id",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\_id.vue",

@@ -129,6 +129,7 @@
                       <InputField
                         disabledd
                         dense
+                        no_lable
                         filled
                         :value="calcDebitUs(transaction)"
                         rounded
@@ -138,6 +139,7 @@
                     </td>
                     <td>
                       <InputField
+                        no_lable
                         disabledd
                         dense
                         filled
@@ -197,7 +199,7 @@
       <v-col class="text-center">
         <v-btn
           @click="save"
-          :disabled="!(validated == true && balanced == true)"
+          :disabled="!balanced"
           color="primary"
           height="45"
         >

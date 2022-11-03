@@ -4,14 +4,14 @@
       <v-row>
         <v-col cols="12" md="6" sm="12">
           <v-row>
-            <v-col cols="12" sm="12" md="4">
+            <v-col cols="12" sm="12" md="5">
               <Title
                 :title="`${$route.params.id ? '' : 'add '}outcoming transfer`"
               ></Title>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" sm="12" md="4">
+            <v-col cols="12" sm="12" md="5">
               <AutoComplete
                 :readonly="showReadOnly"
                 required
@@ -103,7 +103,6 @@
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
-              required
               v-model="item.sender_phone"
             />
           </v-col>
@@ -160,7 +159,6 @@
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
-              required
               v-model="item.receiver_phone"
             />
           </v-col>
@@ -604,9 +602,9 @@ export default {
       ],
       prices: [],
       transfer_types: [
-        { id: 1, name: "تسليم يد" },
+        { id: 1, name: "تسليم يد نقداً" },
         { id: 2, name: "موني غرام" },
-        { id: 3, name: "علي الحساب" },
+        { id: 3, name: "تسليم يد على الحساب" },
       ],
       item: {
         commission_side: 1,
@@ -785,7 +783,7 @@ export default {
       let commisson_amount = this.item.transfer_commission || 0;
       let percentage = this.item.is_commission_percentage;
       let amount = 0;
-      if (commisson_amount > 0) {
+      if (commisson_amount != 0) {
         amount = percentage
           ? (transferringAmount * commisson_amount) / 100
           : commisson_amount;
@@ -884,4 +882,5 @@ export default {
   opacity: 1 !important;
 
 } */
+/* #c0faac !important */
 </style>

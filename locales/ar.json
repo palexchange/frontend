@@ -201,7 +201,7 @@
     "statement": "البيان",
     "recived amount": "المبلغ المستلم",
     "conversion factor": "معامل التحويل",
-    "approve": "اعتماد",
+    "approve": "إعتماد",
     "show beneficiaries": "عرض المستفيدين",
     "add beneficiary": "إضافة مستفيد",
     "edit beneficiary": "تعديل مستفيد",
@@ -240,6 +240,7 @@
     "Error Happend": "حدث خطأ",
     "choose a party": "قم بإختيار المستفيد",
     "added_successfully": "تم الحفظ بنجاح",
+    "fund_adjusment": "سند",
     "_1": "حوالة",
     "_3": "صرافة",
     "creditor": "دائن",
@@ -367,7 +368,14 @@
     "outcoming receipt": "إيصال صرف",
     "exchange rate to usd": "معامل التحويل للدولار",
     "you dont have active accounts": "انت لا تمتلك حسابات للترحيل",
-    "amount to transfer": "المبلغ للتحويل",
     "dashboard-inventory": "واجهة الجرد",
-    "transferred amount": "المبلغ المحول"
+    "amount to transfer": "المبلغ للتحويل",
+    "transferred amount": "المبلغ المحول",
+    "final amount received": "المبلغ المستلم",
+    "shortage in real balance": "عجز في الصندوق الفعلي",
+    "excess in real balance": "زيادة في الصندوق الفعلي",
+    "dashboard-settings-settings": "إعدادات الموقع",
+    "the allowed time to delete": "المدة للحذف بعد الحفظ بالدقائق",
+    "You can't delete, more time than the allowed has passed": "لا يمكنك الحذف لانتهاء فترة الحذف المسموح بها",
+    "app settings": "إعدادات الموقع"
 }

@@ -7,6 +7,7 @@
       >{{ $t(text) }}</label
     >
     <v-text-field
+    min="0"
       :maxlength="maxlength || '30'"
       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
       color="#FF7171"
@@ -47,7 +48,7 @@ export default {
       default: false,
     },
     maxlength: {
-      type: Number,
+      type: [Number, String],
     },
     disabledd: {
       type: Boolean,

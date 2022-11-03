@@ -33,7 +33,7 @@
             </v-col>
             <v-col class="text-center pb-0 black-font" cols="12">
               <div class="black-font" style="color: rgba(139, 139, 139, 0.93)">
-                {{ cards[index].balance }}
+                {{ parseFloat(cards[index].balance || 0) | money }}
               </div>
             </v-col>
             <v-col class="text-center pb-0 black-font" cols="12">
@@ -93,10 +93,10 @@
               {{ $t("unbalanced") }}
               <br />
               <p style="font-size: small" v-if="cards[index].balance > 0">
-                ({{ $t("excess in box") }})
+                ({{ $t("shortage in real balance") }})
               </p>
               <p style="font-size: small" v-else>
-                ({{ $t("shortage in box") }})
+                ({{ $t("excess in real balance") }})
               </p>
             </div>
           </v-card>
@@ -144,7 +144,7 @@ export default {
   },
   methods: {
     addTrans(val, index) {
-      if (val.length == 0) return;
+      if (val.length == 0 || parseFloat(val) == 0) return;
       this.trans[index].push(parseFloat(val));
       this.cards[index].amount = null;
       this.cards[index].balance -= parseFloat(val);

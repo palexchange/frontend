@@ -73,7 +73,7 @@
             <v-col cols="12" sm="4" xs="12">
               <div
                 @mouseenter="(v) => (show_delete = true)"
-                  @mouseleave="(v) => (show_delete = false)"
+                @mouseleave="(v) => (show_delete = false)"
                 :style="
                   show_delete
                     ? 'background: rgba(0, 0, 0, 0.5);width: 100px;position: relative;'
@@ -81,7 +81,6 @@
                 "
               >
                 <img
-                
                   style="width: 100px"
                   :style="show_delete ? 'opacity: 0.2; ' : ''"
                   :src="form.image ? form.image.url : ''"

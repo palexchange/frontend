@@ -381,5 +381,6 @@
     "You can't delete, more time than the allowed has passed": "لا يمكنك الحذف لانتهاء فترة الحذف المسموح بها",
     "select all": "اختيار الكل",
     "final amount to give in usd": "المبلغ للتسليم بالدولار",
+    "transfer image": "صورة الحوالة",
     "app settings": "إعدادات الموقع"
 }

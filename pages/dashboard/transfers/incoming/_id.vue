@@ -8,14 +8,14 @@
     />
     <Card class="mb-5 pt-3 pl-3 pr-6">
       <v-row>
-        <v-col cols="12" md="6" sm="12">
+        <v-col cols="12" md="8" sm="12">
           <v-row>
-            <v-col cols="12" sm="12" md="4">
+            <v-col cols="12" sm="12" md="3">
               <Title title="add incoming transfer"></Title>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" sm="12" md="4">
+            <v-col>
               <AutoComplete
                 required
                 v-model="item.delivering_type"
@@ -32,31 +32,37 @@
                 holder="test"
               />
             </v-col>
-            <v-col cols="12" md="4" sm="12">
+            <v-col cols="12" md="3" sm="12">
               <InputField
                 :value="officeProfitComp | money"
                 dashed
                 text="palestinian profit"
               />
             </v-col>
+            <v-col>
+              <InputField v-model="item.number" text="refrence number" />
+            </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" md="6" sm="12">
+        <v-col cols="12" md="4" sm="12">
           <v-row no-gutters class="flex-column text-h6">
-            <v-col class="align-self-strach text-left mb-4">
+            <v-col
+              v-if="$route.params.id"
+              class="align-self-strach text-left mb-4"
+            >
               <span>
                 {{ $t("transfer number") }}
-                <span class="show-text">{{ item.id }}#</span>
+                <span class="show-text"
+                  >{{
+                    (charMap[item.delivering_type] || "") + (item.id || "")
+                  }}#</span
+                >
               </span>
             </v-col>
 
             <v-col class="text-left mb-4">
-              {{ $t("refrence number")
-              }}<span class="show-text"
-                >{{
-                  (charMap[item.delivering_type] || "") + (item.id || "")
-                }}#</span
-              >
+              {{ $t("refrence number") }}
+              <span class="show-text"> #</span>
             </v-col>
             <v-col class="text-left mb-4">
               {{ $t("transfer stats") }}<span class="show-text">مسودة</span>
@@ -163,10 +169,35 @@
               v-model="item.receiver_id_no"
             />
           </v-col>
+          <v-col cols="12" md="2" sm="6" lg="2">
+            <label
+              style="color: rgba(139, 139, 139, 0.93)"
+              :class="
+                item.delivering_type == 2 ? 'required form-label' : 'form-label'
+              "
+              >{{ $t("transfer image") }}</label
+            >
+            <v-file-input
+              min="0"
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              dashed
+              :required="true"
+              outlined
+              v-on="$listeners"
+              v-model="transfer_photo"
+              :rules="rulesss.requiredRules"
+              :placeholder="$t('transfer image')"
+              prepend-icon=""
+              prepend-inner-icon="fa-solid fa-image"
+            />
+          </v-col>
+
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
               <AutoComplete text="country" holder="country" required />
             </v-col> -->
-          <v-col cols="12" md="3" sm="6">
+          <v-col cols="12" md="2" sm="6">
             <InputField
               holder="address"
               text="address"
@@ -523,6 +554,7 @@ export default {
   data() {
     return {
       receiver_id_image: null,
+      transfer_photo: null,
       showReadOnly: false,
       rulesss: ruless(this),
 
@@ -667,7 +699,21 @@ export default {
   },
   methods: {
     confirmProcess() {
-      this.$save(this.item, "transfer", null, "/dashboard/transfers");
+      this.$save(this.item, "transfer", null, "/dashboard/transfers").then(
+        (data) => {
+          if (this.transfer_photo) {
+            this.$save(
+              {
+                file: this.transfer_photo,
+                attachable_type: 1,
+                attachable_id: data.id,
+                silent: true,
+              },
+              "file"
+            );
+          }
+        }
+      );
       // console.log(this.item);
     },
     setReceiverDate(item) {

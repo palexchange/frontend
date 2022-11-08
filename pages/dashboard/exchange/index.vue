@@ -211,7 +211,7 @@
                       changed_ex_amount(items[i], i, v);
                     }
                   "
-                  class="mt-4"
+                  class="mt-4 text-input" 
                   min="0"
                   color="#FF7171"
                   style="border-radius: 7px !important"
@@ -225,7 +225,7 @@
                   hide-details
                   @keydown.enter="changed_ex_factor(items[i], $event)"
                   @blur="changed_ex_factor(items[i], $event)"
-                  class="mt-4"
+                  class="mt-4 text-input" 
                   min="0"
                   color="#FF7171"
                   style="border-radius: 7px !important"
@@ -237,7 +237,7 @@
                 <v-text-field
                   :value="items[i].modified_factor"
                   hide-details
-                  class="mt-4"
+                  class="mt-4 text-input" 
                   min="0"
                   style="border-radius: 7px !important"
                   dense
@@ -687,5 +687,9 @@ export default {
     min-width: 300px !important;
     max-width: 300px !important;
   }
+}
+.text-input input{
+font: 1.2em sans-serif;
+font-weight: 700;
 }
 </style>

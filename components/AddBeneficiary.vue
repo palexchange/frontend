@@ -153,7 +153,12 @@ export default {
       this.$save(this.form, "party").then((data) => {
         if (this.photo) {
           this.$save(
-            { file: this.photo, attachable_type: 4, attachable_id: data.id },
+            {
+              file: this.photo,
+              attachable_type: 4,
+              attachable_id: data.id,
+              silent: true,
+            },
             "file"
           );
         }

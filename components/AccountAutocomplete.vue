@@ -22,13 +22,25 @@
       :item-value="item_value ? item_value : 'id'"
     >
       <template v-slot:prepend-item>
-        <v-btn
-          depressed
-          block
-          @click="$store.dispatch('setDialog', { name: 'AddAccount' })"
-        >
-          {{ $t("add account") }}
-        </v-btn>
+        <div>
+          <v-btn
+            color="#E0E0FF"
+            depressed
+            block
+            @click="$store.dispatch('setDialog', { name: 'AddAccount' })"
+          >
+            {{ $t("add account") }}
+          </v-btn>
+          <v-btn
+            color="#E0E0FF"
+            v-if="select_all"
+            depressed
+            block
+            @click="$emit('select_all', filter ? all.filter(filter) : all)"
+          >
+            {{ $t("select all") }}
+          </v-btn>
+        </div>
       </template>
     </v-autocomplete>
   </div>
@@ -73,6 +85,10 @@ export default {
     outlined: {
       type: Boolean,
       default: true,
+    },
+    select_all: {
+      type: Boolean,
+      default: false,
     },
     filter: {
       type: Function,

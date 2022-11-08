@@ -66,21 +66,42 @@
                   <v-expand-transition>
                     <v-card flat v-show="expand">
                       <AccountAutocomplete
+                        @select_all="(v) => selectAll(v)"
                         multiple
                         deletable-chips
                         allow-overflow
                         chips
+                        select_all
+                        :params="{ per_page: -1, type_id: 3 }"
                         return-object
                         :filter="filter"
                         v-model="user_account"
                         item_value="acount_id"
                         text="account"
                         holder="account"
-                      ></AccountAutocomplete>
+                      >
+                      </AccountAutocomplete>
                       <table class="text-center user_account-table">
                         <tr>
                           <th>الحساب</th>
-                          <th>الحالة</th>
+                          <th>
+                            <v-row dense no-gutters class="align-center">
+                              <v-col> الحالة</v-col>
+                              <v-col>
+                                <v-switch
+                                  dense
+                                  @change="(v) => change_all_states(v)"
+                                  :true-value="1"
+                                  :false-value="0"
+                                  flat
+                                  hide-details
+                                  ripple
+                                  v-model="all_status"
+                                >
+                                </v-switch>
+                              </v-col>
+                            </v-row>
+                          </th>
                           <th>تاريخ الإنشاء</th>
                         </tr>
                         <tr :key="i" v-for="(account, i) in user_account">
@@ -132,6 +153,7 @@ export default {
     return {
       expand: false,
       validated: false,
+      all_status: false,
 
       user_account: [],
       form: {
@@ -141,12 +163,17 @@ export default {
     };
   },
   methods: {
+    change_all_states(status) {
+      console.log("test +asd +Asd A+S d+A da=s ", status);
+      this.all_status = status;
+      this.user_account.forEach((v) => {
+        v.status = status;
+      });
+    },
     save() {
       this.$save(this.form, "user").then((data) => {
         if (this.expand && this.user_account[0] && data) {
           this.user_account.forEach((v) => {
-            console.log("==============");
-            console.log(v);
             let item = {
               account_id: v.account_id,
               currency_id: v.currency_id,
@@ -166,18 +193,19 @@ export default {
         v.currency_id > 0;
       };
     },
-    selectAll() {
-      let ids = this.users.map((v) => v.id);
-      if (this.item.user_ids) {
-        if (ids.length == this.item.user_ids.length) {
-          this.item.user_ids = [];
-        } else {
-          this.item.user_ids = ids;
-        }
-      } else {
-        this.item.user_ids = ids;
-      }
-      this.key++;
+    selectAll(v) {
+      // let ids = this.user_accounts;
+      this.user_account = v;
+      // if (this.item.user_ids) {
+      //   if (ids.length == this.item.user_ids.length) {
+      //     this.item.user_ids = [];
+      //   } else {
+      //     this.item.user_ids = ids;
+      //   }
+      // } else {
+      //   this.item.user_ids = ids;
+      // }
+      // this.key++;
     },
   },
   computed: {
@@ -247,5 +275,12 @@ export default {
 }
 .user_account-table th {
   padding: 5px;
+}
+.user_account-table .v-input--selection-controls {
+  margin-top: 0px;
+  padding-top: 4px;
+}
+.user_account-table tr:nth-child(even) {
+  background: rgb(230, 230, 230);
 }
 </style>

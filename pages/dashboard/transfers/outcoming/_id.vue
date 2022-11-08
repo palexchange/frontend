@@ -1,5 +1,10 @@
 <template>
   <div>
+    <SideInfoTransfer
+      :profit="item.profit"
+      :officeProfitComp="officeProfitComp"
+      :t_type="item.delivering_type"
+    />
     <Card class="mb-5 pt-3 pl-3 pr-6">
       <v-row>
         <v-col cols="12" md="6" sm="12">
@@ -876,6 +881,7 @@ export default {
     flex-basis: 18% !important;
   }
 }
+
 /* .theme--light.v-input input::placeholder, 
 .theme--light.v-input textarea::placeholder{
    color: rgb(0, 0, 0 , 1) !important;

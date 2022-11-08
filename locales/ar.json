@@ -164,7 +164,7 @@
     "beneficiary": "المستفيد",
     "another expenses": "مصاريف اخري",
     "mobile": "رقم الهانف",
-    "converting to dollar amount": "سعر التحويل لدولار",
+    "converting to dollar amount": "سعر التحويل للدولار",
     "outcoming": "صادرة",
     "field_is_required": "هذا الحقل مطلوب",
     "refrence number": "الرقم المرجعي",
@@ -359,7 +359,9 @@
     "This action is unauthorized.": "لا تمتلك الصلاحية لإستكمال هذا الاجراء",
     "final amount to office in usd": "مبلغ المكتب النهائي بالدولار",
     "excess in box": "فائض في الصندوق",
+    "confirm deletion": "تأكيد الحذف",
     "inventory": "الجرد",
+    "yes": "نعم",
     "amount in usd": "المبلغ بالدولار",
     "debtor in usd": "مدين بالدولار",
     "credetor in usd": "دائن بالدولار",
@@ -377,5 +379,7 @@
     "dashboard-settings-settings": "إعدادات الموقع",
     "the allowed time to delete": "المدة للحذف بعد الحفظ بالدقائق",
     "You can't delete, more time than the allowed has passed": "لا يمكنك الحذف لانتهاء فترة الحذف المسموح بها",
+    "select all": "اختيار الكل",
+    "final amount to give in usd": "المبلغ للتسليم بالدولار",
     "app settings": "إعدادات الموقع"
 }

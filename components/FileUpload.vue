@@ -4,6 +4,7 @@
       id="foo"
       ref="el"
       :options="options"
+      @vdropzone-error="error_handle"
       @vdropzone-removed-file="removed"
       @vdropzone-success="success"
       @vdropzone-sending="vsending"
@@ -34,7 +35,7 @@ export default {
     return {
       files: null,
       is_destroying: false,
-      id: null,
+      photo: null,
       options: {
         // acceptedFiles: null,
         /**
@@ -42,7 +43,7 @@ export default {
          * Use acceptedFiles instead.
          */
         // acceptedMimeTypes: null,
-        url: "null",
+        url: "http://localhost:8000/api/file",
         params: {},
         uploadMultiple: false,
         addRemoveLinks: true,
@@ -58,6 +59,20 @@ export default {
     };
   },
   methods: {
+    // msg_error(msg) {
+    //   return this.$swal.fire({
+    //     title: this.$t("Error"),
+    //     text: this.$t(msg),
+    //     icon: "error",
+    //     confirmButtonText: this.$t("Ok"),
+    //     confirmButtonColor: "#41b882",
+    //   });
+    // },
+    error_handle(files, message, xhr) {
+      console.log("message");
+      console.log(message);
+      // this.msg_error(this.$t(message));
+    },
     getAllFiles() {
       this.files = this.$refs.el.getAcceptedFiles();
     },
@@ -82,11 +97,15 @@ export default {
       alert("vduplicate");
     },
     vcanceled() {
-      this.id = null;
+      this.photo = null;
     },
     vsending(file, xhr, formData) {
+      console.log("vsending");
+      console.log("formData");
+      console.log(formData);
       xhr.abort();
-      this.id = file;
+      this.photo = file;
+      console.log("2wwwws");
     },
     removedfile: function (file) {
       var _ref;
@@ -109,21 +128,21 @@ export default {
       
       `;
     },
-    removed(file, xhr, error) {
-      if (this.is_destroying) {
-        return;
-      }
-      if (file.upload.uuid == this.uuid) {
-        this.$store.dispatch("file/delete", { id: this.id });
-        this.id = null;
-      }
+    // removed(file, xhr, error) {
+    //   if (this.is_destroying) {
+    //     return;
+    //   }
+    //   if (file.upload.uuid == this.uuid) {
+    //     this.$store.dispatch("file/delete", { id: this.photo });
+    //     this.photo = null;
+    //   }
 
-      // window.toastr.warning('', 'Event : vdropzone-removedFile')
-    },
-    success(file, response) {
-      this.id = response.data.id;
-      this.uuid = file.upload.uuid;
-    },
+    //   // window.toastr.warning('', 'Event : vdropzone-removedFile')
+    // },
+    // success(file, response) {
+    //   this.photo = response.data.id;
+    //   this.uuid = file.upload.uuid;
+    // },
     // added(file) {
     // this.options.params.uuid = file.upload.uuid;
     // window.toastr.warning('', 'Event : vdropzone-removedFile')
@@ -142,7 +161,7 @@ export default {
       },
       immediate: true,
     },
-    id(val) {
+    photo(val) {
       this.$emit("input", val);
     },
   },

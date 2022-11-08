@@ -50,6 +50,10 @@
           </v-col>
         </v-row>
       </template>
+
+      <template v-slot:[`item.${nums}`]="{ item, index }">
+        {{ index + 1 }}
+      </template>
       <template v-slot:item.actions="{ item }">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -91,6 +95,9 @@
           </v-list>
         </v-menu>
       </template>
+      <template v-slot:item.image="{ item }">
+        <img width="60" :src="item.image ? item.image.url : ''" alt="" />
+      </template>
     </v-data-table>
     <v-pagination
       class="mt-5"
@@ -108,6 +115,7 @@
 import { mapState } from "vuex";
 import { saveAs } from "file-saver";
 import menus from "../helpers/menus";
+// import ThirdVue from "./charts/Third.vue";
 
 export default {
   props: {
@@ -129,6 +137,10 @@ export default {
     no_class: {
       type: Boolean,
       defualt: false,
+    },
+    nums: {
+      type: String,
+      defualt: null,
     },
     hidden_headers: Array,
   },
@@ -193,7 +205,10 @@ export default {
       },
       headers: function (state) {
         if (this.module) {
-          return state[this.module]?.headers || [];
+          let h = state[this.module]?.headers || [];
+          let w = JSON.parse(JSON.stringify(h));
+          if (this.nums) w.unshift(this.nums);
+          return w;
         }
       },
       functions: function (state) {
@@ -229,10 +244,6 @@ export default {
   watch: {
     options: {
       handler(val) {
-        console.log("in options");
-        console.log(this.options.itemsPerPage);
-        console.log(this.loaded);
-        console.log("this.loaded");
         // this.loaded = true;
         if (this.loaded && this.options.itemsPerPage > -2) {
           this.$store.dispatch(`${this.module}/index`, {

@@ -1,6 +1,11 @@
 
 <template>
   <div>
+    <SideInfoTransfer
+      :profit="item.profit"
+      :officeProfitComp="officeProfitComp"
+      :t_type="item.delivering_type"
+    />
     <Card class="mb-5 pt-3 pl-3 pr-6">
       <v-row>
         <v-col cols="12" md="6" sm="12">
@@ -113,10 +118,10 @@
                 }
               "
               return-object
-              :value="item.reciver_party_id"
+              :value="item.receiver_party_id"
             />
           </v-col>
-          <v-col ccols="12" md="4" sm="6" lg="2">
+          <v-col v-if="!receiver_id_image" cols="12" md="4" sm="6" lg="2">
             <label
               style="color: rgba(139, 139, 139, 0.93)"
               :class="
@@ -129,7 +134,7 @@
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
-              :disabled="dashed"
+              dashed
               :required="true"
               outlined
               v-on="$listeners"
@@ -139,12 +144,15 @@
               prepend-inner-icon="fa-solid fa-image"
             />
           </v-col>
+          <v-col v-else cols="12" md="4" sm="6" lg="2">
+            <img width="70" :src="receiver_id_image" alt="" />
+          </v-col>
           <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
               holder="mobile"
               text="mobile"
               required
-              v-model="item.reciver_phone"
+              v-model="item.receiver_phone"
             />
           </v-col>
           <v-col cols="12" md="4" sm="6" lg="2">
@@ -152,7 +160,7 @@
               holder="id_no"
               text="id_no"
               required
-              v-model="item.id_no"
+              v-model="item.receiver_id_no"
             />
           </v-col>
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
@@ -162,7 +170,7 @@
             <InputField
               holder="address"
               text="address"
-              v-model="item.reciver_address"
+              v-model="item.receiver_address"
             />
           </v-col>
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
@@ -179,7 +187,7 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" md="3" sm="12">
-            <v-radio-group mandatory v-model="item.commision_side" row>
+            <v-radio-group mandatory v-model="item.commission_side" row>
               <v-radio :value="2" label="العمولة علي المستلم"></v-radio>
             </v-radio-group>
           </v-col>
@@ -193,31 +201,157 @@
               slot="append"
               hide-details
               :label="
-                item.is_commision_percentage
+                item.is_commission_percentage
                   ? `${$t('commission')} %`
                   : $t('commission')
               "
               :append-icon="
-                item.is_commision_percentage == false
+                item.is_commission_percentage == false
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
               @click:append="
                 () =>
-                  (item.is_commision_percentage = !item.is_commision_percentage)
+                  (item.is_commission_percentage =
+                    !item.is_commission_percentage)
               "
-              v-model.number="item.commission"
+              v-model.number="item.transfer_commission"
             >
             </v-text-field>
           </v-col>
         </v-row>
       </v-card-text>
     </Card>
+    <Card class="mb-5 pa-3">
+      <v-card-title>المكتب المرسل للحوالة</v-card-title>
+      <v-card-text>
+        <v-row class="responseveCols">
+          <v-col cols="12" sm="2">
+            <BeneficiaryAutocomplete
+              holder="المكتب المرسل للحوالة"
+              text="المكتب المرسل للحوالة"
+              required
+              v-model="item.office_id"
+            />
+          </v-col>
+          <v-col cols="12" sm="2" v-show="!is_moneygram">
+            <InputField
+              v-model.number="item.to_send_amount"
+              holder="المبلغ المرسل للحوالة"
+              text="المبلغ المرسل للحوالة"
+              required
+            />
+          </v-col>
+          <v-col cols="12" sm="2">
+            <AutoComplete
+              v-model="item.office_currency"
+              @change="
+                (v) => {
+                  signCurrency(
+                    'exchange_rate_to_office_currency',
+                    'exchange_rate_to_office_currency_view',
+                    'sale',
+                    v,
+                    { id: 1 }
+                  );
+                  item.office_currency_id = v.id;
+                }
+              "
+              return-object
+              :items="currencies"
+              item-name="name"
+              holder="currency to office"
+              text="currency to office"
+              required
+            />
+          </v-col>
 
+          <v-col cols="12" sm="2" v-show="!is_moneygram">
+            <InputField
+              v-model.number="item.exchange_rate_to_office_currency_view"
+              @input="
+                (new_value) => {
+                  showConversionFactor(
+                    item.office_currency,
+                    'exchange_rate_to_office_currency',
+                    new_value
+                  );
+                }
+              "
+              holder="converting to dollar amount"
+              text="converting to dollar amount"
+              required
+            />
+          </v-col>
+          <!-- <v-col cols="12" sm="3" v-show="!is_moneygram">
+            <InputField
+              :value="officeAmount | money"
+              dashed
+              holder="office amount"
+              text="office amount"
+            />
+          </v-col> -->
+          <v-col cols="12" sm="2" v-show="!is_moneygram">
+            <label class="required form-label">
+              {{ item.office_commision_type == 1 ? "%" : "" }}
+              عمولة علي المكتب
+            </label>
+            <v-text-field
+              v-model.number="item.office_commision"
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+              slot="append"
+              hide-details
+              required
+              :append-icon="
+                item.office_commision_type == 0
+                  ? 'fas fa-sort-numeric-up-alt'
+                  : 'fas fa-percentage'
+              "
+              @click:append="
+                () =>
+                  (item.office_commision_type =
+                    item.office_commision_type == 1 ? 0 : 1)
+              "
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2" v-show="!is_moneygram">
+            <!--  (يتم خصم المبلغ من المبلغ المرسل)" -->
+            <InputField
+              v-model.number="item.returned_commision"
+              holder="مرجع للمكتب"
+              text="مرجع للمكتب"
+              required
+            />
+          </v-col>
+          <v-col cols="12" sm="3" v-show="!is_moneygram">
+            <InputField
+              :value="totalOfficeAmount | money"
+              dashed
+              holder="final amount to office"
+              text="final amount to office"
+            />
+          </v-col>
+          <!-- </v-row>
+        <v-row dense> -->
+          <v-col cols="12" sm="3">
+            <InputField
+              :value="item.office_amount | money"
+              dashed
+              holder="final amount to office in usd"
+              text="final amount to office in usd"
+            />
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </Card>
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات الحوالة المالية </v-card-title>
       <v-card-text>
-        <v-row class="justify-center responseveCols">
+        <!-- <v-row class="justify-center responseveCols">
           <v-col>
             <InputField
               v-model.number="item.to_send_amount"
@@ -244,8 +378,8 @@
               :items="currencies"
               item-name="name"
               return-object
-              text="currency"
-              holder="currency"
+              text="العملة الإستلام"
+              holder="العملة الإستلام"
               required
             />
           </v-col>
@@ -280,7 +414,7 @@
           <v-col class="text-center responseveCols">
             <img src="~/assets/img/icons/to.png" alt="" />
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <v-row class="justify-center">
           <v-col>
@@ -290,8 +424,8 @@
                   signCurrency(
                     'exchange_rate_to_reference_currency',
                     'exchange_rate_to_reference_currency',
-                    'sale',
-                    this.currencies[0],
+                    'buy',
+                    { id: this.item.office_currency_id },
                     v
                   );
                   item.received_currency_id = v.id;
@@ -323,113 +457,13 @@
               required
             />
           </v-col>
-        </v-row>
-      </v-card-text>
-    </Card>
-
-    <Card class="mb-5 pa-3">
-      <v-card-title>المكتب</v-card-title>
-      <v-card-text>
-        <v-row class="justify-center responseveCols">
-          <v-col cols="3">
-            <BeneficiaryAutocomplete
-              holder="beneficiary"
-              text="beneficiary"
-              required
-              v-model="item.office_id"
-            />
-          </v-col>
-
-          <v-col>
-            <AutoComplete
-              v-model="item.office_currency"
-              @change="
-                (v) => {
-                  signCurrency(
-                    'exchange_rate_to_office_currency',
-                    'exchange_rate_to_office_currency_view',
-                    'mid',
-                    item.delivery_currency,
-                    v
-                  );
-                  item.office_currency_id = v.id;
-                }
-              "
-              return-object
-              :items="currencies"
-              item-name="name"
-              holder="currency to office"
-              text="currency to office"
-              required
-            />
-          </v-col>
-
           <v-col>
             <InputField
-              v-model.number="item.exchange_rate_to_office_currency_view"
-              @input="
-                (new_value) => {
-                  showConversionFactor(
-                    item.office_currency,
-                    'exchange_rate_to_office_currency',
-                    new_value
-                  );
-                }
-              "
-              holder="conversion price"
-              text="conversion price"
-              required
-            />
-          </v-col>
-          <v-col>
-            <InputField
-              :value="officeAmount | money"
+              :value="item.a_received_amount | money"
               dashed
-              holder="office amount"
-              text="office amount"
-            />
-          </v-col>
-          <v-col>
-            <label class="required form-label">
-              {{ item.office_commision_type == 1 ? "%" : "" }}
-              عمولة المكتب
-            </label>
-            <v-text-field
-              v-model.number="item.office_commision"
-              color="#FF7171"
-              style="border-radius: 0px !important"
-              dense
-              outlined
-              slot="append"
-              hide-details
+              holder="final amount to give in usd"
+              text="final amount to give in usd"
               required
-              :append-icon="
-                item.office_commision_type == 0
-                  ? 'fas fa-sort-numeric-up-alt'
-                  : 'fas fa-percentage'
-              "
-              @click:append="
-                () =>
-                  (item.office_commision_type =
-                    item.office_commision_type == 1 ? 0 : 1)
-              "
-            >
-            </v-text-field>
-          </v-col>
-          <v-col cols="1">
-            <InputField
-              v-model.number="item.returned_commision"
-              holder="returned"
-              text="returned"
-              required
-            />
-          </v-col>
-          <v-col>
-            <InputField
-              :value="totalOfficeAmount | money"
-              dashed
-              holder="final amount to office"
-              text="final amount to office"
             />
           </v-col>
         </v-row>
@@ -485,9 +519,13 @@
 import { mapState } from "vuex";
 import ruless from "~/helpers/rules";
 export default {
+  name: "incoming-transfer",
   data() {
     return {
+      receiver_id_image: null,
+      showReadOnly: false,
       rulesss: ruless(this),
+
       transfer_types: [
         { id: 1, name: "تسليم يد" },
         { id: 2, name: "موني غرام" },
@@ -500,18 +538,19 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
-        commision_side: 2,
+        status: 1,
+        commission_side: 2,
         type: 1,
         reference_currency_id: 1,
-        reciver_phone: null,
-        reciver_address: null,
+        receiver_phone: null,
+        receiver_address: null,
         receiver_notes: null,
         sender_id_no: null,
         sender_phone: null,
         sender_address: null,
-        is_commision_percentage: false,
+        is_commission_percentage: false,
         office_commision_type: 0,
-        exchange_rate_to_delivery_currency: null,
+        exchange_rate_to_delivery_currency: 0,
         exchange_rate_to_delivery_currency_view: null,
         exchange_rate_to_reference_currency: null,
         exchange_rate_to_office_currency: null,
@@ -534,6 +573,9 @@ export default {
   //       }
   // },
   computed: {
+    is_moneygram() {
+      return this.delivering_type == 2;
+    },
     recivedAmountInUSDComp() {
       let amount = this.item.to_send_amount || 0;
       let ratio = this.item.exchange_rate_to_delivery_currency || 0;
@@ -542,12 +584,27 @@ export default {
       return res == 0 ? null : res;
     },
     finalAmountToDeliverComp() {
-      let recvAmountInUSD = parseFloat(this.recivedAmountInUSDComp || 0);
-      let ratio = this.item.exchange_rate_to_reference_currency || null;
-      if (ratio == null) return;
-      let amountToDelv = recvAmountInUSD * ratio;
-      this.item.received_amount = amountToDelv;
-      return amountToDelv;
+      // let recvAmountInUSD = parseFloat(this.recivedAmountInUSDComp || 0);
+      // let ratio = this.item.exchange_rate_to_reference_currency || null;
+      // if (ratio == null) return;
+      // let amountToDelv = recvAmountInUSD * ratio;
+      // this.item.received_amount = amountToDelv;
+      let office_amount = this.item.to_send_amount;
+      this.item.final_received_amount = office_amount;
+
+      let exchange_rate = this.item.exchange_rate_to_reference_currency;
+      console.log(exchange_rate);
+      // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
+      let tottal = parseFloat(office_amount * exchange_rate);
+
+      this.item.a_received_amount =
+        tottal *
+        this.$newCalcSalePrice(
+          { id: this.item.received_currency_id },
+          { id: 1 }
+        );
+      this.item.received_amount = tottal;
+      return tottal;
     },
     officeAmount() {
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
@@ -561,31 +618,48 @@ export default {
     },
     totalOfficeAmount() {
       let commission = this.item.office_commision || 0,
-        officeAmount = parseFloat(this.officeAmount || 0);
+        officeAmount = parseFloat(this.item.to_send_amount || 0);
       let returned = this.item.returned_commision || 0;
       commission =
         this.item.office_commision_type == 1
           ? (commission / 100) * officeAmount
           : commission;
-      let tempVar = officeAmount - commission + returned;
+      let tempVar = officeAmount - returned + commission;
 
       this.rounedRes = parseFloat(Number(tempVar).toFixed(0) || null);
       //   console.log("Rounded: ", rounedRes);
       this.totalOfficeAmountFraction = -(this.rounedRes - tempVar);
+
+      this.item.office_amount = this.item.exchange_rate_to_office_currency
+        ? tempVar * this.item.exchange_rate_to_office_currency
+        : tempVar;
       return tempVar ? this.rounedRes : null;
     },
     officeProfitComp() {
-      let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
-      let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
+      // let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
+      // let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
 
-      let recvCurr = this.item.office_currency || null;
-      if (recvCurr == undefined) return;
-      let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
-      let res = fromInDoller - finalOfficeAmount * convParam;
-      console.table({ fromInDoller, finalOfficeAmount, convParam, res });
-      //   let otherExp = this.item.other_amounts_on_receiver || 0;
-      if (this.totalOfficeAmountFraction > 0) res--;
-      return res + parseFloat(this.totalOfficeAmountFraction);
+      // let recvCurr = this.item.office_currency || null;
+      // if (recvCurr == undefined) return;
+      // let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
+      // let res = fromInDoller - finalOfficeAmount * convParam;
+      // console.table({ fromInDoller, finalOfficeAmount, convParam, res });
+      this.item.returned_commision;
+      this.item.office_commision;
+      let office_amount_usd =
+        this.finalAmountToDeliverComp *
+        this.$newCalcBuyPrice(
+          { id: this.item.received_currency_id },
+          { id: 1 }
+        );
+      let s = this.item.a_received_amount;
+      let total = office_amount_usd - s;
+
+      return (
+        total -
+        (this.item.returned_commision || 0) +
+        (this.item.office_commision || 0)
+      );
     },
     ...mapState({
       currencies: (state) => state.currency.all,
@@ -597,9 +671,11 @@ export default {
       // console.log(this.item);
     },
     setReceiverDate(item) {
-      this.item.reciver_id_no = item.id_no;
-      this.item.reciver_phone = item.mobile;
-      this.item.reciver_address = item.address;
+      console.log(item);
+      this.item.receiver_id_no = item.id_no;
+      this.receiver_id_image = item.image ? item.image.url : null;
+      this.item.receiver_phone = item.phone;
+      this.item.receiver_address = item.address;
     },
     setSenderDate(item) {
       this.item.sender_id_no = item.id_no;
@@ -608,8 +684,8 @@ export default {
     },
     calcCommisson() {
       let to_send_amount = this.item.to_send_amount || 0;
-      let commisson_amount = this.item.commission || 0;
-      let percentage = this.item.is_commision_percentage;
+      let commisson_amount = this.item.transfer_commission || 0;
+      let percentage = this.item.is_commission_percentage;
       let amount = 0;
       if (commisson_amount > 0) {
         amount = percentage
@@ -685,6 +761,11 @@ export default {
   created() {
     this.$store.dispatch("currency/index");
     this.$store.dispatch("stock/index");
+  },
+  mounted() {
+    if (this.$route.query.show && this.$route.query.show == "true") {
+      this.showReadOnly = true;
+    }
   },
 };
 </script>

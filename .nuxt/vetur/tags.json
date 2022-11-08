@@ -86,6 +86,9 @@
   "RoleAutocomplete": {
     "description": "Auto imported from components/RoleAutocomplete.vue"
   },
+  "SideInfoTransfer": {
+    "description": "Auto imported from components/SideInfoTransfer.vue"
+  },
   "SideMenu": {
     "description": "Auto imported from components/SideMenu.vue"
   },
@@ -179,14 +182,14 @@
   "RoleShowPermission": {
     "description": "Auto imported from components/role/ShowPermission.vue"
   },
-  "SettingsAccounts": {
-    "description": "Auto imported from components/settings/Accounts/Index.vue"
-  },
   "SettingsCloseingAccountsCreate": {
     "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
   },
   "SettingsCloseingAccounts": {
     "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
+  },
+  "SettingsAccounts": {
+    "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
   "SettingsEntryCreate": {
     "description": "Auto imported from components/settings/Entry/Create.vue"

@@ -341,7 +341,7 @@ export default {
   computed: {
     ...mapState({
       all_currencies: (state) => state.currency.all,
-      user: (state) => state.user.one || {},
+      user: (state) => state.auth.user || {},
     }),
     exchange_profit() {
       let main_amount = parseFloat(this.exchange.amount || 0);
@@ -569,20 +569,20 @@ export default {
         this.$save({ ...details, silent: true }, "exchange_detail");
       }
       console.log("test __________-------------_______");
-      this.$store
-        .dispatch("exchange/update", {
-          id: response.id,
-          status: 1,
-          silent: true,
-        })
-        .then(() => {
-          this.$store.dispatch("user/show", this.$auth.user.id);
-        });
+      this.$store.dispatch("exchange/update", {
+        id: response.id,
+        status: 1,
+        silent: true,
+      });
+      // .then(() => {
+      //   this.$store.dispatch("user/show", this.$auth.user.id);
+      // });
 
       this.item = {};
       this.items = [];
       this.keyNum = this.keyNum + 1;
       this.addItems();
+      this.$auth.fetchUser();
     },
   },
   mounted() {
@@ -590,7 +590,7 @@ export default {
     if (this.all_currencies[0] && this.items.length == 0) {
       this.addItems();
     }
-    this.$store.dispatch("user/show", this.$auth.user.id);
+    // this.$store.dispatch("user/show", this.$auth.user.id);
   },
   created() {
     this.$store.dispatch("stock/index");

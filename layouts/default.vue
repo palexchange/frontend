@@ -64,7 +64,7 @@
       </v-menu>
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
-      <v-container>
+      <v-container style="max-width: 1340px !important">
         <!-- <Boxes /> -->
         <UserActiveAccounts />
         <Breadcrumbs />

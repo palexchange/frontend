@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     class="mian-side"
-    v-model="drawer"
+    v-model="model_drawer"
     :temporary="$vuetify.breakpoint.mobile"
     app
     style="border: none"
@@ -118,6 +118,9 @@ export default {
     ...mapState({
       user: (state) => state.auth.user,
     }),
+    model_drawer() {
+      return this.$vuetify.breakpoint.mobile ? this.drawer : "";
+    },
     // c_type() {
     //   let types = ["admin", "customer"];
     //   return types[this.user.type - 1];

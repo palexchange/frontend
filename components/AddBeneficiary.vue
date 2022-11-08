@@ -70,6 +70,33 @@
                 v-model="form.account_id"
               />
             </v-col>
+            <v-col cols="12" sm="4" xs="12">
+              <div
+                @mouseenter="(v) => (show_delete = true)"
+                  @mouseleave="(v) => (show_delete = false)"
+                :style="
+                  show_delete
+                    ? 'background: rgba(0, 0, 0, 0.5);width: 100px;position: relative;'
+                    : ''
+                "
+              >
+                <img
+                
+                  style="width: 100px"
+                  :style="show_delete ? 'opacity: 0.2; ' : ''"
+                  :src="form.image ? form.image.url : ''"
+                  alt=""
+                />
+                <v-btn
+                  @click="deletePhoto(form.image)"
+                  v-if="show_delete"
+                  outlined
+                  style="position: absolute; right: 7%; top: 34%"
+                >
+                  delete
+                </v-btn>
+              </div>
+            </v-col>
             <v-col class="pa-0" cols="12" xs="12">
               <FileUpload
                 v-model="photo"
@@ -78,11 +105,8 @@
               >
               </FileUpload>
             </v-col>
-            <v-col cols="12" xs="12">
-              <img :src="form.image ? form.image.url : ''" alt="" />
-            </v-col>
           </v-row>
-          <v-row dense class="button-responsive">
+          <v-row dense class="button-responsive mt-5">
             <v-col class="text-center">
               <v-btn
                 :disabled="!validated"
@@ -105,6 +129,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      show_delete: false,
       validated: false,
       photo: null,
       form: {
@@ -113,11 +138,23 @@ export default {
     };
   },
   methods: {
+    deletePhoto(image) {
+      this.$swal({
+        title: this.$t("confirm deletion"),
+        text: this.$t("are_you_sure"),
+        icon: "error",
+        confirmButtonText: this.$t("yes"),
+      }).then((v) => {
+        if (v.value) {
+          this.$store.dispatch(`file/delete`, image);
+        }
+      });
+    },
     save() {
       this.$save(this.form, "party").then((data) => {
         if (this.photo) {
           this.$save(
-            { file: this.photo, attachable_type: 2, attachable_id: data.id },
+            { file: this.photo, attachable_type: 4, attachable_id: data.id },
             "file"
           );
         }

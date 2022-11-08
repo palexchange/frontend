@@ -16,7 +16,7 @@
         </v-tab-item>
       </v-tabs>
     </v-card>
-    <data-table noActions module="report" hide_pagination />
+    <data-table noActions nums="#" module="report" hide_pagination />
   </div>
 </template>
 

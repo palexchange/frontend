@@ -2,7 +2,8 @@
   <div class="transfer_type_holder px-5 text-center">
     <InputField
       dashed
-      text="palestinian profit"
+      hide-details
+      :label="$t('profit')"
       :value="(profit || officeProfitComp) | money"
     />
     <img v-if="t_type == 2" width="100" src="/moneygram.png" alt="" />
@@ -29,7 +30,7 @@ export default {
   top: 150px;
   z-index: 500;
   left: 0px;
-  padding: 10px;
+  padding: 0 !important;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   /* height: 100px; */

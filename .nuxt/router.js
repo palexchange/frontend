@@ -15,6 +15,7 @@ const _0579105f = () => interopDefault(import('..\\pages\\dashboard\\beneficiari
 const _c9aadb62 = () => interopDefault(import('..\\pages\\dashboard\\exchange\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/index" */))
 const _3a7e7e6e = () => interopDefault(import('..\\pages\\dashboard\\inputs\\index.vue' /* webpackChunkName: "pages/dashboard/inputs/index" */))
 const _0f7a2ba6 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/index" */))
+const _2a61b1ea = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\index.vue' /* webpackChunkName: "pages/dashboard/moneygram/index" */))
 const _07d134a0 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\index.vue' /* webpackChunkName: "pages/dashboard/outputs/index" */))
 const _8d1a253a = () => interopDefault(import('..\\pages\\dashboard\\reports\\index.vue' /* webpackChunkName: "pages/dashboard/reports/index" */))
 const _6c58a44f = () => interopDefault(import('..\\pages\\dashboard\\settings\\index.vue' /* webpackChunkName: "pages/dashboard/settings/index" */))
@@ -28,12 +29,16 @@ const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\fo
 const _04809c03 = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
 const _9ce5c68c = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
 const _6e699d36 = () => interopDefault(import('..\\pages\\dashboard\\settings\\settings.vue' /* webpackChunkName: "pages/dashboard/settings/settings" */))
+const _63329911 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\temp.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/temp" */))
+const _47a89df9 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/temp_old" */))
 const _41abfd3c = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp" */))
 const _a3bd146c = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp_old" */))
 const _287ab703 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
 const _b68c7e1a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/exchange/form/_id" */))
 const _7f7fbb26 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/inputs/form/_id" */))
 const _6b42526c = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/inventory/form/_id" */))
+const _27533be6 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\_id.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/_id" */))
+const _433854bc = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\outcoming\\_id.vue' /* webpackChunkName: "pages/dashboard/moneygram/outcoming/_id" */))
 const _525bfbd4 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/outputs/form/_id" */))
 const _62767207 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/reports/form/_id" */))
 const _0ecfa8c8 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\_id.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/_id" */))
@@ -96,6 +101,10 @@ export const routerOptions = {
     component: _0f7a2ba6,
     name: "dashboard-inventory"
   }, {
+    path: "/dashboard/moneygram",
+    component: _2a61b1ea,
+    name: "dashboard-moneygram"
+  }, {
     path: "/dashboard/outputs",
     component: _07d134a0,
     name: "dashboard-outputs"
@@ -148,6 +157,14 @@ export const routerOptions = {
     component: _6e699d36,
     name: "dashboard-settings-settings"
   }, {
+    path: "/dashboard/moneygram/incoming/temp",
+    component: _63329911,
+    name: "dashboard-moneygram-incoming-temp"
+  }, {
+    path: "/dashboard/moneygram/incoming/temp_old",
+    component: _47a89df9,
+    name: "dashboard-moneygram-incoming-temp_old"
+  }, {
     path: "/dashboard/transfers/incoming/temp",
     component: _41abfd3c,
     name: "dashboard-transfers-incoming-temp"
@@ -171,6 +188,14 @@ export const routerOptions = {
     path: "/dashboard/inventory/form/:id",
     component: _6b42526c,
     name: "dashboard-inventory-form-id"
+  }, {
+    path: "/dashboard/moneygram/incoming/:id?",
+    component: _27533be6,
+    name: "dashboard-moneygram-incoming-id"
+  }, {
+    path: "/dashboard/moneygram/outcoming/:id?",
+    component: _433854bc,
+    name: "dashboard-moneygram-outcoming-id"
   }, {
     path: "/dashboard/outputs/form/:id",
     component: _525bfbd4,

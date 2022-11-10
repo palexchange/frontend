@@ -18,6 +18,15 @@ export default [
     }
   },
   {
+    icon: "moneygram.png",
+    title: "moneygram",
+    to: '/dashboard/moneygram',
+    types: {
+      admin: true,
+      customer: true
+    }
+  },
+  {
     icon: "3.png",
     title: "exchange",
     to: '/dashboard/exchange',

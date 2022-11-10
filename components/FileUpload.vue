@@ -100,12 +100,9 @@ export default {
       this.photo = null;
     },
     vsending(file, xhr, formData) {
-      console.log("vsending");
-      console.log("formData");
-      console.log(formData);
-      xhr.abort();
       this.photo = file;
-      console.log("2wwwws");
+      xhr.abort();
+      return;
     },
     removedfile: function (file) {
       var _ref;

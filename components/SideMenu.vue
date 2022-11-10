@@ -18,7 +18,7 @@
             <v-img src="/icons/logo.jpg"></v-img>
           </v-list-item-avatar>
 
-          <v-list-item-title class="text-center">
+          <v-list-item-title style="font-size:16px" class="text-center">
             {{ user.name }}
             <v-list-item-subtitle> {{ user.email }} </v-list-item-subtitle>
           </v-list-item-title>
@@ -40,7 +40,7 @@
             <img :src="getImgUrl(item.icon)" v-bind:alt="item.icon" />
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="$t(item.title)"></v-list-item-title>
+            <v-list-item-title style="font-size:16px" v-text="$t(item.title)"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-group
@@ -51,7 +51,7 @@
         >
           <template v-slot:activator>
             <v-list-item-content>
-              <v-list-item-title v-text="$t(item.title)"></v-list-item-title>
+              <v-list-item-title style="font-size:16px" v-text="$t(item.title)"></v-list-item-title>
             </v-list-item-content>
           </template>
 
@@ -70,7 +70,7 @@
               <v-icon></v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title v-text="$t(child.title)"></v-list-item-title>
+              <v-list-item-title style="font-size:16px" v-text="$t(child.title)"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>

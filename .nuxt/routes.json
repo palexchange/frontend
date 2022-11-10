@@ -77,6 +77,13 @@
     "_name": "_0f7a2ba6"
   },
   {
+    "name": "dashboard-moneygram",
+    "path": "/dashboard/moneygram",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\index.vue",
+    "chunkName": "pages/dashboard/moneygram/index",
+    "_name": "_2a61b1ea"
+  },
+  {
     "name": "dashboard-outputs",
     "path": "/dashboard/outputs",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\index.vue",
@@ -168,6 +175,20 @@
     "_name": "_6e699d36"
   },
   {
+    "name": "dashboard-moneygram-incoming-temp",
+    "path": "/dashboard/moneygram/incoming/temp",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\temp.vue",
+    "chunkName": "pages/dashboard/moneygram/incoming/temp",
+    "_name": "_63329911"
+  },
+  {
+    "name": "dashboard-moneygram-incoming-temp_old",
+    "path": "/dashboard/moneygram/incoming/temp_old",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\temp_old.vue",
+    "chunkName": "pages/dashboard/moneygram/incoming/temp_old",
+    "_name": "_47a89df9"
+  },
+  {
     "name": "dashboard-transfers-incoming-temp",
     "path": "/dashboard/transfers/incoming/temp",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\temp.vue",
@@ -208,6 +229,20 @@
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/inventory/form/_id",
     "_name": "_6b42526c"
+  },
+  {
+    "name": "dashboard-moneygram-incoming-id",
+    "path": "/dashboard/moneygram/incoming/:id?",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\_id.vue",
+    "chunkName": "pages/dashboard/moneygram/incoming/_id",
+    "_name": "_27533be6"
+  },
+  {
+    "name": "dashboard-moneygram-outcoming-id",
+    "path": "/dashboard/moneygram/outcoming/:id?",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\outcoming\\\\_id.vue",
+    "chunkName": "pages/dashboard/moneygram/outcoming/_id",
+    "_name": "_433854bc"
   },
   {
     "name": "dashboard-outputs-form-id",

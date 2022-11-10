@@ -382,5 +382,10 @@
     "select all": "اختيار الكل",
     "final amount to give in usd": "المبلغ للتسليم بالدولار",
     "transfer image": "صورة الحوالة",
+    "moneygram": "موني غرام",
+    "profit": "الربحية",
+    "dashboard-moneygram": "موني غرام",
+    "add outcoming moneygram": "موني غرام صادرة",
+    "add incoming moneygram": "موني غرام واردة",
     "app settings": "إعدادات الموقع"
 }

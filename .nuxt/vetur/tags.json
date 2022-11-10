@@ -170,6 +170,9 @@
   "FiltersReportFilter": {
     "description": "Auto imported from components/filters/ReportFilter.vue"
   },
+  "ReportsAccountingReport": {
+    "description": "Auto imported from components/reports/AccountingReport.vue"
+  },
   "RoleAdd": {
     "description": "Auto imported from components/role/Add.vue"
   },
@@ -178,9 +181,6 @@
   },
   "RoleShowPermission": {
     "description": "Auto imported from components/role/ShowPermission.vue"
-  },
-  "ReportsAccountingReport": {
-    "description": "Auto imported from components/reports/AccountingReport.vue"
   },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"

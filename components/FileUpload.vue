@@ -102,7 +102,7 @@ export default {
     vsending(file, xhr, formData) {
       this.photo = file;
       xhr.abort();
-      alert("test");
+      // alert("test"); meow moew meow moew
       return;
     },
     removedfile: function (file) {

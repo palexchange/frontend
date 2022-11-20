@@ -88,7 +88,7 @@
             ></v-col>
           </v-row>
         </v-col>
-        <v-col cols="3">
+        <!-- <v-col cols="3">
           <v-btn
             @click="
               stocks.push({
@@ -100,7 +100,7 @@
             color="primary"
             >add stock</v-btn
           >
-        </v-col>
+        </v-col> -->
         <!-- <v-col cols="12" class="align-self-center">
           <v-btn @click="dialog = true" block depressed>
             {{ $t("add currency") }}
@@ -110,7 +110,33 @@
     </v-card-text>
     <v-divider class="py-5"></v-divider>
     <v-card-actions class="justify-center">
-      <v-btn class="primary" @click="$save(stocks, 'stock')"> save </v-btn>
+      <v-row>
+        <v-col>
+          <v-btn class="primary" @click="save()">
+            {{ $t("save") }}
+          </v-btn>
+        </v-col>
+        <v-spacer></v-spacer>
+        <v-col>
+          <v-btn class="primary" @click="dialog2 = true">
+            {{ $t("commit for inventory") }}
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-dialog width="500" v-model="dialog2">
+        <v-sheet class="pa-5">
+          <h4>هل انت متأكد لحفظ الاسعار للجرد ؟</h4>
+          <v-btn
+            class="primary"
+            @click="
+              dialog2 = false;
+              save(true);
+            "
+            >نعم</v-btn
+          >
+          <v-btn @click="dialog2 = false">لا</v-btn>
+        </v-sheet>
+      </v-dialog>
     </v-card-actions>
     <v-card-text>
       <v-simple-table class="my-test">
@@ -184,15 +210,9 @@ export default {
         .toISOString()
         .substr(0, 10),
       dialog: false,
+      dialog2: false,
       currency: {},
       stocks: [],
-      currencies: [
-        { id: 1, name: "dollar", values: { sale: 1, buy: 1 } },
-        { id: 2, name: "denar", values: { sale: 0.708, buy: 0.706 } },
-        { id: 3, name: "shekel", values: { sale: 3.32, buy: 3.3 } },
-        { id: 4, name: "euro", values: { sale: 1.03, buy: 1.01 } },
-        { id: 5, name: "pound", values: { sale: 16, buy: 15 } },
-      ],
 
       numebr: 0,
       headers: ["dollar", "denar", "shekel", "euro", "pound"],
@@ -212,6 +232,25 @@ export default {
     }),
   },
   methods: {
+    save(commit) {
+      let dateTime = this.$getDateTime();
+      let stocks = this.stocks;
+      if (commit) {
+        stocks = stocks.map((v) => {
+          v.final_selling_price = v.start_selling_price;
+          v.final_purchasing_price = v.start_purchasing_price;
+          v.closed_at = dateTime;
+          return v;
+        });
+      } else {
+        stocks = stocks.map((v) => {
+          v.opened_at = dateTime;
+          return v;
+        });
+      }
+
+      this.$save(stocks, "stock");
+    },
     // generate_stocks(items) {
     //   return items.map((currency) => {
     //     return {

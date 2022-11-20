@@ -107,6 +107,10 @@ export default {
         status: 1,
         type: 1, // (type = 1) => input || (type =2) => output
       },
+      patams: {
+        is_transaction: true,
+        type_id: 4,
+      },
     };
   },
   computed: {

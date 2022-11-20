@@ -49,6 +49,7 @@ export default {
     updateAccount(v) {
       console.log(v);
       this.$save({ id: v.user_account_id, main: true }, "user_account");
+      this.$auth.fetchUser();
     },
   },
   mounted() {

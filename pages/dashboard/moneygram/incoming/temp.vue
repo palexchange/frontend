@@ -116,7 +116,7 @@
             </v-col>
             <v-col ccols="12" md="4" sm="6" lg="2">
               <label
-                style="color: rgba(139, 139, 139, 0.93)"
+                  style="color: rgba(0,0,0);font-size:16px;"
                 :class="
                   item.delivering_type == 2 ? 'required form-label' : 'form-label'
                 "

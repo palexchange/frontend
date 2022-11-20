@@ -5,13 +5,13 @@
       ref="el"
       :options="options"
       @vdropzone-error="error_handle"
-      @vdropzone-removed-file="removed"
-      @vdropzone-success="success"
       @vdropzone-sending="vsending"
       @vdropzone-canceled="vcanceled"
       @vdropzone-duplicate-file="vduplicate"
       @vdropzone-files-added="vadded"
     ></dropzone>
+    <!-- @vdropzone-removed-file="removed"
+      @vdropzone-success="success" -->
     <!-- @vdropzone-file-added="added" -->
     <!--   @vdropzone-sending="vsending" -->
   </div>
@@ -43,7 +43,7 @@ export default {
          * Use acceptedFiles instead.
          */
         // acceptedMimeTypes: null,
-        url: "http://localhost:8000/api/file",
+        url: "/",
         params: {},
         uploadMultiple: false,
         addRemoveLinks: true,
@@ -102,6 +102,7 @@ export default {
     vsending(file, xhr, formData) {
       this.photo = file;
       xhr.abort();
+      alert("test");
       return;
     },
     removedfile: function (file) {

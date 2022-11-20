@@ -2,12 +2,12 @@
   <div :class="dashed ? 'dashing' : ''">
     <label
       v-if="!no_lable"
-      style="color: rgba(139, 139, 139, 0.93)"
+      style="color: rgba(0, 0, 0); font-size: 16px"
       :class="required ? 'required form-label' : 'form-label'"
       >{{ $t(text) }}</label
     >
     <v-text-field
-    min="0"
+      min="0"
       :maxlength="maxlength || '30'"
       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
       color="#FF7171"
@@ -74,5 +74,8 @@ export default {
 <style lang="css">
 .dashing .v-text-field fieldset {
   border: rgb(143, 135, 135) dashed 2px !important;
+}
+.v-text-field input {
+  font-size: 20px;
 }
 </style>

@@ -44,9 +44,9 @@
         <v-col cols="12" md="5" sm="12">
           <v-row no-gutters class="flex-column text-h6">
             <v-col cols="12" class="align-self-strach text-left mb-4">
-              <span v-if="!showReadOnly">
+              <!-- <span v-if="!showReadOnly">
                 {{ $t("todays profit") }}<span class="show-text">000</span>
-              </span>
+              </span> -->
               <span>
                 {{ $t("transfer number") }}
                 <span class="show-text">{{ item.id }}#</span>
@@ -90,8 +90,34 @@
               "
             />
           </v-col>
+          <v-col v-if="!sender_id_image" cols="12" md="4" sm="6" lg="2">
+            <label
+              style="color: rgba(0, 0, 0); font-size: 16px"
+              :class="
+                item.delivering_type == 2 ? 'required form-label' : 'form-label'
+              "
+              >{{ $t("id image") }}</label
+            >
+            <v-file-input
+              required
+              min="0"
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              dashed
+              outlined
+              v-on="$listeners"
+              :placeholder="$t('id image')"
+              prepend-icon=""
+              prepend-inner-icon="fa-solid fa-image"
+            />
+          </v-col>
+          <v-col v-else cols="12" md="4" sm="6" lg="2">
+            <img width="70" :src="sender_id_image" alt="" />
+          </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
+              required
               :readonly="showReadOnly"
               holder="id number"
               text="id number"
@@ -100,6 +126,7 @@
           </v-col>
           <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
+              required
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
@@ -112,14 +139,6 @@
               holder="address"
               text="address"
               v-model="item.sender_address"
-            />
-          </v-col>
-          <v-col cols="12" lg="2" md="4" sm="6">
-            <InputField
-              :readonly="showReadOnly"
-              holder="notes"
-              text="notes"
-              v-model="item.sender_notes"
             />
           </v-col>
         </v-row>
@@ -145,31 +164,6 @@
               return-object
               required
             />
-          </v-col>
-          <v-col v-if="!receiver_id_image" cols="12" md="4" sm="6" lg="2">
-            <label
-              style="color: rgba(139, 139, 139, 0.93)"
-              :class="
-                item.delivering_type == 2 ? 'required form-label' : 'form-label'
-              "
-              >{{ $t("id image") }}</label
-            >
-            <v-file-input
-              min="0"
-              color="#FF7171"
-              style="border-radius: 0px !important"
-              dense
-              dashed
-              :required="true"
-              outlined
-              v-on="$listeners"
-              :placeholder="$t('id image')"
-              prepend-icon=""
-              prepend-inner-icon="fa-solid fa-image"
-            />
-          </v-col>
-          <v-col v-else cols="12" md="4" sm="6" lg="2">
-            <img width="70" :src="receiver_id_image" alt="" />
           </v-col>
           <v-col class="lg16" cols="12" md="4" lg="2" sm="6">
             <InputField
@@ -218,7 +212,7 @@
               row
             >
               <v-radio :value="1" label="العمولة علي المحول"></v-radio>
-              <v-radio :value="2" label="العمولة علي المستلم"></v-radio>
+              <!-- <v-radio :value="2" label="العمولة علي المستلم"></v-radio> -->
             </v-radio-group>
           </v-col>
 
@@ -233,8 +227,8 @@
               hide-details
               :label="
                 item.is_commission_percentage
-                  ? `${$t('commission')} %`
-                  : $t('commission')
+                  ? `${$t('extra commission')} %`
+                  : $t('extra commission')
               "
               :append-icon="
                 item.is_commission_percentage == false
@@ -273,18 +267,9 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
-              v-model.number="computed_exchange_rate_to_delivery_currency"
-              @input="
-                (new_value) => {
-                  showConversionFactor(
-                    currencies.find((e) => e.id == 1),
-                    'exchange_rate_to_delivery_currency',
-                    new_value
-                  );
-                }
-              "
-              holder="converting to dollar amount"
-              text="converting to dollar amount"
+              v-model.number="item.office_commission"
+              holder="commission"
+              text="commission"
               required
             />
           </v-col>
@@ -293,8 +278,8 @@
               :readonly="showReadOnly"
               :value="amountInUSDComp | money"
               dashed
-              holder="مبلغ مستلم بالدولار"
-              text="مبلغ مستلم بالدولار"
+              holder="مبلغ للتسليم بالدولار"
+              text="مبلغ للتسليم بالدولار"
             />
           </v-col>
           <v-col>
@@ -386,7 +371,7 @@
         </v-row> -->
       </v-card-text>
     </Card>
-    <Card class="mb-5 pa-3">
+    <!-- <Card class="mb-5 pa-3">
       <v-card-title style="font-weight: 700">المكتب</v-card-title>
       <v-card-text>
         <v-row class="responseveCols">
@@ -401,7 +386,7 @@
             />
           </v-col>
 
-          <!-- <v-col>
+          <v-col>
             <InputField
               :readonly="showReadOnly"
               v-model.number="computed_exchange_rate_to_office_currency"
@@ -418,7 +403,7 @@
               text="conversion price"
               required
             />
-          </v-col> -->
+          </v-col>
           <v-col cols="3">
             <InputField
               :readonly="showReadOnly"
@@ -430,7 +415,7 @@
           </v-col>
         </v-row>
       </v-card-text>
-    </Card>
+    </Card> -->
     <v-row>
       <v-col>
         <v-checkbox :label="$t('send sms to the sender')"> </v-checkbox>
@@ -482,20 +467,21 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  name: "transfer-form",
+  name: "moneygram-outcoming",
   data() {
     return {
       showReadOnly: false,
+      sender_id_image: null,
 
-      currencies_test: [
-        { id: 1, name: this.$t("dollar"), values: { sale: 1, buy: 1 } },
-        { id: 2, name: this.$t("denar"), values: { sale: 0.7, buy: 0.69 } },
-        { id: 3, name: this.$t("shekel"), values: { sale: 3.23, buy: 3.22 } },
-        { id: 3, name: this.$t("shekel"), values: { sale: 3.32, buy: 3.3 } },
-        { id: 4, name: this.$t("euro"), values: { sale: 1.03, buy: 1.01 } },
-        { id: 5, name: this.$t("pound"), values: { sale: 16, buy: 15 } },
-        { id: 6, name: this.$t("derhm"), values: { sale: 3.63, buy: 3.6 } },
-      ],
+      // currencies_test: [
+      //   { id: 1, name: this.$t("dollar"), values: { sale: 1, buy: 1 } },
+      //   { id: 2, name: this.$t("denar"), values: { sale: 0.7, buy: 0.69 } },
+      //   { id: 3, name: this.$t("shekel"), values: { sale: 3.23, buy: 3.22 } },
+      //   { id: 3, name: this.$t("shekel"), values: { sale: 3.32, buy: 3.3 } },
+      //   { id: 4, name: this.$t("euro"), values: { sale: 1.03, buy: 1.01 } },
+      //   { id: 5, name: this.$t("pound"), values: { sale: 16, buy: 15 } },
+      //   { id: 6, name: this.$t("derhm"), values: { sale: 3.63, buy: 3.6 } },
+      // ],
       prices: [],
       transfer_types: [
         { id: 1, name: "تسليم يد نقداً" },
@@ -503,7 +489,8 @@ export default {
         { id: 3, name: "تسليم يد على الحساب" },
       ],
       item: {
-        office_id: 34,
+        receiver_party_id: 1,
+        office_id: 2,
         office_currency_id: 1,
         delivery_currency_id: 1,
         commission_side: 1,
@@ -518,10 +505,11 @@ export default {
         sender_address: null,
         is_commission_percentage: false,
         office_commission_type: 0,
-        exchange_rate_to_delivery_currency: null,
-        exchange_rate_to_delivery_currency_view: null,
-        exchange_rate_to_reference_currency: null,
-        exchange_rate_to_office_currency: null,
+        received_currency_id: 1,
+        exchange_rate_to_delivery_currency: 1,
+        exchange_rate_to_delivery_currency_view: 1,
+        exchange_rate_to_reference_currency: 1,
+        exchange_rate_to_office_currency: 1,
         exchange_rate_to_office_currency_view: null,
       },
       usdCurr: null,
@@ -561,21 +549,28 @@ export default {
         this.item.exchange_rate_to_delivery_currency == undefined
       )
         return;
-      return (
-        this.item.to_send_amount * this.item.exchange_rate_to_delivery_currency
-      );
+      let total =
+        this.item.to_send_amount * this.item.exchange_rate_to_delivery_currency;
+      this.item.a_received_amount = total;
+      this.item.received_amount = total;
+      return total;
     },
     totalAmountInUSDComp() {
-      let convert_param = this.item.exchange_rate_to_delivery_currency || 1;
+      // let convert_param = this.item.exchange_rate_to_delivery_currency || 1;
+      // let total = parseFloat(this.amountInUSDComp || 0);
+      // let commVal =
+      //   this.item.commission_side == 1
+      //     ? parseFloat((this.calcCommisson() || 0) * convert_param)
+      //     : 0;
+      // let otherExp = (this.item.other_amounts_on_sender || 0) * convert_param;
+      // let final = commVal + total + otherExp;
+      // this.item.final_received_amount = final;
+      // this.item.office_amount = final;
       let total = parseFloat(this.amountInUSDComp || 0);
-      let commVal =
-        this.item.commission_side == 1
-          ? parseFloat((this.calcCommisson() || 0) * convert_param)
-          : 0;
-      let otherExp = (this.item.other_amounts_on_sender || 0) * convert_param;
-      let final = commVal + total + otherExp;
+      let final = total + this.item.office_commission;
       this.item.final_received_amount = final;
-      return final > 0 ? final : null;
+      this.item.office_amount = final;
+      return final;
     },
     recivedAmountComp() {
       let conversionParam = this.item.exchange_rate_to_reference_currency || 0,
@@ -621,22 +616,19 @@ export default {
           : commission;
       let tempVar = officeAmount + commission - returned;
       //  $newCalcBuyPrice(item.office_currency,{id:1}) ;
-      this.item.office_amount = this.item.office_currency_id
-        ? tempVar *
-          this.$newCalcBuyPrice({ id: this.item.office_currency_id }, { id: 1 })
-        : tempVar;
 
       return tempVar <= 0 ? null : tempVar;
     },
     officeProfitComp() {
-      let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
-      let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
-      let recvCurr = this.item.office_currency || null;
-      if (recvCurr == undefined) return;
-      let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
-      let res = fromInDoller - finalOfficeAmount * convParam;
-      let otherExp = this.item.other_amounts_on_receiver || 0;
-      return res - otherExp;
+      // let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
+      // let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
+      // let recvCurr = this.item.office_currency || null;
+      // if (recvCurr == undefined) return;
+      // let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
+      // let res = fromInDoller - finalOfficeAmount * convParam;
+      // let otherExp = this.item.other_amounts_on_receiver || 0;
+      // return res - otherExp;
+      return this.item.transfer_commission;
     },
     ...mapState({
       currencies: (state) => state.currency.all,
@@ -653,6 +645,7 @@ export default {
     },
     setSenderDate(item) {
       this.item.sender_id_no = item.id_no;
+      this.sender_id_image = item.image ? item.image.url : null;
       this.item.sender_phone = item.phone;
       this.item.sender_address = item.address;
     },

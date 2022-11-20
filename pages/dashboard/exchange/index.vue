@@ -211,7 +211,7 @@
                       changed_ex_amount(items[i], i, v);
                     }
                   "
-                  class="mt-4 text-input" 
+                  class="mt-4 text-input"
                   min="0"
                   color="#FF7171"
                   style="border-radius: 7px !important"
@@ -225,7 +225,7 @@
                   hide-details
                   @keydown.enter="changed_ex_factor(items[i], $event)"
                   @blur="changed_ex_factor(items[i], $event)"
-                  class="mt-4 text-input" 
+                  class="mt-4 text-input"
                   min="0"
                   color="#FF7171"
                   style="border-radius: 7px !important"
@@ -237,7 +237,7 @@
                 <v-text-field
                   :value="items[i].modified_factor"
                   hide-details
-                  class="mt-4 text-input" 
+                  class="mt-4 text-input"
                   min="0"
                   style="border-radius: 7px !important"
                   dense
@@ -578,7 +578,7 @@ export default {
       //   this.$store.dispatch("user/show", this.$auth.user.id);
       // });
 
-      this.item = {};
+      this.item = { beneficairy: { id: 1 } };
       this.items = [];
       this.keyNum = this.keyNum + 1;
       this.addItems();
@@ -688,8 +688,8 @@ export default {
     max-width: 300px !important;
   }
 }
-.text-input input{
-font: 1.2em sans-serif;
-font-weight: 700;
+.text-input input {
+  font: 1.2em sans-serif;
+  font-weight: 700;
 }
 </style>

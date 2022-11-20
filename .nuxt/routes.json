@@ -91,6 +91,13 @@
     "_name": "_07d134a0"
   },
   {
+    "name": "dashboard-profit",
+    "path": "/dashboard/profit",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\profit\\\\index.vue",
+    "chunkName": "pages/dashboard/profit/index",
+    "_name": "_603924e4"
+  },
+  {
     "name": "dashboard-reports",
     "path": "/dashboard/reports",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\index.vue",

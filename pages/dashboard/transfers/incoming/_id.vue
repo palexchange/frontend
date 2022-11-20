@@ -71,43 +71,47 @@
         </v-col>
       </v-row>
     </Card>
-
-    <Card class="mb-5 px-3">
-      <v-card-title> بيانات مرسل المبلغ </v-card-title>
-      <v-card-text>
-        <v-row>
-          <v-col cols="12" md="3" sm="6">
-            <BeneficiaryAutocomplete
-              text="beneficiary"
-              holder="beneficiary"
-              required
-              return-object
-              @change="
-                (v) => {
-                  setSenderDate(v);
-                  item.sender_party_id = v.id;
-                }
-              "
-            />
-          </v-col>
-          <v-col cols="12" md="3" sm="6">
-            <InputField
-              holder="address"
-              text="address"
-              v-model="item.sender_address"
-            />
-          </v-col>
-          <v-col cols="12" md="3" sm="6">
-            <InputField
-              holder="notes"
-              text="notes"
-              v-model="item.sender_notes"
-            />
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </Card>
-
+    <v-btn @click="expand = !expand" icon>
+      <v-icon v-if="expand" small> fas fa-eye-slash</v-icon>
+      <v-icon v-else small> fas fa-eye</v-icon>
+    </v-btn>
+    <v-expand-transition>
+      <Card v-show="expand" class="mb-5 px-3">
+        <v-card-title> بيانات مرسل المبلغ </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12" md="3" sm="6">
+              <BeneficiaryAutocomplete
+                text="beneficiary"
+                holder="beneficiary"
+                required
+                return-object
+                @change="
+                  (v) => {
+                    setSenderDate(v);
+                    item.sender_party_id = v.id;
+                  }
+                "
+              />
+            </v-col>
+            <v-col cols="12" md="3" sm="6">
+              <InputField
+                holder="address"
+                text="address"
+                v-model="item.sender_address"
+              />
+            </v-col>
+            <v-col cols="12" md="3" sm="6">
+              <InputField
+                holder="notes"
+                text="notes"
+                v-model="item.sender_notes"
+              />
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </Card>
+    </v-expand-transition>
     <Card class="mb-5 px-3">
       <v-card-title>بيانات المستلم </v-card-title>
       <v-card-text>
@@ -129,7 +133,7 @@
           </v-col>
           <v-col v-if="!receiver_id_image" cols="12" md="4" sm="6" lg="2">
             <label
-              style="color: rgba(139, 139, 139, 0.93)"
+              style="color: rgba(0, 0, 0); font-size: 16px"
               :class="
                 item.delivering_type == 2 ? 'required form-label' : 'form-label'
               "
@@ -171,7 +175,7 @@
           </v-col>
           <v-col cols="12" md="2" sm="6" lg="2">
             <label
-              style="color: rgba(139, 139, 139, 0.93)"
+              style="color: rgba(0, 0, 0); font-size: 16px"
               :class="
                 item.delivering_type == 2 ? 'required form-label' : 'form-label'
               "
@@ -213,48 +217,53 @@
         </v-row>
       </v-card-text>
     </Card>
+    <v-btn @click="expand2 = !expand2" icon>
+      <v-icon v-if="expand2" small> fas fa-eye-slash</v-icon>
+      <v-icon v-else small> fas fa-eye</v-icon>
+    </v-btn>
+    <v-expand-transition>
+      <Card v-show="expand2" class="mb-5">
+        <v-card-text>
+          <v-row>
+            <v-col cols="12" md="3" sm="12">
+              <v-radio-group mandatory v-model="item.commission_side" row>
+                <v-radio :value="2" label="العمولة علي المستلم"></v-radio>
+              </v-radio-group>
+            </v-col>
 
-    <Card class="mb-5">
-      <v-card-text>
-        <v-row>
-          <v-col cols="12" md="3" sm="12">
-            <v-radio-group mandatory v-model="item.commission_side" row>
-              <v-radio :value="2" label="العمولة علي المستلم"></v-radio>
-            </v-radio-group>
-          </v-col>
-
-          <v-col class="align-self-center" md="3" sm="12">
-            <v-text-field
-              color="#FF7171"
-              style="border-radius: 0px !important"
-              dense
-              outlined
-              slot="append"
-              hide-details
-              :label="
-                item.is_commission_percentage
-                  ? `${$t('commission')} %`
-                  : $t('commission')
-              "
-              :append-icon="
-                item.is_commission_percentage == false
-                  ? 'fas fa-sort-numeric-up-alt'
-                  : 'fas fa-percentage'
-              "
-              @click:append="
-                () =>
-                  (item.is_commission_percentage =
-                    !item.is_commission_percentage)
-              "
-              v-model.number="item.transfer_commission"
-            >
-            </v-text-field>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </Card>
+            <v-col class="align-self-center" md="3" sm="12">
+              <v-text-field
+                color="#FF7171"
+                style="border-radius: 0px !important"
+                dense
+                outlined
+                slot="append"
+                hide-details
+                :label="
+                  item.is_commission_percentage
+                    ? `${$t('commission')} %`
+                    : $t('commission')
+                "
+                :append-icon="
+                  item.is_commission_percentage == false
+                    ? 'fas fa-sort-numeric-up-alt'
+                    : 'fas fa-percentage'
+                "
+                @click:append="
+                  () =>
+                    (item.is_commission_percentage =
+                      !item.is_commission_percentage)
+                "
+                v-model.number="item.transfer_commission"
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </Card>
+    </v-expand-transition>
     <Card class="mb-5 pa-3">
-      <v-card-title>المكتب المرسل للحوالة</v-card-title>
+      <v-card-title>بيانات المكتب المالية</v-card-title>
       <v-card-text>
         <v-row class="responseveCols">
           <v-col cols="12" sm="2">
@@ -380,7 +389,7 @@
       </v-card-text>
     </Card>
     <Card class="mb-5 pa-3">
-      <v-card-title>بيانات الحوالة المالية </v-card-title>
+      <v-card-title>بيانات المبلغ للتسليم </v-card-title>
       <v-card-text>
         <!-- <v-row class="justify-center responseveCols">
           <v-col>
@@ -553,15 +562,13 @@ export default {
   name: "incoming-transfer",
   data() {
     return {
+      expand: false,
+      expand2: false,
       receiver_id_image: null,
       transfer_photo: null,
       showReadOnly: false,
       rulesss: ruless(this),
-
-      transfer_types: [
-        { id: 1, name: "تسليم يد" },
-        { id: 2, name: "موني غرام" },
-      ],
+      transfer_types: [{ id: 1, name: "تسليم يد" }],
       charMap: {
         1: "H",
         2: "M",
@@ -570,6 +577,7 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
+        delivering_type: 1,
         status: 1,
         commission_side: 2,
         type: 1,
@@ -627,14 +635,21 @@ export default {
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
       console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
-      let tottal = parseFloat(office_amount * exchange_rate);
+      let tottal =
+        this.item.office_currency_id == 1
+          ? parseFloat(office_amount * exchange_rate)
+          : parseFloat(office_amount / exchange_rate);
 
+      let factor = this.$newCalcSalePrice(
+        { id: this.item.received_currency_id },
+        { id: 1 }
+      );
+
+      console.log("factor");
+      console.log(factor);
       this.item.a_received_amount =
-        tottal *
-        this.$newCalcSalePrice(
-          { id: this.item.received_currency_id },
-          { id: 1 }
-        );
+        this.item.received_currency_id == 1 ? tottal / factor : tottal * factor;
+
       this.item.received_amount = tottal;
       return tottal;
     },

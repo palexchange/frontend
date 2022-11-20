@@ -187,6 +187,7 @@ export default {
         }
         this.$store.dispatch("closeDialog");
       });
+      this.$auth.fetchUser();
     },
     filter() {
       return (v) => {

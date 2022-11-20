@@ -17,6 +17,7 @@ const _3a7e7e6e = () => interopDefault(import('..\\pages\\dashboard\\inputs\\ind
 const _0f7a2ba6 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/index" */))
 const _2a61b1ea = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\index.vue' /* webpackChunkName: "pages/dashboard/moneygram/index" */))
 const _07d134a0 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\index.vue' /* webpackChunkName: "pages/dashboard/outputs/index" */))
+const _603924e4 = () => interopDefault(import('..\\pages\\dashboard\\profit\\index.vue' /* webpackChunkName: "pages/dashboard/profit/index" */))
 const _8d1a253a = () => interopDefault(import('..\\pages\\dashboard\\reports\\index.vue' /* webpackChunkName: "pages/dashboard/reports/index" */))
 const _6c58a44f = () => interopDefault(import('..\\pages\\dashboard\\settings\\index.vue' /* webpackChunkName: "pages/dashboard/settings/index" */))
 const _6d1eef9a = () => interopDefault(import('..\\pages\\dashboard\\transfers\\index.vue' /* webpackChunkName: "pages/dashboard/transfers/index" */))
@@ -108,6 +109,10 @@ export const routerOptions = {
     path: "/dashboard/outputs",
     component: _07d134a0,
     name: "dashboard-outputs"
+  }, {
+    path: "/dashboard/profit",
+    component: _603924e4,
+    name: "dashboard-profit"
   }, {
     path: "/dashboard/reports",
     component: _8d1a253a,

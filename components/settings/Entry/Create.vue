@@ -197,12 +197,7 @@
     </v-row>
     <v-row>
       <v-col class="text-center">
-        <v-btn
-          @click="save"
-          :disabled="!balanced"
-          color="primary"
-          height="45"
-        >
+        <v-btn @click="save" :disabled="!balanced" color="primary" height="45">
           {{ $t("save") }}</v-btn
         >
       </v-col>
@@ -241,30 +236,33 @@ export default {
       return parseFloat(total || 0).toFixed(4);
     },
     save() {
-      this.$save(this.entry, "entry")
-        .then((data) => {
-          console.log(data);
-          if (data && data.id) {
-            this.entry.transactions.forEach((element) => {
+      this.$save(this.entry, "entry").then((data) => {
+        console.log(data);
+        if (data && data.id) {
+          this.entry.transactions
+            .forEach((element) => {
+              console.log("element");
+              console.log(element);
               element.ac_debtor = element.debtor / element.exchange_rate;
               element.ac_creditor = element.creditor / element.exchange_rate;
+              console.log({ entry_id: data.id, ...element });
               this.$save(
                 { entry_id: data.id, ...element },
                 "entry_transaction"
               );
+            })
+            .then(() => {
+              this.validated = false;
+              this.entry = {
+                ref_currency_id: 1,
+                date: this.$getDateTime(),
+                status: 1,
+                transactions: [{ exchange_rate: 1 }],
+              };
+              this.$emit("closeDialog");
             });
-          }
-        })
-        .then(() => {
-          this.validated = false;
-          this.entry = entry = {
-            ref_currency_id: 1,
-            date: this.$getDateTime(),
-            status: 1,
-            transactions: [{ exchange_rate: 1 }],
-          };
-          this.$emit("closeDialog");
-        });
+        }
+      });
     },
   },
   computed: {

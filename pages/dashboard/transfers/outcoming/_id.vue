@@ -305,7 +305,7 @@
               v-model.number="item.other_amounts_on_sender"
             />
           </v-col>
-          <v-col>
+          <!-- <v-col>
             <InputField
               :readonly="showReadOnly"
               :value="amountWithCommissionAndExpensesComp | money"
@@ -313,7 +313,7 @@
               holder="مبلغ شامل عمولة"
               text="م.ش عمولة و مصاريف"
             />
-          </v-col>
+          </v-col> -->
           <v-col>
             <InputField
               :readonly="showReadOnly"
@@ -383,14 +383,14 @@
               required
             />
           </v-col>
-          <v-col>
+          <!-- <v-col>
             <InputField
               :readonly="showReadOnly"
               v-model.number="item.other_amounts_on_receiver"
               holder="another expenses on receiver"
               text="another expenses on receiver"
             />
-          </v-col>
+          </v-col> -->
           <v-col>
             <InputField
               :readonly="showReadOnly"
@@ -415,13 +415,13 @@
     <Card class="mb-5 pa-3">
       <v-card-title>المكتب</v-card-title>
       <v-card-text>
-        <v-row class="justify-center responseveCols">
+        <v-row dense class="justify-center responseveCols">
           <v-col cols="3">
             <BeneficiaryAutocomplete
               :readonly="showReadOnly"
               no_fetch
-              holder="beneficiary"
-              text="beneficiary"
+              holder="office"
+              text="office"
               v-model="item.office_id"
               required
             />
@@ -480,7 +480,9 @@
               text="office amount"
             />
           </v-col>
-          <v-col>
+        </v-row>
+        <v-row dense>
+          <v-col cols="3">
             <label class="required form-label"
               >{{ item.office_commission_type == 1 ? "%" : "" }}
               عمولة المكتب
@@ -510,7 +512,7 @@
             >
             </v-text-field>
           </v-col>
-          <v-col cols="1">
+          <v-col cols="3">
             <InputField
               :readonly="showReadOnly"
               v-model.number="item.returned_commission"
@@ -518,7 +520,7 @@
               text="returned"
             />
           </v-col>
-          <v-col>
+          <v-col cols="3">
             <InputField
               :readonly="showReadOnly"
               :value="totalOfficeAmount | money"
@@ -527,8 +529,6 @@
               text="final amount to office"
             />
           </v-col>
-        </v-row>
-        <v-row dense>
           <v-col cols="3">
             <InputField
               :readonly="showReadOnly"
@@ -596,25 +596,15 @@ export default {
   data() {
     return {
       showReadOnly: false,
-      currencies_test: [
-        { id: 1, name: this.$t("dollar"), values: { sale: 1, buy: 1 } },
-        { id: 2, name: this.$t("denar"), values: { sale: 0.7, buy: 0.69 } },
-        { id: 3, name: this.$t("shekel"), values: { sale: 3.23, buy: 3.22 } },
-        { id: 3, name: this.$t("shekel"), values: { sale: 3.32, buy: 3.3 } },
-        { id: 4, name: this.$t("euro"), values: { sale: 1.03, buy: 1.01 } },
-        { id: 5, name: this.$t("pound"), values: { sale: 16, buy: 15 } },
-        { id: 6, name: this.$t("derhm"), values: { sale: 3.63, buy: 3.6 } },
-      ],
       prices: [],
       transfer_types: [
         { id: 1, name: "تسليم يد نقداً" },
-        { id: 2, name: "موني غرام" },
         { id: 3, name: "تسليم يد على الحساب" },
       ],
       item: {
         commission_side: 1,
         type: 0,
-
+        delivering_type: 1,
         reference_currency_id: 1,
         reciver_phone: null,
         reciver_address: null,
@@ -836,6 +826,10 @@ export default {
     if (this.$route.query.show && this.$route.query.show == "true") {
       this.showReadOnly = true;
     }
+    console.log(this.app_setting);
+    // this.item.sender_id = this.app_setting["transfer_commission_account_id"]
+    //   ? parseFloat(this.app_setting["transfer_commission_account_id"]["value"])
+    //   : null;
   },
 };
 </script>

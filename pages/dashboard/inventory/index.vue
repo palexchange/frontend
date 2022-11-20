@@ -17,6 +17,7 @@
         md="3"
       >
         <v-card class="black-font">
+          <!-- v-if="cards[index].balance > 0 || cards[index].balance < 0" -->
           <v-row no-gutters class="black-font">
             <v-col
               style="color: #000 !important"
@@ -32,7 +33,10 @@
               <!-- <InputField class="pt-3 pl-3 pr-3"></InputField> -->
             </v-col>
             <v-col class="text-center pb-0 black-font" cols="12">
-              <div class="black-font" style="color: rgba(139, 139, 139, 0.93)">
+              <div
+                class="black-font"
+                style="color: rgba(0, 0, 0); font-size: 16px"
+              >
                 {{ parseFloat(cards[index].balance || 0) | money }}
               </div>
             </v-col>
@@ -40,6 +44,9 @@
               <div class="pa-3 black-font">
                 <input
                   @keydown.enter="(v) => addTrans(v.target.value, index)"
+                  @keydown.space="
+                    (v) => addTrans(parseFloat(cards[index].balance), index)
+                  "
                   type="number"
                   class="border"
                   :value="vall"
@@ -74,14 +81,13 @@
           </v-card-text>
 
           <v-card
-            depressed
             :style="{
               'background-color':
                 cards[index].balance == 0 ? '#83b97b' : 'rgba(255,1,1 , 0.5)',
             }"
             class="white--text mt-1 black-font justify-center"
             block
-            height="60"
+            height="110"
           >
             <v-card-title
               v-if="cards[index].balance == 0"
@@ -98,6 +104,16 @@
               <p style="font-size: small" v-else>
                 ({{ $t("excess in real balance") }})
               </p>
+            </div>
+            <div class="text-center">
+              <v-btn
+                @click="closeInventory(index, curr)"
+                exact
+                depressed
+                height="25"
+              >
+                {{ $t("إعتماد الجرد وإغلاق الصندوق") }}
+              </v-btn>
             </div>
           </v-card>
           <!-- <v-card
@@ -135,6 +151,11 @@ export default {
       trans: [],
       cards: [],
       vall: null,
+      entry: {
+        status: 1,
+        statemet: "إغلاق صندوق",
+        date: this.$getDateTime(),
+      },
       report_data: {
         has_headers: true,
         type: "Accounting",
@@ -143,6 +164,108 @@ export default {
     };
   },
   methods: {
+    closeInventory(index, acc) {
+      let main_box = this.main_boxes.find(
+        (v) => v.currency_id == acc.currency_id
+      );
+      if (!this.trans[index]) return;
+      let total = this.trans[index].reduce((c, n) => {
+        return c + parseFloat(n);
+      }, 0);
+      let exchange_rate = this.stocks.find(
+        (v) => v.currency_id == acc.currency_id
+      ).mid;
+
+      let diff = acc.balance - total;
+
+      if (total == 0) return;
+      this.$save(this.entry, "entry").then((res_entry) => {
+        if (res_entry && res_entry.id) {
+          this.$store.dispatch("entry_transaction/store", {
+            entry_id: res_entry.id,
+            debtor: total,
+            ac_debtor: total / exchange_rate,
+            creditor: 0,
+            ac_creditor: 0,
+            exchange_rate: exchange_rate,
+            currency_id: acc.currency_id,
+            account_id: main_box.id,
+          });
+          this.$store.dispatch("entry_transaction/store", {
+            entry_id: res_entry.id,
+            debtor: 0,
+            ac_debtor: 0,
+            creditor: total,
+            ac_creditor: total / exchange_rate,
+            exchange_rate: exchange_rate,
+            currency_id: acc.currency_id,
+            account_id: acc.id,
+          });
+        }
+        if (diff < 0) {
+          this.$save(
+            {
+              status: 1,
+              statemet: "ترصيد عجز ",
+              date: this.$getDateTime(),
+            },
+            "entry"
+          ).then((entry) => {
+            this.$store.dispatch("entry_transaction/store", {
+              entry_id: entry.id,
+              debtor: Math.abs(diff),
+              ac_debtor: Math.abs(diff) / exchange_rate,
+              creditor: 0,
+              ac_creditor: 0,
+              exchange_rate: exchange_rate,
+              currency_id: acc.currency_id,
+              account_id: acc.id,
+            });
+            this.$store.dispatch("entry_transaction/store", {
+              entry_id: entry.id,
+              debtor: 0,
+              ac_debtor: 0,
+              creditor: Math.abs(diff),
+              ac_creditor: Math.abs(diff) / exchange_rate,
+              exchange_rate: exchange_rate,
+              currency_id: acc.currency_id,
+              account_id: 33,
+            });
+          });
+        }
+        if (diff > 0) {
+          this.$save(
+            {
+              status: 1,
+              statemet: "ترصيد زيادة ",
+              date: this.$getDateTime(),
+            },
+            "entry"
+          ).then((entry) => {
+            this.$store.dispatch("entry_transaction/store", {
+              entry_id: entry.id,
+              debtor: diff,
+              ac_debtor: diff / exchange_rate,
+              creditor: 0,
+              ac_creditor: 0,
+              exchange_rate: exchange_rate,
+              currency_id: acc.currency_id,
+              account_id: 33,
+            });
+            this.$store.dispatch("entry_transaction/store", {
+              entry_id: entry.id,
+              debtor: 0,
+              ac_debtor: 0,
+              creditor: diff,
+              ac_creditor: diff / exchange_rate,
+              exchange_rate: exchange_rate,
+              currency_id: acc.currency_id,
+              account_id: acc.id,
+            });
+          });
+        }
+      });
+    },
     addTrans(val, index) {
       if (val.length == 0 || parseFloat(val) == 0) return;
       this.trans[index].push(parseFloat(val));
@@ -177,25 +300,18 @@ export default {
   computed: {
     ...mapState({
       active_accounts: (state) => state.auth.user.active_accounts,
+      stocks: (state) => state.stock.all,
+      main_boxes: (state) => state.account.all,
       // report: (state) => state.report.all,
     }),
   },
   // mounted() {
-  //   this.$store.dispatch("report/index", {
-  //     accounts_ids: this.active_accounts.map(v => v.id),
-  //     ...this.report_data,
-  //   });
 
-  // },
-  // created() {
-  //   // this.$store.dispatch("currency/index");
-
-  //   if (this.active_accounts[0] && !this.cards[0]) {
-  //     this.active_accounts.forEach((e) => {
-  //       this.cards.push({ amount: null, balance: e.balance });
-  //     });
-  //   }
-  // },
+  // // },
+  created() {
+    // this.$store.dispatch("currency/index");
+    this.$store.dispatch("account/index", { type_id: 4, is_transaction: true });
+  },
   filters: {
     money(value) {
       if (value) {

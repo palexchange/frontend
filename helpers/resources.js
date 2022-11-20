@@ -32,6 +32,16 @@ export default (context) => {
     // headers:['id','image_url','name','category.name','price','price1','price2','price3','description','created_at']
   },
   {
+    child: 'stock_transaction',
+    parent: '',
+    // headers:['id','image_url','name','category.name','price','price1','price2','price3','description','created_at']
+  },
+  {
+    child: 'inventory_log',
+    parent: '',
+    // headers:['id','image_url','name','category.name','price','price1','price2','price3','description','created_at']
+  },
+  {
     child: 'daily_meal',
     parent: '',
     load_after_store: true,

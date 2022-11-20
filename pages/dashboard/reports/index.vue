@@ -16,7 +16,6 @@
         </v-tab-item>
       </v-tabs>
     </v-card>
-    <data-table noActions nums="#" module="report" hide_pagination />
   </div>
 </template>
 
@@ -32,6 +31,10 @@ export default {
         {
           header: "account_statement_report",
           component_name: "ReportsAccountingReport",
+        },
+        {
+          header: "profit_report",
+          component_name: "ReportsProfitReport",
         },
         // { header: "currencies report", component_name: "Card" },
         // { header: "courier report", component_name: "Card" },

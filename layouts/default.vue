@@ -100,9 +100,11 @@
 </template>
 
 <script>
+import global from "../helpers/global";
 import { mapState } from "vuex";
 export default {
   name: "DefaultLayout",
+  mixins: [global],
   middleware: "auth",
   data() {
     return {
@@ -137,6 +139,7 @@ export default {
       return links;
     },
     ...mapState({
+      all_settings: (state) => state.setting.all,
       delete_data: (state) => state.deletingData,
       action: (state) => state.context.action,
       item: (state) => state.context.item,
@@ -151,6 +154,12 @@ export default {
     }),
   },
   watch: {
+    all_settings(val) {
+      this.$store.dispatch(
+        "setSettings",
+        val.reduce((obj, item) => Object.assign(obj, item), {})
+      );
+    },
     success_msg(val) {
       if (val) {
         this.$swal
@@ -206,16 +215,6 @@ export default {
     delete(item) {
       console.log(this.module_name);
       if (this.module_name) {
-        this.$swal({
-          title: this.$t("confirm"),
-          text: this.$t("are_you_sure"),
-          icon: "error",
-          confirmButtonText: this.$t("delete"),
-        }).then((v) => {
-          if (v.value) {
-            this.$store.dispatch(`${this.module_name}/delete`, item);
-          }
-        });
       }
     },
     changeLocale(locale) {
@@ -229,6 +228,7 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch("stock/index");
+    this.$store.dispatch("setting/index");
     console.log(this.$i18n.locale);
     this.$vuetify.rtl = this.$i18n.locale == "ar";
   },

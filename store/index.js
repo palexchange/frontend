@@ -21,13 +21,16 @@ export const state = () => ({
   loaded: false,
   post_loading: false,
   state_dialog: { item: {}, active: false, name: '' },
-
+  app_settings: {}
 })
 
 export const actions = {
   // nuxtServerInit ({ commit,dispatch}, { req }) {
   //   dispatch('setDefaultDigitsNumber')
   // },
+  setSettings({ commit }, data) {
+    commit('set_settings', data)
+  },
   setDialog({ commit }, data) {
     commit('set_dialog', data)
   },
@@ -106,7 +109,9 @@ export const actions = {
 
 export const mutations = {
 
-
+  set_settings(state, settingData) {
+    state.app_settings = settingData
+  },
   edit_name(state, bewName) {
     state.name = bewName
   },

@@ -81,6 +81,15 @@ export default [
     }
   },
   {
+    icon: "8.png",
+    title: "inventory profit",
+    to: '/dashboard/profit',
+    types: {
+      admin: true,
+      customer: true
+    }
+  },
+  {
     icon: "arrows-exchange.png",
     title: "settings",
     to: '/dashboard/settings',

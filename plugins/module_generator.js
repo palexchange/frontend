@@ -222,7 +222,8 @@ export default (context, inject) => {
       },
       async store({
         commit,
-        dispatch
+        dispatch,
+        state
       }, data) {
         try {
           // console.log(data);
@@ -255,6 +256,7 @@ export default (context, inject) => {
                 root: true
               });
             }
+
 
             if (resource.load_after_store)
               dispatch('index', params);

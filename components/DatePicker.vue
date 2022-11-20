@@ -12,6 +12,7 @@
     <template v-slot:activator="{ on, attrs }">
       <label
         for="test"
+           style="color: rgba(0,0,0);font-size:16px;"
         :class="required ? 'required form-label' : 'form-label'"
         >{{ $t(text) }}</label
       >

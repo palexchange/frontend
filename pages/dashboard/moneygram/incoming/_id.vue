@@ -574,7 +574,7 @@ export default {
       this.item.office_amount = office_amount;
 
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
-      console.log(exchange_rate);
+      // console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
       let tottal = parseFloat(office_amount * exchange_rate);
 
@@ -624,20 +624,26 @@ export default {
       // let res = fromInDoller - finalOfficeAmount * convParam;
       // console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       this.item.returned_commision;
+      this.finalAmountToDeliverComp;
       this.item.office_commission;
-      let office_amount_usd =
-        this.finalAmountToDeliverComp *
-        this.$newCalcBuyPrice(
-          { id: this.item.received_currency_id },
-          { id: 1 }
-        );
-      let s = this.item.a_received_amount;
-      let total = office_amount_usd - s;
+      // let office_amount_usd =
+      //   this.finalAmountToDeliverComp *
+      //   this.$newCalcBuyPrice(
+      //     { id: this.item.received_currency_id },
+      //     { id: 1 }
+      //   );
+      // let s = this.item.a_received_amount;
+      // let total = office_amount_usd - s;
+
+      // return (
+      //   total -
+      //   (this.item.returned_commision || 0) +
+      //   (this.item.office_commission || 0)
+      // );
 
       return (
-        total -
-        (this.item.returned_commision || 0) +
-        (this.item.office_commission || 0)
+        parseFloat(this.item.office_amount) -
+        parseFloat(this.item.a_received_amount)
       );
     },
     ...mapState({

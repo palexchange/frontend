@@ -159,20 +159,50 @@
           <v-col v-else cols="12" md="4" sm="6" lg="2">
             <img width="70" :src="receiver_id_image" alt="" />
           </v-col>
-          <v-col cols="12" md="4" sm="6" lg="2">
+          <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
               holder="mobile"
               text="mobile"
               required
               v-model="item.receiver_phone"
             />
-          </v-col>
+          </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
+            <PhonesAutoComplete
+              text="phone"
+              holder="phone"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.receiver_party_id }"
+            />
+          </v-col>
+          <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
               holder="id_no"
               text="id_no"
               required
               v-model="item.receiver_id_no"
+            />
+          </v-col> -->
+          <v-col cols="12" md="4" sm="6" lg="2">
+            <IDsAutoComplete
+              text="id_no"
+              holder="id_no"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.receiver_party_id }"
             />
           </v-col>
           <v-col cols="12" md="2" sm="6" lg="2">
@@ -507,6 +537,7 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
+        receiver_party_id: "",
         office_currency_id: 1,
         delivery_currency_id: 1,
         sender_party_id: 1,
@@ -670,8 +701,9 @@ export default {
       // console.log(this.item);
     },
     setReceiverDate(item) {
+      if (!item) return;
       console.log(item);
-      this.item.receiver_id_no = item.id_no;
+      this.item.receiver_party_id = item.id_no;
       this.receiver_id_image = item.image ? item.image.url : null;
       this.item.receiver_phone = item.phone;
       this.item.receiver_address = item.address;

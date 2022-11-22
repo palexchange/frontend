@@ -115,7 +115,7 @@
           <v-col v-else cols="12" md="4" sm="6" lg="2">
             <img width="70" :src="sender_id_image" alt="" />
           </v-col>
-          <v-col cols="12" lg="2" md="4" sm="6">
+          <!-- <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
               required
               :readonly="showReadOnly"
@@ -123,14 +123,44 @@
               text="id number"
               v-model="item.sender_id_no"
             />
+          </v-col> -->
+          <v-col cols="12" md="4" sm="6" lg="2">
+            <IDsAutoComplete
+              text="id_no"
+              holder="id_no"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.sender_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.sender_party_id }"
+            />
           </v-col>
-          <v-col cols="12" lg="2" md="4" sm="6">
+          <!-- <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
               required
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
               v-model="item.sender_phone"
+            />
+          </v-col> -->
+          <v-col cols="12" md="4" sm="6" lg="2">
+            <PhonesAutoComplete
+              text="phone"
+              holder="phone"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.sender_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.sender_party_id }"
             />
           </v-col>
           <v-col cols="12" lg="3" md="4" sm="6">
@@ -165,20 +195,50 @@
               required
             />
           </v-col>
-          <v-col class="lg16" cols="12" md="4" lg="2" sm="6">
+          <!-- <v-col class="lg16" cols="12" md="4" lg="2" sm="6">
             <InputField
               :readonly="showReadOnly"
               holder="id number"
               text="id number"
               v-model="item.receiver_id_no"
             />
+          </v-col> -->
+          <v-col cols="12" md="4" sm="6" lg="2">
+            <IDsAutoComplete
+              text="id_no"
+              holder="id_no"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.receiver_party_id }"
+            />
           </v-col>
-          <v-col class="lg16" cols="12" md="4" lg="2" sm="6">
+          <!-- <v-col class="lg16" cols="12" md="4" lg="2" sm="6">
             <InputField
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
               v-model="item.receiver_phone"
+            />
+          </v-col> -->
+          <v-col cols="12" md="4" sm="6" lg="2">
+            <PhonesAutoComplete
+              text="phone"
+              holder="phone"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.receiver_party_id }"
             />
           </v-col>
           <!-- <v-col>
@@ -489,6 +549,7 @@ export default {
         { id: 3, name: "تسليم يد على الحساب" },
       ],
       item: {
+        sender_party_id: "",
         receiver_party_id: 1,
         office_id: 2,
         office_currency_id: 1,
@@ -637,6 +698,7 @@ export default {
   },
   methods: {
     setReceiverDate(item) {
+      if (!item) return;
       this.item.receiver_id_no = item.id_no;
       this.item.receiver_phone = item.phone;
       this.item.receiver_address = item.address;
@@ -644,6 +706,7 @@ export default {
       this.item.receiver_city_id = item.city_id;
     },
     setSenderDate(item) {
+      if (!item) return;
       this.item.sender_id_no = item.id_no;
       this.sender_id_image = item.image ? item.image.url : null;
       this.item.sender_phone = item.phone;

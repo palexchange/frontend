@@ -7,6 +7,7 @@
       :value="(profit || officeProfitComp) | money"
     />
     <img v-if="t_type == 2" width="100" src="/moneygram.png" alt="" />
+    <slot />
   </div>
 </template>
 

@@ -5,7 +5,11 @@
       :profit="item.profit"
       :officeProfitComp="officeProfitComp"
       :t_type="item.delivering_type"
-    />
+    >
+      <v-row>
+        <v-col cols="12" sm="12"> {{ $t("incoming transfer") }} </v-col>
+      </v-row>
+    </SideInfoTransfer>
     <Card class="mb-5 pt-3 pl-3 pr-6">
       <v-row>
         <v-col cols="12" md="8" sm="12">
@@ -32,13 +36,7 @@
                 holder="test"
               />
             </v-col>
-            <v-col cols="12" md="3" sm="12">
-              <InputField
-                :value="officeProfitComp | money"
-                dashed
-                text="palestinian profit"
-              />
-            </v-col>
+
             <v-col>
               <InputField v-model="item.number" text="refrence number" />
             </v-col>
@@ -84,7 +82,6 @@
               <BeneficiaryAutocomplete
                 text="beneficiary"
                 holder="beneficiary"
-                required
                 return-object
                 @change="
                   (v) => {
@@ -131,7 +128,7 @@
               :value="item.receiver_party_id"
             />
           </v-col>
-          <v-col v-if="!receiver_id_image" cols="12" md="4" sm="6" lg="2">
+          <!-- <v-col v-if="!receiver_id_image" cols="12" md="4" sm="6" lg="2">
             <label
               style="color: rgba(0, 0, 0); font-size: 16px"
               :class="
@@ -145,7 +142,6 @@
               style="border-radius: 0px !important"
               dense
               dashed
-              :required="true"
               outlined
               v-on="$listeners"
               :rules="rulesss.requiredRules"
@@ -156,48 +152,51 @@
           </v-col>
           <v-col v-else cols="12" md="4" sm="6" lg="2">
             <img width="70" :src="receiver_id_image" alt="" />
-          </v-col>
-          <v-col cols="12" md="4" sm="6" lg="2">
+          </v-col> -->
+          <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
               holder="mobile"
               text="mobile"
-              required
               v-model="item.receiver_phone"
             />
-          </v-col>
+          </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
+            <PhonesAutoComplete
+              text="phone"
+              holder="phone"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.reciver_party_id }"
+            />
+          </v-col>
+          <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
               holder="id_no"
               text="id_no"
-              required
               v-model="item.receiver_id_no"
             />
-          </v-col>
-          <v-col cols="12" md="2" sm="6" lg="2">
-            <label
-              style="color: rgba(0, 0, 0); font-size: 16px"
-              :class="
-                item.delivering_type == 2 ? 'required form-label' : 'form-label'
+          </v-col> -->
+          <v-col cols="12" md="4" sm="6" lg="2">
+            <IDsAutoComplete
+              text="id_no"
+              holder="id_no"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
               "
-              >{{ $t("transfer image") }}</label
-            >
-            <v-file-input
-              min="0"
-              color="#FF7171"
-              style="border-radius: 0px !important"
-              dense
-              dashed
-              :required="true"
-              outlined
-              v-on="$listeners"
-              v-model="transfer_photo"
-              :rules="rulesss.requiredRules"
-              :placeholder="$t('transfer image')"
-              prepend-icon=""
-              prepend-inner-icon="fa-solid fa-image"
+              return-object
+              :value="{ id: item.reciver_party_id }"
             />
           </v-col>
-
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
               <AutoComplete text="country" holder="country" required />
             </v-col> -->
@@ -268,8 +267,8 @@
         <v-row class="responseveCols">
           <v-col cols="12" sm="2">
             <BeneficiaryAutocomplete
-              holder="المكتب المرسل للحوالة"
-              text="المكتب المرسل للحوالة"
+              holder="المكتب المرسل"
+              text="المكتب المرسل"
               required
               v-model="item.office_id"
             />
@@ -277,8 +276,8 @@
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <InputField
               v-model.number="item.to_send_amount"
-              holder="المبلغ المرسل للحوالة"
-              text="المبلغ المرسل للحوالة"
+              holder="المبلغ المُرسل"
+              text="المبلغ المُرسل"
               required
             />
           </v-col>
@@ -290,7 +289,7 @@
                   signCurrency(
                     'exchange_rate_to_office_currency',
                     'exchange_rate_to_office_currency_view',
-                    'sale',
+                    'buy',
                     v,
                     { id: 1 }
                   );
@@ -312,7 +311,7 @@
               @input="
                 (new_value) => {
                   showConversionFactor(
-                    item.office_currency,
+                    { id: 1 },
                     'exchange_rate_to_office_currency',
                     new_value
                   );
@@ -332,7 +331,7 @@
             />
           </v-col> -->
           <v-col cols="12" sm="2" v-show="!is_moneygram">
-            <label class="required form-label">
+            <label class="form-label">
               {{ item.office_commision_type == 1 ? "%" : "" }}
               عمولة علي المكتب
             </label>
@@ -344,7 +343,6 @@
               outlined
               slot="append"
               hide-details
-              required
               :append-icon="
                 item.office_commision_type == 0
                   ? 'fas fa-sort-numeric-up-alt'
@@ -364,7 +362,6 @@
               v-model.number="item.returned_commision"
               holder="مرجع للمكتب"
               text="مرجع للمكتب"
-              required
             />
           </v-col>
           <v-col cols="12" sm="3" v-show="!is_moneygram">
@@ -463,8 +460,8 @@
                 (v) => {
                   signCurrency(
                     'exchange_rate_to_reference_currency',
-                    'exchange_rate_to_reference_currency',
-                    'buy',
+                    'exchange_rate_to_reference_currency_view',
+                    'sale',
                     { id: this.item.office_currency_id },
                     v
                   );
@@ -482,7 +479,16 @@
           </v-col>
           <v-col>
             <InputField
-              v-model.number="item.exchange_rate_to_reference_currency"
+              @input="
+                (new_value) => {
+                  showConversionFactor(
+                    item.received_currency,
+                    'exchange_rate_to_reference_currency',
+                    new_value
+                  );
+                }
+              "
+              v-model.number="item.exchange_rate_to_reference_currency_view"
               holder="convert to receiver currency"
               text="convert to receiver currency"
               required
@@ -490,20 +496,20 @@
           </v-col>
           <v-col>
             <InputField
-              :value="finalAmountToDeliverComp | money"
-              dashed
+              v-model.number="item.received_amount"
               holder="final amount to give"
               text="final amount to give"
+              @input="(v) => setFinalAmount(v)"
               required
             />
           </v-col>
           <v-col>
             <InputField
               :value="item.a_received_amount | money"
-              dashed
               holder="final amount to give in usd"
               text="final amount to give in usd"
               required
+              dashed
             />
           </v-col>
         </v-row>
@@ -577,6 +583,10 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
+        receiver_id_no: "",
+        receiver_phone: "",
+        receiver_address: "",
+        reciver_party_id: "",
         delivering_type: 1,
         status: 1,
         commission_side: 2,
@@ -592,6 +602,7 @@ export default {
         office_commision_type: 0,
         exchange_rate_to_delivery_currency: 0,
         exchange_rate_to_delivery_currency_view: null,
+        exchange_rate_to_reference_currency_view: null,
         exchange_rate_to_reference_currency: null,
         exchange_rate_to_office_currency: null,
         exchange_rate_to_office_currency_view: null,
@@ -629,28 +640,33 @@ export default {
       // if (ratio == null) return;
       // let amountToDelv = recvAmountInUSD * ratio;
       // this.item.received_amount = amountToDelv;
+      console.log("aaahahahaaaa hhhaaa hhaaa hhhaaahhhaa hhhaaa hhhaaa");
+      this.item.received_amount;
+      this.item.returned_commision;
+      this.item.office_commision;
+      this.totalOfficeAmount;
+      this.item.a_received_amount;
+      this.item.exchange_rate_to_reference_currency;
       let office_amount = this.item.to_send_amount;
       this.item.final_received_amount = office_amount;
 
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
       console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
-      let tottal =
-        this.item.office_currency_id == 1
-          ? parseFloat(office_amount * exchange_rate)
-          : parseFloat(office_amount / exchange_rate);
+      // let tottal =
+      //   this.item.office_currency_id == 1
+      //     ? parseFloat(office_amount * exchange_rate)
+      //     : parseFloat(office_amount / exchange_rate);
 
       let factor = this.$newCalcSalePrice(
         { id: this.item.received_currency_id },
         { id: 1 }
       );
-
-      console.log("factor");
-      console.log(factor);
-      this.item.a_received_amount =
-        this.item.received_currency_id == 1 ? tottal / factor : tottal * factor;
-
+      let tottal = exchange_rate * this.item.to_send_amount;
       this.item.received_amount = tottal;
+      this.item.a_received_amount = tottal * factor;
+
+      // this.item.received_amount = tottal;
       return tottal;
     },
     officeAmount() {
@@ -693,26 +709,45 @@ export default {
       // console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       this.item.returned_commision;
       this.item.office_commision;
-      let office_amount_usd =
-        this.finalAmountToDeliverComp *
-        this.$newCalcBuyPrice(
-          { id: this.item.received_currency_id },
-          { id: 1 }
-        );
-      let s = this.item.a_received_amount;
-      let total = office_amount_usd - s;
+      this.totalOfficeAmount;
+      this.item.a_received_amount;
+      this.item.exchange_rate_to_reference_currency;
+      this.finalAmountToDeliverComp;
 
+      // let office_amount_usd =
+      //   this.finalAmountToDeliverComp *
+      //   this.$newCalcBuyPrice(
+      //     { id: this.item.received_currency_id },
+      //     { id: 1 }
+      //   );
+      // let s = this.item.a_received_amount;
+      // let total = office_amount_usd - s;
+
+      // return (
+      //   total -
+      //   (this.item.returned_commision || 0) +
+      //   (this.item.office_commision || 0)
+      // );
       return (
-        total -
-        (this.item.returned_commision || 0) +
-        (this.item.office_commision || 0)
+        parseFloat(this.item.office_amount) -
+        parseFloat(this.item.a_received_amount) +
+        parseFloat(this.item.office_commision || 0) -
+        parseFloat(this.item.returned_commision || 0)
       );
     },
     ...mapState({
+      stocks: (state) => state.stock.all,
       currencies: (state) => state.currency.all,
     }),
   },
   methods: {
+    setFinalAmount(amount) {
+      this.item.exchange_rate_to_reference_currency =
+        amount / this.item.to_send_amount;
+      this.item.exchange_rate_to_reference_currency_view =
+        amount / this.item.to_send_amount;
+      this.officeProfitComp;
+    },
     confirmProcess() {
       this.$save(this.item, "transfer", null, "/dashboard/transfers").then(
         (data) => {
@@ -732,11 +767,13 @@ export default {
       // console.log(this.item);
     },
     setReceiverDate(item) {
+      if (!item) return;
       console.log(item);
       this.item.receiver_id_no = item.id_no;
       this.receiver_id_image = item.image ? item.image.url : null;
       this.item.receiver_phone = item.phone;
       this.item.receiver_address = item.address;
+      this.item.reciver_party_id = item.id;
     },
     setSenderDate(item) {
       this.item.sender_id_no = item.id_no;
@@ -767,8 +804,34 @@ export default {
 
       if (type == "buy") {
         this.item[vCalc] = parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr));
+
+        let exchange_rate = this.item[vCalc];
+        let reverse_exchange_rate = parseFloat(
+          this.$newCalcBuyPrice(toCurr, fromCurr)
+        );
+        this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
+        // let from_stock = this.stocks.find((v) => v.currency_id == fromCurr.id);
+        // let to_stock = this.stocks.find((v) => v.currency_id == toCurr.id);
+        // if (from_stock.mid < 1 && from_stock.mid < to_stock.mid) {
+        //   this.item[vModel] = Math.min(exchange_rate, reverse_exchange_rate);
+        // } else {
+        //   this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
+        // }
       } else if (type == "sale") {
         this.item[vCalc] = parseFloat(this.$newCalcSalePrice(fromCurr, toCurr));
+
+        let exchange_rate = this.item[vCalc];
+        let reverse_exchange_rate = parseFloat(
+          this.$newCalcSalePrice(toCurr, fromCurr)
+        );
+        this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
+        // let from_stock = this.stocks.find((v) => v.currency_id == fromCurr.id);
+        // let to_stock = this.stocks.find((v) => v.currency_id == toCurr.id);
+        // if (from_stock.mid < 1) {
+        //   this.item[vModel] = Math.min(exchange_rate, reverse_exchange_rate);
+        // } else {
+        //   this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
+        // }
       } else if (type == "mid") {
         this.item[vCalc] =
           (
@@ -777,11 +840,11 @@ export default {
           ).toFixed(7) / 2;
       }
 
-      if (toCurr.id == 1) {
-        let temp = toCurr;
-        toCurr = fromCurr;
-        fromCurr = temp;
-      }
+      // if (toCurr.id == 1) {
+      //   let temp = toCurr;
+      //   toCurr = fromCurr;
+      //   fromCurr = temp;
+      // }
 
       //   this.item[vModel] = parseFloat(
       //     type == "buy"
@@ -789,19 +852,19 @@ export default {
       //       : this.$newCalcSalePrice(fromCurr, toCurr)
       //   );
 
-      if (type == "buy") {
-        this.item[vModel] = parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr));
-      } else if (type == "sale") {
-        this.item[vModel] = parseFloat(
-          this.$newCalcSalePrice(fromCurr, toCurr)
-        );
-      } else if (type == "mid") {
-        this.item[vModel] =
-          (
-            parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
-            parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
-          ).toFixed(7) / 2;
-      }
+      // if (type == "buy") {
+      //   this.item[vModel] = parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr));
+      // } else if (type == "sale") {
+      //   this.item[vModel] = parseFloat(
+      //     this.$newCalcSalePrice(fromCurr, toCurr)
+      //   );
+      // } else if (type == "mid") {
+      //   this.item[vModel] =
+      //     (
+      //       parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
+      //       parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
+      //     ).toFixed(7) / 2;
+      // }
     },
     showConversionFactor(to, factorModel, new_value) {
       console.log(to, factorModel, new_value);

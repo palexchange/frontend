@@ -436,12 +436,16 @@ export default {
       this.number = this.number + 1;
     },
 
-    changed_ex_amount(element, index, new_value) {
+    changed_ex_amount(element, i, new_value) {
       element.exchanged_amount = new_value;
       let amount = this.exchange.amount || 0;
       let ex_amount = element.exchanged_amount || 0;
       let ex_vector = element.exchanged_vactor || 1;
       let sum = this.sum_fields();
+      element.exchanged_vactor = parseFloat(
+        parseFloat(new_value) / parseFloat(amount)
+      ).toFixed(4);
+
       if (sum > amount) {
         this.item.reminder = 0;
         return false;

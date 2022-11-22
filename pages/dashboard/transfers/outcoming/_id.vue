@@ -4,7 +4,12 @@
       :profit="item.profit"
       :officeProfitComp="officeProfitComp"
       :t_type="item.delivering_type"
-    />
+    >
+      <v-row>
+        <v-col cols="12" sm="12"> {{ $t("outcoming transfer") }} </v-col>
+      </v-row>
+    </SideInfoTransfer>
+
     <Card class="mb-5 pt-3 pl-3 pr-6">
       <v-row>
         <v-col cols="12" md="6" sm="12">
@@ -35,7 +40,7 @@
                 holder="test"
               />
             </v-col>
-            <v-col cols="12" md="4" sm="12">
+            <!-- <v-col cols="12" md="4" sm="12">
               <InputField
                 :readonly="showReadOnly"
                 v-bind="item.officeProfit"
@@ -43,7 +48,7 @@
                 text="palestinian profit"
                 :value="(item.profit || officeProfitComp) | money"
               />
-            </v-col>
+            </v-col> -->
           </v-row>
         </v-col>
         <v-col cols="12" md="6" sm="12">
@@ -95,22 +100,53 @@
               "
             />
           </v-col>
-          <v-col cols="12" lg="2" md="4" sm="6">
+          <!-- <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
               :readonly="showReadOnly"
               holder="id number"
               text="id number"
               v-model="item.sender_id_no"
             />
+          </v-col> -->
+          <v-col cols="12" md="4" sm="6" lg="2">
+            <IDsAutoComplete
+              text="id_no"
+              holder="id_no"
+              required
+              @change="
+                (v) => {
+                  setSenderDate(v);
+                  item.sender_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.sender_party_id }"
+            />
           </v-col>
-          <v-col cols="12" lg="2" md="4" sm="6">
+          <!-- <v-col cols="12" lg="2" md="4" sm="6">
             <InputField
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
               v-model="item.sender_phone"
             />
+          </v-col> -->
+          <v-col cols="12" md="4" sm="6" lg="2">
+            <PhonesAutoComplete
+              text="phone"
+              holder="phone"
+              required
+              @change="
+                (v) => {
+                  setSenderDate(v);
+                  item.sender_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.sender_party_id }"
+            />
           </v-col>
+
           <v-col cols="12" lg="3" md="4" sm="6">
             <InputField
               :readonly="showReadOnly"
@@ -151,20 +187,52 @@
               required
             />
           </v-col>
-          <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
+          <!-- <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <InputField
               :readonly="showReadOnly"
               holder="id number"
               text="id number"
               v-model="item.receiver_id_no"
             />
-          </v-col>
+          </v-col> -->
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
+            <IDsAutoComplete
+              append-icon=""
+              text="id_no"
+              holder="id_no"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.receiver_party_id }"
+            />
+          </v-col>
+          <!-- <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <InputField
               :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
               v-model="item.receiver_phone"
+            />
+          </v-col> -->
+          <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
+            <PhonesAutoComplete
+              append-icon=""
+              text="phone"
+              holder="phone"
+              required
+              @change="
+                (v) => {
+                  setReceiverDate(v);
+                  item.receiver_party_id = v.id;
+                }
+              "
+              return-object
+              :value="{ id: item.receiver_party_id }"
             />
           </v-col>
           <v-col>
@@ -602,6 +670,14 @@ export default {
         { id: 3, name: "تسليم يد على الحساب" },
       ],
       item: {
+        sender_party_id: "",
+        sender_id_no: "",
+        sender_phone: "",
+        sender_address: "",
+        receiver_id_no: "",
+        receiver_phone: "",
+        receiver_address: "",
+        receiver_party_id: "",
         commission_side: 1,
         type: 0,
         delivering_type: 1,
@@ -719,9 +795,12 @@ export default {
       //  $newCalcBuyPrice(item.office_currency,{id:1}) ;
       this.item.office_amount = this.item.office_currency_id
         ? tempVar *
-          this.$newCalcBuyPrice({ id: this.item.office_currency_id }, { id: 1 })
+          this.$newCalcSalePrice(
+            { id: this.item.office_currency_id },
+            { id: 1 }
+          )
         : tempVar;
-
+      this.item.office_amount_in_office_currency = tempVar;
       return tempVar <= 0 ? null : tempVar;
     },
     officeProfitComp() {
@@ -741,6 +820,7 @@ export default {
   },
   methods: {
     setReceiverDate(item) {
+      if (!item) return;
       this.item.receiver_id_no = item.id_no;
       this.item.receiver_phone = item.phone;
       this.item.receiver_address = item.address;
@@ -748,6 +828,7 @@ export default {
       this.item.receiver_city_id = item.city_id;
     },
     setSenderDate(item) {
+      if (!item) return;
       this.item.sender_id_no = item.id_no;
       this.item.sender_phone = item.phone;
       this.item.sender_address = item.address;

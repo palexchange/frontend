@@ -640,7 +640,7 @@ export default {
       // if (ratio == null) return;
       // let amountToDelv = recvAmountInUSD * ratio;
       // this.item.received_amount = amountToDelv;
-      console.log("aaahahahaaaa hhhaaa hhaaa hhhaaahhhaa hhhaaa hhhaaa");
+      // console.log("aaahahahaaaa hhhaaa hhaaa hhhaaahhhaa hhhaaa hhhaaa");
       this.item.received_amount;
       this.item.returned_commision;
       this.item.office_commision;
@@ -648,6 +648,7 @@ export default {
       this.item.a_received_amount;
       this.item.exchange_rate_to_reference_currency;
       let office_amount = this.item.to_send_amount;
+      this.item.office_amount_in_office_currency = this.item.to_send_amount;
       this.item.final_received_amount = office_amount;
 
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
@@ -730,9 +731,7 @@ export default {
       // );
       return (
         parseFloat(this.item.office_amount) -
-        parseFloat(this.item.a_received_amount) +
-        parseFloat(this.item.office_commision || 0) -
-        parseFloat(this.item.returned_commision || 0)
+        parseFloat(this.item.a_received_amount)
       );
     },
     ...mapState({

@@ -22,6 +22,7 @@ const _8d1a253a = () => interopDefault(import('..\\pages\\dashboard\\reports\\in
 const _6c58a44f = () => interopDefault(import('..\\pages\\dashboard\\settings\\index.vue' /* webpackChunkName: "pages/dashboard/settings/index" */))
 const _6d1eef9a = () => interopDefault(import('..\\pages\\dashboard\\transfers\\index.vue' /* webpackChunkName: "pages/dashboard/transfers/index" */))
 const _2491f9db = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/index" */))
+const _6a4a742f = () => interopDefault(import('..\\pages\\dashboard\\exchange\\2.vue' /* webpackChunkName: "pages/dashboard/exchange/2" */))
 const _e593706a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/form/index" */))
 const _3eab9a76 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inputs/form/index" */))
 const _4425783c = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/form/index" */))
@@ -129,6 +130,10 @@ export const routerOptions = {
     path: "/dashboard/beneficiaries/form",
     component: _2491f9db,
     name: "dashboard-beneficiaries-form"
+  }, {
+    path: "/dashboard/exchange/2",
+    component: _6a4a742f,
+    name: "dashboard-exchange-2"
   }, {
     path: "/dashboard/exchange/form",
     component: _e593706a,

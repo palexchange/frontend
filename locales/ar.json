@@ -146,7 +146,8 @@
     "amount to give": "المبلغ للتسليم",
     "transfer date": "تاريخ الحوالة",
     "another expenses on receiver": "مصاريف علي المستلم",
-    "final amount to give": "المبلغ النهائي للتسليم",
+    "final amount to give": "المبلغ للتسليم",
+    "final amount to give after commission": " المبلغ للتسليم ش.ع",
     "transfer type": "نوع الحوالة",
     "buy": "شراء",
     "send sms to the sender": "ارسال رسالة sms للمحول",
@@ -380,7 +381,7 @@
     "the allowed time to delete": "المدة للحذف بعد الحفظ بالدقائق",
     "You can't delete, more time than the allowed has passed": "لا يمكنك الحذف لانتهاء فترة الحذف المسموح بها",
     "select all": "اختيار الكل",
-    "final amount to give in usd": "المبلغ للتسليم بالدولار",
+    "final amount to give in usd": "المبلغ بالدولار",
     "transfer image": "صورة الحوالة",
     "moneygram": "موني غرام",
     "profit": "الربحية",
@@ -407,5 +408,7 @@
     "closing": "إغلاق",
     "incoming transfer": "حوالة واردة",
     "dashboard-profit": "ربحية الجرد",
+    "outcoming moneygram": "موني غرام صادرة",
+    "هىcoming moneygram": "موني غرام واردة",
     "app settings": "إعدادات الموقع"
 }

@@ -3,7 +3,12 @@
     <SideInfoTransfer
       :profit="item.profit"
       :officeProfitComp="officeProfitComp"
-    />
+    >
+      <v-row>
+        <v-col cols="12" sm="12"> {{ $t("outcoming moneygram") }} </v-col>
+      </v-row>
+    </SideInfoTransfer>
+
     <Card class="d-relative mb-5 pt-3 pl-3 pr-6">
       <v-row>
         <v-col cols="12" md="5" sm="12">

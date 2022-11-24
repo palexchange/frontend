@@ -108,6 +108,12 @@
     "chunkName": "pages/dashboard/beneficiaries/form/index"
   },
   {
+    "name": "dashboard-exchange-2",
+    "path": "/dashboard/exchange/2",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\2.vue",
+    "chunkName": "pages/dashboard/exchange/2"
+  },
+  {
     "name": "dashboard-exchange-form",
     "path": "/dashboard/exchange/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",

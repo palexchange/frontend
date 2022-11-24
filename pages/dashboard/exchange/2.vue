@@ -211,7 +211,7 @@
                       changed_ex_amount(items[i], i, v);
                     }
                   "
-                  class="mt-4 text-input"
+                  class="mt-4"
                   min="0"
                   color="#FF7171"
                   style="border-radius: 7px !important"
@@ -225,7 +225,7 @@
                   hide-details
                   @keydown.enter="changed_ex_factor(items[i], $event)"
                   @blur="changed_ex_factor(items[i], $event)"
-                  class="mt-4 text-input"
+                  class="mt-4"
                   min="0"
                   color="#FF7171"
                   style="border-radius: 7px !important"
@@ -237,7 +237,7 @@
                 <v-text-field
                   :value="items[i].modified_factor"
                   hide-details
-                  class="mt-4 text-input"
+                  class="mt-4"
                   min="0"
                   style="border-radius: 7px !important"
                   dense
@@ -250,19 +250,19 @@
                 <v-btn
                   @click="setRow(i, currency, true)"
                   class="mt-4"
+                  :outlined="buttons_colors[i][0] == 'red'"
                   color="primary"
                   :key="variable_key"
-                  :outlined="buttons_colors[i][0]"
-                  >{{ $t("edit") }}</v-btn
+                  >{{ $t("reminder") }}</v-btn
                 >
               </td>
               <td>
                 <v-btn
                   @click="round_amount(items[i], i)"
                   class="mt-4"
+                  :outlined="buttons_colors[i][1] == 'red'"
                   color="primary"
                   :key="variable_key"
-                  :outlined="buttons_colors[i][1]"
                   >{{ $t("amount rounding") }}</v-btn
                 >
               </td>
@@ -270,9 +270,9 @@
                 <v-btn
                   @click="delete_factors(items[i], i)"
                   class="mt-4"
+                  :outlined="buttons_colors[i][2] == 'red'"
                   color="primary"
                   :key="variable_key"
-                  :outlined="buttons_colors[i][2]"
                   >{{ $t("delete fraction") }}</v-btn
                 >
               </td>
@@ -280,7 +280,7 @@
                 <v-btn
                   @click="complete_factor(items[i], i)"
                   class="mt-4"
-                  :outlined="buttons_colors[i][3]"
+                  :outlined="buttons_colors[i][3] == 'red'"
                   color="primary"
                   :key="variable_key"
                   >{{ $t("complete fraction") }}</v-btn
@@ -326,7 +326,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "extchange",
   data() {
@@ -335,7 +335,9 @@ export default {
       keyNum: 1,
       selected: {},
       number: 1,
-      buttons_colors: new Array(9).fill(0).map(() => new Array(4).fill(false)),
+      buttons_colors: new Array(9)
+        .fill(0)
+        .map(() => new Array(4).fill("primary")),
       item: {
         beneficairy: { id: 1 },
         currency: {},
@@ -353,13 +355,25 @@ export default {
   computed: {
     ...mapState({
       all_currencies: (state) => state.currency.all,
-      all_stocks: (state) => state.stock.all,
-      user: (state) => state.auth.user || {},
+      user: (state) => state.user.one || {},
     }),
+    factor_view_comp: {
+      get: function (index) {
+        return this.items[index].exchanged_vactor < 0.65
+          ? 1 / this.items[index].exchanged_vactor
+          : this.items[index].exchanged_vactor;
+      },
+      set: function (index, new_value) {
+        this.items[index].exchanged_vactor =
+          this.items[index].exchanged_vactor < 0.65
+            ? 1 / (parseFloat(this.factor_view_comp) + parseFloat(new_value))
+            : new_value;
+      },
+    },
+
     exchange_profit() {
       let main_amount = parseFloat(this.exchange.amount || 0);
       let final_profit = 0;
-      let total_extra_amount = 0;
       if (main_amount == 0) return 0;
       this.items.forEach((e, index) => {
         let obj = {};
@@ -378,10 +392,7 @@ export default {
           this.$newCalcBuyPrice(this.item.currency, this.all_currencies[index])
         );
         obj.calc_profit_factor = (obj.buy_factor + obj.sale_factor) / 2;
-
-        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor); // -2.824858757062147
-        total_extra_amount += obj.amount;
-
+        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor);
         obj.new_amount = parseFloat(obj.amount * obj.calc_profit_factor);
         obj.profit_in_to_currency = obj.new_amount - obj.exchanged_amount;
         obj.sale_factor_from_to_currency = parseFloat(
@@ -396,16 +407,7 @@ export default {
         obj.profit = obj.profit_in_to_currency * obj.calc_new_factor;
         final_profit += obj.profit;
       });
-      this.stocks;
-      console.log(total_extra_amount - main_amount);
-      let mid = 1;
-      if (this.item.currency && this.item.currency.id) {
-        mid = this.all_stocks.find(
-          (v) => v.currency_id == this.item.currency.id
-        ).mid;
-      }
 
-      final_profit = final_profit - (total_extra_amount - main_amount) * mid;
       this.exchange.profit = parseFloat(final_profit).toFixed(3);
       return parseFloat(final_profit).toFixed(3);
     },
@@ -446,6 +448,7 @@ export default {
         this.all_currencies.forEach((item, index) => {
           this.items[index].exchanged_amount = null;
           this.items[index].exchanged_vactor = null;
+          this.items[index].exchanged_vactor_view = null;
           this.items[index].modified_factor = null;
         });
       }
@@ -456,31 +459,24 @@ export default {
       let buy = this.$newCalcBuyPrice(from, to);
       console.table({ sale, buy });
       let temp = Math.min(buy, sale);
+      if (temp < 0.65) {
+        this.items[index].exchanged_vactor_view = 1 / temp;
+      }
       this.items[index].exchanged_vactor = temp.toFixed(4);
       this.items[index].exchanged_amount = (amount * temp).toFixed(4);
       this.items[index].modified_factor = null;
       this.number = this.number + 1;
 
-      if (is_reminder) {
-        let holder = this.buttons_colors[index][0];
-        this.buttons_colors[index] = this.buttons_colors[index].map(() => {
-          new Array(4).fill(false);
-        });
-        this.buttons_colors[index][0] = !holder;
-      }
+      if (is_reminder) this.buttons_colors[index][0] = "red";
       this.variable_key++;
     },
 
-    changed_ex_amount(element, i, new_value) {
+    changed_ex_amount(element, index, new_value) {
       element.exchanged_amount = new_value;
       let amount = this.exchange.amount || 0;
       let ex_amount = element.exchanged_amount || 0;
       let ex_vector = element.exchanged_vactor || 1;
       let sum = this.sum_fields();
-      // element.exchanged_vactor = parseFloat(
-      //   parseFloat(new_value) / parseFloat(amount)
-      // ).toFixed(4);
-
       if (sum > amount) {
         this.item.reminder = 0;
         return false;
@@ -519,12 +515,11 @@ export default {
       let new_factor = new_amount / amount;
       element.modified_factor = new_factor.toFixed(4);
       element.exchanged_amount = new_amount.toFixed(4);
-      let holder = this.buttons_colors[index][1];
-      this.buttons_colors[index] = this.buttons_colors[index].map(() => {
-        new Array(4).fill(false);
-      });
-      this.buttons_colors[index][1] = !holder;
+
+      this.buttons_colors[index][1] = "red";
       this.variable_key++;
+
+      console.log(element);
     },
     delete_factors(element, index) {
       let ex_amount = element.exchanged_amount || 0;
@@ -534,12 +529,11 @@ export default {
       let new_factor = new_amount / amount;
       element.modified_factor = new_factor.toFixed(4);
       element.exchanged_amount = new_amount.toFixed(4);
-      let holder = this.buttons_colors[index][2];
-      this.buttons_colors[index] = this.buttons_colors[index].map(() => {
-        new Array(4).fill(false);
-      });
-      this.buttons_colors[index][2] = !holder;
+
+      this.buttons_colors[index][2] = "red";
       this.variable_key++;
+
+      console.log(element);
     },
     complete_factor(element, index) {
       let ex_amount = element.exchanged_amount || 0;
@@ -549,18 +543,15 @@ export default {
       let new_factor = new_amount / amount;
       element.modified_factor = new_factor.toFixed(4);
       element.exchanged_amount = new_amount.toFixed(4);
-      let holder = this.buttons_colors[index][3];
-      this.buttons_colors[index] = this.buttons_colors[index].map(() => {
-        new Array(4).fill(false);
-      });
-      this.buttons_colors[index][3] = !holder;
+
+      this.buttons_colors[index][3] = "red";
       this.variable_key++;
       // element.modified_factor = 8;
     },
     async save() {
       this.buttons_colors = new Array(9)
         .fill(0)
-        .map(() => new Array(4).fill(false));
+        .map(() => new Array(4).fill("primary"));
       this.addnumberToReRender();
       if (!(this.item.beneficairy && this.item.beneficairy.id)) {
         this.$swal.fire({
@@ -627,20 +618,20 @@ export default {
         this.$save({ ...details, silent: true }, "exchange_detail");
       }
       console.log("test __________-------------_______");
-      this.$store.dispatch("exchange/update", {
-        id: response.id,
-        status: 1,
-        silent: true,
-      });
-      // .then(() => {
-      //   this.$store.dispatch("user/show", this.$auth.user.id);
-      // });
+      this.$store
+        .dispatch("exchange/update", {
+          id: response.id,
+          status: 1,
+          silent: true,
+        })
+        .then(() => {
+          this.$store.dispatch("user/show", this.$auth.user.id);
+        });
 
-      this.item = { beneficairy: { id: 1 } };
+      this.item = {};
       this.items = [];
       this.keyNum = this.keyNum + 1;
       this.addItems();
-      this.$auth.fetchUser();
     },
   },
   mounted() {
@@ -648,7 +639,7 @@ export default {
     if (this.all_currencies[0] && this.items.length == 0) {
       this.addItems();
     }
-    // this.$store.dispatch("user/show", this.$auth.user.id);
+    this.$store.dispatch("user/show", this.$auth.user.id);
   },
   created() {
     this.$store.dispatch("stock/index");
@@ -671,6 +662,8 @@ export default {
             exchanged_vactor: null,
             exchanged_amount: null,
           });
+          if (this.ignored_curr_names.includes(item.name))
+            this.ignored_curr_obj.push(item.id);
         });
       }
     },
@@ -745,9 +738,5 @@ export default {
     min-width: 300px !important;
     max-width: 300px !important;
   }
-}
-.text-input input {
-  font: 1.2em sans-serif;
-  font-weight: 700;
 }
 </style>

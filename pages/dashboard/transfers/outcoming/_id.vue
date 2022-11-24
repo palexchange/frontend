@@ -313,7 +313,7 @@
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات الحوالة المالية </v-card-title>
       <v-card-text>
-        <v-row class="justify-center responseveCols">
+        <v-row dense class="justify-center responseveCols">
           <v-col>
             <InputField
               :readonly="showReadOnly"
@@ -365,14 +365,14 @@
               required
             />
           </v-col>
-          <v-col>
+          <!-- <v-col>
             <InputField
               :readonly="showReadOnly"
               holder="another expenses"
               text="another expenses"
               v-model.number="item.other_amounts_on_sender"
             />
-          </v-col>
+          </v-col> -->
           <!-- <v-col>
             <InputField
               :readonly="showReadOnly"
@@ -401,12 +401,12 @@
             />
           </v-col>
         </v-row>
-        <v-row>
+        <v-row dense>
           <v-col class="text-center">
             <img src="~/assets/img/icons/to.png" alt="" />
           </v-col>
         </v-row>
-        <v-row class="justify-center responseveCols">
+        <v-row dense class="justify-center responseveCols">
           <v-col>
             <AutoComplete
               :readonly="showReadOnly"
@@ -448,7 +448,6 @@
               dashed
               holder="amount to give"
               text="amount to give"
-              required
             />
           </v-col>
           <!-- <v-col>
@@ -459,7 +458,7 @@
               text="another expenses on receiver"
             />
           </v-col> -->
-          <v-col>
+          <!-- <v-col>
             <InputField
               :readonly="showReadOnly"
               :value="totalRecvAmountComp | money"
@@ -467,7 +466,7 @@
               holder="final amount to give"
               text="final amount to give"
             />
-          </v-col>
+          </v-col> -->
           <v-col>
             <InputField
               :readonly="showReadOnly"
@@ -481,15 +480,15 @@
       </v-card-text>
     </Card>
     <Card class="mb-5 pa-3">
-      <v-card-title>المكتب</v-card-title>
+      <v-card-title>الوسيط</v-card-title>
       <v-card-text>
         <v-row dense class="justify-center responseveCols">
           <v-col cols="3">
             <BeneficiaryAutocomplete
               :readonly="showReadOnly"
               no_fetch
-              holder="office"
-              text="office"
+              holder="المكتب الوسيط"
+              text="المكتب الوسيط"
               v-model="item.office_id"
               required
             />
@@ -551,9 +550,11 @@
         </v-row>
         <v-row dense>
           <v-col cols="3">
-            <label class="required form-label"
+            <label
+              style="color: rgba(0, 0, 0); font-size: 16px"
+              class="required form-label"
               >{{ item.office_commission_type == 1 ? "%" : "" }}
-              عمولة المكتب
+              عمولة الوسيط
             </label>
             <v-text-field
               :readonly="showReadOnly"
@@ -591,8 +592,13 @@
           <v-col cols="3">
             <InputField
               :readonly="showReadOnly"
-              :value="totalOfficeAmount | money"
-              dashed
+              v-model="item.office_amount_in_office_currency"
+              @change="
+                (v) =>
+                  (computed_exchange_rate_to_office_currency = parseFloat(
+                    v / officeAmount
+                  ))
+              "
               holder="final amount to office"
               text="final amount to office"
             />
@@ -725,7 +731,7 @@ export default {
       let transferringAmount = this.item.to_send_amount || 0;
       let comval = this.item.commission_side == 2 ? 0 : this.calcCommisson();
       let total = comval + transferringAmount + otherExp;
-      return total > 0 ? total : null;
+      return total > 0 ? total.toFixed() : null;
     },
     amountInUSDComp() {
       if (
@@ -735,19 +741,23 @@ export default {
         return;
       return (
         this.item.to_send_amount * this.item.exchange_rate_to_delivery_currency
-      );
+      ).toFixed();
     },
     totalAmountInUSDComp() {
       let convert_param = this.item.exchange_rate_to_delivery_currency || 1;
       let total = parseFloat(this.amountInUSDComp || 0);
       let commVal =
         this.item.commission_side == 1
-          ? parseFloat((this.calcCommisson() || 0) * convert_param)
+          ? parseFloat(
+              (this.calcCommisson(
+                this.computed_exchange_rate_to_delivery_currency
+              ) || 0) * convert_param
+            )
           : 0;
       let otherExp = (this.item.other_amounts_on_sender || 0) * convert_param;
       let final = commVal + total + otherExp;
       this.item.final_received_amount = final;
-      return final > 0 ? final : null;
+      return final > 0 ? final.toFixed() : null;
     },
     recivedAmountComp() {
       let conversionParam = this.item.exchange_rate_to_reference_currency || 0,
@@ -783,10 +793,15 @@ export default {
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      let commission = this.item.office_commission || 0,
+      let exchange_rate = (
+        this.stocks.find(
+          (v) => v.currency_id == this.item.office_currency_id
+        ) || { mid: 1 }
+      ).mid;
+      let commission = this.item.office_commission * exchange_rate || 0,
         officeAmount = parseFloat(this.officeAmount || 0);
 
-      let returned = this.item.returned_commission || 0;
+      let returned = this.item.returned_commission * exchange_rate || 0;
       commission =
         this.item.office_commission_type == 1
           ? (commission / 100) * officeAmount
@@ -794,14 +809,17 @@ export default {
       let tempVar = officeAmount + commission - returned;
       //  $newCalcBuyPrice(item.office_currency,{id:1}) ;
       this.item.office_amount = this.item.office_currency_id
-        ? tempVar *
-          this.$newCalcSalePrice(
-            { id: this.item.office_currency_id },
-            { id: 1 }
-          )
-        : tempVar;
-      this.item.office_amount_in_office_currency = tempVar;
-      return tempVar <= 0 ? null : tempVar;
+        ? parseFloat(
+            tempVar *
+              this.$newCalcSalePrice(
+                { id: this.item.office_currency_id },
+                { id: 1 }
+              )
+          ).toFixed()
+        : parseFloat(tempVar).toFixed();
+      this.item.office_amount_in_office_currency =
+        parseFloat(tempVar).toFixed();
+      return tempVar <= 0 ? null : parseFloat(tempVar).toFixed();
     },
     officeProfitComp() {
       let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
@@ -816,6 +834,7 @@ export default {
     ...mapState({
       currencies: (state) => state.currency.all,
       one: (state) => state.transfer.one,
+      stocks: (state) => state.stock.all,
     }),
   },
   methods: {
@@ -854,9 +873,11 @@ export default {
           : this.$newCalcBuyPrice(fromCurr, toCurr)
       );
     },
-    calcCommisson() {
+    calcCommisson(exchange_rate) {
       let transferringAmount = this.item.to_send_amount || 0;
-      let commisson_amount = this.item.transfer_commission || 0;
+      let commisson_amount = exchange_rate
+        ? this.item.transfer_commission * exchange_rate
+        : this.item.transfer_commission || 0;
       let percentage = this.item.is_commission_percentage;
       let amount = 0;
       if (commisson_amount != 0) {

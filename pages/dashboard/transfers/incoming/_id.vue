@@ -331,12 +331,20 @@
             />
           </v-col> -->
           <v-col cols="12" sm="2" v-show="!is_moneygram">
+            <!--  (يتم خصم المبلغ من المبلغ المرسل)" -->
+            <InputField
+              v-model.number="item.returned_commision"
+              holder="عمولة الوسيط"
+              text="عمولة الوسيط"
+            />
+          </v-col>
+          <v-col cols="12" sm="2" v-show="!is_moneygram">
             <label
               class="form-label"
               style="color: rgba(0, 0, 0); font-size: 16px"
             >
               {{ item.office_commision_type == 1 ? "%" : "" }}
-              مرجع الوسيط
+              مرجع
             </label>
             <v-text-field
               v-model.number="item.office_commision"
@@ -359,14 +367,7 @@
             >
             </v-text-field>
           </v-col>
-          <v-col cols="12" sm="2" v-show="!is_moneygram">
-            <!--  (يتم خصم المبلغ من المبلغ المرسل)" -->
-            <InputField
-              v-model.number="item.returned_commision"
-              holder="عمولة الوسيط"
-              text="عمولة الوسيط"
-            />
-          </v-col>
+
           <v-col cols="12" sm="3" v-show="!is_moneygram">
             <InputField
               :value="totalOfficeAmount | money"
@@ -498,10 +499,10 @@
           </v-col>
           <v-col>
             <InputField
+              dashed
               v-model.number="item.received_amount_no_commision"
               holder="final amount to give"
               text="final amount to give"
-              @change="(v) => setFinalAmount(v)"
               required
             />
           </v-col>
@@ -720,9 +721,11 @@ export default {
       this.item.received_amount_no_commision =
         parseFloat(tottal).toFixed(4) || 0;
       this.item.received_amount =
-        parseFloat(tottal - this.calcCommisson).toFixed(4) || 0;
+        parseFloat(tottal - this.calcCommisson).toFixed() || 0;
       this.item.a_received_amount =
-        parseFloat(this.item.received_amount * factor).toFixed(4) || 0;
+        parseFloat(
+          parseFloat(tottal - this.calcCommisson) * factor
+        ).toFixed() || 0;
 
       // this.item.received_amount = tottal;
       return tottal;
@@ -803,11 +806,13 @@ export default {
   methods: {
     setFinalAmount(amount) {
       this.item.exchange_rate_to_reference_currency = parseFloat(
-        amount / this.item.to_send_amount
-      ).toFixed(5);
+        (parseFloat(amount) + parseFloat(this.calcCommisson)) /
+          this.item.to_send_amount
+      ).toFixed(7);
       this.item.exchange_rate_to_reference_currency_view = parseFloat(
-        amount / this.item.to_send_amount
-      ).toFixed(5);
+        (parseFloat(amount) + parseFloat(this.calcCommisson)) /
+          this.item.to_send_amount
+      ).toFixed(7);
       // this.officeProfitComp;
     },
     confirmProcess() {

@@ -191,6 +191,9 @@
   "RoleShowPermission": {
     "description": "Auto imported from components/role/ShowPermission.vue"
   },
+  "SettingsAccounts": {
+    "description": "Auto imported from components/settings/Accounts/Index.vue"
+  },
   "SettingsCloseingAccountsCreate": {
     "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
   },
@@ -202,9 +205,6 @@
   },
   "SettingsEntry": {
     "description": "Auto imported from components/settings/Entry/Index.vue"
-  },
-  "SettingsAccounts": {
-    "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
   "SettingsOpeningAccountsCreate": {
     "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"

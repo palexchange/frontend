@@ -82,6 +82,7 @@
               <BeneficiaryAutocomplete
                 text="beneficiary"
                 holder="beneficiary"
+                :value="item.sender_party_id"
                 return-object
                 @change="
                   (v) => {
@@ -603,6 +604,7 @@
   <script>
 import { mapState } from "vuex";
 import ruless from "~/helpers/rules";
+
 export default {
   name: "incoming-transfer",
   data() {
@@ -940,11 +942,21 @@ export default {
   created() {
     this.$store.dispatch("currency/index");
     this.$store.dispatch("stock/index");
+    this.item.sender_party_id = this.app_setting["general_customer"]
+      ? parseFloat(this.app_setting["general_customer"]["value"])
+      : null;
   },
   mounted() {
     if (this.$route.query.show && this.$route.query.show == "true") {
       this.showReadOnly = true;
     }
+  },
+  watch: {
+    app_setting(val) {
+      this.item.sender_party_id = val["general_customer"]
+        ? parseFloat(val["general_customer"]["value"])
+        : null;
+    },
   },
 };
 </script>

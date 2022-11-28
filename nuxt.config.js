@@ -68,6 +68,9 @@ export default {
     {
       src: '~/helpers/menus_filters.js'
     },
+    {
+      src: '~/helpers/global.js'
+    },
     // {
     //   src: '~/plugins/v-datetime-picker.js'
     // },

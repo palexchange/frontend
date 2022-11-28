@@ -87,6 +87,7 @@
                 holder="beneficiary"
                 required
                 return-object
+                :value="item.sender_party_id"
                 @change="
                   (v) => {
                     setSenderDate(v);
@@ -792,11 +793,27 @@ export default {
   created() {
     this.$store.dispatch("currency/index");
     this.$store.dispatch("stock/index");
+    this.item.sender_party_id = this.app_setting["general_customer"]
+      ? parseFloat(this.app_setting["general_customer"]["value"])
+      : null;
+    this.item.office_id = this.app_setting["moneygram_account"]
+      ? parseFloat(this.app_setting["moneygram_account"]["value"])
+      : null;
   },
   mounted() {
     if (this.$route.query.show && this.$route.query.show == "true") {
       this.showReadOnly = true;
     }
+  },
+  watch: {
+    app_setting(val) {
+      this.item.sender_party_id = val["general_customer"]
+        ? parseFloat(val["general_customer"]["value"])
+        : null;
+      this.item.office_id = val["moneygram_account"]
+        ? parseFloat(val["moneygram_account"]["value"])
+        : null;
+    },
   },
 };
 </script>

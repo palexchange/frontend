@@ -762,7 +762,7 @@ export default {
     recivedAmountComp() {
       let conversionParam = this.item.exchange_rate_to_reference_currency || 0,
         amountInUSD = parseFloat(this.amountInUSDComp || 0);
-      let res = conversionParam * amountInUSD;
+      let res = (conversionParam * amountInUSD * 1).toFixed();
       this.item.received_amount = res;
       return res <= 0 ? null : res;
     },
@@ -772,7 +772,10 @@ export default {
       let commission =
         this.item.commission_side == 1 ? 0 : this.calcCommisson() || 0;
       let otherExp = this.item.other_amounts_on_receiver || 0;
-      let res = (amountInUSD - commission - otherExp) * conversionParam;
+      let res = (
+        (amountInUSD - commission - otherExp) *
+        conversionParam
+      ).toFixed();
       let factor = this.$newCalcSalePrice(
         { id: this.item.received_currency_id },
         { id: 1 }
@@ -782,7 +785,7 @@ export default {
         { id: 1 }
       );
       this.item.a_received_amount = factor
-        ? res * (factor < 1 ? factor : sub_factor)
+        ? (res * (factor < 1 ? factor : sub_factor)).toFixed()
         : null;
       return res <= 0 ? null : res;
     },

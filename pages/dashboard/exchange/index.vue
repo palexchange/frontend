@@ -223,8 +223,10 @@
                 <v-text-field
                   :value="items[i].exchanged_vactor_view"
                   hide-details
-                  @keydown.enter="changed_ex_factor(items[i], $event)"
-                  @blur="changed_ex_factor(items[i], $event)"
+                  @keydown.enter="
+                    changed_ex_factor(items[i], $event, i, currency)
+                  "
+                  @blur="changed_ex_factor(items[i], $event, i, currency)"
                   class="mt-4 text-input"
                   min="0"
                   color="#FF7171"
@@ -235,7 +237,7 @@
               </td>
               <td>
                 <v-text-field
-                  :value="items[i].modified_factor"
+                  :value="items[i].modified_factor_view"
                   hide-details
                   class="mt-4 text-input"
                   min="0"
@@ -258,7 +260,7 @@
               </td>
               <td>
                 <v-btn
-                  @click="round_amount(items[i], i)"
+                  @click="round_amount(items[i], i, currency)"
                   class="mt-4"
                   color="primary"
                   :key="variable_key"
@@ -268,7 +270,7 @@
               </td>
               <td>
                 <v-btn
-                  @click="delete_factors(items[i], i)"
+                  @click="delete_factors(items[i], i, currency)"
                   class="mt-4"
                   color="primary"
                   :key="variable_key"
@@ -278,7 +280,7 @@
               </td>
               <td>
                 <v-btn
-                  @click="complete_factor(items[i], i)"
+                  @click="complete_factor(items[i], i, currency)"
                   class="mt-4"
                   :outlined="buttons_colors[i][3]"
                   color="primary"
@@ -380,6 +382,7 @@ export default {
       let main_amount = parseFloat(this.exchange.amount || 0);
       let final_profit = 0;
       let total_extra_amount = 0;
+
       if (main_amount == 0) return 0;
       this.items.forEach((e, index) => {
         let obj = {};
@@ -389,6 +392,7 @@ export default {
         obj.used_factor = parseFloat(
           e.modified_factor || e.exchanged_vactor || 0
         );
+        console.log("Used Factor: ", obj.used_factor);
         if (obj.sale_factor == 0) return;
 
         obj.sale_factor = parseFloat(
@@ -416,15 +420,26 @@ export default {
         obj.profit = obj.profit_in_to_currency * obj.calc_new_factor;
         final_profit += obj.profit;
       });
-      this.stocks;
-      console.log(total_extra_amount - main_amount);
-      let mid = 1;
-      if (this.item.currency && this.item.currency.id) {
-        mid = this.all_stocks.find(
-          (v) => v.currency_id == this.item.currency.id
-        ).mid;
-      }
 
+      // this.stocks;
+      // console.log(total_extra_amount - main_amount);
+      // let mid = 1;
+      // if (this.item.currency && this.item.currency.id) {
+      //   mid = this.all_stocks.find(
+      //     (v) => v.currency_id == this.item.currency.id
+      //   ).mid;
+      // }
+
+      let saling = parseFloat(
+        this.$newCalcSalePrice(this.item.currency, { id: 1 })
+      );
+      let buying = parseFloat(
+        this.$newCalcBuyPrice(this.item.currency, { id: 1 })
+      );
+      let mid = (buying + saling) / 2;
+
+      total_extra_amount = total_extra_amount.toFixed(3) * 1;
+      main_amount = main_amount.toFixed(3) * 1;
       final_profit = final_profit - (total_extra_amount - main_amount) * mid;
       this.exchange.profit = parseFloat(final_profit).toFixed(3);
       return parseFloat(final_profit).toFixed(3);
@@ -440,6 +455,7 @@ export default {
       this.all_currencies.map((item) => {
         this.items.push({
           modified_factor: null,
+          modified_factor_view: null,
           exchanged_vactor: null,
           exchanged_amount: null,
           exchanged_vactor_view: null,
@@ -469,6 +485,7 @@ export default {
           this.items[index].exchanged_vactor = null;
           this.items[index].exchanged_vactor_view = null;
           this.items[index].modified_factor = null;
+          this.items[index].modified_factor_view = null;
         });
       }
 
@@ -476,17 +493,22 @@ export default {
       let to = item;
       let sale = this.$newCalcSalePrice(from, to);
       let buy = this.$newCalcBuyPrice(from, to);
-      console.table({ sale, buy });
-      let temp = Math.min(buy, sale).toFixed(4);
+      let temp = Math.min(buy, sale);
 
       let factor_to_view =
-        to.weight * 1 > from.weight * 1 ? (1 / temp).toFixed(4) : temp;
+        to.weight * 1 > from.weight * 1
+          ? Math.max(
+              this.$newCalcSalePrice(to, from),
+              this.$newCalcSalePrice(to, from)
+            )
+          : temp;
 
-      this.items[index].exchanged_vactor = temp;
-      this.items[index].exchanged_vactor_view = factor_to_view;
+      this.items[index].exchanged_vactor = temp.toFixed(4) * 1;
+      this.items[index].exchanged_vactor_view = factor_to_view.toFixed(4);
 
       this.items[index].exchanged_amount = (amount * temp).toFixed(4);
       this.items[index].modified_factor = null;
+      this.items[index].modified_factor_view = null;
       this.number = this.number + 1;
 
       if (is_reminder) {
@@ -513,25 +535,35 @@ export default {
         this.item.reminder = 0;
         return false;
       }
+
       this.item.reminder = (amount - sum).toFixed(2);
     },
-    changed_ex_factor(element, event) {
+    changed_ex_factor(element, event, index, to_curr) {
       let new_value = parseFloat(event.target.value);
       let old_value = parseFloat(element.exchanged_vactor);
       // element.exchanged_vactor = new_value;
-      if (new_value != old_value)
-        new_value = ((1 / new_value) * 1).toFixed(2) * 1;
+
+      let from = this.item.currency;
+      let to = to_curr;
+
+      if (to.weight * 1 > from.weight * 1) {
+        new_value = (1 / new_value).toFixed(4);
+      }
+      console.log("new_value: ", new_value);
+      console.log("old_value: ", old_value);
+      if (new_value == old_value) return;
       let old_amount = element.exchanged_amount / parseFloat(old_value);
       let new_ex_amount = old_amount * new_value;
-      element.exchanged_vactor = new_value.toFixed(2);
-      element.exchanged_amount = new_ex_amount.toFixed(2);
+      element.exchanged_vactor = (new_value * 1).toFixed(4);
+      element.exchanged_amount = new_ex_amount.toFixed(4);
       console.log(element, old_value, new_value);
       console.log(new_value, new_ex_amount);
     },
     sum_fields() {
       console.log("Enterd Sum: >>>");
       if (!this.items[0]) return 0;
-      return this.items
+      console.log(this.items);
+      let total = this.items
         .reduce((e, n) => {
           let factor =
             parseFloat(n.modified_factor || 0) > 0
@@ -539,16 +571,25 @@ export default {
               : parseFloat(n.exchanged_vactor || 1);
           return e + parseFloat(n.exchanged_amount || 0) / factor;
         }, 0)
-        .toFixed(2);
+        .toFixed(4);
+      return total;
     },
-    round_amount(element, index) {
+    round_amount(element, index, to_curr) {
+      let from = this.item.currency;
+      let to = to_curr;
+
       let ex_amount = element.exchanged_amount || 0;
       let ex_factor = element.exchanged_vactor || 1;
       let new_amount = Math.round(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor.toFixed(2);
-      element.exchanged_amount = new_amount.toFixed(2);
+      if (to.weight * 1 > from.weight * 1) {
+        element.modified_factor_view = (1 / new_factor).toFixed(4);
+      } else {
+        element.modified_factor_view = new_factor.toFixed(4);
+      }
+      element.modified_factor = new_factor.toFixed(4);
+      element.exchanged_amount = new_amount.toFixed(4);
       let holder = this.buttons_colors[index][1];
       this.buttons_colors[index] = this.buttons_colors[index].map(() => {
         new Array(4).fill(false);
@@ -556,14 +597,22 @@ export default {
       this.buttons_colors[index][1] = !holder;
       this.variable_key++;
     },
-    delete_factors(element, index) {
+    delete_factors(element, index, to_curr) {
+      let from = this.item.currency;
+      let to = to_curr;
+
       let ex_amount = element.exchanged_amount || 0;
       let ex_factor = element.exchanged_vactor || 1;
       let new_amount = Math.floor(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor.toFixed(2);
-      element.exchanged_amount = new_amount.toFixed(2);
+      if (to.weight * 1 > from.weight * 1) {
+        element.modified_factor_view = (1 / new_factor).toFixed(4);
+      } else {
+        element.modified_factor_view = new_factor.toFixed(4);
+      }
+      element.modified_factor = new_factor.toFixed(4);
+      element.exchanged_amount = new_amount.toFixed(4);
       let holder = this.buttons_colors[index][2];
       this.buttons_colors[index] = this.buttons_colors[index].map(() => {
         new Array(4).fill(false);
@@ -571,14 +620,22 @@ export default {
       this.buttons_colors[index][2] = !holder;
       this.variable_key++;
     },
-    complete_factor(element, index) {
+    complete_factor(element, index, to_curr) {
+      let from = this.item.currency;
+      let to = to_curr;
+
       let ex_amount = element.exchanged_amount || 0;
       let ex_factor = element.exchanged_vactor || 1;
       let new_amount = Math.ceil(parseFloat(ex_amount));
       let amount = ex_amount / ex_factor;
       let new_factor = new_amount / amount;
-      element.modified_factor = new_factor.toFixed(2);
-      element.exchanged_amount = new_amount.toFixed(2);
+      if (to.weight * 1 > from.weight * 1) {
+        element.modified_factor_view = (1 / new_factor).toFixed(4);
+      } else {
+        element.modified_factor_view = new_factor.toFixed(4);
+      }
+      element.modified_factor = new_factor.toFixed(4);
+      element.exchanged_amount = new_amount.toFixed(4);
       let holder = this.buttons_colors[index][3];
       this.buttons_colors[index] = this.buttons_colors[index].map(() => {
         new Array(4).fill(false);
@@ -691,6 +748,7 @@ export default {
       this.all_currencies.map((item) => {
         this.items.push({
           modified_factor: null,
+          modified_factor_view: null,
           exchanged_vactor: null,
           exchanged_vactor_view: null,
           exchanged_amount: null,
@@ -707,6 +765,7 @@ export default {
         val.map((item) => {
           this.items.push({
             modified_factor: null,
+            modified_factor_view: null,
             exchanged_vactor: null,
             exchanged_amount: null,
             exchanged_vactor_view: null,

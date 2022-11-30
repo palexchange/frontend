@@ -582,13 +582,45 @@
             </v-text-field>
           </v-col>
           <v-col cols="3">
+            <label
+              style="color: rgba(0, 0, 0); font-size: 16px"
+              class="required form-label"
+              >{{ item.returned_commission_type == 1 ? "%" : "" }}
+              المرجع
+            </label>
+            <v-text-field
+              :readonly="showReadOnly"
+              v-model.number="item.returned_commission"
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+              slot="append"
+              hide-details
+              required
+              :append-icon="
+                item.returned_commission_type == 0
+                  ? 'fas fa-sort-numeric-up-alt'
+                  : 'fas fa-percentage'
+              "
+              @click:append="
+                () =>
+                  showReadOnly
+                    ? ''
+                    : (item.returned_commission_type =
+                        item.returned_commission_type == 1 ? 0 : 1)
+              "
+            >
+            </v-text-field>
+          </v-col>
+          <!-- <v-col cols="3">
             <InputField
               :readonly="showReadOnly"
               v-model.number="item.returned_commission"
               holder="returned"
               text="returned"
             />
-          </v-col>
+          </v-col> -->
           <v-col cols="3">
             <InputField
               :readonly="showReadOnly"
@@ -696,6 +728,7 @@ export default {
         sender_address: null,
         is_commission_percentage: false,
         office_commission_type: 0,
+        returned_commission_type: 0,
         exchange_rate_to_delivery_currency: null,
         exchange_rate_to_delivery_currency_view: null,
         exchange_rate_to_reference_currency: null,
@@ -801,10 +834,15 @@ export default {
           (v) => v.currency_id == this.item.office_currency_id
         ) || { mid: 1 }
       ).mid;
+
       let commission = this.item.office_commission * exchange_rate || 0,
         officeAmount = parseFloat(this.officeAmount || 0);
+      const returned_amount =
+        this.item.returned_commission_type == 1
+          ? (this.item.returned_commission / 100) * officeAmount
+          : this.item.returned_commission;
 
-      let returned = this.item.returned_commission * exchange_rate || 0;
+      let returned = returned_amount * exchange_rate || 0;
       commission =
         this.item.office_commission_type == 1
           ? (commission / 100) * officeAmount

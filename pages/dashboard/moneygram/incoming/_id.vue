@@ -4,7 +4,11 @@
     <SideInfoTransfer
       :profit="item.profit"
       :officeProfitComp="officeProfitComp"
-    />
+    >
+      <v-row>
+        <v-col cols="12" sm="12"> {{ $t("incoming moneygram") }} </v-col>
+      </v-row>
+    </SideInfoTransfer>
     <!-- :t_type="item.delivering_type" -->
     <Card class="d-relative mb-5 pt-3 pl-3 pr-6">
       <v-row>
@@ -684,7 +688,7 @@ export default {
   },
   methods: {
     confirmProcess() {
-      this.$save(this.item, "transfer", null, "/dashboard/transfers").then(
+      this.$save(this.item, "transfer", null, "/dashboard/moneygram").then(
         (data) => {
           if (this.transfer_photo) {
             this.$save(

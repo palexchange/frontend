@@ -1,8 +1,17 @@
+const transfer_statuses_map = () => {
+  const map = new Map();
+  map.set(0, "مسودة")
+  map.set(1, "معتمدة")
+  map.set(255, "ملغاة")
+  return map
+}
 export default (context) => {
   let t = (v) => context.app.i18n.t(v);
   let boolean_string = (v) => v ? t('yes') : t('no');
   let documents = (v) => ['', t('transfer'), t('exchange'), t('fund_adjusment'), t('inputs'), t('outputs')][v]
   let transactions = (v) => [t('outcoming'), t('incoming')][v]
+
+  const transfer_statuses = (status_id) => transfer_statuses_map().get(status_id)
   let resources = [{
     child: 'account',
     parent: '',
@@ -88,7 +97,16 @@ export default (context) => {
     child: 'exchange',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'date', 'amount', 'currency_name', 'party_name', 'number'],
+    headers: ['id', 'date', 'amount', 'currency_name', 'party_name', 'status', 'number'],
+
+    functions: [
+      {
+        key: 'status',
+        f: v => {
+          return transfer_statuses(v)
+        }
+      },
+    ]
   },
   // {
   //   child: 'receipt',
@@ -106,13 +124,14 @@ export default (context) => {
     child: 'exchange_detail',
     parent: '',
     load_after_store: false,
+    silent: true,
     headers: ['id', 'exchange_id', 'amount', 'currency_name', 'factor', 'amount_after'],
   },
   {
     child: 'transfer',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'type', 'issued_at', 'status', 'sender_party.name'],
+    headers: ['id', 'type', 'issued_at', 'delivering_type', 'status', 'sender_party.name', 'office.name', 'profit'],
     functions: [
       {
         key: 'type',
@@ -121,9 +140,15 @@ export default (context) => {
         }
       },
       {
+        key: 'delivering_type',
+        f: v => {
+          return ['تسليم يد', 'موني غرام', 'علي الحساب'][v - 1]
+        }
+      },
+      {
         key: 'status',
         f: v => {
-          return v == 1 ? 'معتمدة' : 'مسودة'
+          return transfer_statuses(v)
         }
       },
     ]
@@ -228,7 +253,7 @@ export default (context) => {
     child: 'entry',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'statement', 'created_at'],
+    headers: ['id', 'statement', 'inverse_entry_id', 'created_at'],
     functions: [
       {
         key: 'statement',

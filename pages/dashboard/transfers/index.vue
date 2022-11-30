@@ -12,7 +12,7 @@
       </v-btn>
     </CrudHeader>
 
-    <DataTable module="transfer" />
+    <DataTable :params="{ delivering_type: [1, 3] }" module="transfer" />
   </div>
 </template>
 
@@ -40,6 +40,9 @@ export default {
           item.id
         }?show=true`
       );
+    },
+    cancel(item) {
+      this.$remove(item, "transfer");
     },
     // delete(item) {
     //   this.$remove(item, "item");

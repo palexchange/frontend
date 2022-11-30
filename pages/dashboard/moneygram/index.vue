@@ -11,7 +11,7 @@
         <span> {{ $t("add incoming moneygram") }} </span>
       </v-btn>
     </CrudHeader>
-    <DataTable :params="{ delivering_type: 2 }" module="transfer" />
+    <DataTable :params="{ delivering_type: [2] }" module="transfer" />
   </div>
 </template>
 
@@ -40,9 +40,9 @@ export default {
         }?show=true`
       );
     },
-    // delete(item) {
-    //   this.$remove(item, "item");
-    // },
+    cancel(item) {
+      this.$remove(item, "transfer");
+    },
   },
   computed: {
     ...mapState({

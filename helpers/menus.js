@@ -34,7 +34,7 @@ export default {
             //     icon: "fas fa-ban",
             // },
             {
-                title: "remove",
+                title: "cancel",
                 icon: "fas fa-trash",
             },
         ],
@@ -50,8 +50,8 @@ export default {
                 icon: "fas fa-eye",
             },
             {
-                title: "delete",
-                icon: "fas fa-trash",
+                title: "cancel",
+                icon: "fas fa-times",
 
             },
         ],

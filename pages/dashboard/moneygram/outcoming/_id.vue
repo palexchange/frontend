@@ -335,7 +335,6 @@
               v-model.number="item.office_commission"
               holder="commission"
               text="commission"
-              required
             />
           </v-col>
           <v-col>
@@ -491,7 +490,7 @@
         <v-card-actions v-if="showReadOnly">
           <v-btn
             outlined
-            @click="$router.push('/dashboard/transfers')"
+            @click="$router.push('/dashboard/moneygram')"
             class="px-16"
             color="primary"
             >إغلاق</v-btn
@@ -633,7 +632,7 @@ export default {
       // this.item.final_received_amount = final;
       // this.item.office_amount = final;
       let total = parseFloat(this.amountInUSDComp || 0);
-      let final = total + this.item.office_commission;
+      let final = total + (this.item.office_commission || 0);
       this.item.final_received_amount = final;
       this.item.office_amount = final;
       return final;
@@ -753,7 +752,7 @@ export default {
     },
     confirmProcess(status) {
       this.item.status = status;
-      this.$save(this.item, "transfer", null, "/dashboard/transfers");
+      this.$save(this.item, "transfer", null, "/dashboard/moneygram");
     },
     showConversionFactor(to, factorModel, new_value) {
       if (!to || !factorModel) return;

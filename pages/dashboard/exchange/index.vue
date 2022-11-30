@@ -18,7 +18,6 @@
                     holder="beneficiary"
                     required
                     v-model="item.beneficairy"
-                    return-object
                   />
                   <!-- <AutoComplete
                     text="beneficiary"
@@ -341,7 +340,7 @@ export default {
       number: 1,
       buttons_colors: new Array(9).fill(0).map(() => new Array(4).fill(false)),
       item: {
-        beneficairy: { id: this.defaultBeneficiry },
+        beneficairy: this.defaultBeneficiry,
         currency: {},
         reminder: null,
         factor_view: 0.0,
@@ -356,22 +355,9 @@ export default {
   },
   computed: {
     defaultBeneficiry() {
-      if (
-        this.app_setting &&
-        this.app_setting.general_customer &&
-        this.app_setting.general_customer.value
-      ) {
-        console.log(this.app_setting.general_customer);
-        console.log(this.app_setting);
-        console.log("this.3");
-        console.log("this.3");
-        console.log("this.24");
-        console.log("this.24");
-        console.log("this.app_setting");
-        return { id: this.app_setting.general_customer.value * 1 };
-      } else {
-        return { id: 1 };
-      }
+      return this.app_setting["general_customer"]
+        ? { id: this.app_setting["general_customer"]["value"] * 1 }
+        : { id: 1 };
     },
     ...mapState({
       all_currencies: (state) => state.currency.all,
@@ -649,15 +635,14 @@ export default {
         .fill(0)
         .map(() => new Array(4).fill(false));
       this.addnumberToReRender();
-      if (!(this.item.beneficairy && this.item.beneficairy.id)) {
-        this.$swal.fire({
-          text: this.$t("choose a party"),
-          icon: "warning",
-          confirmButtonText: "Ok",
-          confirmButtonColor: "#41b882",
-        });
-        return;
-      }
+      // if (!this.item.beneficairy) {
+      //   this.$swal.fire({
+      //     text: this.$t("choose a party"),
+      //     icon: "warning",
+      //     confirmButtonText: "Ok",
+      //     confirmButtonColor: "#41b882",
+      //   });
+      // }
       if (this.exchange_profit < 0) {
         this.$swal.fire({
           title: this.$t("Error Happend"),
@@ -671,7 +656,7 @@ export default {
       }
       this.exchange.date = this.$getDateTime();
       this.exchange.currency_id = this.item.currency.id;
-      this.exchange.beneficiary_id = this.item.beneficairy.id;
+      this.exchange.beneficiary_id = this.item.beneficairy;
       this.exchange.reference_currency_id = 1;
       this.exchange.status = 0;
       let factor =
@@ -723,7 +708,7 @@ export default {
       //   this.$store.dispatch("user/show", this.$auth.user.id);
       // });
 
-      this.item = { beneficairy: { id: 1 } };
+      this.item = { beneficairy: this.defaultBeneficiry };
       this.items = [];
       this.keyNum = this.keyNum + 1;
       this.addItems();
@@ -735,11 +720,7 @@ export default {
     if (this.all_currencies[0] && this.items.length == 0) {
       this.addItems();
     }
-    console.log("this.app_setting");
-    console.log("this.app_setting");
-    console.log("this.app_setting");
-    console.log("this.app_setting");
-    console.log(this.app_setting);
+
     // this.$store.dispatch("user/show", this.$auth.user.id);
   },
   created() {
@@ -755,9 +736,9 @@ export default {
         });
       });
     }
-    this.item.beneficairy = this.app_setting["general_customer"]
-      ? parseFloat(this.app_setting["general_customer"]["value"])
-      : null;
+    // this.item.beneficairy = this.app_setting["general_customer"]
+    //   ? { id: this.app_setting["general_customer"]["value"] * 1 }
+    //   : null;
   },
   watch: {
     all_currencies(val) {

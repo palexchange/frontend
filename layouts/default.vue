@@ -153,7 +153,24 @@ export default {
       errors_msg: (state) => state.errors,
     }),
   },
+
   watch: {
+    delete_data(val) {
+      if (val.resource) {
+        console.log(this.module_name);
+        this.$swal({
+          title: this.$t("confirm"),
+          text: this.$t("are_you_sure"),
+          icon: "error",
+          confirmButtonText: this.$t("delete"),
+        }).then((v) => {
+          this.$store.dispatch("setModule", null);
+          if (v.value) {
+            this.$store.dispatch(`${val.resource}/delete`, val.item);
+          }
+        });
+      }
+    },
     all_settings(val) {
       this.$store.dispatch(
         "setSettings",
@@ -199,6 +216,11 @@ export default {
           });
       }
     },
+    // module_name(val) {
+    //   if (val && this.item) {
+    //     this.delete(this.item);
+    //   }
+    // },
     // redirect(val) {
     //   if (val) {
     //     this.$store.dispatch("clearRedirect");
@@ -212,11 +234,7 @@ export default {
     },
   },
   methods: {
-    delete(item) {
-      console.log(this.module_name);
-      if (this.module_name) {
-      }
-    },
+    delete(item) {},
     changeLocale(locale) {
       console.log(locale.code);
       console.log(locale);

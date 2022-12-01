@@ -688,6 +688,7 @@ export default {
   },
   methods: {
     confirmProcess() {
+      this.item.issued_at = this.$getDateTime();
       this.$save(this.item, "transfer", null, "/dashboard/moneygram").then(
         (data) => {
           if (this.transfer_photo) {

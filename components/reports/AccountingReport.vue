@@ -12,7 +12,7 @@
       <v-col cols="12" md="10" sm="12">
         <v-form v-model="validated">
           <v-row>
-            <v-col cols="12" md="3" sm="12">
+            <v-col>
               <AccountAutocomplete
                 v-model="report_data.account"
                 required
@@ -20,7 +20,7 @@
                 text="account"
               />
             </v-col>
-            <v-col cols="12" md="3" sm="12">
+            <v-col>
               <DatePicker
                 v-model="report_data.from"
                 required
@@ -28,7 +28,7 @@
                 text="from"
               />
             </v-col>
-            <v-col cols="12" md="3" sm="12">
+            <v-col>
               <DatePicker
                 required
                 v-model="report_data.to"
@@ -36,7 +36,15 @@
                 text="to"
               />
             </v-col>
-            <v-col cols="12" md="3" sm="12">
+            <v-col>
+              <UserAutocomplete
+                clearable
+                v-model="report_data.for_user_id"
+                holder="user"
+                text="user"
+              />
+            </v-col>
+            <v-col>
               <CurrencyAutoComplete
                 clearable
                 v-model="report_data.currency_id"

@@ -752,6 +752,7 @@ export default {
     },
     confirmProcess(status) {
       this.item.status = status;
+      this.item.issued_at = this.$getDateTime();
       this.$save(this.item, "transfer", null, "/dashboard/moneygram");
     },
     showConversionFactor(to, factorModel, new_value) {

@@ -931,6 +931,7 @@ export default {
     },
     confirmProcess(status) {
       this.item.status = status;
+      this.item.issued_at = this.$getDateTime();
       this.$save(this.item, "transfer", null, "/dashboard/transfers");
     },
     showConversionFactor(to, factorModel, new_value) {

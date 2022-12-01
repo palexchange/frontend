@@ -97,7 +97,7 @@ export default (context) => {
     child: 'exchange',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'date', 'amount', 'currency_name', 'party_name', 'status', 'number'],
+    headers: ['id', 'date', 'user.name', 'amount', 'currency_name', 'party_name', 'status', 'number'],
 
     functions: [
       {
@@ -131,7 +131,7 @@ export default (context) => {
     child: 'transfer',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'type', 'issued_at', 'delivering_type', 'status', 'sender_party.name', 'office.name', 'profit'],
+    headers: ['id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'office.name', 'profit'],
     functions: [
       {
         key: 'type',

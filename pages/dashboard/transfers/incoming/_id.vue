@@ -818,6 +818,7 @@ export default {
       // this.officeProfitComp;
     },
     confirmProcess() {
+      this.item.issued_at = this.$getDateTime();
       this.$save(this.item, "transfer", null, "/dashboard/transfers").then(
         (data) => {
           if (this.transfer_photo) {

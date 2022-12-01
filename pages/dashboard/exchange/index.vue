@@ -12,28 +12,23 @@
                 </v-col>
               </v-row>
               <v-row class="mb-4">
-                <v-col cols="12" xs="12" sm="6" lg="6">
+                <!-- <v-col cols="12" xs="12" sm="6" lg="6">
                   <BeneficiaryAutocomplete
                     text="beneficiary"
                     holder="beneficiary"
                     required
                     v-model="item.beneficairy"
                   />
-                  <!-- <AutoComplete
+                 <AutoComplete
                     text="beneficiary"
                     holder="beneficiary"
                     :items="all_parties"
                     required
                     v-model="item.beneficairy"
-                  /> -->
-                </v-col>
+                  />  
+                </v-col> -->
                 <v-col cols="12" xs="12" sm="6" lg="6">
-                  <DatePicker
-                    v-model="exchange.date"
-                    required
-                    text="transfer date"
-                    holder="test"
-                  />
+                  <DatePicker v-model="exchange.date" required text="date" />
                 </v-col>
               </v-row>
             </v-col>
@@ -477,6 +472,7 @@ export default {
 
       let from = this.item.currency;
       let to = item;
+      if (!to || !from) return;
       let sale = this.$newCalcSalePrice(from, to);
       let buy = this.$newCalcBuyPrice(from, to);
       let temp = Math.min(buy, sale);
@@ -638,7 +634,7 @@ export default {
       // if (!this.item.beneficairy) {
       //   this.$swal.fire({
       //     text: this.$t("choose a party"),
-      //     icon: "warning",
+      //     icon: "warning",\
       //     confirmButtonText: "Ok",
       //     confirmButtonColor: "#41b882",
       //   });
@@ -651,12 +647,10 @@ export default {
           confirmButtonText: "Ok",
           confirmButtonColor: "#41b882",
         });
-
-        return;
       }
       this.exchange.date = this.$getDateTime();
       this.exchange.currency_id = this.item.currency.id;
-      this.exchange.beneficiary_id = this.item.beneficairy;
+      // this.exchange.beneficiary_id = this.item.beneficairy;
       this.exchange.reference_currency_id = 1;
       this.exchange.status = 0;
       let factor =

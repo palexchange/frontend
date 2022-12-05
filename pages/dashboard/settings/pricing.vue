@@ -244,6 +244,7 @@ export default {
         });
       } else {
         stocks = stocks.map((v) => {
+          v.closed_at = null;
           v.opened_at = dateTime;
           return v;
         });

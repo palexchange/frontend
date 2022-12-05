@@ -385,6 +385,7 @@ export default {
         obj.calc_profit_factor = (obj.buy_factor + obj.sale_factor) / 2;
 
         obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor); // -2.824858757062147
+        e.amount_in_main_curr = obj.amount;
         total_extra_amount += obj.amount;
 
         obj.new_amount = parseFloat(obj.amount * obj.calc_profit_factor);
@@ -427,6 +428,43 @@ export default {
     },
   },
   methods: {
+    prepare_exchange() {
+      return new Promise((resolve, reject) => {
+        this.exchange.date = this.$getDateTime();
+        this.exchange.currency_id = this.item.currency.id;
+        // this.exchange.beneficiary_id = this.item.beneficairy;
+        this.exchange.reference_currency_id = this.item.currency.id;
+        this.exchange.status = 1;
+        let factor =
+          this.items[0].modified_factor || this.items[0].exchanged_vactor;
+        this.exchange.exchange_rate = factor
+          ? factor
+          : this.$newCalcBuyPrice(
+              this.item.currency,
+              this.all_currencies.find((e) => e.id == 1),
+              11
+            );
+        this.exchange.amount_after =
+          this.exchange.amount * this.exchange.exchange_rate; // IN DOLLAR
+        // items
+        const trimed_and_modified_items = this.items
+          .filter((el) => el.exchanged_amount && el.exchanged_vactor)
+          .map((e) => {
+            let ex_factor =
+              1000 /
+              ((1000 / parseFloat(e.modified_factor || e.exchanged_vactor)) *
+                this.exchange.exchange_rate);
+            return {
+              amount: e.exchanged_amount,
+              currency_id: e.currency_id,
+              factor: ex_factor,
+              amount_after: e.exchanged_amount / ex_factor,
+            };
+          });
+        this.exchange.items = trimed_and_modified_items;
+        resolve("SUCCESS");
+      });
+    },
     addnumberToReRender() {
       setTimeout(() => {
         this.numberToReRender += 1;
@@ -435,6 +473,7 @@ export default {
     addItems() {
       this.all_currencies.map((item) => {
         this.items.push({
+          currency_id: item.id,
           modified_factor: null,
           modified_factor_view: null,
           exchanged_vactor: null,
@@ -631,14 +670,6 @@ export default {
         .fill(0)
         .map(() => new Array(4).fill(false));
       this.addnumberToReRender();
-      // if (!this.item.beneficairy) {
-      //   this.$swal.fire({
-      //     text: this.$t("choose a party"),
-      //     icon: "warning",\
-      //     confirmButtonText: "Ok",
-      //     confirmButtonColor: "#41b882",
-      //   });
-      // }
       if (this.exchange_profit < 0) {
         this.$swal.fire({
           title: this.$t("Error Happend"),
@@ -648,65 +679,43 @@ export default {
           confirmButtonColor: "#41b882",
         });
       }
-      this.exchange.date = this.$getDateTime();
-      this.exchange.currency_id = this.item.currency.id;
-      // this.exchange.beneficiary_id = this.item.beneficairy;
-      this.exchange.reference_currency_id = 1;
-      this.exchange.status = 0;
-      let factor =
-        this.items[0].modified_factor || this.items[0].exchanged_vactor;
-      this.exchange.exchange_rate = factor
-        ? factor
-        : this.$newCalcBuyPrice(
-            this.item.currency,
-            this.all_currencies.find((e) => e.id == 1),
-            11
-          );
-      this.exchange.amount_after =
-        this.exchange.amount * this.exchange.exchange_rate;
 
-      // console.log("Curr: ",this.exchange.currency_id);
-      // console.log("Ben: ",this.exchange.beneficiary_id);
-      let response = await this.$store.dispatch(
-        "exchange/store",
-        this.exchange
-      );
-
-      if (!response) return;
-
-      let details = {
-        exchange_id: response.id,
-      };
-
-      for (let i = 0; i < this.items.length; i++) {
-        let e = this.items[i];
-        let c = this.all_currencies[i];
-        if (e.modified_factor || e.exchanged_vactor) {
-          details.factor =
-            1000 /
-            ((1000 / parseFloat(e.modified_factor || e.exchanged_vactor)) *
-              this.exchange.exchange_rate);
-        } else continue;
-        details.currency_id = c.id;
-        details.amount = e.exchanged_amount;
-        details.amount_after = e.exchanged_amount / details.factor;
-        this.$save({ ...details, silent: true }, "exchange_detail");
-      }
-      console.log("test __________-------------_______");
-      this.$store.dispatch("exchange/update", {
-        id: response.id,
-        status: 1,
-        silent: true,
+      this.prepare_exchange().then(() => {
+        this.$store.dispatch("exchange/store", this.exchange).then(() => {
+          this.items = [];
+          this.keyNum = this.keyNum + 1;
+          this.addItems();
+          this.$auth.fetchUser();
+        });
       });
+
+      // for (let i = 0; i < this.items.length; i++) {
+      //   let details = {};
+      //   let e = this.items[i];
+      //   let c = this.all_currencies[i];
+      //   if (e.modified_factor || e.exchanged_vactor) {
+      //     details.factor;
+      //     // details.factor =
+      //     //   1000 /
+      //     //   ((1000 / parseFloat(e.modified_factor || e.exchanged_vactor)) *
+      //     //     this.exchange.exchange_rate);
+      //   } else continue;
+      //   details.currency_id = c.id;
+      //   details.amount = e.exchanged_amount;
+      //   details.amount_after = e.exchanged_amount / details.factor;
+      //   this.$save({ ...details, silent: true }, "exchange_detail");
+      // }
+
+      // this.$store.dispatch("exchange/update", {
+      //   id: response.id,
+      //   status: 1,
+      //   silent: true,
+      // });
       // .then(() => {
       //   this.$store.dispatch("user/show", this.$auth.user.id);
       // });
 
-      this.item = { beneficairy: this.defaultBeneficiry };
-      this.items = [];
-      this.keyNum = this.keyNum + 1;
-      this.addItems();
-      this.$auth.fetchUser();
+      // this.item = { beneficairy: this.defaultBeneficiry };
     },
   },
   mounted() {
@@ -722,6 +731,7 @@ export default {
     if (this.all_currencies[0] && this.items.length == 0) {
       this.all_currencies.map((item) => {
         this.items.push({
+          currency_id: item.id,
           modified_factor: null,
           modified_factor_view: null,
           exchanged_vactor: null,
@@ -739,6 +749,7 @@ export default {
       if (!this.items[0]) {
         val.map((item) => {
           this.items.push({
+            currency_id: item.id,
             modified_factor: null,
             modified_factor_view: null,
             exchanged_vactor: null,

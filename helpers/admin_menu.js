@@ -84,6 +84,7 @@ export default [
     icon: "8.png",
     title: "inventory profit",
     to: '/dashboard/profit',
+    just_admin: true,
     types: {
       admin: true,
       customer: true

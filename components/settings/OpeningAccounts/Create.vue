@@ -214,10 +214,11 @@ export default {
           this.entry.ref_currency_id = val.currency.id;
         }
         if (val.currency_id != 1) {
-          this.exchange_rate = this.$newCalcSalePrice(
-            { id: 1 },
-            { id: val.currency_id }
-          );
+          this.exchange_rate = (
+            (this.$newCalcSalePrice({ id: 1 }, { id: val.currency_id }) * 1 +
+              this.$newCalcBuyPrice({ id: 1 }, { id: val.currency_id }) * 1) /
+            2
+          ).toFixed(4);
         }
       }
     },

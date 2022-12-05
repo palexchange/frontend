@@ -16,7 +16,7 @@ export default (context) => {
     child: 'account',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'account_number', 'name', 'code', 'type.name', 'is_transaction', 'description'],
+    headers: ['id', 'name', 'description'],
     functions: [{
       key: 'is_transaction',
       f: (v) => boolean_string(v)

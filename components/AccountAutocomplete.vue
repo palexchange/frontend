@@ -106,6 +106,7 @@ export default {
     };
   },
   created() {
+    if (this.no_fetch) return;
     this.$store.dispatch("account/index", this.params);
   },
   computed: {

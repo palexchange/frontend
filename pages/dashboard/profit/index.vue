@@ -1,7 +1,7 @@
 <template>
   <Card>
     <v-card-text>
-      <v-row dense>
+      <v-row v-if="$auth.user.role == 1" dense>
         <v-col :key="i" v-for="(acc, i) in accounts">
           <v-row dense class="flex-column">
             <v-col>
@@ -47,7 +47,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-row class="shadowing">
+          <v-row v-if="$auth.user.role == 1" class="shadowing">
             <v-col>
               <h3>
                 {{ $t("funds total in opining exchange rate") }}
@@ -59,7 +59,7 @@
               </h2>
             </v-col>
           </v-row>
-          <v-row class="shadowing">
+          <v-row v-if="$auth.user.role == 1" class="shadowing">
             <v-col
               ><h3>
                 {{ $t("funds total in closing exchange rate") }}
@@ -72,7 +72,7 @@
             >
           </v-row>
 
-          <v-row class="shadowing">
+          <v-row v-if="$auth.user.role == 1" class="shadowing">
             <v-col
               ><h3>
                 {{ $t("exchange rate profit") }}
@@ -108,7 +108,7 @@
               </h2></v-col
             >
           </v-row>
-          <v-row class="shadowing">
+          <v-row v-if="$auth.user.role == 1" class="shadowing">
             <v-col
               ><h3>
                 {{ profit_and_losse_acc.name }}
@@ -123,7 +123,7 @@
           <v-row class="shadowing">
             <v-col
               ><h3>
-                {{ $t("profit") }}
+                {{ $t("profit total") }}
               </h3></v-col
             >
             <v-col>
@@ -138,7 +138,7 @@
               </h2></v-col
             >
           </v-row>
-          <v-row justify="center">
+          <v-row v-if="$auth.user.role == 1" justify="center">
             <v-col class="d-flex justify-center">
               <v-btn class="primary" @click="save"> {{ $t("save") }} </v-btn>
             </v-col>
@@ -173,6 +173,7 @@ export default {
     };
   },
   mounted() {
+    this.$auth.fetchUser();
     this.$store.dispatch("account/index", { is_transaction: true });
     this.$store.dispatch("stock_transaction/index", {
       per_page: 14,
@@ -252,11 +253,18 @@ export default {
         JSON.parse(JSON.stringify(state.account.all)) || [],
     }),
     transfer_profit_acc() {
-      let acc = this.all_accounts.find((v) => v.id == 2) || {};
-      if (acc.balance < 0) {
-        acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
+      if (this.$auth.user.role == 1) {
+        let acc = this.all_accounts.find((v) => v.id == 2) || {};
+        if (acc.balance < 0) {
+          acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
+        }
+        return acc;
+      } else {
+        let acc = {};
+        acc.balance = (this.$auth.user.transfers_profit * 1).toFixed(2);
+        acc.name = "ربحية الحوالات";
+        return acc;
       }
-      return acc;
     },
     profit_and_losse_acc() {
       let acc = this.all_accounts.find((v) => v.id == 33) || {};
@@ -266,11 +274,18 @@ export default {
       return acc;
     },
     exchange_profit_acc() {
-      let acc = this.all_accounts.find((v) => v.id == 3) || {};
-      if (acc.balance < 0) {
-        acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
+      if (this.$auth.user.role == 1) {
+        let acc = this.all_accounts.find((v) => v.id == 3) || {};
+        if (acc.balance < 0) {
+          acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
+        }
+        return acc;
+      } else {
+        let acc = {};
+        acc.balance = (this.$auth.user.exchnages_profit * 1).toFixed(2);
+        acc.name = "ربحية الصرافة";
+        return acc;
       }
-      return acc;
     },
     funds_total() {
       this.totals = this.accounts.map((account) => {

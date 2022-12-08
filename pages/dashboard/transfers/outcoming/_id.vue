@@ -834,15 +834,16 @@ export default {
           (v) => v.currency_id == this.item.office_currency_id
         ) || { mid: 1 }
       ).mid;
-
-      let commission = this.item.office_commission * exchange_rate || 0,
-        officeAmount = parseFloat(this.officeAmount || 0);
+      // * exchange_rate
+      let commission = this.item.office_commission || 0;
+      let officeAmount = parseFloat(this.officeAmount || 0);
       const returned_amount =
         this.item.returned_commission_type == 1
           ? (this.item.returned_commission / 100) * officeAmount
           : this.item.returned_commission;
 
-      let returned = returned_amount * exchange_rate || 0;
+      // * exchange_rate
+      let returned = returned_amount || 0;
       commission =
         this.item.office_commission_type == 1
           ? (commission / 100) * officeAmount
@@ -970,7 +971,7 @@ export default {
     if (this.$route.query.show && this.$route.query.show == "true") {
       this.showReadOnly = true;
     }
-    console.log(this.app_setting);
+    // console.log(this.app_setting);
     // this.item.sender_id = this.app_setting["transfer_commission_account_id"]
     //   ? parseFloat(this.app_setting["transfer_commission_account_id"]["value"])
     //   : null;

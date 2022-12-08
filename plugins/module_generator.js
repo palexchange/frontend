@@ -260,6 +260,9 @@ export default (context, inject) => {
 
             if (resource.load_after_store)
               dispatch('index', params);
+
+            if (resource.reload_user)
+              this.$auth.fetchUser();
             // commit('setOne', response.data);
             return response.data;
           } else {

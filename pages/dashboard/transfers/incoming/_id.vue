@@ -21,6 +21,7 @@
           <v-row>
             <v-col>
               <AutoComplete
+                :readonly="showReadOnly"
                 required
                 v-model="item.delivering_type"
                 :items="transfer_types"
@@ -30,6 +31,7 @@
             </v-col>
             <v-col>
               <DatePicker
+                :readonly="showReadOnly"
                 v-model="item.issued_at"
                 required
                 text="transfer date"
@@ -38,7 +40,11 @@
             </v-col>
 
             <v-col>
-              <InputField v-model="item.number" text="refrence number" />
+              <InputField
+                :readonly="showReadOnly"
+                v-model="item.number"
+                text="refrence number"
+              />
             </v-col>
           </v-row>
         </v-col>
@@ -80,6 +86,7 @@
           <v-row>
             <v-col cols="12" md="3" sm="6">
               <BeneficiaryAutocomplete
+                :readonly="showReadOnly"
                 text="beneficiary"
                 holder="beneficiary"
                 :value="item.sender_party_id"
@@ -94,6 +101,7 @@
             </v-col>
             <v-col cols="12" md="3" sm="6">
               <InputField
+                :readonly="showReadOnly"
                 holder="address"
                 text="address"
                 v-model="item.sender_address"
@@ -101,6 +109,7 @@
             </v-col>
             <v-col cols="12" md="3" sm="6">
               <InputField
+                :readonly="showReadOnly"
                 holder="notes"
                 text="notes"
                 v-model="item.sender_notes"
@@ -116,6 +125,7 @@
         <v-row>
           <v-col cols="12" md="4" sm="6" lg="2">
             <BeneficiaryAutocomplete
+              :readonly="showReadOnly"
               text="beneficiary"
               holder="beneficiary"
               required
@@ -156,6 +166,7 @@
           </v-col> -->
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
+            :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
               v-model="item.receiver_phone"
@@ -163,6 +174,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
+              :readonly="showReadOnly"
               text="phone"
               holder="phone"
               required
@@ -178,6 +190,7 @@
           </v-col>
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
+            :readonly="showReadOnly"
               holder="id_no"
               text="id_no"
               v-model="item.receiver_id_no"
@@ -185,6 +198,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
+              :readonly="showReadOnly"
               text="id_no"
               holder="id_no"
               required
@@ -203,6 +217,7 @@
             </v-col> -->
           <v-col cols="12" md="2" sm="6">
             <InputField
+              :readonly="showReadOnly"
               holder="address"
               text="address"
               v-model="item.receiver_address"
@@ -212,7 +227,8 @@
               <AutoComplete text="city" holder="city" required />
             </v-col> -->
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
-              <InputField holder="address" text="address" />
+              <InputField
+              :readonly="showReadOnly" holder="address" text="address" />
             </v-col> -->
         </v-row>
       </v-card-text>
@@ -268,6 +284,7 @@
         <v-row class="responseveCols">
           <v-col cols="12" sm="2">
             <BeneficiaryAutocomplete
+              :readonly="showReadOnly"
               holder="الوسيط المرسل"
               text="الوسيط المرسل"
               required
@@ -276,6 +293,7 @@
           </v-col>
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.to_send_amount"
               holder="المبلغ المُرسل"
               text="المبلغ المُرسل"
@@ -284,20 +302,20 @@
           </v-col>
           <v-col cols="12" sm="2">
             <AutoComplete
-              v-model="item.office_currency"
+              :readonly="showReadOnly"
+              v-model="item.office_currency_id"
               @change="
                 (v) => {
                   signCurrency(
                     'exchange_rate_to_office_currency',
                     'exchange_rate_to_office_currency_view',
-                    'buy',
+                    'mid',
                     v,
                     { id: 1 }
                   );
                   item.office_currency_id = v.id;
                 }
               "
-              return-object
               :items="currencies"
               item-name="name"
               holder="currency to office"
@@ -308,6 +326,7 @@
 
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.exchange_rate_to_office_currency_view"
               @input="
                 (new_value) => {
@@ -325,6 +344,7 @@
           </v-col>
           <!-- <v-col cols="12" sm="3" v-show="!is_moneygram">
             <InputField
+            :readonly="showReadOnly"
               :value="officeAmount | money"
               dashed
               holder="office amount"
@@ -334,6 +354,7 @@
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <!--  (يتم خصم المبلغ من المبلغ المرسل)" -->
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.returned_commision"
               holder="عمولة الوسيط"
               text="عمولة الوسيط"
@@ -348,6 +369,7 @@
               مرجع
             </label>
             <v-text-field
+              :readonly="showReadOnly"
               v-model.number="item.office_commision"
               color="#FF7171"
               style="border-radius: 0px !important"
@@ -371,6 +393,7 @@
 
           <v-col cols="12" sm="3" v-show="!is_moneygram">
             <InputField
+              :readonly="showReadOnly"
               :value="totalOfficeAmount | money"
               dashed
               holder="final amount to office"
@@ -381,6 +404,7 @@
         <v-row dense> -->
           <v-col cols="12" sm="3">
             <InputField
+              :readonly="showReadOnly"
               :value="item.office_amount | money"
               dashed
               holder="final amount to office in usd"
@@ -396,6 +420,7 @@
         <!-- <v-row class="justify-center responseveCols">
           <v-col>
             <InputField
+            :readonly="showReadOnly"
               v-model.number="item.to_send_amount"
               holder="transfirrig amount"
               text="transfirrig amount"
@@ -427,6 +452,7 @@
           </v-col>
           <v-col>
             <InputField
+            :readonly="showReadOnly"
               v-model.number="item.exchange_rate_to_delivery_currency_view"
               @input="
                 (new_value) => {
@@ -445,6 +471,7 @@
 
           <v-col>
             <InputField
+            :readonly="showReadOnly"
               :value="recivedAmountInUSDComp | money"
               dashed
               holder="recived amount in USD"
@@ -461,12 +488,13 @@
         <v-row class="justify-center">
           <v-col>
             <AutoComplete
+              :readonly="showReadOnly"
               @change="
                 (v) => {
                   signCurrency(
                     'exchange_rate_to_reference_currency',
                     'exchange_rate_to_reference_currency_view',
-                    'sale',
+                    'mid',
                     { id: this.item.office_currency_id },
                     v
                   );
@@ -484,6 +512,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               @input="
                 (new_value) => {
                   showConversionFactor(
@@ -500,6 +529,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               dashed
               v-model.number="item.received_amount_no_commision"
               holder="final amount to give"
@@ -536,6 +566,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               v-model.number="item.received_amount"
               holder="final amount to give after commission "
               text="final amount to give after commission"
@@ -545,6 +576,7 @@
           </v-col>
           <v-col>
             <InputField
+              :readonly="showReadOnly"
               :value="item.a_received_amount | money"
               holder="final amount to give in usd"
               text="final amount to give in usd"
@@ -556,12 +588,12 @@
       </v-card-text>
     </Card>
 
-    <v-row>
+    <v-row v-if="!showReadOnly">
       <v-col cols="12" xs="12">
         <v-checkbox :label="$t('send sms to the sender')"> </v-checkbox>
       </v-col>
     </v-row>
-    <v-row class="justify-center">
+    <v-row v-if="!showReadOnly" class="justify-center">
       <v-card color="transparent" flat>
         <v-card-actions>
           <v-btn @click="confirmProcess" class="px-16" color="primary"
@@ -725,9 +757,9 @@ export default {
       this.item.received_amount =
         parseFloat(tottal - this.calcCommisson).toFixed() || 0;
       this.item.a_received_amount =
-        parseFloat(
-          parseFloat(tottal - this.calcCommisson) * factor
-        ).toFixed() || 0;
+        parseFloat(parseFloat(tottal - this.calcCommisson) * factor).toFixed(
+          3
+        ) || 0;
 
       // this.item.received_amount = tottal;
       return tottal;
@@ -805,6 +837,7 @@ export default {
     },
     ...mapState({
       stocks: (state) => state.stock.all,
+      one: (state) => state.transfer.one,
       currencies: (state) => state.currency.all,
     }),
   },
@@ -894,10 +927,15 @@ export default {
         //   this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
         // }
       } else if (type == "mid") {
+        this.item[vModel] =
+          (
+            parseFloat(this.$newCalcBuyPrice(toCurr, fromCurr)) * 1 +
+            parseFloat(this.$newCalcSalePrice(toCurr, fromCurr)) * 1
+          ).toFixed(7) / 2;
         this.item[vCalc] =
           (
-            parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
-            parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
+            parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) * 1 +
+            parseFloat(this.$newCalcSalePrice(fromCurr, toCurr)) * 1
           ).toFixed(7) / 2;
       }
 
@@ -949,6 +987,12 @@ export default {
     this.item.sender_party_id = this.app_setting["general_customer"]
       ? parseFloat(this.app_setting["general_customer"]["value"])
       : null;
+
+    if (process.client) {
+      if (this.$route.params.id) {
+        this.$store.dispatch("transfer/show", this.$route.params.id);
+      }
+    }
   },
   mounted() {
     if (this.$route.query.show && this.$route.query.show == "true") {
@@ -956,6 +1000,13 @@ export default {
     }
   },
   watch: {
+    one(val) {
+      if (val) {
+        this.item = { ...val }; //JSON.parse(JSON.stringify(val));
+        this.item.exchange_rate_to_office_currency_view =
+          this.one.exchange_rate_to_office_currency;
+      }
+    },
     app_setting(val) {
       this.item.sender_party_id = val["general_customer"]
         ? parseFloat(val["general_customer"]["value"])

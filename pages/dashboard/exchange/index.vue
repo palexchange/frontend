@@ -685,7 +685,7 @@ export default {
           this.items = [];
           this.keyNum = this.keyNum + 1;
           this.addItems();
-          this.$auth.fetchUser();
+          // this.$auth.fetchUser();
         });
       });
 

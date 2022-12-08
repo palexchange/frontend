@@ -96,6 +96,7 @@ export default (context) => {
   {
     child: 'exchange',
     parent: '',
+    reload_user: true,
     load_after_store: true,
     headers: ['id', 'date', 'user.name', 'amount', 'currency_name', 'party_name', 'status', 'number'],
 
@@ -130,6 +131,7 @@ export default (context) => {
   {
     child: 'transfer',
     parent: '',
+    reload_user: true,
     load_after_store: true,
     headers: ['id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'office.name', 'profit'],
     functions: [
@@ -252,6 +254,7 @@ export default (context) => {
   {
     child: 'entry',
     parent: '',
+    reload_user: true,
     load_after_store: true,
     headers: ['id', 'statement', 'inverse_entry_id', 'created_at'],
     functions: [
@@ -292,6 +295,7 @@ export default (context) => {
   {
     child: 'receipt',
     parent: '',
+    reload_user: true,
     load_after_store: true,
     headers: ['id', 'type', 'from_account_name', 'to_account_name', 'from_amount', 'exchange_rate', 'to_amount', 'created_at']
   },

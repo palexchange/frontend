@@ -238,7 +238,7 @@ export default {
                 account_id: acc.input_acc_id,
               })
               .then(() => {
-                this.$auth.fetchUser();
+                // this.$auth.fetchUser();
               });
           }
         });
@@ -344,7 +344,7 @@ export default {
             });
           });
         }
-        this.$auth.fetchUser();
+        // this.$auth.fetchUser();
       });
     },
     addTrans(val, index) {
@@ -389,7 +389,7 @@ export default {
     }),
   },
   mounted() {
-    this.$auth.fetchUser();
+    // this.$auth.fetchUser();
   },
   created() {
     // this.$store.dispatch("currency/index");

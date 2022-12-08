@@ -173,7 +173,7 @@ export default {
     };
   },
   mounted() {
-    this.$auth.fetchUser();
+    // this.$auth.fetchUser();
     this.$store.dispatch("account/index", { is_transaction: true });
     this.$store.dispatch("stock_transaction/index", {
       per_page: 14,

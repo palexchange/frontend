@@ -614,12 +614,20 @@ export default {
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
       let tottal = parseFloat(office_amount * exchange_rate);
 
-      this.item.a_received_amount =
-        tottal *
-        this.$newCalcSalePrice(
+      let mid =
+        (this.$newCalcSalePrice(
           { id: this.item.received_currency_id },
           { id: 1 }
-        );
+        ) *
+          1 +
+          this.$newCalcBuyPrice(
+            { id: this.item.received_currency_id },
+            { id: 1 }
+          ) *
+            1) /
+        2;
+
+      this.item.a_received_amount = tottal * mid;
       this.item.received_amount = tottal;
       return tottal;
     },

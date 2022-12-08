@@ -703,7 +703,7 @@ export default {
       this.item.a_received_amount;
       this.item.exchange_rate_to_reference_currency;
       let office_amount = this.item.to_send_amount;
-      this.item.office_amount_in_office_currency = this.item.to_send_amount;
+      // this.item.office_amount_in_office_currency = this.item.to_send_amount;
       this.item.final_received_amount = office_amount;
 
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
@@ -743,13 +743,13 @@ export default {
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      let commission =
-          this.item.office_commision /
-            this.item.exchange_rate_to_office_currency || 0,
-        officeAmount = parseFloat(this.item.to_send_amount || 0);
-      let returned =
-        this.item.returned_commision /
-          this.item.exchange_rate_to_office_currency || 0;
+      let commission = this.item.office_commision || 0;
+      // /
+      //   this.item.exchange_rate_to_office_currency || 0,
+      let officeAmount = parseFloat(this.item.to_send_amount || 0);
+      let returned = this.item.returned_commision || 0;
+      // /
+      //   this.item.exchange_rate_to_office_currency || 0;
       commission =
         this.item.office_commision_type == 1
           ? (commission / 100) * officeAmount
@@ -763,6 +763,9 @@ export default {
       this.item.office_amount = this.item.exchange_rate_to_office_currency
         ? tempVar * this.item.exchange_rate_to_office_currency
         : tempVar;
+      this.item.office_amount_in_office_currency = tempVar
+        ? this.rounedRes
+        : null;
       return tempVar ? this.rounedRes : null;
     },
     officeProfitComp() {

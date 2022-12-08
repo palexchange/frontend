@@ -28,7 +28,7 @@
               </v-col> -->
               </v-row>
               <div style="font-size: 20px; color: black">
-                {{ parseFloat(account.balance || 0) | money }}
+                {{ parseFloat(account.balance).toFixed(2) }}
               </div>
             </v-card-text>
           </v-card>

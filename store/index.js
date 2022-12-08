@@ -31,6 +31,9 @@ export const actions = {
   setSettings({ commit }, data) {
     commit('set_settings', data)
   },
+  logout({ commit }, data) {
+    commit('set_logout')
+  },
   setDialog({ commit }, data) {
     commit('set_dialog', data)
   },
@@ -108,7 +111,9 @@ export const actions = {
 }
 
 export const mutations = {
-
+  set_logout(state, settingData) {
+    this.$axios.$post('/auth/logout')
+  },
   set_settings(state, settingData) {
     state.app_settings = settingData
   },

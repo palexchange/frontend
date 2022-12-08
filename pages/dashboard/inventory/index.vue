@@ -37,12 +37,36 @@
                 class="black-font"
                 style="color: rgba(0, 0, 0); font-size: 16px"
               >
-                {{ parseFloat(cards[index].balance || 0) | money }}
+                الرصيد :
+                {{ cards[index].balance | money }}
               </div>
+              <div
+                class="black-font"
+                style="color: rgba(0, 0, 0); font-size: 16px"
+              >
+                ر.م المقبوضات :
+                {{
+                  (
+                    inputs_accounts.find(
+                      (i) => i.currency_id == cards[index].currency_id
+                    ) || {}
+                  ).inputs_balance
+                }}
+              </div>
+              <!--
+              <div
+                class="black-font"
+                style="color: rgba(0, 0, 0); font-size: 16px"
+              >
+                {{ parseFloat(cards[index].net_balance || 0) | money }}
+              </div> -->
             </v-col>
             <v-col class="text-center pb-0 black-font" cols="12">
               <div class="pa-3 black-font">
                 <input
+                  :disabled="
+                    !cards[index].balance > 0 && trans[index].length == 0
+                  "
                   @keydown.enter="(v) => addTrans(v.target.value, index)"
                   @keydown.space="
                     (v) => addTrans(parseFloat(cards[index].balance), index)
@@ -73,7 +97,7 @@
                 class="text-left pt-2 pb-1 pl-2"
                 style="border-top: solid grey 1px; width: 100%"
               >
-                <v-btn icon @click="removeRow(t, index, i)">
+                <v-btn c icon @click="removeRow(t, index, i)">
                   <v-icon> fas fa-times </v-icon>
                 </v-btn>
               </v-col>
@@ -87,7 +111,7 @@
             }"
             class="white--text mt-1 black-font justify-center"
             block
-            height="110"
+            height="140"
           >
             <v-card-title
               v-if="cards[index].balance == 0"
@@ -107,9 +131,21 @@
             </div>
             <div class="text-center">
               <v-btn
+                :disabled="
+                  !(cards[index].balance < 0 && cards[index].inputs_balance > 0)
+                "
+                @click="closeFromInputs(index, curr)"
+                height="25"
+              >
+                {{ $t("جبر العجز من المقبوضات") }}
+              </v-btn>
+            </div>
+            <div class="text-center">
+              <v-btn
+                :disabled="
+                  !cards[index].balance > 0 && trans[index].length == 0
+                "
                 @click="closeInventory(index, curr)"
-                exact
-                depressed
                 height="25"
               >
                 {{ $t("إعتماد الجرد وإغلاق الصندوق") }}
@@ -145,6 +181,7 @@ export default {
   name: "test-killua",
   data() {
     return {
+      inputs_accounts: [],
       item: {
         convertToUSD: null,
       },
@@ -164,21 +201,64 @@ export default {
     };
   },
   methods: {
+    closeFromInputs(index, acc) {
+      if (acc.balance < 0) {
+        let amount = acc.balance * -1;
+        let exchange_rate = this.stocks.find(
+          (v) => v.currency_id == acc.currency_id
+        ).mid;
+        this.$save(
+          {
+            status: 1,
+            statemet: "جبر عجز من مقبوضات",
+            date: this.$getDateTime(),
+          },
+          "entry"
+        ).then((res_entry) => {
+          if (res_entry && res_entry.id) {
+            this.$store.dispatch("entry_transaction/store", {
+              entry_id: res_entry.id,
+              debtor: amount,
+              ac_debtor: amount / exchange_rate,
+              creditor: 0,
+              ac_creditor: 0,
+              exchange_rate: exchange_rate,
+              currency_id: acc.currency_id,
+              account_id: acc.id,
+            });
+            this.$store
+              .dispatch("entry_transaction/store", {
+                entry_id: res_entry.id,
+                debtor: 0,
+                ac_debtor: 0,
+                creditor: amount,
+                ac_creditor: amount / exchange_rate,
+                exchange_rate: exchange_rate,
+                currency_id: acc.currency_id,
+                account_id: acc.input_acc_id,
+              })
+              .then(() => {
+                this.$auth.fetchUser();
+              });
+          }
+        });
+      }
+    },
     closeInventory(index, acc) {
-      let main_box = this.main_boxes.find(
-        (v) => v.currency_id == acc.currency_id
-      );
-      if (!this.trans[index]) return;
       let total = this.trans[index].reduce((c, n) => {
         return c + parseFloat(n);
       }, 0);
+      let main_box = this.main_boxes.find(
+        (v) => v.currency_id == acc.currency_id && v.type_id == 4
+      );
+      let diff = acc.balance - total;
+      if (!this.trans[index]) return;
+
       let exchange_rate = this.stocks.find(
         (v) => v.currency_id == acc.currency_id
       ).mid;
-
-      let diff = acc.balance - total;
-
       if (total == 0) return;
+
       this.$save(this.entry, "entry").then((res_entry) => {
         if (res_entry && res_entry.id) {
           this.$store.dispatch("entry_transaction/store", {
@@ -229,7 +309,7 @@ export default {
               ac_creditor: Math.abs(diff) / exchange_rate,
               exchange_rate: exchange_rate,
               currency_id: acc.currency_id,
-              account_id: 33,
+              account_id: 33, // ربحية عجز و زيادة
             });
           });
         }
@@ -264,6 +344,7 @@ export default {
             });
           });
         }
+        this.$auth.fetchUser();
       });
     },
     addTrans(val, index) {
@@ -291,7 +372,7 @@ export default {
         });
         if (this.active_accounts[0] && !this.cards[0]) {
           this.active_accounts.forEach((e) => {
-            this.cards.push({ amount: null, balance: e.balance });
+            this.cards.push({ ...e });
           });
         }
       }
@@ -299,27 +380,46 @@ export default {
   },
   computed: {
     ...mapState({
-      active_accounts: (state) => state.auth.user.active_accounts,
+      active_accounts: (state) =>
+        JSON.parse(JSON.stringify(state.auth.user.active_accounts)),
       stocks: (state) => state.stock.all,
       main_boxes: (state) => state.account.all,
+
       // report: (state) => state.report.all,
     }),
   },
-  // mounted() {
-
-  // // },
+  mounted() {
+    this.$auth.fetchUser();
+  },
   created() {
     // this.$store.dispatch("currency/index");
-    this.$store.dispatch("account/index", { type_id: 4, is_transaction: true });
+    // this.$auth.fetchUser();
+    this.$store.dispatch("account/index", { is_transaction: true });
   },
   filters: {
     money(value) {
       if (value) {
-        return value.toLocaleString(undefined, { minimumFractionDigits: 2 });
+        value = value * 1;
+        return value.toFixed(2);
+        // return value.toLocaleString(undefined, { minimumFractionDigits: 2 });
       }
     },
   },
   watch: {
+    main_boxes(val) {
+      this.inputs_accounts = val.filter((f) => f.type_id == 7);
+    },
+    inputs_accounts(val) {
+      if (val[0]) {
+        this.active_accounts.forEach((el) => {
+          let acc =
+            this.inputs_accounts.find((i) => i.currency_id == el.currency_id) ||
+            {};
+          el.inputs_balance = acc.inputs_balance;
+          el.input_acc_id = acc.id;
+        });
+      }
+    },
     active_accounts: {
       handler(val) {
         this.reset(val);

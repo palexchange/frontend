@@ -8,9 +8,9 @@
         <v-form v-model="validated">
           <v-row class="mt-5 lg5-custome-row">
             <v-col cols="12" lg="4" xs="12" sm="6">
-              <AccountAutocomplete
+              <AutoComplete
                 required
-                :params="{ type_id: 1, per_page: -1 }"
+                :items="accounts.filter((v) => v.type_id == 1)"
                 text="from account"
                 holder="from account"
                 v-model="form.from_account_id"
@@ -36,16 +36,19 @@
               />
             </v-col>
             <v-col cols="12" lg="4" xs="12" sm="6">
-              <AutoComplete
-                :items="
+              <!-- -->
+              <!-- :items="
                   user.active_accounts.filter(
                     (v) => v.currency_id == form.currency_id
                   )
-                "
+                "  -->
+              <AutoComplete
+                dashed
+                :items="accounts.filter((v) => v.type_id == 7)"
                 required
                 text="إلي حساب"
                 holder="إلي حساب"
-                v-model="form.to_account_id"
+                :value="form.to_account_id"
               />
             </v-col>
 
@@ -117,6 +120,7 @@ export default {
     ...mapState({
       all_currencies: (state) => state.currency.all,
       user: (state) => state.auth.user,
+      accounts: (state) => state.account.all,
     }),
     to_amount() {
       this.refreshNum;
@@ -129,21 +133,22 @@ export default {
   },
   mounted() {
     this.$store.dispatch("currency/index");
+    this.$store.dispatch("account/index");
   },
   methods: {
     setToaccount(currency_id) {
-      this.refreshNum++;
-      console.log(currency_id);
-      if (!this.user.active_accounts[0]) {
-        this.$error_alert();
-        return;
-      }
-      this.form.to_account_id = this.user.active_accounts.find((e) => {
-        return e.currency_id == currency_id;
+      // console.log(currency_id);
+      // if (!this.user.active_accounts[0]) {
+      //   this.$error_alert();
+      //   return;
+      // }
+      this.form.to_account_id = this.accounts.find((e) => {
+        return e.currency_id == currency_id && e.type_id == 7;
       }).id;
 
       let e = currency_id;
       this.form.exchange_rate = this.$newCalcSalePrice({ id: 1 }, { id: e });
+      this.refreshNum++;
     },
   },
 };

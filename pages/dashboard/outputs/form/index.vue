@@ -10,7 +10,6 @@
             <v-col cols="12" lg="4" xs="12" sm="6">
               <AccountAutocomplete
                 required
-                :params="{ type_id: 1, per_page: -1 }"
                 text="from account"
                 holder="from account"
                 v-model="form.from_account_id"

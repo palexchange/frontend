@@ -91,13 +91,7 @@
     </v-card>
     <template v-slot:append>
       <div style="background-color: #e0e0ff" class="pa-2">
-        <v-btn
-          block
-          text
-          color="primary"
-          @click="$auth.logout()"
-          :icon="drawer"
-        >
+        <v-btn block text color="primary" @click="logout()" :icon="drawer">
           <v-icon color="grey darken-2" class="pa-2">
             fas fa-sign-out-alt
           </v-icon>
@@ -150,6 +144,10 @@ export default {
     },
   },
   methods: {
+    logout() {
+      this.$auth.logout();
+      this.$store.dispatch("logout");
+    },
     getImgUrl(pic) {
       return require("~/assets/img/icons/" + pic);
     },

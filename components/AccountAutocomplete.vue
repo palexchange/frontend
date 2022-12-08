@@ -27,9 +27,9 @@
             color="#E0E0FF"
             depressed
             block
-            @click="$store.dispatch('setDialog', { name: 'AddAccount' })"
+            @click="$store.dispatch('setDialog', { name: 'AddBeneficiary' })"
           >
-            {{ $t("add account") }}
+            {{ $t("add beneficiary") }}
           </v-btn>
           <v-btn
             color="#E0E0FF"

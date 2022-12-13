@@ -136,6 +136,12 @@ export default (context) => {
     headers: ['id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'office.name', 'profit'],
     functions: [
       {
+        key: 'profit',
+        f: v => {
+          return (v * 1).toFixed(2)
+        }
+      },
+      {
         key: 'type',
         f: v => {
           return v == 0 ? 'حوالة صادرة' : 'حوالة واردة'

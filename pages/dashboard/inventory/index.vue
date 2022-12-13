@@ -37,29 +37,23 @@
                 class="black-font"
                 style="color: rgba(0, 0, 0); font-size: 16px"
               >
-                الرصيد :
+                رصيد الصندوق :
                 {{ cards[index].balance | money }}
               </div>
               <div
                 class="black-font"
                 style="color: rgba(0, 0, 0); font-size: 16px"
               >
-                ر.م المقبوضات :
-                {{
-                  (
-                    inputs_accounts.find(
-                      (i) => i.currency_id == cards[index].currency_id
-                    ) || {}
-                  ).inputs_balance
-                }}
+                رصيد المحفظة:
+                {{ cards[index].inputs_balance | money }}
               </div>
-              <!--
               <div
                 class="black-font"
                 style="color: rgba(0, 0, 0); font-size: 16px"
               >
-                {{ parseFloat(cards[index].net_balance || 0) | money }}
-              </div> -->
+                الرصيد للجرد :
+                {{ cards[index].balance * 1 + cards[index].inputs_balance * 1 }}
+              </div>
             </v-col>
             <v-col class="text-center pb-0 black-font" cols="12">
               <div class="pa-3 black-font">
@@ -123,16 +117,17 @@
               {{ $t("unbalanced") }}
               <br />
               <p style="font-size: small" v-if="cards[index].balance > 0">
-                ({{ $t("shortage in real balance") }})
+                {{ $t("shortage in real balance") }}
               </p>
               <p style="font-size: small" v-else>
-                ({{ $t("excess in real balance") }})
+                {{ $t("excess in real balance") }}
               </p>
             </div>
             <div class="text-center">
               <v-btn
                 :disabled="
-                  !(cards[index].balance < 0 && cards[index].inputs_balance > 0)
+                  cards[index].balance > 0 &&
+                  cards[index].inputs_balance * 1 < 0
                 "
                 @click="closeFromInputs(index, curr)"
                 height="25"
@@ -238,7 +233,7 @@ export default {
                 account_id: acc.input_acc_id,
               })
               .then(() => {
-                // this.$auth.fetchUser();
+                this.$auth.fetchUser();
               });
           }
         });
@@ -398,6 +393,7 @@ export default {
   },
   filters: {
     money(value) {
+      if (value == 0) return 0.0;
       if (value) {
         value = value * 1;
         return value.toFixed(2);

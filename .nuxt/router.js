@@ -24,9 +24,7 @@ const _6d1eef9a = () => interopDefault(import('..\\pages\\dashboard\\transfers\\
 const _2491f9db = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/index" */))
 const _6a4a742f = () => interopDefault(import('..\\pages\\dashboard\\exchange\\2.vue' /* webpackChunkName: "pages/dashboard/exchange/2" */))
 const _e593706a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/form/index" */))
-const _3eab9a76 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inputs/form/index" */))
 const _4425783c = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/form/index" */))
-const _5b354e6c = () => interopDefault(import('..\\pages\\dashboard\\outputs\\form\\index.vue' /* webpackChunkName: "pages/dashboard/outputs/form/index" */))
 const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
 const _04809c03 = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
 const _9ce5c68c = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
@@ -139,17 +137,9 @@ export const routerOptions = {
     component: _e593706a,
     name: "dashboard-exchange-form"
   }, {
-    path: "/dashboard/inputs/form",
-    component: _3eab9a76,
-    name: "dashboard-inputs-form"
-  }, {
     path: "/dashboard/inventory/form",
     component: _4425783c,
     name: "dashboard-inventory-form"
-  }, {
-    path: "/dashboard/outputs/form",
-    component: _5b354e6c,
-    name: "dashboard-outputs-form"
   }, {
     path: "/dashboard/reports/form",
     component: _62e9f842,
@@ -191,7 +181,7 @@ export const routerOptions = {
     component: _b68c7e1a,
     name: "dashboard-exchange-form-id"
   }, {
-    path: "/dashboard/inputs/form/:id",
+    path: "/dashboard/inputs/form/:id?",
     component: _7f7fbb26,
     name: "dashboard-inputs-form-id"
   }, {
@@ -207,7 +197,7 @@ export const routerOptions = {
     component: _433854bc,
     name: "dashboard-moneygram-outcoming-id"
   }, {
-    path: "/dashboard/outputs/form/:id",
+    path: "/dashboard/outputs/form/:id?",
     component: _525bfbd4,
     name: "dashboard-outputs-form-id"
   }, {

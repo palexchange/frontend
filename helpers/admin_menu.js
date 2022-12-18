@@ -91,6 +91,16 @@ export default [
     }
   },
   {
+    icon: "8.png",
+    title: "user inventory profit",
+    to: '/dashboard/user-profit',
+    just_admin: true,
+    types: {
+      admin: true,
+      customer: true
+    }
+  },
+  {
     icon: "arrows-exchange.png",
     title: "settings",
     to: '/dashboard/settings',

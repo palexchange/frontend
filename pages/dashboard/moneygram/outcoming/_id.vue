@@ -104,6 +104,7 @@
               >{{ $t("id image") }}</label
             >
             <v-file-input
+              :readonly="showReadOnly"
               required
               min="0"
               color="#FF7171"
@@ -131,6 +132,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
+              :readonly="showReadOnly"
               text="id_no"
               holder="id_no"
               required
@@ -155,6 +157,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
+              :readonly="showReadOnly"
               text="phone"
               holder="phone"
               required
@@ -210,6 +213,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
+              :readonly="showReadOnly"
               text="id_no"
               holder="id_no"
               required
@@ -233,6 +237,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
+              :readonly="showReadOnly"
               text="phone"
               holder="phone"
               required

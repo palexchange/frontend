@@ -314,7 +314,7 @@ export default {
               ref_currency_id: 1,
               date: this.$getDateTime(),
               status: 1,
-              transactions: [{ exchange_rate: 1 }],
+              transactions: [],
             };
             this.$emit("closeDialog");
           });

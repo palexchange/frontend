@@ -110,6 +110,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
+              :readonly="showReadOnly"
               text="id_no"
               holder="id_no"
               required
@@ -133,6 +134,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
+              :readonly="showReadOnly"
               text="phone"
               holder="phone"
               required
@@ -197,6 +199,7 @@
           </v-col> -->
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <IDsAutoComplete
+              :readonly="showReadOnly"
               append-icon=""
               text="id_no"
               holder="id_no"
@@ -221,6 +224,7 @@
           </v-col> -->
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <PhonesAutoComplete
+              :readonly="showReadOnly"
               append-icon=""
               text="phone"
               holder="phone"

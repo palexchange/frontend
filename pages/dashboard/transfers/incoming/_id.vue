@@ -310,10 +310,10 @@
                     'exchange_rate_to_office_currency',
                     'exchange_rate_to_office_currency_view',
                     'mid',
-                    v,
+                    { id: v },
                     { id: 1 }
                   );
-                  item.office_currency_id = v.id;
+                  item.office_currency_id = v;
                 }
               "
               :items="currencies"
@@ -489,6 +489,7 @@
           <v-col>
             <AutoComplete
               :readonly="showReadOnly"
+              v-model="item.received_currency_id"
               @change="
                 (v) => {
                   signCurrency(
@@ -501,7 +502,6 @@
                   item.received_currency_id = v.id;
                 }
               "
-              v-model="item.received_currency"
               return-object
               :items="currencies"
               item-name="name"
@@ -544,6 +544,7 @@
               >{{ $t("عمولة الزبون") }}</label
             >
             <v-text-field
+              :readonly="showReadOnly"
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
@@ -1005,6 +1006,8 @@ export default {
         this.item = { ...val }; //JSON.parse(JSON.stringify(val));
         this.item.exchange_rate_to_office_currency_view =
           this.one.exchange_rate_to_office_currency;
+        this.item.exchange_rate_to_reference_currency_view =
+          this.one.exchange_rate_to_reference_currency;
       }
     },
     app_setting(val) {

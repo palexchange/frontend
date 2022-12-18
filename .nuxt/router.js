@@ -21,10 +21,12 @@ const _603924e4 = () => interopDefault(import('..\\pages\\dashboard\\profit\\ind
 const _8d1a253a = () => interopDefault(import('..\\pages\\dashboard\\reports\\index.vue' /* webpackChunkName: "pages/dashboard/reports/index" */))
 const _6c58a44f = () => interopDefault(import('..\\pages\\dashboard\\settings\\index.vue' /* webpackChunkName: "pages/dashboard/settings/index" */))
 const _6d1eef9a = () => interopDefault(import('..\\pages\\dashboard\\transfers\\index.vue' /* webpackChunkName: "pages/dashboard/transfers/index" */))
+const _3f654e3c = () => interopDefault(import('..\\pages\\dashboard\\user-profit\\index.vue' /* webpackChunkName: "pages/dashboard/user-profit/index" */))
 const _2491f9db = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/index" */))
 const _6a4a742f = () => interopDefault(import('..\\pages\\dashboard\\exchange\\2.vue' /* webpackChunkName: "pages/dashboard/exchange/2" */))
 const _e593706a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/form/index" */))
 const _4425783c = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/form/index" */))
+const _403a1b08 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\index2.vue' /* webpackChunkName: "pages/dashboard/inventory/index2" */))
 const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
 const _04809c03 = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
 const _9ce5c68c = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
@@ -125,6 +127,10 @@ export const routerOptions = {
     component: _6d1eef9a,
     name: "dashboard-transfers"
   }, {
+    path: "/dashboard/user-profit",
+    component: _3f654e3c,
+    name: "dashboard-user-profit"
+  }, {
     path: "/dashboard/beneficiaries/form",
     component: _2491f9db,
     name: "dashboard-beneficiaries-form"
@@ -140,6 +146,10 @@ export const routerOptions = {
     path: "/dashboard/inventory/form",
     component: _4425783c,
     name: "dashboard-inventory-form"
+  }, {
+    path: "/dashboard/inventory/index2",
+    component: _403a1b08,
+    name: "dashboard-inventory-index2"
   }, {
     path: "/dashboard/reports/form",
     component: _62e9f842,

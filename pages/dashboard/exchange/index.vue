@@ -12,21 +12,21 @@
                 </v-col>
               </v-row>
               <v-row class="mb-4">
-                <!-- <v-col cols="12" xs="12" sm="6" lg="6">
+                <v-col cols="12" xs="12" sm="6" lg="6">
                   <BeneficiaryAutocomplete
                     text="beneficiary"
                     holder="beneficiary"
                     required
                     v-model="item.beneficairy"
                   />
-                 <AutoComplete
+                  <!-- <AutoComplete
                     text="beneficiary"
                     holder="beneficiary"
                     :items="all_parties"
                     required
                     v-model="item.beneficairy"
-                  />  
-                </v-col> -->
+                  /> -->
+                </v-col>
                 <v-col cols="12" xs="12" sm="6" lg="6">
                   <DatePicker v-model="exchange.date" required text="date" />
                 </v-col>

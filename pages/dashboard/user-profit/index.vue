@@ -1,16 +1,18 @@
 <template>
   <Card>
     <v-card-text>
-      <v-row v-if="$auth.user.role == 1" dense>
-        <v-col :key="i" v-for="(acc, i) in boxes_accounts">
+      <v-row dense>
+        <v-col :key="i" v-for="(acc, i) in active_accounts">
           <v-row dense class="flex-column">
             <v-col>
               <v-card class="text-center">
                 <v-card-title style="font-size: 14px" class="justify-center">
-                  {{ " خزينة : " + acc.name }}
+                  {{ acc.name }}
                 </v-card-title>
                 <v-card-subtitle>
-                  {{ $t("balance") + ": " + acc.balance }}
+                  {{
+                    $t("balance") + ": " + (acc.balance < 0 ? 0 : acc.balance)
+                  }}
                 </v-card-subtitle>
               </v-card>
             </v-col>
@@ -47,10 +49,10 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-row v-if="$auth.user.role == 1" class="shadowing">
+          <v-row class="shadowing">
             <v-col>
               <h3>
-                {{ $t("funds total in opining exchange rate") }}
+                {{ $t("مجموع الصناديق بمعامل التحويل الافتتاحي") }}
               </h3>
             </v-col>
             <v-col>
@@ -59,10 +61,10 @@
               </h2>
             </v-col>
           </v-row>
-          <v-row v-if="$auth.user.role == 1" class="shadowing">
+          <v-row class="shadowing">
             <v-col
               ><h3>
-                {{ $t("funds total in closing exchange rate") }}
+                {{ $t("مجموع الصناديق بمعامل التحويل المسائي") }}
               </h3></v-col
             >
             <v-col>
@@ -72,7 +74,7 @@
             >
           </v-row>
 
-          <v-row v-if="$auth.user.role == 1" class="shadowing">
+          <v-row class="shadowing">
             <v-col
               ><h3>
                 {{ $t("exchange rate profit") }}
@@ -108,7 +110,7 @@
               </h2></v-col
             >
           </v-row>
-          <v-row v-if="$auth.user.role == 1" class="shadowing">
+          <v-row class="shadowing">
             <v-col
               ><h3>
                 {{ profit_and_losse_acc.name }}
@@ -138,7 +140,7 @@
               </h2></v-col
             >
           </v-row>
-          <v-row v-if="$auth.user.role == 1" justify="center">
+          <v-row justify="center">
             <v-col class="d-flex justify-center">
               <v-btn class="primary" @click="save"> {{ $t("save") }} </v-btn>
             </v-col>
@@ -247,11 +249,12 @@ export default {
   },
   computed: {
     ...mapState({
+      active_accounts: (state) =>
+        JSON.parse(JSON.stringify(state.auth.user.main_active_accounts)),
       stock_transaction: (state) =>
         JSON.parse(JSON.stringify(state.stock_transaction.all)),
       all_accounts: (state) =>
         JSON.parse(JSON.stringify(state.account.all)) || [],
-      boxes_accounts: (state) => state.auth.user.funds_accounts_balance || [],
     }),
     transfer_profit_acc() {
       if (this.$auth.user.role == 1) {
@@ -289,17 +292,19 @@ export default {
       }
     },
     funds_total() {
-      this.totals = this.boxes_accounts.map((account) => {
+      this.totals = this.active_accounts.map((account) => {
+        let balance = account.balance <= 0 ? 0 : account.balance;
         return (
-          account.balance / this.getMorningExchangeRate(account.currency_id)
+          balance / this.getMorningExchangeRate(account.currency_id)
         ).toFixed(3);
       });
       return this.totals.reduce((c, n) => (parseFloat(n) || 0) + c, 0);
     },
     funds_total2() {
-      this.totals2 = this.boxes_accounts.map((account) => {
+      this.totals2 = this.active_accounts.map((account) => {
+        let balance = account.balance <= 0 ? 0 : account.balance;
         return (
-          account.balance / this.getNightExchangeRate(account.currency_id)
+          balance / this.getNightExchangeRate(account.currency_id)
         ).toFixed(3);
       });
       return this.totals2.reduce((c, n) => (parseFloat(n) || 0) + c, 0);

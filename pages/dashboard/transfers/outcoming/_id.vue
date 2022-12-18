@@ -335,7 +335,7 @@
                   signCurrency(
                     'exchange_rate_to_delivery_currency',
                     'exchange_rate_to_delivery_currency_view',
-                    'buy',
+                    'mid',
                     v,
                     currencies[0]
                   );
@@ -419,7 +419,7 @@
                   signCurrency(
                     'exchange_rate_to_reference_currency',
                     'exchange_rate_to_reference_currency',
-                    'sale',
+                    'mid',
                     this.currencies[0],
                     v
                   );
@@ -507,7 +507,7 @@
                   signCurrency(
                     'exchange_rate_to_office_currency',
                     'exchange_rate_to_office_currency_view',
-                    'buy',
+                    'mid',
                     item.received_currency,
                     v
                   );
@@ -901,23 +901,61 @@ export default {
     signCurrency(vCalc, vModel, type, fromCurr, toCurr) {
       if (fromCurr == null || toCurr == null) return;
 
-      this.item[vCalc] = parseFloat(
-        type == "buy"
-          ? this.$newCalcSalePrice(fromCurr, toCurr)
-          : this.$newCalcBuyPrice(fromCurr, toCurr)
-      );
+      console.log("FromCurr: ", fromCurr);
 
-      if (toCurr.id == 1) {
-        let temp = toCurr;
-        toCurr = fromCurr;
-        fromCurr = temp;
+      // fromCurr = {id: fromCurr};
+      //   this.item[vCalc] = parseFloat(
+      //     type == "buy"
+      //       ? this.$newCalcBuyPrice(fromCurr, toCurr)
+      //       : this.$newCalcSalePrice(fromCurr, toCurr)
+      //   );
+
+      if (type == "buy") {
+        this.item[vCalc] = parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr));
+
+        let exchange_rate = this.item[vCalc];
+        let reverse_exchange_rate = parseFloat(
+          this.$newCalcBuyPrice(toCurr, fromCurr)
+        );
+        this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
+        // let from_stock = this.stocks.find((v) => v.currency_id == fromCurr.id);
+        // let to_stock = this.stocks.find((v) => v.currency_id == toCurr.id);
+        // if (from_stock.mid < 1 && from_stock.mid < to_stock.mid) {
+        //   this.item[vModel] = Math.min(exchange_rate, reverse_exchange_rate);
+        // } else {
+        //   this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
+        // }
+      } else if (type == "sale") {
+        this.item[vCalc] = parseFloat(this.$newCalcSalePrice(fromCurr, toCurr));
+
+        let exchange_rate = this.item[vCalc];
+        let reverse_exchange_rate = parseFloat(
+          this.$newCalcSalePrice(toCurr, fromCurr)
+        );
+        this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
+        // let from_stock = this.stocks.find((v) => v.currency_id == fromCurr.id);
+        // let to_stock = this.stocks.find((v) => v.currency_id == toCurr.id);
+        // if (from_stock.mid < 1) {
+        //   this.item[vModel] = Math.min(exchange_rate, reverse_exchange_rate);
+        // } else {
+        //   this.item[vModel] = Math.max(exchange_rate, reverse_exchange_rate);
+        // }
+      } else if (type == "mid") {
+        this.item[vModel] =
+          parseFloat(
+            (
+              parseFloat(this.$newCalcBuyPrice(toCurr, fromCurr)) +
+              parseFloat(this.$newCalcSalePrice(toCurr, fromCurr))
+            ).toFixed(7)
+          ) / 2;
+        this.item[vCalc] =
+          parseFloat(
+            (
+              parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
+              parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
+            ).toFixed(7)
+          ) / 2;
       }
-
-      this.item[vModel] = parseFloat(
-        type == "buy"
-          ? this.$newCalcSalePrice(fromCurr, toCurr)
-          : this.$newCalcBuyPrice(fromCurr, toCurr)
-      );
     },
     calcCommisson(exchange_rate) {
       let transferringAmount = this.item.to_send_amount || 0;

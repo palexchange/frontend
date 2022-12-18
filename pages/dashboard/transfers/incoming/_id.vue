@@ -516,7 +516,7 @@
               @input="
                 (new_value) => {
                   showConversionFactor(
-                    item.received_currency,
+                    { id: item.received_currency_id },
                     'exchange_rate_to_reference_currency',
                     new_value
                   );

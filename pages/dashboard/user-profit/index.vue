@@ -11,7 +11,9 @@
                 </v-card-title>
                 <v-card-subtitle>
                   {{
-                    $t("balance") + ": " + (acc.balance < 0 ? 0 : acc.balance)
+                    $t("balance") +
+                    ": " +
+                    (acc.net_balance < 0 ? 0 : acc.net_balance)
                   }}
                 </v-card-subtitle>
               </v-card>
@@ -187,7 +189,7 @@ export default {
       item.value = this.accounts.map((v) => {
         return {
           name: v.name,
-          balance: v.balance,
+          balance: v.net_balance,
           open_exchange_rate: this.getMorningExchangeRate(v.currency_id),
           close_exchange_rate: this.getNightExchangeRate(v.currency_id),
         };

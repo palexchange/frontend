@@ -36,6 +36,10 @@ export default {
           header: "profit_report",
           component_name: "ReportsProfitReport",
         },
+        {
+          header: "parties_report",
+          component_name: "ReportsPartiesReport",
+        },
         // { header: "currencies report", component_name: "Card" },
         // { header: "courier report", component_name: "Card" },
       ],

@@ -213,7 +213,7 @@ export default (context, inject) => {
     else if (to.id == 1) {
       if (from_currency) {
 
-        return (1 / from_currency.start_selling_price).toFixed(digits || 7);
+        return (1 / from_currency.start_selling_price).toFixed(digits || 5);
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -229,7 +229,7 @@ export default (context, inject) => {
       }
       if (to_currency && from_currency) {
 
-        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(digits || 7);
+        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(digits || 5);
       }
     }
 
@@ -248,7 +248,7 @@ export default (context, inject) => {
       return 1;
     } else if (to.id == 1) {
       if (from_currency) {
-        return (1 / from_currency.start_purchasing_price).toFixed(digits || 7);
+        return (1 / from_currency.start_purchasing_price).toFixed(digits || 5);
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -263,7 +263,7 @@ export default (context, inject) => {
         return converter.start_purchasing_price;
       }
       if (to_currency && from_currency) {
-        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(digits || 7);
+        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(digits || 5);
       }
     }
 

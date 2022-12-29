@@ -640,7 +640,9 @@ export default {
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
       // console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
-      let tottal = parseFloat(office_amount * exchange_rate);
+      let tottal = parseFloat(
+        (office_amount - this.item.office_commission) * exchange_rate
+      );
 
       let mid =
         (this.$newCalcSalePrice(
@@ -726,7 +728,7 @@ export default {
   methods: {
     confirmProcess() {
       this.item.issued_at = this.$getDateTime();
-      this.item.office_commission = 0;
+      // this.item.office_commission = 0;
       this.$save(this.item, "transfer", null, "/dashboard/moneygram").then(
         (data) => {
           if (this.transfer_photo) {

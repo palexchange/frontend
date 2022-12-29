@@ -126,6 +126,12 @@
     "chunkName": "pages/dashboard/exchange/form/index"
   },
   {
+    "name": "dashboard-exchange-multi",
+    "path": "/dashboard/exchange/multi",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\multi.vue",
+    "chunkName": "pages/dashboard/exchange/multi"
+  },
+  {
     "name": "dashboard-inventory-form",
     "path": "/dashboard/inventory/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\form\\\\index.vue",

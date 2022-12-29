@@ -25,6 +25,7 @@ const _3f654e3c = () => interopDefault(import('..\\pages\\dashboard\\user-profit
 const _2491f9db = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/index" */))
 const _6a4a742f = () => interopDefault(import('..\\pages\\dashboard\\exchange\\2.vue' /* webpackChunkName: "pages/dashboard/exchange/2" */))
 const _e593706a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/form/index" */))
+const _f9489994 = () => interopDefault(import('..\\pages\\dashboard\\exchange\\multi.vue' /* webpackChunkName: "pages/dashboard/exchange/multi" */))
 const _4425783c = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/form/index" */))
 const _403a1b08 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\index2.vue' /* webpackChunkName: "pages/dashboard/inventory/index2" */))
 const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
@@ -142,6 +143,10 @@ export const routerOptions = {
     path: "/dashboard/exchange/form",
     component: _e593706a,
     name: "dashboard-exchange-form"
+  }, {
+    path: "/dashboard/exchange/multi",
+    component: _f9489994,
+    name: "dashboard-exchange-multi"
   }, {
     path: "/dashboard/inventory/form",
     component: _4425783c,

@@ -369,23 +369,6 @@
               required
             />
           </v-col>
-          <!-- <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              holder="another expenses"
-              text="another expenses"
-              v-model.number="item.other_amounts_on_sender"
-            />
-          </v-col> -->
-          <!-- <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              :value="amountWithCommissionAndExpensesComp | money"
-              dashed
-              holder="مبلغ شامل عمولة"
-              text="م.ش عمولة و مصاريف"
-            />
-          </v-col> -->
           <v-col>
             <InputField
               :readonly="showReadOnly"
@@ -454,23 +437,6 @@
               text="amount to give"
             />
           </v-col>
-          <!-- <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              v-model.number="item.other_amounts_on_receiver"
-              holder="another expenses on receiver"
-              text="another expenses on receiver"
-            />
-          </v-col> -->
-          <!-- <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              :value="totalRecvAmountComp | money"
-              dashed
-              holder="final amount to give"
-              text="final amount to give"
-            />
-          </v-col> -->
           <v-col>
             <InputField
               :readonly="showReadOnly"
@@ -513,6 +479,8 @@
                   );
                   item.office_currency_id = v.id;
                   item.office_currency = v;
+                  computed_office_exchange_rate_to_usd =
+                    (1 / getMidCurrencyTousd(v)).toFixed(5) * 1;
                 }
               "
               return-object
@@ -553,7 +521,7 @@
           </v-col>
         </v-row>
         <v-row dense>
-          <v-col cols="3">
+          <v-col>
             <label
               style="color: rgba(0, 0, 0); font-size: 16px"
               class="required form-label"
@@ -585,7 +553,7 @@
             >
             </v-text-field>
           </v-col>
-          <v-col cols="3">
+          <v-col>
             <label
               style="color: rgba(0, 0, 0); font-size: 16px"
               class="required form-label"
@@ -625,7 +593,7 @@
               text="returned"
             />
           </v-col> -->
-          <v-col cols="3">
+          <v-col>
             <InputField
               :readonly="showReadOnly"
               v-model="item.office_amount_in_office_currency"
@@ -639,7 +607,15 @@
               text="final amount to office"
             />
           </v-col>
-          <v-col cols="3">
+          <v-col v-if="">
+            <InputField
+              :readonly="showReadOnly"
+              v-model="computed_office_exchange_rate_to_usd"
+              holder="exchange rate to usd"
+              text="exchange rate to usd"
+            />
+          </v-col>
+          <v-col>
             <InputField
               :readonly="showReadOnly"
               :value="item.office_amount | money"
@@ -733,6 +709,7 @@ export default {
         is_commission_percentage: false,
         office_commission_type: 0,
         returned_commission_type: 0,
+        office_exchange_rate_to_usd: 0,
         exchange_rate_to_delivery_currency: null,
         exchange_rate_to_delivery_currency_view: null,
         exchange_rate_to_reference_currency: null,
@@ -743,6 +720,14 @@ export default {
     };
   },
   computed: {
+    computed_office_exchange_rate_to_usd: {
+      set: function (val) {
+        this.item.office_exchange_rate_to_usd = 1 / val; //0.7 , 1.42
+      },
+      get: function () {
+        return 1 / this.item.office_exchange_rate_to_usd; // 0.7
+      },
+    },
     computed_exchange_rate_to_delivery_currency: {
       get: function () {
         return this.item.exchange_rate_to_delivery_currency_view
@@ -813,17 +798,35 @@ export default {
         (amountInUSD - commission - otherExp) *
         conversionParam
       ).toFixed();
-      let factor = this.$newCalcSalePrice(
-        { id: this.item.received_currency_id },
-        { id: 1 }
-      );
-      let sub_factor = this.$newCalcBuyPrice(
-        { id: this.item.received_currency_id },
-        { id: 1 }
-      );
-      this.item.a_received_amount = factor
-        ? (res * (factor < 1 ? factor : sub_factor)).toFixed()
-        : null;
+      // let factor = this.$newCalcSalePrice(
+      //   { id: this.item.received_currency_id },
+      //   { id: 1 }
+      // );
+      // let sub_factor = this.$newCalcBuyPrice(
+      //   { id: this.item.received_currency_id },
+      //   { id: 1 }
+      // );
+      // const mid = (factor * 1 + sub_factor * 1) / 2;
+      // console.table({
+      //   mid,
+      //   factor,
+      //   sub_factor,
+      // });
+
+      let convParam =
+        1 /
+        (this.item.exchange_rate_to_reference_currency /
+          this.item.exchange_rate_to_office_currency);
+      const a_amount = (res * convParam || 0).toFixed();
+
+      // const a_amount = (res * mid).toFixed();
+      // console.table({
+      //   res,
+      //   a_amount,
+      //   exchange_rate: this.item.exchange_rate_to_reference_currency,
+      // });
+      this.item.a_received_amount = a_amount;
+
       return res <= 0 ? null : res;
     },
     officeAmount() {
@@ -833,11 +836,6 @@ export default {
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      let exchange_rate = (
-        this.stocks.find(
-          (v) => v.currency_id == this.item.office_currency_id
-        ) || { mid: 1 }
-      ).mid;
       // * exchange_rate
       let commission = this.item.office_commission || 0;
       let officeAmount = parseFloat(this.officeAmount || 0);
@@ -854,13 +852,19 @@ export default {
           : commission;
       let tempVar = officeAmount + commission - returned;
       //  $newCalcBuyPrice(item.office_currency,{id:1}) ;
+      const sale = this.$newCalcSalePrice(
+        { id: this.item.office_currency_id },
+        { id: 1 }
+      );
+      const buy = this.$newCalcBuyPrice(
+        { id: this.item.office_currency_id },
+        { id: 1 }
+      );
+
+      const mid = (sale * 1 + buy * 1) / 2;
       this.item.office_amount = this.item.office_currency_id
         ? parseFloat(
-            tempVar *
-              this.$newCalcSalePrice(
-                { id: this.item.office_currency_id },
-                { id: 1 }
-              )
+            tempVar * (this.item.office_exchange_rate_to_usd || mid)
           ).toFixed()
         : parseFloat(tempVar).toFixed();
       this.item.office_amount_in_office_currency =
@@ -869,13 +873,27 @@ export default {
     },
     officeProfitComp() {
       let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
-      let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
+      let finalOfficeAmount = (this.totalOfficeAmount * 1).toFixed() * 1 || 0;
+      finalOfficeAmount = (this.item.office_amount * 1).toFixed() * 1 || 0;
+
+      let finalOfficeAmount2 = this.item.a_received_amount * 1;
+
       let recvCurr = this.item.office_currency || null;
       if (recvCurr == undefined) return;
-      let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
-      let res = fromInDoller - finalOfficeAmount * convParam;
-      let otherExp = this.item.other_amounts_on_receiver || 0;
-      return res - otherExp;
+
+      return fromInDoller - finalOfficeAmount;
+      // let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
+      // let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
+      // let recvCurr = this.item.office_currency || null;
+      // if (recvCurr == undefined) return;
+      // let convParam =
+      //   1 /
+      //   (this.item.exchange_rate_to_reference_currency /
+      //     this.item.exchange_rate_to_office_currency);
+      // let res = fromInDoller - (finalOfficeAmount * convParam).toFixed();
+      // console.table({ res, convParam });
+      // let otherExp = this.item.other_amounts_on_receiver || 0;
+      // return res - otherExp;
     },
     ...mapState({
       currencies: (state) => state.currency.all,
@@ -884,6 +902,13 @@ export default {
     }),
   },
   methods: {
+    getMidCurrencyTousd(currency) {
+      if (currency == undefined) return null;
+      const sale = this.$newCalcSalePrice({ id: currency.id }, { id: 1 });
+      const buy = this.$newCalcBuyPrice({ id: currency.id }, { id: 1 });
+      const mid = (sale * 1 + buy * 1) / 2;
+      return mid.toFixed(5) * 1;
+    },
     setReceiverDate(item) {
       if (!item) return;
       this.item.receiver_id_no = item.id_no;

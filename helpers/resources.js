@@ -1,4 +1,4 @@
-const transfer_statuses_map = () => {
+const statuses_map = () => {
   const map = new Map();
   map.set(0, "مسودة")
   map.set(1, "معتمدة")
@@ -11,7 +11,7 @@ export default (context) => {
   let documents = (v) => ['', t('transfer'), t('exchange'), t('fund_adjusment'), t('inputs'), t('outputs')][v]
   let transactions = (v) => [t('outcoming'), t('incoming')][v]
 
-  const transfer_statuses = (status_id) => transfer_statuses_map().get(status_id)
+  const statuses = (status_id) => statuses_map().get(status_id)
   let resources = [{
     child: 'account',
     parent: '',
@@ -104,7 +104,7 @@ export default (context) => {
       {
         key: 'status',
         f: v => {
-          return transfer_statuses(v)
+          return statuses(v)
         }
       },
     ]
@@ -133,7 +133,7 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'office.name', 'profit'],
+    headers: ['id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'receiver_party.name', 'office.name', 'profit'],
     functions: [
       {
         key: 'profit',
@@ -156,7 +156,7 @@ export default (context) => {
       {
         key: 'status',
         f: v => {
-          return transfer_statuses(v)
+          return statuses(v)
         }
       },
     ]
@@ -303,7 +303,15 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['id', 'type', 'from_account_name', 'to_account_name', 'from_amount', 'exchange_rate', 'to_amount', 'created_at']
+    headers: ['id', 'type', 'from_account_name', 'to_account_name', 'from_amount', 'exchange_rate', 'to_amount', 'status', 'created_at'],
+    functions: [
+      {
+        key: 'status',
+        f: v => {
+          return statuses(v)
+        }
+      },
+    ]
   },
   {
     child: 'export_data',

@@ -22,7 +22,6 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      item: {},
       form: {
         type: "1",
         main_currency_id: 1,
@@ -32,10 +31,25 @@ export default {
   computed: {
     ...mapState({
       all_currencies: (state) => state.currency.all,
+      action: (state) => state.context.action,
+      item: (state) => state.context.item,
     }),
   },
   mounted() {
     // this.$store.dispatch("currency/index");
+  },
+  methods: {
+    cancel(item) {
+      this.$remove(item, "receipt");
+    },
+  },
+
+  watch: {
+    action(val) {
+      if (this[val]) {
+        this[val](this.item);
+      }
+    },
   },
 };
 </script>

@@ -189,8 +189,6 @@ export default {
       all: function (state) {
         if (this.module) {
           if (this.params.resObjName) {
-            console.log("---------------------------------333333333");
-            console.log(this.params.resObjName);
             let temp = state[this.module];
             return temp[this.params.resObjName] || [];
           }

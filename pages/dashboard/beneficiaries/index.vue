@@ -3,11 +3,48 @@
     <Card class="pa-5">
       <v-card-actions>
         <v-row>
-          <v-col cols="12" sm="6" xs="12">
+          <v-col class="align-self-center">
             <span class="fs-20">{{ $t("show beneficiaries") }}</span>
           </v-col>
-          <v-col cols="12" sm="6" xs="12" class="text-left">
-            <v-icon> fas fa-solid fa-search </v-icon>
+          <v-col v-if="show_filter" cols="6">
+            <v-row>
+              <v-col>
+                <InputField
+                  @input="search"
+                  v-model="filters.name"
+                  hide-details
+                  holder="name"
+                  text="name"
+                  required
+                />
+              </v-col>
+              <v-col>
+                <InputField
+                  @input="search"
+                  v-model="filters.id_no"
+                  hide-details
+                  holder="رقم الهوية"
+                  text="رقم الهوية"
+                  required
+                />
+              </v-col>
+              <v-col>
+                <InputField
+                  @input="search"
+                  v-model="filters.mobile"
+                  hide-details
+                  holder="phone"
+                  text="phone"
+                  required
+                />
+              </v-col>
+            </v-row>
+          </v-col>
+
+          <v-col class="text-left align-self-center">
+            <v-btn icon small @click="show_filter = !show_filter">
+              <v-icon> fas fa-solid fa-search </v-icon>
+            </v-btn>
             <span>&nbsp;&nbsp;</span>
 
             <v-btn
@@ -36,6 +73,8 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
+      filters: {},
+      show_filter: false,
       form: {
         type: 0,
       },
@@ -43,6 +82,9 @@ export default {
   },
 
   methods: {
+    search() {
+      this.$store.dispatch("party/index", { ...this.filters });
+    },
     edit(item) {
       this.$store.dispatch("setDialog", {
         name: "AddBeneficiary",

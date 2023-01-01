@@ -431,5 +431,8 @@
     "outcoming-moneygram": "موني غرام صادرة",
     "dashboard-user-profit": "ربحية جرد الخزائن",
     "parties_report": "كشف المستفيدين",
+    "dashboard-exchange-multi": "الصرافة المتعددة",
+    "transfer status": "حالة الحوالة",
+    "receiver_party_name": "المستلم",
     "app settings": "إعدادات الموقع"
 }

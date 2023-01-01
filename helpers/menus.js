@@ -19,6 +19,26 @@ export default {
             },
         ],
     },
+    receipt: {
+        menu_btns: [
+            // {
+            //     title: "edit",
+            //     icon: "fas fa-pen",
+            // },
+            // {
+            //     title: "activate",
+            //     icon: "fas fa-check",
+            // },
+            // {
+            //     title: "stop",
+            //     icon: "fas fa-ban",
+            // },
+            {
+                title: "cancel",
+                icon: "fas fa-trash",
+            },
+        ],
+    },
     exchange: {
         menu_btns: [
             // {

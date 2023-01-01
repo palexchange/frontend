@@ -71,7 +71,6 @@
                 :items="all_currencies"
               />
             </v-col>
-
             <v-col cols="3">
               <label for="">{{ $t("buy") }}</label>
               <v-text-field
@@ -235,6 +234,14 @@ export default {
     save(commit) {
       let dateTime = this.$getDateTime();
       let stocks = this.stocks;
+      stocks.forEach((el) => {
+        if (el.currency_id == 4) {
+          let purchase = el.start_purchasing_price;
+          let sell = el.start_selling_price;
+          el.start_purchasing_price = purchase > 1 ? 1 / purchase : purchase;
+          el.start_selling_price = sell > 1 ? 1 / sell : sell;
+        }
+      });
       if (commit) {
         stocks = stocks.map((v) => {
           v.final_selling_price = v.start_selling_price;

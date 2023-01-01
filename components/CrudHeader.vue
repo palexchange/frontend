@@ -1,11 +1,13 @@
 <template>
   <Card>
     <v-card-title>
-      <v-row class="justify-space-between">
+      <v-row>
         <v-col style="font-weight: 700; font-size: 23px">
           {{ $t(name) }}
         </v-col>
-        <v-col style="text-align: end"> <slot /> </v-col>
+        <v-col cols="10">
+          <slot />
+        </v-col>
       </v-row>
     </v-card-title>
   </Card>

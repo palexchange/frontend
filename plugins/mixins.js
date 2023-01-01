@@ -15,6 +15,8 @@ export default (context, inject) => {
   });
 
   inject('context_menu', (event, item, sidemenu) => {
+    console.log(item);
+    console.log("context_menu");
     event.preventDefault();
     const cont = {}
     cont.x = event.clientX;
@@ -87,6 +89,9 @@ export default (context, inject) => {
 
   });
   inject('remove', (item, resource, redirect = null) => {
+    console.log(item);
+    console.log(resource);
+    console.log("☺1♦☻♥");
     if (item.id) {
       context.store.dispatch('setDeleteData', { item, resource });
     }

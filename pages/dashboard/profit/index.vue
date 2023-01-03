@@ -96,18 +96,7 @@
               </h2></v-col
             >
           </v-row>
-          <v-row class="shadowing">
-            <v-col
-              ><h3>
-                {{ transfer_profit_acc.name }}
-              </h3></v-col
-            >
-            <v-col>
-              <h2>
-                {{ transfer_profit_acc.balance }}
-              </h2></v-col
-            >
-          </v-row>
+
           <v-row v-if="$auth.user.role == 1" class="shadowing">
             <v-col
               ><h3>
@@ -128,13 +117,23 @@
             >
             <v-col>
               <h2>
-                {{
-                  (
-                    parseFloat(transfer_profit_acc.balance) +
-                    parseFloat(exchange_profit_acc.balance) +
-                    (funds_total2 - funds_total)
-                  ).toFixed(2)
-                }}
+                {{ profit_total.toFixed(2) }}
+              </h2></v-col
+            >
+          </v-row>
+          <v-row class="shadowing">
+            <v-col><h3>مصرفات</h3></v-col>
+            <v-col>
+              <h2>
+                {{ expenses_account }}
+              </h2></v-col
+            >
+          </v-row>
+          <v-row class="shadowing">
+            <v-col><h3>صافي الربح</h3></v-col>
+            <v-col>
+              <h2>
+                {{ profit_total - expenses_account }}
               </h2></v-col
             >
           </v-row>
@@ -253,6 +252,27 @@ export default {
         JSON.parse(JSON.stringify(state.account.all)) || [],
       boxes_accounts: (state) => state.auth.user.funds_accounts_balance || [],
     }),
+    profit_total() {
+      return (
+        this.transfer_profit_acc.balance * 1 +
+        this.exchange_profit_acc.balance * 1 +
+        (this.funds_total2 - this.funds_total)
+      );
+    },
+    expenses_account() {
+      let acc =
+        this.all_accounts.find((v) => v.type_id == 7 && v.parent_id == null) ||
+        {};
+      if (acc.children && acc.children.length > 0) {
+        let chidren_balance = acc.children.reduce((a, n) => {
+          return a + n.balance * 1;
+        }, 0);
+        chidren_balance * 1 + acc.balance * 1;
+        return chidren_balance + acc.balance;
+      } else {
+        return 0;
+      }
+    },
     transfer_profit_acc() {
       if (this.$auth.user.role == 1) {
         let acc = this.all_accounts.find((v) => v.id == 2) || {};

@@ -150,7 +150,7 @@
                 :disabled="
                   !cards[index].balance > 0 && trans[index].length == 0
                 "
-                @click="
+                @click.once="
                   cards[index].inventory_balance == 0
                     ? closeInventory(index, curr)
                     : transferToShekeleBox(cards[index])
@@ -164,7 +164,7 @@
                 }}
               </v-btn>
               <v-btn
-                @click="
+                @click.once="
                   cards[index].inventory_balance == 0
                     ? closeInventory(index, curr)
                     : closeToProfitAndLose(cards[index])

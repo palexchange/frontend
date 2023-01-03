@@ -231,7 +231,7 @@
                   outlined
                 />
               </td>
-              <td>
+              <td style="width: 150px">
                 <v-text-field
                   :value="items[i].modified_factor_view"
                   hide-details
@@ -596,7 +596,7 @@ export default {
       let old_amount = element.exchanged_amount / parseFloat(old_value);
       let new_ex_amount = old_amount * new_value;
       element.exchanged_vactor = (new_value * 1).toFixed(5);
-      element.exchanged_amount = new_ex_amount.toFixed(5);
+      element.exchanged_amount = new_ex_amount.toFixed(2);
       console.log(element, old_value, new_value);
       console.log(new_value, new_ex_amount);
     },
@@ -830,5 +830,8 @@ export default {
 .text-input input {
   font: 1.2em sans-serif;
   font-weight: 700;
+}
+td {
+  text-align: center;
 }
 </style>

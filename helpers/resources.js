@@ -1,9 +1,16 @@
 const statuses_map = () => {
-  const map = new Map();
-  map.set(0, "مسودة")
-  map.set(1, "معتمدة")
-  map.set(255, "ملغاة")
-  return map
+  const status_map = new Map();
+  status_map.set(0, "مسودة")
+  status_map.set(1, "معتمدة")
+  status_map.set(255, "ملغاة")
+  return status_map
+}
+const transactions_name_map = () => {
+  const status_map = new Map();
+  status_map.set(0, "صادرة")
+  status_map.set(1, "واردة")
+  status_map.set(7, "مصروف")
+  return status_map
 }
 export default (context) => {
   let t = (v) => context.app.i18n.t(v);
@@ -12,6 +19,7 @@ export default (context) => {
   let transactions = (v) => [t('outcoming'), t('incoming')][v]
 
   const statuses = (status_id) => statuses_map().get(status_id)
+  const transactions_statuses = (status_id) => transactions_name_map().get(status_id)
   let resources = [{
     child: 'account',
     parent: '',
@@ -222,7 +230,7 @@ export default (context) => {
       },
       {
         key: 'transaction_type',
-        f: v => transactions(v)
+        f: v => transactions_statuses(v)
       },
       {
         key: 'acc_balance',

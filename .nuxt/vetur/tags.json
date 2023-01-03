@@ -152,15 +152,6 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
-  "ReportsAccountingReport": {
-    "description": "Auto imported from components/reports/AccountingReport.vue"
-  },
-  "ReportsPartiesReport": {
-    "description": "Auto imported from components/reports/PartiesReport.vue"
-  },
-  "ReportsProfitReport": {
-    "description": "Auto imported from components/reports/ProfitReport.vue"
-  },
   "FiltersBookFilter": {
     "description": "Auto imported from components/filters/BookFilter.vue"
   },
@@ -194,6 +185,15 @@
   "RoleShowPermission": {
     "description": "Auto imported from components/role/ShowPermission.vue"
   },
+  "ReportsAccountingReport": {
+    "description": "Auto imported from components/reports/AccountingReport.vue"
+  },
+  "ReportsPartiesReport": {
+    "description": "Auto imported from components/reports/PartiesReport.vue"
+  },
+  "ReportsProfitReport": {
+    "description": "Auto imported from components/reports/ProfitReport.vue"
+  },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
@@ -209,6 +209,12 @@
   "SettingsEntry": {
     "description": "Auto imported from components/settings/Entry/Index.vue"
   },
+  "SettingsOpeningAccountsCreate": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
+  },
+  "SettingsOpeningAccounts": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
+  },
   "SettingsUsersCreate": {
     "description": "Auto imported from components/settings/Users/Create.vue"
   },
@@ -217,11 +223,5 @@
   },
   "SettingsUsersRoleManagement": {
     "description": "Auto imported from components/settings/Users/RoleManagement.vue"
-  },
-  "SettingsOpeningAccountsCreate": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
-  },
-  "SettingsOpeningAccounts": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
   }
 }

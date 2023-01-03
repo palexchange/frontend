@@ -434,5 +434,9 @@
     "dashboard-exchange-multi": "الصرافة المتعددة",
     "transfer status": "حالة الحوالة",
     "receiver_party_name": "المستلم",
+    "doller": "دولار",
+    "derham": "درهم",
+    "reyal": "ر.س",
+    "pond": "جنيه",
     "app settings": "إعدادات الموقع"
 }

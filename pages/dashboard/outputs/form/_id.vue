@@ -6,10 +6,11 @@
       </v-card-title>
       <v-card-text>
         <v-form v-model="validated">
-          <v-row class="mt-5 lg5-custome-row">
+          <v-row dense class="mt-5 lg5-custome-row">
             <v-col cols="12" lg="4" xs="12" sm="6">
-              <AccountAutocomplete
+              <AutoComplete
                 required
+                :items="accounts.filter((v) => v.type_id != 7)"
                 text="to account"
                 holder="to account"
                 v-model="form.from_account_id"
@@ -65,7 +66,7 @@
                 :value="to_amount"
               ></InputField>
             </v-col>
-            <v-col cols="12" lg="6">
+            <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
                 text="statement"
                 holder="statement"
@@ -73,6 +74,25 @@
               ></InputField>
             </v-col>
           </v-row>
+          <v-row dense>
+            <v-col cols="12" lg="4" xs="12" sm="6">
+              <v-checkbox v-model="form.is_expenses" label="إيصال مصروف ؟">
+              </v-checkbox>
+            </v-col>
+          </v-row>
+          <v-expand-transition>
+            <v-row dense v-show="form.is_expenses">
+              <v-col cols="12" lg="4" xs="12" sm="6">
+                <AutoComplete
+                  required
+                  :items="accounts.filter((v) => v.type_id == 7)"
+                  text="علي حساب مصروف"
+                  holder="علي حساب مصروف"
+                  v-model="form.expenses_account_id"
+                />
+              </v-col>
+            </v-row>
+          </v-expand-transition>
         </v-form>
         <v-row justify="center">
           <v-col cols="2">
@@ -103,6 +123,7 @@ export default {
       validated: false,
       refreshNum: 0,
       form: {
+        is_expenses: false,
         status: 1,
         type: 2, // (type = 1) => input || (type =2) => output
       },

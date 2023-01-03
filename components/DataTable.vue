@@ -25,8 +25,8 @@
       @update:sort-desc="updateSortDesc($event)"
     >
       <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope">
-        <slot :name="slot" v-bind="scope"
-      /></template>
+        <slot :name="slot" v-bind="scope" />
+      </template>
       <template v-for="func in functions" v-slot:[getKey(func.key)]="scope">
         {{
           typeof func.f == "function"
@@ -34,7 +34,6 @@
             : scope.item[func.key]
         }}
       </template>
-
       <template v-for="key in formatted_numbers" v-slot:[getKey(key)]="scope">
         {{ $inputNumberFormat(scope.item[key]) }}
       </template>
@@ -50,9 +49,38 @@
           </v-col>
         </v-row>
       </template>
-
       <template v-slot:[`item.${nums}`]="{ item, index }">
         {{ index + 1 }}
+      </template>
+      <template v-slot:item.status="{ item }">
+        <div style="display: flex; justify-content: start">
+          <div
+            style="width: fit-content"
+            class="px-2"
+            v-if="typeof item.status == 'number'"
+            :class="all_status[item.status].class"
+          >
+            {{ all_status[item.status].label }}
+          </div>
+          <div v-else :class="static_status[item.status].class">
+            {{ $t(item.status) }}
+          </div>
+        </div>
+      </template>
+      <template v-slot:item.currency_id="{ item }">
+        <div style="display: flex; justify-content: start">
+          <div
+            style="width: fit-content"
+            class="px-2"
+            v-if="typeof item.currency_id == 'number'"
+            :class="all_currencies_id[item.currency_id].class"
+          >
+            {{ all_currencies_id[item.currency_id].label }}
+          </div>
+          <div v-else :class="static_status[item.currency_id].class">
+            {{ $t(item.currency_id) }}
+          </div>
+        </div>
       </template>
       <template v-slot:item.actions="{ item }">
         <v-menu offset-y>
@@ -146,6 +174,21 @@ export default {
   },
   data() {
     return {
+      all_status: {
+        255: { class: "danger", label: this.$t("cancelled") }, //255
+        1: { class: "success", label: this.$t("active") }, //1
+        2: { class: "worm", label: this.$t("draft") }, //2
+      },
+      all_currencies_id: {
+        1: { class: "doller", label: this.$t("doller") }, //255
+        2: { class: "shekel", label: this.$t("shekel") }, //1
+        3: { class: "denar", label: this.$t("denar") }, //2
+        4: { class: "euro", label: this.$t("euro") }, //2
+        5: { class: "derham", label: this.$t("derham") }, //2
+        6: { class: "reyal", label: this.$t("reyal") }, //2
+        7: { class: "pond", label: this.$t("pond") }, //2
+      },
+
       // loading: false,
       options: {
         sortBy: [],
@@ -403,6 +446,58 @@ export default {
 
 .v-pagination__item--active {
   color: #ff7171 !important ;
+}
+.danger {
+  border-radius: 4px;
+  background-color: tomato;
+  color: white;
+}
+.worm {
+  border-radius: 4px;
+  background-color: rgb(189, 191, 179);
+  color: white;
+}
+.success {
+  border-radius: 4px;
+  background-color: rgb(71, 255, 111);
+  color: white;
+}
+.doller {
+  border-radius: 4px;
+  background-color: rgb(0 176 159);
+
+  color: white;
+}
+.shekel {
+  border-radius: 4px;
+  background-color: rgb(71, 99, 255);
+
+  color: white;
+}
+.denar {
+  border-radius: 4px;
+  background-color: rgb(245, 179, 77);
+  color: white;
+}
+.euro {
+  border-radius: 4px;
+  background-color: rgb(237, 71, 255);
+  color: white;
+}
+.derham {
+  border-radius: 4px;
+  background-color: rgb(211, 214, 211);
+  color: white;
+}
+.reyal {
+  border-radius: 4px;
+  background-color: rgb(0, 201, 44);
+  color: white;
+}
+.pond {
+  border-radius: 4px;
+  background-color: rgb(255, 105, 105);
+  color: white;
 }
 </style>
 

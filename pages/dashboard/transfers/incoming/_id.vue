@@ -749,7 +749,8 @@ export default {
 
       let factor = this.$newCalcSalePrice(
         { id: this.item.received_currency_id },
-        { id: 1 }
+        { id: 1 },
+        11
       );
       let tottal = exchange_rate * this.item.to_send_amount;
 

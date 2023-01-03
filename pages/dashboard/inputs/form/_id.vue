@@ -10,7 +10,7 @@
             <v-col cols="12" lg="4" xs="12" sm="6">
               <AutoComplete
                 required
-                :items="accounts.filter((v) => v.type_id == 1)"
+                :items="accounts"
                 text="from account"
                 holder="from account"
                 v-model="form.from_account_id"

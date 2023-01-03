@@ -150,6 +150,7 @@ export default {
       });
     },
     save() {
+      this.form.no_reload = true;
       this.$save(this.form, "party").then((data) => {
         if (this.photo) {
           this.$save(
@@ -160,7 +161,9 @@ export default {
               silent: true,
             },
             "file"
-          );
+          ).then(() => {
+            this.$store.dispatch("party/index");
+          });
         }
       });
       this.dialog = false;

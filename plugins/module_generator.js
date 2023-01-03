@@ -258,7 +258,7 @@ export default (context, inject) => {
             }
 
 
-            if (resource.load_after_store)
+            if (resource.load_after_store && !data.no_reload)
               dispatch('index', params);
 
             if (resource.reload_user)

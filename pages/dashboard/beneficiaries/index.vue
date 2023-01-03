@@ -45,6 +45,7 @@
             <v-btn icon small @click="show_filter = !show_filter">
               <v-icon> fas fa-solid fa-search </v-icon>
             </v-btn>
+
             <span>&nbsp;&nbsp;</span>
 
             <v-btn

@@ -1,14 +1,6 @@
 <template>
   <div>
     <v-row>
-      <!-- <v-col cols="12" md="2" sm="12">
-      <Autocomplete
-        v-model="report_data.sub_type"
-        :report_datas="types"
-        holder="report type"
-        text="report type"
-      />
-    </v-col> -->
       <v-col cols="12" md="10" sm="12">
         <v-form v-model="validated">
           <v-row>
@@ -68,6 +60,21 @@
       </v-col>
     </v-row>
     <data-table noActions nums="#" module="report" hide_pagination />
+    <v-row dense class="pa-5">
+      <v-col>
+        <v-text-field receipt.amoiunt outlined dense label="الكمية">
+        </v-text-field>
+      </v-col>
+      <v-col>
+        <v-btn @click="Amount(1)" class="pa-4" color="info">
+          استلام دفعة ↓</v-btn
+        >
+
+        <v-btn @click="Amount(-1)" class="pa-4" color="error">
+          صرف دفعة ↑</v-btn
+        >
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -90,6 +97,11 @@ export default {
     };
   },
   methods: {
+    Amount(in_or_out) {
+      if (in_or_out > 0) {
+      } else {
+      }
+    },
     getDate() {
       this.loading = true;
       setTimeout(() => {

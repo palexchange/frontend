@@ -84,7 +84,6 @@
             <v-row dense v-show="form.is_expenses">
               <v-col cols="12" lg="4" xs="12" sm="6">
                 <AutoComplete
-                  required
                   :items="accounts.filter((v) => v.type_id == 7)"
                   text="علي حساب مصروف"
                   holder="علي حساب مصروف"

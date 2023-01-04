@@ -60,14 +60,24 @@
       </v-col>
     </v-row>
     <data-table noActions nums="#" module="report" hide_pagination />
-    <v-row dense class="pa-5">
+    <v-row v-if="report_data.account" dense class="pa-5">
       <v-col>
-        <v-text-field receipt.amoiunt outlined dense label="الكمية">
+        <v-text-field
+          type="number"
+          v-model.number="receipt.amount"
+          outlined
+          dense
+          :label="`المبلغ ${
+            (report_data.currency_id
+              ? all_currencies.find((c) => c.id == report_data.currency_id).name
+              : null) || 'دولار'
+          } `"
+        >
         </v-text-field>
       </v-col>
       <v-col>
-        <v-btn @click="Amount(1)" class="pa-4" color="info">
-          استلام دفعة ↓</v-btn
+        <v-btn @click="Amount(1)" class="pa-4" color="info"
+          >استلام دفعة ↓</v-btn
         >
 
         <v-btn @click="Amount(-1)" class="pa-4" color="error">
@@ -83,7 +93,9 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      currency_signs: [],
       loading: false,
+      receipt: {},
       validated: true,
       report_data: {
         has_headers: true,
@@ -98,9 +110,21 @@ export default {
   },
   methods: {
     Amount(in_or_out) {
-      if (in_or_out > 0) {
-      } else {
-      }
+      if (!(this.receipt.amount > 0)) return;
+      const receipt = {};
+      receipt.type = in_or_out > 0 ? 1 : 2;
+      receipt.currency_id = this.report_data.currency_id || 1;
+      receipt.status = 1;
+      receipt.exchange_rate = this.stocks.find(
+        (c) => c.id == this.report_data.currency_id || 1
+      ).mid;
+      receipt.from_amount = this.receipt.amount;
+      receipt.to_amount = this.receipt.amount / receipt.exchange_rate;
+      receipt.to_account_id = this.user.active_accounts.find((e) => {
+        return receipt.currency_id == receipt.currency_id;
+      }).id;
+      receipt.from_account_id = this.report_data.account;
+      this.$save(receipt, "receipt");
     },
     getDate() {
       this.loading = true;
@@ -120,6 +144,9 @@ export default {
   computed: {
     ...mapState({
       report: (state) => state.report.all || [],
+      all_currencies: (state) => state.currency.all || [],
+      stocks: (state) => state.stock.all || [],
+      user: (state) => state.auth.user || [],
     }),
   },
 };

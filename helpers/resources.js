@@ -236,9 +236,18 @@ export default (context) => {
         key: 'acc_balance',
 
         f: v => {
-          let amount = parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
-          return amount < 0 ? ((amount * -1) + ' د') : (amount + ' م')
-        }
+          {
+            let amount = v;
+            if (amount == 0) return amount
+            let minus = amount < 0;
+            let final = parseFloat(minus ? (amount * -1) : amount).toLocaleString(undefined, { minimumFractionDigits: 2 })
+            if (minus) {
+              return `${final} د`;
+            } else {
+              return `${final} م`;
+            }
+          }
+        },
       },
       {
         key: 'ac_creditor',

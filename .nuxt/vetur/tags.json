@@ -200,14 +200,14 @@
   "SettingsCloseingAccounts": {
     "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
   },
+  "SettingsAccounts": {
+    "description": "Auto imported from components/settings/Accounts/Index.vue"
+  },
   "SettingsEntryCreate": {
     "description": "Auto imported from components/settings/Entry/Create.vue"
   },
   "SettingsEntry": {
     "description": "Auto imported from components/settings/Entry/Index.vue"
-  },
-  "SettingsAccounts": {
-    "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
   "SettingsOpeningAccountsCreate": {
     "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"

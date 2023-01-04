@@ -641,7 +641,7 @@ export default {
       // console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
       let tottal = parseFloat(
-        (office_amount - this.item.office_commission) * exchange_rate
+        (office_amount - (this.item.office_commission || 0)) * exchange_rate
       );
 
       let mid =

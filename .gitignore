@@ -90,4 +90,5 @@ sw.*
 *.swp
 .package.json
 .nuxt.config
+nuxt.config
 .nuxt.config.js

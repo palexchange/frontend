@@ -40,7 +40,6 @@
               </v-col>
             </v-row>
           </v-col>
-
           <v-col class="text-left align-self-center">
             <v-btn icon small @click="show_filter = !show_filter">
               <v-icon> fas fa-solid fa-search </v-icon>

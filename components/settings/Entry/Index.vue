@@ -14,7 +14,6 @@
         module="entry"
         show-expand
         :expanded.sync="expanded_item"
-        :noActions="true"
       >
         <template v-slot:expanded-item="{ headers }">
           <td :colspan="headers.length" class="pa-0">
@@ -39,6 +38,7 @@
 </template>
 
  <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -51,8 +51,16 @@ export default {
     addEntry() {
       this.dialog = true;
     },
+    cancel(item) {
+      this.$remove(item, "entry");
+    },
   },
   watch: {
+    action(val) {
+      if (this[val]) {
+        this[val](this.item);
+      }
+    },
     expanded_item(val) {
       if (val[0]) {
         this.params2 = {
@@ -61,6 +69,13 @@ export default {
         };
       }
     },
+  },
+
+  computed: {
+    ...mapState({
+      action: (state) => state.context.action,
+      item: (state) => state.context.item,
+    }),
   },
 };
 </script>

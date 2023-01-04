@@ -8,7 +8,7 @@
       :page.sync="options.page"
       item-key="id"
       hide-default-footer
-      :items-per-page="meta.per_page ? Number(meta.per_page) : 15"
+      :items-per-page="meta.per_page ? Number(meta.per_page) : per_page_num"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
       :headers="
@@ -202,7 +202,6 @@ export default {
     };
   },
   mounted() {
-    // if (!this.all[0]) {
     this.$store.dispatch(`${this.module}/index`, {
       ...this.options,
       ...this.params,
@@ -228,6 +227,9 @@ export default {
     }
   },
   computed: {
+    per_page_num() {
+      return this.module == "report" ? 1000 : 15;
+    },
     ...mapState({
       all: function (state) {
         if (this.module) {

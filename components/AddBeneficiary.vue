@@ -164,6 +164,8 @@ export default {
           ).then(() => {
             this.$store.dispatch("party/index");
           });
+        } else {
+          this.$store.dispatch("party/index");
         }
       });
       this.dialog = false;

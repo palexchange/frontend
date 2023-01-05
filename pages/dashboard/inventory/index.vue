@@ -524,8 +524,10 @@ export default {
     money(value) {
       if (value == 0) return 0.0;
       if (value) {
-        value = value * 1;
-        return value.toFixed(2);
+        let amount = value * 1;
+        return parseFloat(amount).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+        });
         // return value.toLocaleString(undefined, { minimumFractionDigits: 2 });
       }
     },

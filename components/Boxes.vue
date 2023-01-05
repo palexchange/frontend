@@ -27,8 +27,13 @@
                 {{ account.name }}
               </v-col> -->
               </v-row>
-              <div style="font-size: 20px; color: black">
-                {{ parseFloat(account.balance).toFixed(2) }}
+              <div style="font-size: 18px; color: black">رصيد جرد</div>
+              <div style="font-size: 18px; color: black">
+                {{ account.net_balance | money }}
+              </div>
+              <div style="font-size: 16px; color: black">رصيد صندوق</div>
+              <div style="font-size: 18px; color: light-black">
+                {{ account.balance | money }}
               </div>
             </v-card-text>
           </v-card>
@@ -53,9 +58,9 @@ export default {
   filters: {
     money(value) {
       if (value) {
-        return value == 0
-          ? 0
-          : value.toLocaleString(undefined, { minimumFractionDigits: 2 });
+        return (value * 1).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+        });
       }
     },
   },

@@ -295,18 +295,18 @@ export default {
     },
     funds_total() {
       this.totals = this.active_accounts.map((account) => {
-        let balance = account.balance <= 0 ? 0 : account.balance;
+        let net_balance = account.net_balance <= 0 ? 0 : account.net_balance;
         return (
-          balance / this.getMorningExchangeRate(account.currency_id)
+          net_balance / this.getMorningExchangeRate(account.currency_id)
         ).toFixed(3);
       });
       return this.totals.reduce((c, n) => (parseFloat(n) || 0) + c, 0);
     },
     funds_total2() {
       this.totals2 = this.active_accounts.map((account) => {
-        let balance = account.balance <= 0 ? 0 : account.balance;
+        let net_balance = account.net_balance <= 0 ? 0 : account.net_balance;
         return (
-          balance / this.getNightExchangeRate(account.currency_id)
+          net_balance / this.getNightExchangeRate(account.currency_id)
         ).toFixed(3);
       });
       return this.totals2.reduce((c, n) => (parseFloat(n) || 0) + c, 0);

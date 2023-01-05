@@ -76,6 +76,15 @@
         </v-text-field>
       </v-col>
       <v-col>
+        <v-text-field
+          v-model.number="receipt.statement"
+          outlined
+          dense
+          :label="$t('statement')"
+        >
+        </v-text-field>
+      </v-col>
+      <v-col>
         <v-btn @click="Amount(1)" class="pa-4" color="info"
           >استلام دفعة ↓</v-btn
         >
@@ -102,10 +111,6 @@ export default {
         type: "Accounting",
         sub_type: "accountStatementReport",
       },
-      //   types: [
-      //     { id: "public", name: this.$t("public") },
-      //     { id: "detaild", name: this.$t("detaild") },
-      //   ],
     };
   },
   methods: {
@@ -121,9 +126,10 @@ export default {
       receipt.from_amount = this.receipt.amount;
       receipt.to_amount = this.receipt.amount / receipt.exchange_rate;
       receipt.to_account_id = this.user.active_accounts.find((e) => {
-        return receipt.currency_id == receipt.currency_id;
+        return receipt.currency_id == e.currency_id;
       }).id;
       receipt.from_account_id = this.report_data.account;
+      receipt.statement = this.receipt.statement;
       this.$save(receipt, "receipt");
     },
     getDate() {

@@ -52,7 +52,7 @@
         <v-btn
           :disabled="!validated"
           :loading="loading"
-          @click="getDate()"
+          @click="getData()"
           class="primary"
           type="submit"
           >{{ $t("report create") }}</v-btn
@@ -130,9 +130,12 @@ export default {
       }).id;
       receipt.from_account_id = this.report_data.account;
       receipt.statement = this.receipt.statement;
-      this.$save(receipt, "receipt");
+      this.$save(receipt, "receipt").then(() => {
+        this.getData();
+        this.receipt = {};
+      });
     },
-    getDate() {
+    getData() {
       this.loading = true;
       setTimeout(() => {
         this.$store.dispatch("report/index", { ...this.report_data });

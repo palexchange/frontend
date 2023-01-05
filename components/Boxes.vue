@@ -53,6 +53,7 @@ export default {
   },
 
   mounted() {
+    this.$auth.fetchUser();
     this.$store.dispatch("currency/index");
   },
   filters: {

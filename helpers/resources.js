@@ -286,7 +286,7 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['id', 'statement', 'inverse_entry_id', 'created_at'],
+    headers: ['id', 'statement', 'inverse_entry_id', 'status', 'created_at'],
     functions: [
       {
         key: 'statement',

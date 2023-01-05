@@ -3,7 +3,7 @@
   <div>
     <SideInfoTransfer
       :profit="item.profit"
-      :officeProfitComp="officeProfitComp"
+      :officeProfitComp="officeProfitComp()"
     >
       <v-row>
         <v-col cols="12" sm="12"> {{ $t("incoming moneygram") }} </v-col>
@@ -321,6 +321,7 @@
               holder="المبلغ المرسل للتسليم"
               text="المبلغ المرسل للتسليم"
               required
+              type="number"
             />
           </v-col>
 
@@ -358,6 +359,7 @@
                   (item.office_commission_type =
                     item.office_commission_type == 1 ? 0 : 1)
               "
+              type="number"
             >
             </v-text-field>
           </v-col>
@@ -480,26 +482,29 @@
               holder="convert to receiver currency"
               text="convert to receiver currency"
               required
+              type="number"
             />
           </v-col>
           <v-col>
             <InputField
               :readonly="showReadOnly"
-              :value="finalAmountToDeliverComp | money"
-              dashed
+              v-model="item.received_amount"
               holder="final amount to give"
               text="final amount to give"
               required
+              type="number"
+              @change="(v) => change_receied_amount(v)"
             />
           </v-col>
-          <v-col>
+          <v-col :key="item.a_received_amount_key">
             <InputField
               :readonly="showReadOnly"
-              :value="item.a_received_amount | money"
+              :value="item.a_received_amount"
               dashed
               holder="final amount to give in usd"
               text="final amount to give in usd"
               required
+              type="number"
             />
           </v-col>
         </v-row>
@@ -578,6 +583,7 @@ export default {
         status: 1,
         commission_side: 2,
         type: 1,
+        a_received_amount_key: 1,
         delivering_type: 2,
         reference_currency_id: 1,
         receiver_phone: null,
@@ -647,18 +653,20 @@ export default {
       let mid =
         (this.$newCalcSalePrice(
           { id: this.item.received_currency_id },
-          { id: 1 }
+          { id: 1 },
+          12
         ) *
           1 +
           this.$newCalcBuyPrice(
             { id: this.item.received_currency_id },
-            { id: 1 }
+            { id: 1 },
+            12
           ) *
             1) /
         2;
 
-      this.item.a_received_amount = tottal * mid;
       this.item.received_amount = tottal;
+      this.item.a_received_amount = (tottal * mid).toFixed();
       return tottal;
     },
     officeAmount() {
@@ -681,13 +689,20 @@ export default {
           : commission;
       let tempVar = officeAmount - returned + commission;
 
-      this.rounedRes = parseFloat(Number(tempVar).toFixed(0) || null);
+      this.rounedRes = parseFloat(Number(tempVar) || null);
       //   console.log("Rounded: ", rounedRes);
       this.totalOfficeAmountFraction = -(this.rounedRes - tempVar);
 
       this.item.office_amount = tempVar;
       return tempVar ? this.rounedRes : null;
     },
+
+    ...mapState({
+      currencies: (state) => state.currency.all,
+      one: (state) => state.transfer.one,
+    }),
+  },
+  methods: {
     officeProfitComp() {
       // let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
       // let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
@@ -720,12 +735,25 @@ export default {
         parseFloat(this.item.a_received_amount)
       );
     },
-    ...mapState({
-      currencies: (state) => state.currency.all,
-      one: (state) => state.transfer.one,
-    }),
-  },
-  methods: {
+    change_receied_amount(v) {
+      let mid =
+        (this.$newCalcSalePrice(
+          { id: this.item.received_currency_id },
+          { id: 1 },
+          12
+        ) *
+          1 +
+          this.$newCalcBuyPrice(
+            { id: this.item.received_currency_id },
+            { id: 1 },
+            12
+          ) *
+            1) /
+        2;
+      this.item.a_received_amount = (v * mid).toFixed();
+      this.officeProfitComp();
+      this.item.a_received_amount_key++;
+    },
     confirmProcess() {
       this.item.issued_at = this.$getDateTime();
       // this.item.office_commission = 0;
@@ -790,7 +818,7 @@ export default {
           (
             parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
             parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
-          ).toFixed(7) / 2;
+          ).toFixed(12) / 2;
       }
 
       if (toCurr.id == 1) {
@@ -816,7 +844,7 @@ export default {
           (
             parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
             parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
-          ).toFixed(7) / 2;
+          ).toFixed(12) / 2;
       }
     },
     showConversionFactor(to, factorModel, new_value) {
@@ -824,8 +852,8 @@ export default {
       if (!to || !factorModel) return;
       this.item[factorModel] =
         to.id == 1
-          ? parseFloat(1 / parseFloat(new_value)).toFixed(7)
-          : parseFloat(new_value).toFixed(7);
+          ? parseFloat(1 / parseFloat(new_value)).toFixed(12)
+          : parseFloat(new_value).toFixed(12);
     },
   },
   filters: {

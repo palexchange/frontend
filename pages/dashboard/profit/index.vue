@@ -277,7 +277,7 @@ export default {
       if (this.$auth.user.role == 1) {
         let acc = this.all_accounts.find((v) => v.id == 2) || {};
         if (acc.balance < 0) {
-          acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
+          acc.balance = parseFloat(acc.balance).toFixed(3) * -1;
         }
         return acc;
       } else {

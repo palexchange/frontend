@@ -27,12 +27,12 @@
                 {{ account.name }}
               </v-col> -->
               </v-row>
-              <div style="font-size: 18px; color: black">رصيد جرد</div>
-              <div style="font-size: 18px; color: black">
+              <div style="font-size: 20px; color: black">رصيد صندوق</div>
+              <div style="font-size: 20px; color: black">
                 {{ account.net_balance | money }}
               </div>
-              <div style="font-size: 16px; color: black">رصيد صندوق</div>
-              <div style="font-size: 18px; color: light-black">
+              <div style="font-size: 20px; color: black">رصيد جرد</div>
+              <div style="font-size: 20px; color: light-black">
                 {{ account.balance | money }}
               </div>
             </v-card-text>

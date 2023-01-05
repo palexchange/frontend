@@ -133,7 +133,7 @@
             <v-col><h3>صافي الربح</h3></v-col>
             <v-col>
               <h2>
-                {{ profit_total - expenses_account }}
+                {{ (profit_total - expenses_account).toFixed(2) }}
               </h2></v-col
             >
           </v-row>
@@ -256,7 +256,7 @@ export default {
       return (
         this.transfer_profit_acc.balance * 1 +
         this.exchange_profit_acc.balance * 1 +
-        (this.funds_total2 - this.funds_total)
+        (this.funds_total2 * 1 - this.funds_total * 1)
       );
     },
     expenses_account() {
@@ -298,7 +298,7 @@ export default {
       if (this.$auth.user.role == 1) {
         let acc = this.all_accounts.find((v) => v.id == 3) || {};
         if (acc.balance < 0) {
-          acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
+          acc.balance = parseFloat(acc.balance).toFixed(3) * -1;
         }
         return acc;
       } else {

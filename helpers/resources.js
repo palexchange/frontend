@@ -106,7 +106,7 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['id', 'date', 'user.name', 'amount', 'currency_name', 'party_name', 'status', 'number'],
+    headers: ['id', 'user.name', 'profit', 'party_name', 'status', 'date'],
 
     functions: [
       {
@@ -134,7 +134,14 @@ export default (context) => {
     parent: '',
     load_after_store: false,
     silent: true,
-    headers: ['id', 'exchange_id', 'amount', 'currency_name', 'factor', 'amount_after'],
+    headers: ['id', 'exchange_id', 'amount', 'currency_name', 'exchange_rate', 'type'],
+    functions: [
+      {
+        key: 'type',
+        f: v => {
+          return [t('from'), t('to')][v - 1];
+        }
+      },]
   },
   {
     child: 'transfer',

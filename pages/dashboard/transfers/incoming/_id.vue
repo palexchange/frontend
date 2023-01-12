@@ -492,13 +492,11 @@
               v-model="item.received_currency_id"
               @change="
                 (v) => {
-                  signCurrency(
-                    'exchange_rate_to_reference_currency',
-                    'exchange_rate_to_reference_currency_view',
-                    'mid',
-                    { id: this.item.office_currency_id },
-                    v
-                  );
+                  computed_exchange_rate_to_reference_currency =
+                    getMidCurrencyToCurrency(
+                      { id: item.office_currency_id },
+                      v
+                    ).toFixed(5) * 1;
                   item.received_currency_id = v.id;
                 }
               "
@@ -513,16 +511,7 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
-              @input="
-                (new_value) => {
-                  showConversionFactor(
-                    { id: item.received_currency_id },
-                    'exchange_rate_to_reference_currency',
-                    new_value
-                  );
-                }
-              "
-              v-model.number="item.exchange_rate_to_reference_currency_view"
+              v-model.number="computed_exchange_rate_to_reference_currency"
               holder="convert to receiver currency"
               text="convert to receiver currency"
             />
@@ -642,6 +631,8 @@ export default {
   name: "incoming-transfer",
   data() {
     return {
+      from_office_curr: {},
+      to_reference_currency: {},
       expand: false,
       expand2: false,
       receiver_id_image: null,
@@ -680,6 +671,9 @@ export default {
         exchange_rate_to_reference_currency: null,
         exchange_rate_to_office_currency: null,
         exchange_rate_to_office_currency_view: null,
+        received_amount_no_commision: 0,
+        received_amount: 0,
+        a_received_amount: 0,
       },
       // a:0,
       // b:0,
@@ -698,6 +692,30 @@ export default {
   //       }
   // },
   computed: {
+    computed_exchange_rate_to_reference_currency: {
+      set: function (val) {
+        if (val > 0) {
+          if (
+            this.from_office_curr.weight > this.to_reference_currency.weight
+          ) {
+            this.item.exchange_rate_to_reference_currency = (1 / val).toFixed(
+              5
+            ); //0.7 , 1.42
+          } else {
+            this.item.exchange_rate_to_reference_currency = val;
+          }
+        }
+      },
+      get: function () {
+        if (this.from_office_curr.weight > this.to_reference_currency.weight) {
+          return (
+            (1 / this.item.exchange_rate_to_reference_currency).toFixed(5) || 1
+          ); // 0.7
+        } else {
+          return this.item.exchange_rate_to_reference_currency || 1;
+        }
+      },
+    },
     calcCommisson() {
       let received_amount = this.item.received_amount_no_commision || 0;
       let commisson_amount = this.item.transfer_commission || 0;
@@ -710,7 +728,7 @@ export default {
           : commisson_amount;
       }
 
-      return amount;
+      return amount || 0;
     },
     is_moneygram() {
       return this.delivering_type == 2;
@@ -718,7 +736,7 @@ export default {
     recivedAmountInUSDComp() {
       let amount = this.item.to_send_amount || 0;
       let ratio = this.item.exchange_rate_to_delivery_currency || 0;
-      let commVal = parseFloat(this.calcCommisson() || 0);
+      let commVal = parseFloat(this.calcCommisson || 0);
       let res = amount * ratio - commVal;
       return res == 0 ? null : res;
     },
@@ -740,31 +758,43 @@ export default {
       this.item.final_received_amount = office_amount;
 
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
-      console.log(exchange_rate);
+      // console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
       // let tottal =
       //   this.item.office_currency_id == 1
       //     ? parseFloat(office_amount * exchange_rate)
       //     : parseFloat(office_amount / exchange_rate);
 
-      let factor = this.$newCalcSalePrice(
+      // let factor = this.$newCalcSalePrice(
+      //   { id: this.item.received_currency_id },
+      //   { id: 1 },
+      //   11
+      // );
+
+      let sale = this.$newCalcSalePrice(
         { id: this.item.received_currency_id },
         { id: 1 },
-        11
+        12
       );
-      let tottal = exchange_rate * this.item.to_send_amount;
+      let buy = this.$newCalcBuyPrice(
+        { id: this.item.received_currency_id },
+        { id: 1 },
+        12
+      );
+      let factor = (buy * 1 + sale * 1) / 2;
+      let tottal = exchange_rate * this.item.to_send_amount || 0;
 
       this.item.received_amount_no_commision =
         parseFloat(tottal).toFixed(4) || 0;
       this.item.received_amount =
         parseFloat(tottal - this.calcCommisson).toFixed() || 0;
       this.item.a_received_amount =
-        parseFloat(parseFloat(tottal - this.calcCommisson) * factor).toFixed(
-          3
+        (parseFloat(tottal - this.calcCommisson) * (factor || 0) * 1).toFixed(
+          1
         ) || 0;
 
       // this.item.received_amount = tottal;
-      return tottal;
+      return tottal || 0;
     },
     officeAmount() {
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
@@ -795,8 +825,8 @@ export default {
       this.totalOfficeAmountFraction = -(this.rounedRes - tempVar);
 
       this.item.office_amount = this.item.exchange_rate_to_office_currency
-        ? tempVar * this.item.exchange_rate_to_office_currency
-        : tempVar;
+        ? (tempVar * this.item.exchange_rate_to_office_currency).toFixed(1)
+        : tempVar.toFixed(1);
       this.item.office_amount_in_office_currency = tempVar
         ? this.rounedRes
         : null;
@@ -844,6 +874,24 @@ export default {
     }),
   },
   methods: {
+    getMidCurrencyToCurrency(from, to) {
+      if (from == undefined || to == undefined) return null;
+      const from_curr = this.currencies.find((el) => el.id == from.id);
+      this.from_office_curr = from_curr;
+      this.to_reference_currency = to;
+
+      let buy = 1;
+      let sale = 1;
+      if (from_curr.weight < to.weight) {
+        sale = this.$newCalcSalePrice(from, to);
+        buy = this.$newCalcBuyPrice(from, to);
+      } else {
+        sale = this.$newCalcSalePrice(to, from);
+        buy = this.$newCalcBuyPrice(to, from);
+      }
+      const mid = (sale * 1 + buy * 1) / 2;
+      return mid.toFixed(5) * 1;
+    },
     setFinalAmount(amount) {
       this.item.exchange_rate_to_reference_currency = parseFloat(
         (parseFloat(amount) + parseFloat(this.calcCommisson)) /
@@ -876,7 +924,7 @@ export default {
     },
     setReceiverDate(item) {
       if (!item) return;
-      console.log(item);
+      // console.log(item);
       this.item.receiver_id_no = item.id_no;
       this.receiver_id_image = item.image ? item.image.url : null;
       this.item.receiver_phone = item.phone;
@@ -968,7 +1016,7 @@ export default {
       // }
     },
     showConversionFactor(to, factorModel, new_value) {
-      console.log(to, factorModel, new_value);
+      // console.log(to, factorModel, new_value);
       if (!to || !factorModel) return;
       this.item[factorModel] =
         to.id == 1

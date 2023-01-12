@@ -197,17 +197,17 @@
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
-  "SettingsCloseingAccountsCreate": {
-    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
-  },
-  "SettingsCloseingAccounts": {
-    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
-  },
   "SettingsEntryCreate": {
     "description": "Auto imported from components/settings/Entry/Create.vue"
   },
   "SettingsEntry": {
     "description": "Auto imported from components/settings/Entry/Index.vue"
+  },
+  "SettingsCloseingAccountsCreate": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
+  },
+  "SettingsCloseingAccounts": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
   },
   "SettingsOpeningAccountsCreate": {
     "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"

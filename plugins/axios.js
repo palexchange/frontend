@@ -11,7 +11,8 @@ export default function ({ $axios, redirect, store, response, app }) {
     })
     $axios.onError(error => {
         if (error.response.status === 500) {
-            store.dispatch('testAxios')
+            // store.dispatch('addErrors', ["خطأ عام"])
+            // store.dispatch('testAxios')
             // redirect('/sorry')
         }
         else if (error.response.status === 401) {

@@ -121,7 +121,7 @@ export default {
       receipt.currency_id = this.report_data.currency_id || 1;
       receipt.status = 1;
       receipt.exchange_rate = this.stocks.find(
-        (c) => c.id == this.report_data.currency_id || 1
+        (c) => c.currency_id == (this.report_data.currency_id || 1)
       ).mid;
       receipt.from_amount = this.receipt.amount;
       receipt.to_amount = this.receipt.amount / receipt.exchange_rate;

@@ -2,7 +2,7 @@
   <div :class="dashed ? 'dashing' : ''">
     <label
       v-if="!no_lable"
-    style="color: rgba(0,0,0);font-size:16px;"
+      style="color: rgba(0, 0, 0); font-size: 16px"
       :class="required ? 'required form-label' : 'form-label'"
       >{{ $t(text) }}</label
     >
@@ -61,7 +61,7 @@ export default {
   },
   created() {
     if (!this.all[0]) {
-      this.$store.dispatch("currency/index", { per_page: 900 });
+      this.$store.dispatch("currency/index", { per_page: -1 });
     }
   },
   computed: {

@@ -73,7 +73,7 @@
                 v-model="form.exchange_rate"
               ></InputField>
             </v-col>
-            <v-col cols="12" lg="4" xs="12" sm="6">
+            <v-col cols="12" md="2" sm="12">
               <InputField
                 disabledd
                 text="amount in usd"
@@ -81,7 +81,9 @@
                 :value="to_amount"
               ></InputField>
             </v-col>
-            <v-col cols="12" lg="6">
+          </v-row>
+          <v-row dense>
+            <v-col cols="12" md="6" sm="12">
               <InputField
                 text="statement"
                 holder="statement"

@@ -130,6 +130,7 @@
           <v-col cols="12" md="4" sm="6" lg="2">
             <BeneficiaryAutocomplete
               :readonly="showReadOnly"
+              no_fetch
               text="beneficiary"
               holder="beneficiary"
               required
@@ -181,6 +182,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
+              no_fetch
               :readonly="showReadOnly"
               text="phone"
               holder="phone"
@@ -206,6 +208,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
+              no_fetch
               :readonly="showReadOnly"
               text="id_no"
               holder="id_no"
@@ -775,6 +778,14 @@ export default {
       // console.log(this.item);
     },
     setReceiverDate(item) {
+      if (item.received_money_gram_count >= 2) {
+        this.$swal({
+          title: "تحذير",
+          text: `عدد الحركات السابقة ل ${item.name}  هو :  ${item.received_money_gram_count}`,
+          icon: "warning",
+          confirmButtonText: this.$t("ok"),
+        });
+      }
       if (!item) return;
       console.log(item);
       this.item.receiver_party_id = item.id_no;

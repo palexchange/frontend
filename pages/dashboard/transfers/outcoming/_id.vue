@@ -607,7 +607,7 @@
               text="final amount to office"
             />
           </v-col>
-          <v-col v-if="">
+          <v-col>
             <InputField
               :readonly="showReadOnly"
               v-model="computed_office_exchange_rate_to_usd"
@@ -722,10 +722,12 @@ export default {
   computed: {
     computed_office_exchange_rate_to_usd: {
       set: function (val) {
-        this.item.office_exchange_rate_to_usd = 1 / val; //0.7 , 1.42
+        if (val > 0) {
+          this.item.office_exchange_rate_to_usd = 1 / val; //0.7 , 1.42
+        }
       },
       get: function () {
-        return 1 / this.item.office_exchange_rate_to_usd; // 0.7
+        return 1 / (this.item.office_exchange_rate_to_usd || 1); // 0.7
       },
     },
     computed_exchange_rate_to_delivery_currency: {
@@ -1022,7 +1024,7 @@ export default {
       if (this.$route.params.id) {
         this.$store.dispatch("transfer/show", this.$route.params.id);
       }
-      this.$store.dispatch("party/index", { per_page: 900 });
+      this.$store.dispatch("party/index", { per_page: -1 });
       this.$store.dispatch("currency/index");
       this.$store.dispatch("stock/index");
     }
@@ -1031,6 +1033,8 @@ export default {
     one(val) {
       if (val) {
         this.item = { ...val }; //JSON.parse(JSON.stringify(val));
+        this.computed_office_exchange_rate_to_usd =
+          val.office_exchange_rate_to_usd;
       }
     },
   },

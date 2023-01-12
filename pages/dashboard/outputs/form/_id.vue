@@ -66,7 +66,9 @@
                 :value="to_amount"
               ></InputField>
             </v-col>
-            <v-col cols="12" lg="4" xs="12" sm="6">
+          </v-row>
+          <v-row dense>
+            <v-col cols="12" md="6" sm="12">
               <InputField
                 text="statement"
                 holder="statement"

@@ -89,7 +89,7 @@
               return-object
               @change="
                 (v) => {
-                  setSenderDate(v);
+                  setSenderData(v);
                   item.sender_party_id = v.id;
                 }
               "
@@ -714,7 +714,16 @@ export default {
       this.item.receiver_country_id = item.country_id;
       this.item.receiver_city_id = item.city_id;
     },
-    setSenderDate(item) {
+    setSenderData(item) {
+      if (item.sended_money_gram_count >= 2) {
+        this.$swal({
+          title: "تحذير",
+          text: `عدد الحركات السابقة ل ${item.name}  هو :  ${item.sended_money_gram_count}`,
+
+          icon: "warning",
+          confirmButtonText: this.$t("ok"),
+        });
+      }
       if (!item) return;
       this.item.sender_id_no = item.id_no;
       this.sender_id_image = item.image ? item.image.url : null;
@@ -780,7 +789,7 @@ export default {
       if (this.$route.params.id) {
         this.$store.dispatch("transfer/show", this.$route.params.id);
       }
-      this.$store.dispatch("party/index", { per_page: 900 });
+      this.$store.dispatch("party/index", { per_page: -1 });
       this.$store.dispatch("currency/index");
       this.$store.dispatch("stock/index");
     }

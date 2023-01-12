@@ -205,19 +205,15 @@ export default (context, inject) => {
   });
   inject('newCalcSalePrice', (from, to, digits) => {
     if (!(from && to)) return 0;
+    if (from.id == to.id) return 1;
     let from_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == from.id && v.ref_currency_id == 1
     });
     let to_currency = context.store.state.stock.all.find(v => {
       return v.currency_id == to.id && v.ref_currency_id == 1
     });
-
-    if (from.id == to.id) {
-      return 1;
-    }
-    else if (to.id == 1) {
+    if (to.id == 1) {
       if (from_currency) {
-
         return (1 / from_currency.start_selling_price).toFixed(digits || 5);
       }
     } else if (from.id == 1) {

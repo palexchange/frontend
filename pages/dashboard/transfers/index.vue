@@ -67,7 +67,9 @@ export default {
   data() {
     return {
       show_filter: false,
-      filters: {},
+      filters: {
+        delivering_type: [1, 3],
+      },
       filter: false,
       params: {},
       transfers_type: [

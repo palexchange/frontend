@@ -2,7 +2,7 @@
   <div :class="dashed ? 'dashing' : ''">
     <label
       v-if="!no_lable"
-         style="color: rgba(0,0,0);font-size:16px;"
+      style="color: rgba(0, 0, 0); font-size: 16px"
       :class="required ? 'required form-label' : 'form-label'"
       >{{ $t(text) }}</label
     >
@@ -70,7 +70,7 @@ export default {
   },
   created() {
     if (!this.all[0]) {
-      this.$store.dispatch("city/index", { per_page: 900 });
+      this.$store.dispatch("city/index", { per_page: -1 });
     }
   },
   computed: {
@@ -80,14 +80,13 @@ export default {
   },
   methods: {
     close(cityId) {
-      this.$store.dispatch("city/index", { per_page: 900 });
+      this.$store.dispatch("city/index", { per_page: -1 });
       this.dialog = false;
-      if(cityId) {
-        this.$emit('close', cityId);
+      if (cityId) {
+        this.$emit("close", cityId);
       }
-
-    }
-  }
+    },
+  },
 };
 </script>
 

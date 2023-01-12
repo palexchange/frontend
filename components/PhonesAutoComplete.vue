@@ -74,7 +74,7 @@ export default {
   },
   created() {
     if (!this.all[0] && !this.no_fetch) {
-      this.$store.dispatch("party/index", { per_page: 900 });
+      this.$store.dispatch("party/index", { per_page: -1 });
     }
   },
   computed: {

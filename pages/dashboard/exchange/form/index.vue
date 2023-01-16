@@ -1,10 +1,77 @@
 <template>
   <div>
     <!-- <Card> -->
+    <Card class="pa-5">
+      <v-card-actions>
+        <v-row>
+          <v-col cols="2" class="align-self-center">
+            <h1 class="fs-20">{{ $t("exchange") }}</h1>
+          </v-col>
+          <v-col class="text-left align-self-center">
+            <v-btn icon small @click="show_filter = !show_filter">
+              <v-icon> fas fa-solid fa-search </v-icon>
+            </v-btn>
+            <span>&nbsp;&nbsp;</span>
+          </v-col>
+        </v-row>
+      </v-card-actions>
+    </Card>
+    <Card v-show="show_filter" class="pa-5">
+      <v-row>
+        <v-col>
+          <CurrencyAutoComplete
+            @change="search"
+            clearabler
+            v-model="filters.from_currency_id"
+            text="from currency"
+            holder="from currency"
+          ></CurrencyAutoComplete>
+        </v-col>
+        <v-col>
+          <CurrencyAutoComplete
+            @change="search"
+            clearabler
+            v-model="filters.to_currency_id"
+            text="to currency"
+            holder="to currency"
+          ></CurrencyAutoComplete>
+        </v-col>
+        <v-col>
+          <BeneficiaryAutocomplete
+            @input="search"
+            v-model="filters.party_id"
+            hide-details
+            holder="party_name"
+            text="party_name"
+          />
+        </v-col>
+        <v-col>
+          <AutoComplete
+            @input="search"
+            :items="transfers_statuses"
+            v-model="filters.status"
+            hide-details
+            holder="exchange status"
+            text="exchange status"
+          />
+        </v-col>
+        <v-col
+          ><DatePicker
+            @change="search"
+            v-model="filters.from"
+            text="from_date"
+          />
+        </v-col>
+        <v-col>
+          <DatePicker @change="search" v-model="filters.to" text="to_date" />
+        </v-col>
+      </v-row>
+    </Card>
     <DataTable
       single-expand
       module="exchange"
       show-expand
+      :params="params"
       :expanded.sync="expanded_item"
     >
       <template v-slot:expanded-item="{ headers }">
@@ -30,9 +97,20 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      show_filter: false,
       expanded_item: [],
       params2: {},
+      params: {},
+      filters: {
+        from: new Date().toISOString().slice(0, 10),
+        to: new Date().toISOString().slice(0, 10),
+      },
       va: 0,
+      transfers_statuses: [
+        { id: 0, name: "مسودة" },
+        { id: 1, name: "معتمدة" },
+        { id: 255, name: "ملغاة" },
+      ],
     };
   },
   computed: {
@@ -47,7 +125,7 @@ export default {
       if (val[0]) {
         this.params2 = {
           exchange_id: val[0].id ? val[0].id : "",
-          per_page: 999,
+          per_page: -1,
         };
       }
     },
@@ -61,6 +139,9 @@ export default {
     this.$store.dispatch("setting/show", "time_allowed_for_deletion");
   },
   methods: {
+    search() {
+      this.params = { ...this.filters };
+    },
     cancel(item) {
       this.$remove(item, "exchange");
     },

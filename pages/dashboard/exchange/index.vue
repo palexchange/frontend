@@ -785,7 +785,7 @@ export default {
   padding: 5px 8px;
 }
 
-/* .theme--light.v-input input::placeholder, 
+/* .theme--light.v-input input::placeholder,
 .theme--light.v-input textarea::placeholder{
    color: rgb(0, 0, 0 , 1) !important;
   opacity: 1 !important;

@@ -4,49 +4,49 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _6ae5d590 = () => interopDefault(import('..\\pages\\child.vue' /* webpackChunkName: "pages/child" */))
-const _6166fc5c = () => interopDefault(import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages/dashboard/index" */))
-const _785bb2f6 = () => interopDefault(import('..\\pages\\inspire.vue' /* webpackChunkName: "pages/inspire" */))
-const _2a5a6b3e = () => interopDefault(import('..\\pages\\parent.vue' /* webpackChunkName: "pages/parent" */))
-const _6ae2fbb4 = () => interopDefault(import('..\\pages\\test.vue' /* webpackChunkName: "pages/test" */))
-const _6ea4dbdd = () => interopDefault(import('..\\pages\\auth\\login.vue' /* webpackChunkName: "pages/auth/login" */))
-const _fdc25842 = () => interopDefault(import('..\\pages\\auth\\register.vue' /* webpackChunkName: "pages/auth/register" */))
-const _0579105f = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/index" */))
-const _c9aadb62 = () => interopDefault(import('..\\pages\\dashboard\\exchange\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/index" */))
-const _3a7e7e6e = () => interopDefault(import('..\\pages\\dashboard\\inputs\\index.vue' /* webpackChunkName: "pages/dashboard/inputs/index" */))
-const _0f7a2ba6 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/index" */))
-const _2a61b1ea = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\index.vue' /* webpackChunkName: "pages/dashboard/moneygram/index" */))
-const _07d134a0 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\index.vue' /* webpackChunkName: "pages/dashboard/outputs/index" */))
-const _603924e4 = () => interopDefault(import('..\\pages\\dashboard\\profit\\index.vue' /* webpackChunkName: "pages/dashboard/profit/index" */))
-const _8d1a253a = () => interopDefault(import('..\\pages\\dashboard\\reports\\index.vue' /* webpackChunkName: "pages/dashboard/reports/index" */))
-const _6c58a44f = () => interopDefault(import('..\\pages\\dashboard\\settings\\index.vue' /* webpackChunkName: "pages/dashboard/settings/index" */))
-const _6d1eef9a = () => interopDefault(import('..\\pages\\dashboard\\transfers\\index.vue' /* webpackChunkName: "pages/dashboard/transfers/index" */))
-const _3f654e3c = () => interopDefault(import('..\\pages\\dashboard\\user-profit\\index.vue' /* webpackChunkName: "pages/dashboard/user-profit/index" */))
-const _2491f9db = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/index" */))
-const _6a4a742f = () => interopDefault(import('..\\pages\\dashboard\\exchange\\2.vue' /* webpackChunkName: "pages/dashboard/exchange/2" */))
-const _e593706a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/form/index" */))
-const _f9489994 = () => interopDefault(import('..\\pages\\dashboard\\exchange\\multi.vue' /* webpackChunkName: "pages/dashboard/exchange/multi" */))
-const _4425783c = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/form/index" */))
-const _403a1b08 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\index2.vue' /* webpackChunkName: "pages/dashboard/inventory/index2" */))
-const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
-const _04809c03 = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
-const _9ce5c68c = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
-const _6e699d36 = () => interopDefault(import('..\\pages\\dashboard\\settings\\settings.vue' /* webpackChunkName: "pages/dashboard/settings/settings" */))
-const _63329911 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\temp.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/temp" */))
-const _47a89df9 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/temp_old" */))
-const _41abfd3c = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp" */))
-const _a3bd146c = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp_old" */))
-const _287ab703 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
-const _b68c7e1a = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/exchange/form/_id" */))
-const _7f7fbb26 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/inputs/form/_id" */))
-const _6b42526c = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/inventory/form/_id" */))
-const _27533be6 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\_id.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/_id" */))
-const _433854bc = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\outcoming\\_id.vue' /* webpackChunkName: "pages/dashboard/moneygram/outcoming/_id" */))
-const _525bfbd4 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/outputs/form/_id" */))
-const _62767207 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/reports/form/_id" */))
-const _0ecfa8c8 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\_id.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/_id" */))
-const _5a5b3df3 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\outcoming\\_id.vue' /* webpackChunkName: "pages/dashboard/transfers/outcoming/_id" */))
-const _bfd10424 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
+const _a7d8ff4c = () => interopDefault(import('..\\pages\\child.vue' /* webpackChunkName: "pages/child" */))
+const _23bd2d70 = () => interopDefault(import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages/dashboard/index" */))
+const _11f3dd98 = () => interopDefault(import('..\\pages\\inspire.vue' /* webpackChunkName: "pages/inspire" */))
+const _79a1645c = () => interopDefault(import('..\\pages\\parent.vue' /* webpackChunkName: "pages/parent" */))
+const _1a45aa78 = () => interopDefault(import('..\\pages\\test.vue' /* webpackChunkName: "pages/test" */))
+const _55fa3502 = () => interopDefault(import('..\\pages\\auth\\login.vue' /* webpackChunkName: "pages/auth/login" */))
+const _1a61cefd = () => interopDefault(import('..\\pages\\auth\\register.vue' /* webpackChunkName: "pages/auth/register" */))
+const _2b7815fe = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/index" */))
+const _67b05f26 = () => interopDefault(import('..\\pages\\dashboard\\exchange\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/index" */))
+const _00da2332 = () => interopDefault(import('..\\pages\\dashboard\\inputs\\index.vue' /* webpackChunkName: "pages/dashboard/inputs/index" */))
+const _03b69d70 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/index" */))
+const _4d0ca6a6 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\index.vue' /* webpackChunkName: "pages/dashboard/moneygram/index" */))
+const _798aebd2 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\index.vue' /* webpackChunkName: "pages/dashboard/outputs/index" */))
+const _2694c9a8 = () => interopDefault(import('..\\pages\\dashboard\\profit\\index.vue' /* webpackChunkName: "pages/dashboard/profit/index" */))
+const _36e67385 = () => interopDefault(import('..\\pages\\dashboard\\reports\\index.vue' /* webpackChunkName: "pages/dashboard/reports/index" */))
+const _c5543b26 = () => interopDefault(import('..\\pages\\dashboard\\settings\\index.vue' /* webpackChunkName: "pages/dashboard/settings/index" */))
+const _5bc9753c = () => interopDefault(import('..\\pages\\dashboard\\transfers\\index.vue' /* webpackChunkName: "pages/dashboard/transfers/index" */))
+const _2d84f35e = () => interopDefault(import('..\\pages\\dashboard\\user-profit\\index.vue' /* webpackChunkName: "pages/dashboard/user-profit/index" */))
+const _50535cfd = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\index.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/index" */))
+const _1a67714d = () => interopDefault(import('..\\pages\\dashboard\\exchange\\2.vue' /* webpackChunkName: "pages/dashboard/exchange/2" */))
+const _41c7f769 = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\index.vue' /* webpackChunkName: "pages/dashboard/exchange/form/index" */))
+const _974e1d58 = () => interopDefault(import('..\\pages\\dashboard\\exchange\\multi.vue' /* webpackChunkName: "pages/dashboard/exchange/multi" */))
+const _88dceff8 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\index.vue' /* webpackChunkName: "pages/dashboard/inventory/form/index" */))
+const _72edbdcc = () => interopDefault(import('..\\pages\\dashboard\\inventory\\index2.vue' /* webpackChunkName: "pages/dashboard/inventory/index2" */))
+const _99542efe = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\index.vue' /* webpackChunkName: "pages/dashboard/reports/form/index" */))
+const _29b26abe = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
+const _3aeb4a50 = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
+const _5c894258 = () => interopDefault(import('..\\pages\\dashboard\\settings\\settings.vue' /* webpackChunkName: "pages/dashboard/settings/settings" */))
+const _120749af = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\temp.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/temp" */))
+const _2557cf97 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/temp_old" */))
+const _e4029c00 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp" */))
+const _e85eb130 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp_old" */))
+const _2e1e7aa5 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
+const _7a8ec011 = () => interopDefault(import('..\\pages\\dashboard\\exchange\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/exchange/form/_id" */))
+const _b2335dea = () => interopDefault(import('..\\pages\\dashboard\\inputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/inputs/form/_id" */))
+const _a1ac8928 = () => interopDefault(import('..\\pages\\dashboard\\inventory\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/inventory/form/_id" */))
+const _1c0bb4a2 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\_id.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/_id" */))
+const _e58ef380 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\outcoming\\_id.vue' /* webpackChunkName: "pages/dashboard/moneygram/outcoming/_id" */))
+const _407ba0f6 = () => interopDefault(import('..\\pages\\dashboard\\outputs\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/outputs/form/_id" */))
+const _50961729 = () => interopDefault(import('..\\pages\\dashboard\\reports\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/reports/form/_id" */))
+const _03882184 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\_id.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/_id" */))
+const _092fee91 = () => interopDefault(import('..\\pages\\dashboard\\transfers\\outcoming\\_id.vue' /* webpackChunkName: "pages/dashboard/transfers/outcoming/_id" */))
+const _fcc42de0 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
 
@@ -61,175 +61,175 @@ export const routerOptions = {
 
   routes: [{
     path: "/child",
-    component: _6ae5d590,
+    component: _a7d8ff4c,
     name: "child"
   }, {
     path: "/dashboard",
-    component: _6166fc5c,
+    component: _23bd2d70,
     name: "dashboard"
   }, {
     path: "/inspire",
-    component: _785bb2f6,
+    component: _11f3dd98,
     name: "inspire"
   }, {
     path: "/parent",
-    component: _2a5a6b3e,
+    component: _79a1645c,
     name: "parent"
   }, {
     path: "/test",
-    component: _6ae2fbb4,
+    component: _1a45aa78,
     name: "test"
   }, {
     path: "/auth/login",
-    component: _6ea4dbdd,
+    component: _55fa3502,
     name: "auth-login"
   }, {
     path: "/auth/register",
-    component: _fdc25842,
+    component: _1a61cefd,
     name: "auth-register"
   }, {
     path: "/dashboard/beneficiaries",
-    component: _0579105f,
+    component: _2b7815fe,
     name: "dashboard-beneficiaries"
   }, {
     path: "/dashboard/exchange",
-    component: _c9aadb62,
+    component: _67b05f26,
     name: "dashboard-exchange"
   }, {
     path: "/dashboard/inputs",
-    component: _3a7e7e6e,
+    component: _00da2332,
     name: "dashboard-inputs"
   }, {
     path: "/dashboard/inventory",
-    component: _0f7a2ba6,
+    component: _03b69d70,
     name: "dashboard-inventory"
   }, {
     path: "/dashboard/moneygram",
-    component: _2a61b1ea,
+    component: _4d0ca6a6,
     name: "dashboard-moneygram"
   }, {
     path: "/dashboard/outputs",
-    component: _07d134a0,
+    component: _798aebd2,
     name: "dashboard-outputs"
   }, {
     path: "/dashboard/profit",
-    component: _603924e4,
+    component: _2694c9a8,
     name: "dashboard-profit"
   }, {
     path: "/dashboard/reports",
-    component: _8d1a253a,
+    component: _36e67385,
     name: "dashboard-reports"
   }, {
     path: "/dashboard/settings",
-    component: _6c58a44f,
+    component: _c5543b26,
     name: "dashboard-settings"
   }, {
     path: "/dashboard/transfers",
-    component: _6d1eef9a,
+    component: _5bc9753c,
     name: "dashboard-transfers"
   }, {
     path: "/dashboard/user-profit",
-    component: _3f654e3c,
+    component: _2d84f35e,
     name: "dashboard-user-profit"
   }, {
     path: "/dashboard/beneficiaries/form",
-    component: _2491f9db,
+    component: _50535cfd,
     name: "dashboard-beneficiaries-form"
   }, {
     path: "/dashboard/exchange/2",
-    component: _6a4a742f,
+    component: _1a67714d,
     name: "dashboard-exchange-2"
   }, {
     path: "/dashboard/exchange/form",
-    component: _e593706a,
+    component: _41c7f769,
     name: "dashboard-exchange-form"
   }, {
     path: "/dashboard/exchange/multi",
-    component: _f9489994,
+    component: _974e1d58,
     name: "dashboard-exchange-multi"
   }, {
     path: "/dashboard/inventory/form",
-    component: _4425783c,
+    component: _88dceff8,
     name: "dashboard-inventory-form"
   }, {
     path: "/dashboard/inventory/index2",
-    component: _403a1b08,
+    component: _72edbdcc,
     name: "dashboard-inventory-index2"
   }, {
     path: "/dashboard/reports/form",
-    component: _62e9f842,
+    component: _99542efe,
     name: "dashboard-reports-form"
   }, {
     path: "/dashboard/settings/pricing",
-    component: _04809c03,
+    component: _29b26abe,
     name: "dashboard-settings-pricing"
   }, {
     path: "/dashboard/settings/roles",
-    component: _9ce5c68c,
+    component: _3aeb4a50,
     name: "dashboard-settings-roles"
   }, {
     path: "/dashboard/settings/settings",
-    component: _6e699d36,
+    component: _5c894258,
     name: "dashboard-settings-settings"
   }, {
     path: "/dashboard/moneygram/incoming/temp",
-    component: _63329911,
+    component: _120749af,
     name: "dashboard-moneygram-incoming-temp"
   }, {
     path: "/dashboard/moneygram/incoming/temp_old",
-    component: _47a89df9,
+    component: _2557cf97,
     name: "dashboard-moneygram-incoming-temp_old"
   }, {
     path: "/dashboard/transfers/incoming/temp",
-    component: _41abfd3c,
+    component: _e4029c00,
     name: "dashboard-transfers-incoming-temp"
   }, {
     path: "/dashboard/transfers/incoming/temp_old",
-    component: _a3bd146c,
+    component: _e85eb130,
     name: "dashboard-transfers-incoming-temp_old"
   }, {
     path: "/dashboard/beneficiaries/form/:id",
-    component: _287ab703,
+    component: _2e1e7aa5,
     name: "dashboard-beneficiaries-form-id"
   }, {
     path: "/dashboard/exchange/form/:id",
-    component: _b68c7e1a,
+    component: _7a8ec011,
     name: "dashboard-exchange-form-id"
   }, {
     path: "/dashboard/inputs/form/:id?",
-    component: _7f7fbb26,
+    component: _b2335dea,
     name: "dashboard-inputs-form-id"
   }, {
     path: "/dashboard/inventory/form/:id",
-    component: _6b42526c,
+    component: _a1ac8928,
     name: "dashboard-inventory-form-id"
   }, {
     path: "/dashboard/moneygram/incoming/:id?",
-    component: _27533be6,
+    component: _1c0bb4a2,
     name: "dashboard-moneygram-incoming-id"
   }, {
     path: "/dashboard/moneygram/outcoming/:id?",
-    component: _433854bc,
+    component: _e58ef380,
     name: "dashboard-moneygram-outcoming-id"
   }, {
     path: "/dashboard/outputs/form/:id?",
-    component: _525bfbd4,
+    component: _407ba0f6,
     name: "dashboard-outputs-form-id"
   }, {
     path: "/dashboard/reports/form/:id",
-    component: _62767207,
+    component: _50961729,
     name: "dashboard-reports-form-id"
   }, {
     path: "/dashboard/transfers/incoming/:id?",
-    component: _0ecfa8c8,
+    component: _03882184,
     name: "dashboard-transfers-incoming-id"
   }, {
     path: "/dashboard/transfers/outcoming/:id?",
-    component: _5a5b3df3,
+    component: _092fee91,
     name: "dashboard-transfers-outcoming-id"
   }, {
     path: "/",
-    component: _bfd10424,
+    component: _fcc42de0,
     name: "index"
   }],
 

@@ -42,8 +42,6 @@
 <script>
 export default {
   props: ["params"],
-  data() {
-    return {};
-  },
+  data() {},
 };
 </script>

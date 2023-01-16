@@ -12,7 +12,7 @@
     <template v-slot:activator="{ on, attrs }">
       <label
         for="test"
-           style="color: rgba(0,0,0);font-size:16px;"
+        style="color: rgba(0, 0, 0); font-size: 16px"
         :class="required ? 'required form-label' : 'form-label'"
         >{{ $t(text) }}</label
       >
@@ -49,21 +49,27 @@
         </template>
       </v-text-field>
     </template>
-    <v-date-picker v-bind="$attrs" v-model="value" scrollable color="primary">
-      <v-spacer></v-spacer>
+    <v-date-picker
+      @change="(v) => saveDate(v)"
+      v-bind="$attrs"
+      v-model="value"
+      scrollable
+      color="primary"
+    >
+      <!-- <v-spacer></v-spacer>
       <v-btn text color="primary" @click="menuDate1 = false">
         {{ $t("cancel") }}
       </v-btn>
       <v-btn text color="primary" @click="saveDate">
         {{ $t("ok") }}
-      </v-btn>
+      </v-btn> -->
       <slot :model="value" />
     </v-date-picker>
   </v-menu>
 </template>
 
 <script>
-var moment = require("moment");
+// var moment = require("moment");
 import rules from "~/helpers/rules";
 export default {
   props: {

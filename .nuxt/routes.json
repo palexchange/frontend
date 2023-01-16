@@ -2,302 +2,302 @@
   {
     "name": "child",
     "path": "/child",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\child.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\child.vue",
     "chunkName": "pages/child",
-    "_name": "_6ae5d590"
+    "_name": "_a7d8ff4c"
   },
   {
     "name": "dashboard",
     "path": "/dashboard",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\index.vue",
     "chunkName": "pages/dashboard/index",
-    "_name": "_6166fc5c"
+    "_name": "_23bd2d70"
   },
   {
     "name": "inspire",
     "path": "/inspire",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\inspire.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\inspire.vue",
     "chunkName": "pages/inspire",
-    "_name": "_785bb2f6"
+    "_name": "_11f3dd98"
   },
   {
     "name": "parent",
     "path": "/parent",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\parent.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\parent.vue",
     "chunkName": "pages/parent",
-    "_name": "_2a5a6b3e"
+    "_name": "_79a1645c"
   },
   {
     "name": "test",
     "path": "/test",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\test.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\test.vue",
     "chunkName": "pages/test",
-    "_name": "_6ae2fbb4"
+    "_name": "_1a45aa78"
   },
   {
     "name": "auth-login",
     "path": "/auth/login",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\auth\\\\login.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\auth\\\\login.vue",
     "chunkName": "pages/auth/login",
-    "_name": "_6ea4dbdd"
+    "_name": "_55fa3502"
   },
   {
     "name": "auth-register",
     "path": "/auth/register",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\auth\\\\register.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\auth\\\\register.vue",
     "chunkName": "pages/auth/register",
-    "_name": "_fdc25842"
+    "_name": "_1a61cefd"
   },
   {
     "name": "dashboard-beneficiaries",
     "path": "/dashboard/beneficiaries",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\index.vue",
     "chunkName": "pages/dashboard/beneficiaries/index",
-    "_name": "_0579105f"
+    "_name": "_2b7815fe"
   },
   {
     "name": "dashboard-exchange",
     "path": "/dashboard/exchange",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\index.vue",
     "chunkName": "pages/dashboard/exchange/index",
-    "_name": "_c9aadb62"
+    "_name": "_67b05f26"
   },
   {
     "name": "dashboard-inputs",
     "path": "/dashboard/inputs",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\index.vue",
     "chunkName": "pages/dashboard/inputs/index",
-    "_name": "_3a7e7e6e"
+    "_name": "_00da2332"
   },
   {
     "name": "dashboard-inventory",
     "path": "/dashboard/inventory",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\index.vue",
     "chunkName": "pages/dashboard/inventory/index",
-    "_name": "_0f7a2ba6"
+    "_name": "_03b69d70"
   },
   {
     "name": "dashboard-moneygram",
     "path": "/dashboard/moneygram",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\index.vue",
     "chunkName": "pages/dashboard/moneygram/index",
-    "_name": "_2a61b1ea"
+    "_name": "_4d0ca6a6"
   },
   {
     "name": "dashboard-outputs",
     "path": "/dashboard/outputs",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\index.vue",
     "chunkName": "pages/dashboard/outputs/index",
-    "_name": "_07d134a0"
+    "_name": "_798aebd2"
   },
   {
     "name": "dashboard-profit",
     "path": "/dashboard/profit",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\profit\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\profit\\\\index.vue",
     "chunkName": "pages/dashboard/profit/index",
-    "_name": "_603924e4"
+    "_name": "_2694c9a8"
   },
   {
     "name": "dashboard-reports",
     "path": "/dashboard/reports",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\index.vue",
     "chunkName": "pages/dashboard/reports/index",
-    "_name": "_8d1a253a"
+    "_name": "_36e67385"
   },
   {
     "name": "dashboard-settings",
     "path": "/dashboard/settings",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\index.vue",
     "chunkName": "pages/dashboard/settings/index",
-    "_name": "_6c58a44f"
+    "_name": "_c5543b26"
   },
   {
     "name": "dashboard-transfers",
     "path": "/dashboard/transfers",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\index.vue",
     "chunkName": "pages/dashboard/transfers/index",
-    "_name": "_6d1eef9a"
+    "_name": "_5bc9753c"
   },
   {
     "name": "dashboard-user-profit",
     "path": "/dashboard/user-profit",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\user-profit\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\user-profit\\\\index.vue",
     "chunkName": "pages/dashboard/user-profit/index",
-    "_name": "_3f654e3c"
+    "_name": "_2d84f35e"
   },
   {
     "name": "dashboard-beneficiaries-form",
     "path": "/dashboard/beneficiaries/form",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/beneficiaries/form/index",
-    "_name": "_2491f9db"
+    "_name": "_50535cfd"
   },
   {
     "name": "dashboard-exchange-2",
     "path": "/dashboard/exchange/2",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\2.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\2.vue",
     "chunkName": "pages/dashboard/exchange/2",
-    "_name": "_6a4a742f"
+    "_name": "_1a67714d"
   },
   {
     "name": "dashboard-exchange-form",
     "path": "/dashboard/exchange/form",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/exchange/form/index",
-    "_name": "_e593706a"
+    "_name": "_41c7f769"
   },
   {
     "name": "dashboard-exchange-multi",
     "path": "/dashboard/exchange/multi",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\multi.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\multi.vue",
     "chunkName": "pages/dashboard/exchange/multi",
-    "_name": "_f9489994"
+    "_name": "_974e1d58"
   },
   {
     "name": "dashboard-inventory-form",
     "path": "/dashboard/inventory/form",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\form\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/inventory/form/index",
-    "_name": "_4425783c"
+    "_name": "_88dceff8"
   },
   {
     "name": "dashboard-inventory-index2",
     "path": "/dashboard/inventory/index2",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\index2.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\index2.vue",
     "chunkName": "pages/dashboard/inventory/index2",
-    "_name": "_403a1b08"
+    "_name": "_72edbdcc"
   },
   {
     "name": "dashboard-reports-form",
     "path": "/dashboard/reports/form",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\index.vue",
     "chunkName": "pages/dashboard/reports/form/index",
-    "_name": "_62e9f842"
+    "_name": "_99542efe"
   },
   {
     "name": "dashboard-settings-pricing",
     "path": "/dashboard/settings/pricing",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\pricing.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\pricing.vue",
     "chunkName": "pages/dashboard/settings/pricing",
-    "_name": "_04809c03"
+    "_name": "_29b26abe"
   },
   {
     "name": "dashboard-settings-roles",
     "path": "/dashboard/settings/roles",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\roles.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\roles.vue",
     "chunkName": "pages/dashboard/settings/roles",
-    "_name": "_9ce5c68c"
+    "_name": "_3aeb4a50"
   },
   {
     "name": "dashboard-settings-settings",
     "path": "/dashboard/settings/settings",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\settings.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\settings.vue",
     "chunkName": "pages/dashboard/settings/settings",
-    "_name": "_6e699d36"
+    "_name": "_5c894258"
   },
   {
     "name": "dashboard-moneygram-incoming-temp",
     "path": "/dashboard/moneygram/incoming/temp",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\temp.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\temp.vue",
     "chunkName": "pages/dashboard/moneygram/incoming/temp",
-    "_name": "_63329911"
+    "_name": "_120749af"
   },
   {
     "name": "dashboard-moneygram-incoming-temp_old",
     "path": "/dashboard/moneygram/incoming/temp_old",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\temp_old.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\temp_old.vue",
     "chunkName": "pages/dashboard/moneygram/incoming/temp_old",
-    "_name": "_47a89df9"
+    "_name": "_2557cf97"
   },
   {
     "name": "dashboard-transfers-incoming-temp",
     "path": "/dashboard/transfers/incoming/temp",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\temp.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\temp.vue",
     "chunkName": "pages/dashboard/transfers/incoming/temp",
-    "_name": "_41abfd3c"
+    "_name": "_e4029c00"
   },
   {
     "name": "dashboard-transfers-incoming-temp_old",
     "path": "/dashboard/transfers/incoming/temp_old",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\temp_old.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\temp_old.vue",
     "chunkName": "pages/dashboard/transfers/incoming/temp_old",
-    "_name": "_a3bd146c"
+    "_name": "_e85eb130"
   },
   {
     "name": "dashboard-beneficiaries-form-id",
     "path": "/dashboard/beneficiaries/form/:id",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\beneficiaries\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/beneficiaries/form/_id",
-    "_name": "_287ab703"
+    "_name": "_2e1e7aa5"
   },
   {
     "name": "dashboard-exchange-form-id",
     "path": "/dashboard/exchange/form/:id",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/exchange/form/_id",
-    "_name": "_b68c7e1a"
+    "_name": "_7a8ec011"
   },
   {
     "name": "dashboard-inputs-form-id",
     "path": "/dashboard/inputs/form/:id?",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\inputs\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/inputs/form/_id",
-    "_name": "_7f7fbb26"
+    "_name": "_b2335dea"
   },
   {
     "name": "dashboard-inventory-form-id",
     "path": "/dashboard/inventory/form/:id",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\form\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\inventory\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/inventory/form/_id",
-    "_name": "_6b42526c"
+    "_name": "_a1ac8928"
   },
   {
     "name": "dashboard-moneygram-incoming-id",
     "path": "/dashboard/moneygram/incoming/:id?",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\_id.vue",
     "chunkName": "pages/dashboard/moneygram/incoming/_id",
-    "_name": "_27533be6"
+    "_name": "_1c0bb4a2"
   },
   {
     "name": "dashboard-moneygram-outcoming-id",
     "path": "/dashboard/moneygram/outcoming/:id?",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\outcoming\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\outcoming\\\\_id.vue",
     "chunkName": "pages/dashboard/moneygram/outcoming/_id",
-    "_name": "_433854bc"
+    "_name": "_e58ef380"
   },
   {
     "name": "dashboard-outputs-form-id",
     "path": "/dashboard/outputs/form/:id?",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\outputs\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/outputs/form/_id",
-    "_name": "_525bfbd4"
+    "_name": "_407ba0f6"
   },
   {
     "name": "dashboard-reports-form-id",
     "path": "/dashboard/reports/form/:id",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\reports\\\\form\\\\_id.vue",
     "chunkName": "pages/dashboard/reports/form/_id",
-    "_name": "_62767207"
+    "_name": "_50961729"
   },
   {
     "name": "dashboard-transfers-incoming-id",
     "path": "/dashboard/transfers/incoming/:id?",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\incoming\\\\_id.vue",
     "chunkName": "pages/dashboard/transfers/incoming/_id",
-    "_name": "_0ecfa8c8"
+    "_name": "_03882184"
   },
   {
     "name": "dashboard-transfers-outcoming-id",
     "path": "/dashboard/transfers/outcoming/:id?",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\outcoming\\\\_id.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\dashboard\\\\transfers\\\\outcoming\\\\_id.vue",
     "chunkName": "pages/dashboard/transfers/outcoming/_id",
-    "_name": "_5a5b3df3"
+    "_name": "_092fee91"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\index.vue",
+    "component": "D:\\\\All Files\\\\Projects\\\\PalExchange\\\\frontend\\\\pages\\\\index.vue",
     "chunkName": "pages/index",
-    "_name": "_bfd10424"
+    "_name": "_fcc42de0"
   }
 ]

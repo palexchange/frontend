@@ -1,4 +1,4 @@
- 
+
 <template>
   <div>
     <v-data-table

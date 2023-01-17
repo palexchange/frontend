@@ -69,7 +69,7 @@
 </template>
 
 <script>
-var moment = require("moment");
+// var moment = require("moment");
 import rules from "~/helpers/rules";
 export default {
   props: {

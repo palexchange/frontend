@@ -1,3 +1,4 @@
+import { saveAs } from "file-saver";
 export default (context, inject) => {
   inject('inputNumberFormat', (number) => {
     let input_number_format = context.store.state.input_number_format
@@ -267,6 +268,14 @@ export default (context, inject) => {
         return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(digits || 5);
       }
     }
+
+  });
+  inject('download_pdf', (ModelAndId) => {
+    context.$axios.get(`/pdf`, { responseType: "blob", params: ModelAndId })
+      .then((response) => {
+        const blob = new Blob([response.data], { type: "application/pdf" });
+        saveAs(blob, "document");
+      });
 
   });
 }

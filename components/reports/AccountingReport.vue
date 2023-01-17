@@ -39,6 +39,7 @@
             <v-col>
               <CurrencyAutoComplete
                 clearable
+                multiple
                 v-model="report_data.currency_id"
                 holder="currency"
                 text="currency"
@@ -59,7 +60,7 @@
         >
       </v-col>
     </v-row>
-    <data-table noActions nums="#" module="report" hide_pagination />
+    <slot />
     <v-row v-if="report_data.account" dense class="pa-5">
       <v-col>
         <v-text-field
@@ -67,13 +68,15 @@
           v-model.number="receipt.amount"
           outlined
           dense
-          :label="`المبلغ ${
-            (report_data.currency_id
-              ? all_currencies.find((c) => c.id == report_data.currency_id).name
-              : null) || 'دولار'
-          } `"
+          label="المبلغ"
         >
         </v-text-field>
+      </v-col>
+      <v-col>
+        <CurrencyAutoComplete
+          v-model="receipt.currency_id"
+          :label="$t('currency')"
+        />
       </v-col>
       <v-col>
         <v-text-field
@@ -116,12 +119,13 @@ export default {
   methods: {
     Amount(in_or_out) {
       if (!(this.receipt.amount > 0)) return;
+      if (!this.receipt.currency_id) return;
       const receipt = {};
       receipt.type = in_or_out > 0 ? 1 : 2;
-      receipt.currency_id = this.report_data.currency_id || 1;
+      receipt.currency_id = this.receipt.currency_id || 1;
       receipt.status = 1;
       receipt.exchange_rate = this.stocks.find(
-        (c) => c.currency_id == (this.report_data.currency_id || 1)
+        (c) => c.currency_id == (this.receipt.currency_id || 1)
       ).mid;
       receipt.from_amount = this.receipt.amount;
       receipt.to_amount = this.receipt.amount / receipt.exchange_rate;
@@ -153,7 +157,6 @@ export default {
   computed: {
     ...mapState({
       report: (state) => state.report.all || [],
-      all_currencies: (state) => state.currency.all || [],
       stocks: (state) => state.stock.all || [],
       user: (state) => state.auth.user || [],
     }),

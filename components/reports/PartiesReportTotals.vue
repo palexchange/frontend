@@ -52,7 +52,7 @@
         >
       </v-col>
     </v-row>
-    <data-table noActions nums="#" module="report" hide_pagination />
+     <slot />
   </div>
 </template>
   
@@ -67,7 +67,7 @@ export default {
         show_zeros: 2,
         has_headers: true,
         type: "Parties",
-        sub_type: "partiesReport",
+        sub_type: "partiesTotalInEveryCurr",
       },
       //   types: [
       //     { id: "public", name: this.$t("public") },

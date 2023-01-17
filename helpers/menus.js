@@ -94,6 +94,10 @@ export default {
                 icon: "fas fa-times",
 
             },
+            {
+                title: "print",
+                icon: "fas fa-print"
+            },
         ],
     },
     user: {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-card :elevation="0" class="p-8 my-5">
+      <v-btn @click="test">ahmad </v-btn>
       <v-btn @click="create_one"> تصدير </v-btn>
       <v-tabs v-model="seted_tab">
         <v-tab :key="i" v-for="(tab, i) in tabs"> {{ $t(tab.header) }}</v-tab>
@@ -10,7 +11,14 @@
               <component
                 @download_item="(v) => handle(v)"
                 :is="tab.component_name"
-              />
+              >
+                <data-table
+                  noActions
+                  nums="#"
+                  module="report"
+                  hide_pagination
+                />
+              </component>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -38,7 +46,11 @@ export default {
         },
         {
           header: "parties_report",
-          component_name: "ReportsPartiesReport",
+          component_name: "ReportsPartiesReportTotals",
+        },
+        {
+          header: "parties_report",
+          component_name: "ReportsPartiesReportOneCurrTotal",
         },
         // { header: "currencies report", component_name: "Card" },
         // { header: "courier report", component_name: "Card" },
@@ -46,6 +58,7 @@ export default {
     };
   },
   methods: {
+    test() {},
     handle(v) {
       this.download_item = v;
     },

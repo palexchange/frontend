@@ -84,7 +84,15 @@ export default {
     };
   },
   methods: {
-    search() {},
+    search() {
+      this.$store.dispatch("transfer/index", { ...this.filters });
+    },
+    print(item) {
+      this.$download_pdf({
+        documane_class_name: "Transfer",
+        documane_id: item.id,
+      });
+    },
     edit(item) {
       this.$router.push({
         name: `dashboard-transfers-${item.type == 0 ? "out" : "in"}coming-id`,

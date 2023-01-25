@@ -82,7 +82,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("stock/index");
+    // this.$store.dispatch("stock/index");
     // this.$store.dispatch("report/index", {
     //   type: "statistics",
     //   sub_type: "test",

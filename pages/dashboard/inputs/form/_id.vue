@@ -146,8 +146,12 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("currency/index");
-    this.$store.dispatch("account/index");
+    if (!this.all_currencies[0]) {
+      this.$store.dispatch("currency/index");
+    }
+    if (!this.accounts[0]) {
+      this.$store.dispatch("account/index");
+    }
   },
   methods: {
     setToaccount(currency_id) {

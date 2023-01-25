@@ -91,9 +91,7 @@ export default {
         from: new Date().toISOString().slice(0, 10),
         to: new Date().toISOString().slice(0, 10),
       },
-      params: {
-        delivering_type: [2],
-      },
+      params: {},
       transfers_type: [
         { id: 0, name: "صادرة" },
         { id: 1, name: "واردة" },
@@ -140,6 +138,9 @@ export default {
         this[val](this.item);
       }
     },
+  },
+  mounted() {
+    this.params = { delivering_type: [2] };
   },
 };
 </script>

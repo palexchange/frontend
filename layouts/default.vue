@@ -148,6 +148,8 @@ export default {
       locales: (state) => state.locales,
       user: (state) => state.auth.user,
       overlay: (state) => state.overlay,
+      stocks: (state) => state.stock.all,
+      settings: (state) => state.setting.all,
       state_dialog: (state) => state.state_dialog,
       success_msg: (state) => state.success_msg,
       errors_msg: (state) => state.errors,
@@ -245,10 +247,15 @@ export default {
     },
   },
   beforeCreate() {
-    this.$store.dispatch("stock/index");
-    this.$store.dispatch("setting/index");
-    console.log(this.$i18n.locale);
     this.$vuetify.rtl = this.$i18n.locale == "ar";
+  },
+  created() {
+    if (!this.stocks[0]) {
+      this.$store.dispatch("stock/index");
+    }
+    if (!this.settings[0]) {
+      this.$store.dispatch("setting/index");
+    }
   },
 };
 </script>

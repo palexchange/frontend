@@ -107,7 +107,9 @@ export default {
   },
   created() {
     if (this.no_fetch) return;
-    this.$store.dispatch("account/index", this.params);
+    if (!this.all[0]) { 
+      this.$store.dispatch("account/index", this.params);
+    }
   },
   computed: {
     ...mapState({

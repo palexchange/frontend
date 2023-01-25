@@ -2,14 +2,15 @@
   <div>
     <v-card :elevation="0" class="p-8 my-5">
       <v-btn @click="test">ahmad </v-btn>
-      <v-btn @click="create_one"> تصدير </v-btn>
+      <v-btn @click="create_one = true"> تصدير </v-btn>
       <v-tabs v-model="seted_tab">
         <v-tab :key="i" v-for="(tab, i) in tabs"> {{ $t(tab.header) }}</v-tab>
         <v-tab-item :key="i" v-for="(tab, i) in tabs">
           <v-card flat>
             <v-card-text>
               <component
-                @download_item="(v) => handle(v)"
+                :create_one="create_one"
+                @download_item="(v) => download_item(v)"
                 :is="tab.component_name"
               >
                 <data-table
@@ -33,8 +34,8 @@ export default {
   layout: "admin",
   data() {
     return {
-      download_item: null,
       seted_tab: 0,
+      create_one: false,
       tabs: [
         {
           header: "account_statement_report",
@@ -58,15 +59,15 @@ export default {
     };
   },
   methods: {
-    test() {},
-    handle(v) {
-      this.download_item = v;
+    test() {
+      this.$download_pdf();
     },
-    create_one() {
-      if (this.download_item && this.report[0]) {
+    download_item(report_date) {
+      if (this.create_one) {
+        this.create_one = false;
         this.$store
           .dispatch("report/index", {
-            ...this.download_item,
+            ...report_date,
             download: true,
             is_file: true,
           })

@@ -218,8 +218,13 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("currency/index");
-    this.$store.dispatch("stock/index");
+    if (!this.all_currencies[0]) {
+      this.$store.dispatch("currency/index");
+    }
+    if (!this.all_stocks[0]) {
+      this.$store.dispatch("stock/index");
+    }
+
     // setInterval(() => {
     //   this.numebr++;
     // }, 10);
@@ -227,7 +232,11 @@ export default {
   computed: {
     ...mapState({
       all_currencies: (state) => JSON.parse(JSON.stringify(state.currency.all)),
-      all_stocks: (state) => JSON.parse(JSON.stringify(state.stock.all)),
+      all_stocks: function (state) {
+        const all = JSON.parse(JSON.stringify(state.stock.all));
+        this.stocks = all;
+        return all;
+      },
     }),
   },
   methods: {
@@ -282,11 +291,11 @@ export default {
     //     }
     //   }
     // },
-    all_stocks(val) {
-      if (val) {
-        this.stocks = val;
-      }
-    },
+    // all_stocks(val) {
+    //   if (val) {
+    //     this.stocks = val;
+    //   }
+    // },
   },
 };
 </script>

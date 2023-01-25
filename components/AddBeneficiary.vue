@@ -162,10 +162,10 @@ export default {
             },
             "file"
           ).then(() => {
-            this.$store.dispatch("party/index");
+            this.$store.dispatch("party/push", data.id);
           });
         } else {
-          this.$store.dispatch("party/index");
+          this.$store.dispatch("party/push", data.id);
         }
       });
       this.dialog = false;

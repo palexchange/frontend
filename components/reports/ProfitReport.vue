@@ -67,6 +67,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
+  props: ["create_one"],
   data() {
     return {
       item: {},
@@ -90,13 +91,13 @@ export default {
     //   }, 500);
     // },
   },
-  // watch: {
-  //   report(val) {
-  //     if (val[0]) {
-  //       this.$emit("download_item", this.report_data);
-  //     }
-  //   },
-  // },
+  watch: {
+    create_one: {
+      handler(val) {
+        if (val) this.$emit("download_item", this.report_data);
+      },
+    },
+  },
   computed: {
     ...mapState({
       // report: (state) => state.report.all || [],

@@ -45,12 +45,16 @@
             </v-col>
 
             <v-col class="text-left mb-4">
-              {{ $t("refrence number") }}<span class="show-text"
-                >{{ (charMap[item.delivering_type] || "") + (item.id || "")  }}#</span
+              {{ $t("refrence number")
+              }}<span class="show-text"
+                >{{
+                  (charMap[item.delivering_type] || "") + (item.id || "")
+                }}#</span
               >
             </v-col>
             <v-col class="text-left mb-4">
-              {{ $t("transfer stats") }}<span class="show-text">{{
+              {{ $t("transfer stats")
+              }}<span class="show-text">{{
                 item.status == 1 ? "معتمدة" : "مسودة"
               }}</span>
             </v-col>
@@ -116,7 +120,7 @@
           </v-col>
           <v-col ccols="12" md="4" sm="6" lg="2">
             <label
-                style="color: rgba(0,0,0);font-size:16px;"
+              style="color: rgba(0, 0, 0); font-size: 16px"
               :class="
                 item.delivering_type == 2 ? 'required form-label' : 'form-label'
               "
@@ -139,7 +143,7 @@
           </v-col>
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <InputField
-              :maxlength=12
+              :maxlength="12"
               :readonly="showReadOnly"
               holder="id number"
               text="id number"
@@ -440,7 +444,7 @@
             />
           </v-col>
         </v-row>
-          <v-row dense>
+        <v-row dense>
           <v-col cols="3">
             <InputField
               :readonly="showReadOnly"
@@ -450,7 +454,6 @@
               text="final amount to office in usd"
             />
           </v-col>
-          
         </v-row>
       </v-card-text>
     </Card>
@@ -532,10 +535,10 @@ export default {
         exchange_rate_to_office_currency_view: null,
       },
       charMap: {
-        1 : 'H',
-        2 : 'M',
+        1: "H",
+        2: "M",
       },
-      totalOfficeAmountFraction : 0,
+      totalOfficeAmountFraction: 0,
       // a:0,
       // b:0,
       //recivedAmountInUSD:0
@@ -689,8 +692,9 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("currency/index");
-    this.$store.dispatch("stock/index");
+    if (!this.currencies[0]) {
+      this.$store.dispatch("currency/index");
+    }
   },
 };
 </script>

@@ -73,7 +73,7 @@ export default {
     };
   },
   created() {
-    if (!this.all[0] && !this.no_fetch) {
+    if (!this.all[0]) {
       this.$store.dispatch("user/index", { per_page: -1 });
     }
   },

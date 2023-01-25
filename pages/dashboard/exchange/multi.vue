@@ -705,7 +705,9 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("currency/index");
+    if (!this.all_currencies[0]) {
+      this.$store.dispatch("currency/index");
+    }
     if (this.all_currencies[0] && this.items.length == 0) {
       this.addItems();
     }
@@ -713,7 +715,9 @@ export default {
     // this.$store.dispatch("user/show", this.$auth.user.id);
   },
   created() {
-    this.$store.dispatch("stock/index");
+    if (!this.all_stocks[0]) {
+      this.$store.dispatch("stock/index");
+    }
     if (this.all_currencies[0] && this.items.length == 0) {
       this.all_currencies.map((item) => {
         this.items.push({

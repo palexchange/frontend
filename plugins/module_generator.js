@@ -10,6 +10,7 @@ export default (context, inject) => {
       return {
         one: null,
         all: [],
+        all_records: [],
         closing_fund: [],
         opening_fund: [],
 
@@ -29,6 +30,7 @@ export default (context, inject) => {
     };
     let getters = {
       all: state => state.all,
+      all_records: state => state.all_records,
       one: state => state.one
     };
     let actions = {
@@ -40,6 +42,77 @@ export default (context, inject) => {
         await del(module_name);
         return dispatch('index', params);
       },
+      async index_all({
+        commit,
+        state,
+        dispatch
+      }, params) {
+        params = params == null ? {} : params
+        await dispatch('empty');
+        let path = resource.parent;
+        if (!path) {
+          path = resource.child
+        } else {
+          path = path + '/' + params[resource.parent + '_id'] + '/' + resource.child;
+        }
+        let response;
+        commit('setParams', params);
+        try {
+          dispatch('setLoading', true, {
+            root: true
+          });
+          response = await this.$axios.$get(`/${path}`, {
+            params: {
+              page: state.meta.current_page,
+              per_page: -1,
+              ...params,
+            },
+            // responseType: (resource.is_file && !params.object_res) ? 'blob' : ''
+            responseType: (resource.is_file && params.is_file) ? 'blob' : ''
+          });
+
+        } catch (err) {
+          console.log(err);
+        }
+
+        if (resource.functions) {
+          commit('setFunctions', resource.functions);
+        }
+        if (resource.formatted_numbers) {
+          commit('setFormattedNumbers', resource.formatted_numbers);
+        }
+
+
+        if (resource.has_headers && !params.is_file) {
+
+          commit('setData', [response.items, params.resObjName]);
+          commit('setHeaders', response.headers);
+          return response.items;
+        }
+
+        if (resource.is_file) {
+          if (typeof response == 'object') {
+            // commit('setData', response.data);
+            return response.data ? response.data : response
+          }
+          return response;
+
+        } else if (!resource.has_headers) {
+
+
+          if (response.data.length > 0 && resource.headers) {
+            commit('setHeaders', resource.headers);
+          }
+          commit('setMeta', response.meta);
+          commit('setAllData', response.data);
+          commit('setLinks', response.links);
+        }
+
+
+
+        commit('loadedData');
+        return response.data;
+      },
       async index({
         commit,
         state,
@@ -49,8 +122,6 @@ export default (context, inject) => {
         // if (JSON.stringify(params) == JSON.stringify(state.meta)) {
         //   return state.all;
         // }
-        console.log("test here ??");
-        console.log("------------here---------");
 
         if (resource.cachable)
           await del(module_name);
@@ -126,29 +197,23 @@ export default (context, inject) => {
         }
 
 
-        // console.log("test 3")
+
         commit('loadedData');
         return response.data;
       },
       async push({
         commit
-      }, params) {
-        let path = resource.parent;
-        if (!path) {
-          path = resource.child
-        } else {
-          path = path + '/' + params[resource.parent + '_id'] + '/' + resource.child;
-        }
-        const response = await this.$axios.$get(path, {
-          params: {
-            page: state.meta.current_page,
-            ...params
-          }
-        });
-        commit('setMeta', response.data.meta);
-        commit('pushData', response.data.data);
-        commit('setLinks', response.data.links);
-        commit('loadedData');
+      }, id) {
+        let path = resource.child;
+        // if (!path || path == '') {
+        //   path = resource.child
+        // } else {
+        //   path = path + '/' + one[resource.parent + '_id'] + '/' + resource.child;
+        // }
+        path += `/${id}`;
+        const response = await this.$axios.$get(`/${path}`);
+        commit('pushToAllData', response.data);
+
       },
       async show({
         commit
@@ -161,7 +226,7 @@ export default (context, inject) => {
         }
         path += `/${one}`;
         delete one[resource.child + '_id'];
-        console.log(path);
+
         const response = await this.$axios.$get(`/${path}`);
         commit('setOne', response.data);
         return response.data;
@@ -171,7 +236,7 @@ export default (context, inject) => {
         dispatch,
         state
       }, data) {
-        console.log(data);
+
         try {
           let path = resource.parent;
           if (!path) {
@@ -226,7 +291,7 @@ export default (context, inject) => {
         state
       }, data) {
         try {
-          // console.log(data);
+
           let post_data = {};
           let parent_id = data[resource.parent + '_id'];
           let params = {};
@@ -258,8 +323,9 @@ export default (context, inject) => {
             }
 
 
-            if (resource.load_after_store && !data.no_reload)
+            if (resource.load_after_store && !data.no_reload) {
               dispatch('index', params);
+            }
 
             if (resource.reload_user)
               this.$auth.fetchUser();
@@ -343,12 +409,10 @@ export default (context, inject) => {
     };
     let mutations = {
       setAll: (state, all) => state.all = all,
-      pushData: (state, data) => state.all = state.all.concat(data),
+      pushToAllData: (state, data) => state.all_records.unshift(data),
+      setAllData: (state, data) => state.all_records = data,
       setData: (state, data) => {
-        console.log("------------daaattttaaaa---------");
-        console.log(data)
         if (data[1]) {
-          console.log("data[1]");
           state[data[1]] = [...data[0]];
         }
         else {

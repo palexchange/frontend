@@ -87,7 +87,6 @@
             <BeneficiaryAutocomplete
               :readonly="showReadOnly"
               v-model="item.sender_party_id"
-              no_fetch
               text="beneficiary"
               holder="beneficiary"
               required
@@ -120,6 +119,7 @@
                   item.sender_party_id = v.id;
                 }
               "
+              no_fetch
               return-object
               :value="{ id: item.sender_party_id }"
             />
@@ -134,6 +134,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
+              no_fetch
               :readonly="showReadOnly"
               text="phone"
               holder="phone"
@@ -199,6 +200,7 @@
           </v-col> -->
           <v-col class="lg-one-and-half" cols="12" md="4" lg="2" sm="6">
             <IDsAutoComplete
+              no_fetch
               :readonly="showReadOnly"
               append-icon=""
               text="id_no"
@@ -235,6 +237,7 @@
                   item.receiver_party_id = v.id;
                 }
               "
+              no_fetch
               return-object
               :value="{ id: item.receiver_party_id }"
             />
@@ -456,11 +459,11 @@
           <v-col cols="3">
             <BeneficiaryAutocomplete
               :readonly="showReadOnly"
-              no_fetch
               holder="المكتب الوسيط"
               text="المكتب الوسيط"
               v-model="item.office_id"
               required
+              no_fetch
             />
           </v-col>
 
@@ -1024,9 +1027,13 @@ export default {
       if (this.$route.params.id) {
         this.$store.dispatch("transfer/show", this.$route.params.id);
       }
-      this.$store.dispatch("party/index", { per_page: -1 });
-      this.$store.dispatch("currency/index");
-      this.$store.dispatch("stock/index");
+      // this.$store.dispatch("party/index", { per_page: -1 });
+      if (!this.currencies[0]) {
+        this.$store.dispatch("currency/index");
+      }
+      if (!this.stocks[0]) {
+        this.$store.dispatch("stock/index");
+      }
     }
   },
   watch: {
@@ -1039,6 +1046,9 @@ export default {
     },
   },
   mounted() {
+    if (!this.$route.params.id) {
+      this.item.started_at = this.$getDateTime();
+    }
     if (this.$route.query.show && this.$route.query.show == "true") {
       this.showReadOnly = true;
     }

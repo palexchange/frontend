@@ -3,14 +3,14 @@
     <Card class="pa-5">
       <v-card-actions>
         <v-row>
-          <v-col class="align-self-center">
-            <span class="fs-20">{{ $t("show beneficiaries") }}</span>
+          <v-col cols="3" class="align-self-center">
+            <h1 class="fs-20">{{ $t("show beneficiaries") }}</h1>
           </v-col>
           <v-col v-if="show_filter" cols="6">
             <v-row>
               <v-col>
                 <InputField
-                  @input="search"
+                  @keydown.enter="search"
                   v-model="filters.name"
                   hide-details
                   holder="name"
@@ -20,7 +20,7 @@
               </v-col>
               <v-col>
                 <InputField
-                  @input="search"
+                  @keydown.enter="search"
                   v-model="filters.id_no"
                   hide-details
                   holder="رقم الهوية"
@@ -30,7 +30,7 @@
               </v-col>
               <v-col>
                 <InputField
-                  @input="search"
+                  @keydown.enter="search"
                   v-model="filters.mobile"
                   hide-details
                   holder="phone"
@@ -61,7 +61,7 @@
 
     <DataTable module="party">
       <template v-slot:item.image="{ item }">
-        <img :src="item.image ? item.image.url : ''" alt="" />
+        <img :src="item.image ? item.image.url : ''" alt="image" />
       </template>
     </DataTable>
   </div>
@@ -92,7 +92,8 @@ export default {
       });
     },
     delete(item) {
-      this.$store.dispatch("setModule", "party");
+      this.$remove(item, "party");
+      // this.$store.dispatch("setModule", "party");
     },
     nextSort() {
       let index = this.headers.findIndex((h) => h.value === this.sortBy);

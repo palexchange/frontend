@@ -179,7 +179,7 @@ export default (context, inject) => {
         }
       });
   });
-  inject('getDateTime', (from, to) => {
+  inject('getDateTime', () => {
     return new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10) + " " + new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(11, 8)
   });
   inject('calcBuyPrice', (from, to) => {

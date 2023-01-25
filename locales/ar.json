@@ -219,6 +219,7 @@
   "add city": "إضافة مدينة",
   "default_currency_id": "العملة الافتراضية",
   "country_id": "الدولة",
+  "country_name": "الدولة",
   "dashboard-beneficiaries": "المستفيدين",
   "default_currency": "العملة الافتراضية",
   "party_name": "اسم المستفيد",
@@ -443,5 +444,6 @@
   "transfer id": "رقم الحوالة",
   "exchange status": "حالة عملية الصرف",
   "from currency": "من العملة",
+  "export name": "اسم ملف التصدير",
   "to currency": "إلى العملة"
 }

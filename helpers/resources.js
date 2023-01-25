@@ -9,6 +9,7 @@ const transactions_name_map = () => {
   const status_map = new Map();
   status_map.set(0, "صادرة")
   status_map.set(1, "واردة")
+  status_map.set(2, "عمولة حوالة")
   status_map.set(7, "مصروف")
   return status_map
 }
@@ -80,8 +81,7 @@ export default (context) => {
   {
     child: 'party',
     parent: '',
-    load_after_store: true,
-    headers: ['id', 'image', 'name', 'id_no', 'created_at', 'address', 'default_currency_id', 'country_id', 'phone'],
+    headers: ['id', 'image', 'name', 'id_no', 'created_at', 'address', 'country_name', 'phone'],
   },
   {
     child: 'role',

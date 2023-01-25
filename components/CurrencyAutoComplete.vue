@@ -61,6 +61,7 @@ export default {
   },
   created() {
     if (!this.all[0]) {
+      console.log("CurrencyAutoComplete");
       this.$store.dispatch("currency/index", { per_page: -1 });
     }
   },

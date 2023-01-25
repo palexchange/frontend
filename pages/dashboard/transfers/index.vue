@@ -4,8 +4,9 @@
       <v-card-actions>
         <v-row>
           <v-col cols="2" class="align-self-center">
-            <span class="fs-20">{{ $t("transfers") }}</span>
+            <h1 class="fs-20">{{ $t("transfers") }}</h1>
           </v-col>
+
           <v-col class="text-left align-self-center">
             <v-btn icon small @click="show_filter = !show_filter">
               <v-icon> fas fa-solid fa-search </v-icon>
@@ -57,6 +58,8 @@
         <v-col>
           <BeneficiaryAutocomplete
             @input="search"
+            clearable
+            no_fetch
             v-model="filters.party_id"
             hide-details
             holder="party_name"
@@ -72,13 +75,6 @@
         </v-col>
         <v-col>
           <DatePicker @change="search" v-model="filters.to" text="to_date" />
-          <!-- <InputField
-            @change="search"
-            type="date"
-            v-model="filters.to"
-            text="to_date"
-            holder="to_date"
-          /> -->
         </v-col>
       </v-row>
     </Card>
@@ -93,7 +89,7 @@ export default {
     return {
       show_filter: false,
       filter: false,
-      params: { delivering_type: [1, 3] },
+      params: {},
       transfers_type: [
         { id: 0, name: "صادرة" },
         { id: 1, name: "واردة" },
@@ -111,7 +107,7 @@ export default {
   },
   methods: {
     search() {
-      this.$store.dispatch("transfer/index", { ...this.filters });
+      this.params = { ...this.filters, delivering_type: [1, 3] };
     },
     print(item) {
       this.$download_pdf({
@@ -154,6 +150,9 @@ export default {
         this[val](this.item);
       }
     },
+  },
+  mounted() {
+    this.params = { delivering_type: [1, 3] };
   },
 };
 </script>

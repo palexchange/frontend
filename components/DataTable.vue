@@ -8,7 +8,7 @@
       :page.sync="options.page"
       item-key="id"
       hide-default-footer
-      :items-per-page="meta.per_page ? Number(meta.per_page) : per_page_num"
+      :items-per-page="per_page_num"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
       :headers="
@@ -38,14 +38,22 @@
         {{ $inputNumberFormat(scope.item[key]) }}
       </template>
       <template v-slot:top>
-        <v-row class="justify-end">
-          <v-col cols="2">
-            <v-btn
-              v-if="$route.name == 'dashboard-transfers'"
-              @click="download()"
-            >
+        <v-row  v-if="$route.name == 'dashboard-transfers'" class="px-5">
+          <v-col cols="3">
+            <v-btn @click="shoowDownloadName = true" v-if="!shoowDownloadName">
               تصدير
             </v-btn>
+            <v-text-field
+              v-if="shoowDownloadName"
+              @keydown.enter="download()"
+              @keydown.esc="shoowDownloadName = false"
+              dense
+              :loading="DownloadLoad"
+              outlined
+              v-model="download_name"
+              :label="$t('export name')"
+            >
+            </v-text-field>
           </v-col>
         </v-row>
       </template>
@@ -174,6 +182,9 @@ export default {
   },
   data() {
     return {
+      download_name: this.module,
+      shoowDownloadName: false,
+      DownloadLoad: false,
       all_status: {
         255: { class: "danger", label: this.$t("cancelled") }, //255
         1: { class: "success", label: this.$t("active") }, //1
@@ -202,33 +213,35 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch(`${this.module}/index`, {
-      ...this.options,
-      ...this.params,
-    });
-    let val = this.meta;
-    if (val) {
-      this.options.page = val.current_page;
-    }
+    // if (!this.all[0]) {
+    //   this.$store.dispatch(`${this.module}/index`, {
+    //     ...this.options,
+    //     ...this.params,
+    //   });
+    // }
+    // let val = this.meta;
+    // if (val) {
+    //   this.options.page = val.current_page;
+    // }
     // this.loaded = true;
     // }
   },
   created() {
-    if (this.module && this.options.itemsPerPage > -2) {
-      this.$store.dispatch(`${this.module}/index`, {
-        ...this.options,
-        ...this.params,
-      });
-      let val = this.meta;
-      if (val) {
-        this.options.page = val.current_page;
-      }
-      // this.loaded = true;
-    }
+    // if (this.module) {
+    //   this.$store.dispatch(`${this.module}/index`, {
+    //     ...this.options,
+    //     ...this.params,
+    //   });
+    //   let val = this.meta;
+    //   if (val) {
+    //     this.options.page = val.current_page;
+    //   }
+    //   // this.loaded = true;
+    // }
   },
   computed: {
     per_page_num() {
-      return this.module == "report" ? 1000 : 15;
+      return this.module == "report" ? -1 : 15;
     },
     ...mapState({
       all: function (state) {
@@ -272,22 +285,29 @@ export default {
       let types = ["admin", "customer"];
       return types[this.user.type - 1];
     },
-    showMenu: {
-      get: function () {
-        return this.context.showMenu;
-      },
-      set: function () {
-        return "";
-      },
-    },
+    // showMenu: {
+    //   get: function () {
+    //     return this.context.showMenu;
+    //   },
+    //   set: function () {
+    //     return "";
+    //   },
+    // },
     menu_items() {
       return menus[this.menu_name]?.menu_btns || [];
     },
   },
   watch: {
     options: {
-      handler(val) {
-        // this.loaded = true;
+      handler(val, old_val) {
+        const empty = !this.all[0];
+        const old_values = Object.values(old_val);
+        // const new_values = Object.values(val);
+        // const same =
+        //   old_values == new_values && old_values.length == new_values.length;
+
+        if (old_values.length == 3 && empty == false) return;
+        // if (empty == true && same == true) return;
         if (this.loaded && this.options.itemsPerPage > -2) {
           this.$store.dispatch(`${this.module}/index`, {
             ...val,
@@ -308,7 +328,7 @@ export default {
         }
       },
       deep: true,
-      immediate: true,
+      // immediate: true,
     },
   },
   methods: {
@@ -326,11 +346,13 @@ export default {
       return "item." + v;
     },
     download() {
+      this.DownloadLoad = true;
       this.$store
         .dispatch("export_data/index", {
           model: this.module,
           download: true,
           is_file: true,
+          ...this.params,
         })
         .then((data) => {
           if (data) {
@@ -338,9 +360,11 @@ export default {
               let blob = new Blob([data], {
                 type: data.type,
               });
-              saveAs(blob, this.module);
+              saveAs(blob, this.download_name);
             }
           }
+          this.DownloadLoad = false;
+          this.download_name = "";
         });
     },
     // download(ext) {

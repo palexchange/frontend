@@ -73,13 +73,14 @@ export default {
     };
   },
   created() {
-    if (!this.no_fetch) {
-      this.$store.dispatch("party/index", { per_page: -1 });
+    if (this.no_fetch) return;
+    if (!this.all[0]) {
+      this.$store.dispatch("party/index_all", { per_page: -1 });
     }
   },
   computed: {
     ...mapState({
-      all: (state) => state.party.all,
+      all: (state) => state.party.all_records,
     }),
   },
 };

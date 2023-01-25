@@ -53,7 +53,10 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("currency/index");
+    if (!this.currencies[0]) {
+      console.log("UserActiveAccounts");
+      this.$store.dispatch("currency/index");
+    }
   },
 };
 </script>

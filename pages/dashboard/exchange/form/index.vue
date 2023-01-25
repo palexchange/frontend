@@ -27,6 +27,7 @@
             holder="from currency"
           ></CurrencyAutoComplete>
         </v-col>
+
         <v-col>
           <CurrencyAutoComplete
             @change="search"
@@ -44,6 +45,15 @@
             holder="party_name"
             text="party_name"
           />
+        </v-col>
+        <v-col>
+          <UserAutocomplete
+            @change="search"
+            clearabler
+            v-model="filters.user_action_id"
+            text="user name"
+            holder="user name"
+          ></UserAutocomplete>
         </v-col>
         <v-col>
           <AutoComplete
@@ -135,9 +145,9 @@ export default {
       }
     },
   },
-  created() {
-    this.$store.dispatch("setting/show", "time_allowed_for_deletion");
-  },
+  // created() {
+  //   this.$store.dispatch("setting/show", "time_allowed_for_deletion");
+  // },
   methods: {
     search() {
       this.params = { ...this.filters };

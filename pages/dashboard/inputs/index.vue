@@ -36,7 +36,9 @@ export default {
     }),
   },
   mounted() {
-    this.$store.dispatch("currency/index");
+    if (!this.all_currencies[0]) {
+      this.$store.dispatch("currency/index");
+    }
   },
   methods: {
     cancel(item) {

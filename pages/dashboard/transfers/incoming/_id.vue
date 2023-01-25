@@ -125,6 +125,7 @@
         <v-row>
           <v-col cols="12" md="4" sm="6" lg="2">
             <BeneficiaryAutocomplete
+              no_fetch
               :readonly="showReadOnly"
               text="beneficiary"
               holder="beneficiary"
@@ -174,6 +175,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
+              no_fetch
               :readonly="showReadOnly"
               text="phone"
               holder="phone"
@@ -198,6 +200,7 @@
           </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
+              no_fetch
               :readonly="showReadOnly"
               text="id_no"
               holder="id_no"
@@ -284,6 +287,7 @@
         <v-row class="responseveCols">
           <v-col cols="12" sm="2">
             <BeneficiaryAutocomplete
+              no_fetch
               :readonly="showReadOnly"
               holder="الوسيط المرسل"
               text="الوسيط المرسل"
@@ -1031,8 +1035,12 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("currency/index");
-    this.$store.dispatch("stock/index");
+    if (!this.currencies[0]) {
+      this.$store.dispatch("currency/index");
+    }
+    if (!this.stocks[0]) {
+      this.$store.dispatch("stock/index");
+    }
     this.item.sender_party_id = this.app_setting["general_customer"]
       ? parseFloat(this.app_setting["general_customer"]["value"])
       : null;
@@ -1044,6 +1052,9 @@ export default {
     }
   },
   mounted() {
+    if (!this.$route.params.id) {
+      this.item.started_at = this.$getDateTime();
+    }
     if (this.$route.query.show && this.$route.query.show == "true") {
       this.showReadOnly = true;
     }

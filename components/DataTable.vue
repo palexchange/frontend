@@ -38,7 +38,13 @@
         {{ $inputNumberFormat(scope.item[key]) }}
       </template>
       <template v-slot:top>
-        <v-row  v-if="$route.name == 'dashboard-transfers'" class="px-5">
+        <v-row
+          v-if="
+            $route.name == 'dashboard-transfers' ||
+            $route.name == 'dashboard-moneygram'
+          "
+          class="px-5"
+        >
           <v-col cols="3">
             <v-btn @click="shoowDownloadName = true" v-if="!shoowDownloadName">
               تصدير

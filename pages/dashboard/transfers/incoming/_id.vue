@@ -317,7 +317,7 @@
                     { id: v },
                     { id: 1 }
                   );
-                  //item.office_currency_id = v;
+                  item.delivery_currency_id = v;
                 }
               "
               :items="currencies"

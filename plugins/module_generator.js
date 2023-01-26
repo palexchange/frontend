@@ -47,6 +47,7 @@ export default (context, inject) => {
         state,
         dispatch
       }, params) {
+
         params = params == null ? {} : params
         await dispatch('empty');
         let path = resource.parent;
@@ -119,18 +120,6 @@ export default (context, inject) => {
         dispatch
       }, params) {
         params = params == null ? {} : params
-        // if (JSON.stringify(params) == JSON.stringify(state.meta)) {
-        //   return state.all;
-        // }
-
-        if (resource.cachable)
-          await del(module_name);
-
-        let cache_data = await get(module_name);
-        if (cache_data) {
-          commit('setData', cache_data);
-          return cache_data;
-        }
         await dispatch('empty');
 
         let path = resource.parent;
@@ -140,61 +129,54 @@ export default (context, inject) => {
           path = path + '/' + params[resource.parent + '_id'] + '/' + resource.child;
         }
         let response;
-        commit('setParams', params);
+
         try {
-          dispatch('setLoading', true, {
-            root: true
-          });
           response = await this.$axios.$get(`/${path}`, {
             params: {
               page: state.meta.current_page,
               ...params,
             },
-            // responseType: (resource.is_file && !params.object_res) ? 'blob' : ''
             responseType: (resource.is_file && params.is_file) ? 'blob' : ''
           });
-          // dispatch('setLoading', false, {
-          //   root: true
-          // });
-
         } catch (err) {
           console.log(err);
         }
-
         if (resource.functions) {
           commit('setFunctions', resource.functions);
         }
         if (resource.formatted_numbers) {
           commit('setFormattedNumbers', resource.formatted_numbers);
         }
-
-
         if (resource.has_headers && !params.is_file) {
-
-          commit('setData', [response.items, params.resObjName]);
-          commit('setHeaders', response.headers);
+          if (params.set_data) {
+            commit('setMeta', response.meta);
+            commit('setData', [response.data, params.resObjName]);
+            commit('setLinks', response.links);
+          } else {
+            commit('setData', [response.items, state.params.resObjName]);
+            commit('setHeaders', response.headers);
+          }
           return response.items;
         }
 
+
         if (resource.is_file) {
+
           if (typeof response == 'object') {
             // commit('setData', response.data);
             return response.data ? response.data : response
           }
           return response;
-
         } else if (!resource.has_headers) {
-
-
           if (response.data.length > 0 && resource.headers) {
             commit('setHeaders', resource.headers);
           }
-
           commit('setMeta', response.meta);
           commit('setData', [response.data, params.resObjName]);
           commit('setLinks', response.links);
-
         }
+
+
 
 
 
@@ -407,13 +389,17 @@ export default (context, inject) => {
       },
 
     };
+    // commit('setData', [response.data, params.resObjName]);
     let mutations = {
       setAll: (state, all) => state.all = all,
       pushToAllData: (state, data) => state.all_records.unshift(data),
       setAllData: (state, data) => state.all_records = data,
       setData: (state, data) => {
         if (data[1]) {
-          state[data[1]] = [...data[0]];
+          const key = data[1]
+          const value = data[0]
+          Object.assign(state, { [key]: { ...value } });
+          // state = { ...state, :  };
         }
         else {
           state.all = data[0]
@@ -443,7 +429,10 @@ export default (context, inject) => {
       clearHtml: (state) => {
         state.html = null;
       },
-      setParams: (state, params) => state.params = params,
+      setParams: (state, params) => {
+
+        state.params = params
+      },
 
     }
     let module = {

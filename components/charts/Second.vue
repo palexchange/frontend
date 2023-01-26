@@ -12,17 +12,24 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
+      report_data: {
+        type: "statistics",
+        resObjName: "second",
+        set_data: true,
+        sub_type: "countTransfers",
+      },
       series: [
         {
-          name: "High - 2013",
-          data: [100, 900, 300, 100, 900, 100, 900],
+          name: "`   حولات   ",
+          data: [100, 900],
         },
         {
-          name: "Low - 2013",
-          data: [900, 100, 600, 900, 100, 900, 100],
+          name: "`   صرافة   ",
+          data: [900, 100],
         },
       ],
       chartOptions: {
@@ -47,7 +54,7 @@ export default {
           curve: "smooth",
         },
         title: {
-          text: this.$t("Orders Statistics"),
+          text: this.$t("transfers and exchange transactions"),
           align: "center",
         },
 
@@ -74,10 +81,21 @@ export default {
       },
     };
   },
+  created() {
+    this.$store.dispatch("report/index", { ...this.report_data });
+  },
+  computed: {
+    ...mapState({
+      all: (state) => state.report.second,
+    }),
+  },
 };
 </script>
 
 <style scoped>
+.apexcharts-title-text {
+  font-family: Tajawal !important;
+}
 /* @media only screen and (max-width: 600px) {
   
   #chart {

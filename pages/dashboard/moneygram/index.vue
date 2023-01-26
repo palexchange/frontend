@@ -125,6 +125,12 @@ export default {
     cancel(item) {
       this.$remove(item, "transfer");
     },
+    print(item) {
+      this.$download_pdf({
+        model: "Transfer",
+        id: item.id,
+      });
+    },
   },
   computed: {
     ...mapState({

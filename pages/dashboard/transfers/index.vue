@@ -106,15 +106,18 @@ export default {
     };
   },
   methods: {
+    // print(item) {
+    //   this.$download_pdf({});
+    // },
     search() {
       this.params = { ...this.filters, delivering_type: [1, 3] };
     },
     print(item) {
       this.$download_pdf({
-        documane_class_name: "Transfer",
-        documane_id: item.id,
+        model: "Transfer",
+        id: item.id,
       });
-      this.params = { delivering_type: [1, 3], ...this.filters };
+      // this.params = { delivering_type: [1, 3], ...this.filters };
     },
     edit(item) {
       this.$router.push({

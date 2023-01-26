@@ -704,6 +704,7 @@ export default {
           this.items = [];
           this.keyNum = this.keyNum + 1;
           this.addItems();
+          this.exchange.started_at = this.$getDateTime();
           // this.$auth.fetchUser();
         });
       });
@@ -713,6 +714,7 @@ export default {
     if (!this.all_currencies[0]) {
       this.$store.dispatch("currency/index");
     }
+    this.exchange.started_at = this.$getDateTime();
     if (this.all_currencies[0] && this.items.length == 0) {
       this.addItems();
     }

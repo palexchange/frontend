@@ -60,6 +60,22 @@
         >
       </v-col>
     </v-row>
+    <v-row dense>
+      <v-checkbox
+        true-value="1"
+        false-value="0"
+        v-model="report_data.show_sender"
+        label="إظهار المرسل"
+      >
+      </v-checkbox>
+      <v-checkbox
+        true-value="1"
+        false-value="0"
+        v-model="report_data.show_receiver"
+        label="إظهار المستلم"
+      >
+      </v-checkbox>
+    </v-row>
     <slot />
     <v-row v-if="report_data.account" dense class="pa-5">
       <v-col>
@@ -111,6 +127,8 @@ export default {
       receipt: {},
       validated: true,
       report_data: {
+        show_sender: 0,
+        show_receiver: 0,
         has_headers: true,
         type: "Accounting",
         sub_type: "accountStatementReport",

@@ -1,8 +1,20 @@
 <template>
   <div>
     <v-card :elevation="0" class="p-8 my-5">
-      <v-btn @click="test">ahmad </v-btn>
-      <v-btn @click="create_one = true"> تصدير </v-btn>
+      <v-row class="px-5">
+        <v-col cols="3">
+          <v-text-field
+            label="الاسم للتصدير"
+            outlined
+            dense
+            v-model="report_name"
+          ></v-text-field
+        ></v-col>
+        <v-col cols="3"
+          ><v-btn @click="create_one = true"> تصدير </v-btn></v-col
+        >
+      </v-row>
+
       <v-tabs v-model="seted_tab">
         <v-tab :key="i" v-for="(tab, i) in tabs"> {{ $t(tab.header) }}</v-tab>
         <v-tab-item :key="i" v-for="(tab, i) in tabs">
@@ -35,6 +47,7 @@ export default {
   data() {
     return {
       seted_tab: 0,
+      report_name: null,
       create_one: false,
       tabs: [
         {
@@ -78,7 +91,7 @@ export default {
                 let blob = new Blob([data], {
                   type: data.type,
                 });
-                saveAs(blob, "pal_report");
+                saveAs(blob, this.report_name || "pal_report");
               }
             }
           });

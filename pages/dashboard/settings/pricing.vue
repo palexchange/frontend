@@ -71,11 +71,14 @@
                 :items="all_currencies"
               />
             </v-col>
+
             <v-col cols="3">
               <label for="">{{ $t("buy") }}</label>
               <v-text-field
                 v-model.number="currency.start_purchasing_price"
                 dense
+                @keydown.enter="calcDollaySellBuyPrice($event, currency,'buy')"
+                @focusout="calcDollaySellBuyPrice($event, currency,'buy')"
               ></v-text-field
             ></v-col>
             <v-col cols="3">
@@ -83,6 +86,8 @@
               <v-text-field
                 v-model.number="currency.start_selling_price"
                 dense
+                @keydown.enter="calcDollaySellBuyPrice($event, currency,'sell')"
+                @focusout="calcDollaySellBuyPrice($event, currency,'sell')"
               ></v-text-field
             ></v-col>
           </v-row>
@@ -218,18 +223,13 @@ export default {
     };
   },
   created() {
-    if (!this.all_currencies[0]) {
-      this.$store.dispatch("currency/index");
-    }
-    if (!this.all_stocks[0]) {
-      this.$store.dispatch("stock/index");
-    }
-
+    this.$store.dispatch("currency/index");
+    this.$store.dispatch("stock/index");
     // setInterval(() => {
     //   this.numebr++;
     // }, 10);
   },
-  computed: {
+   computed: {
     ...mapState({
       all_currencies: (state) => JSON.parse(JSON.stringify(state.currency.all)),
       all_stocks: function (state) {
@@ -243,14 +243,6 @@ export default {
     save(commit) {
       let dateTime = this.$getDateTime();
       let stocks = this.stocks;
-      stocks.forEach((el) => {
-        if (el.currency_id == 4) {
-          let purchase = el.start_purchasing_price;
-          let sell = el.start_selling_price;
-          el.start_purchasing_price = purchase > 1 ? 1 / purchase : purchase;
-          el.start_selling_price = sell > 1 ? 1 / sell : sell;
-        }
-      });
       if (commit) {
         stocks = stocks.map((v) => {
           v.final_selling_price = v.start_selling_price;
@@ -267,6 +259,45 @@ export default {
       }
 
       this.$save(stocks, "stock");
+    },
+    calcDollaySellBuyPrice(event, stock, type) {
+      console.log("Enterd My Func");
+      let new_value = event.target.value;
+
+      if([5,6].includes(stock.currency_id)) {
+        console.log("Enterd  Dinar Rial Part");
+        let Dinar_curr = this.all_stocks.find(x => x.id == 3)
+        if(Dinar_curr == null || Dinar_curr == undefined) return;
+        let dinar_avg_curr = parseFloat(Dinar_curr.mid).toFixed(7) * 1;
+        let new_price = parseFloat(dinar_avg_curr / new_value).toFixed(4) * 1;
+        console.table(new_value,Dinar_curr,dinar_avg_curr,new_price);
+        if(type == 'buy') {
+          stock.start_purchasing_price = new_price;
+        }else {
+          stock.start_selling_price = new_price;
+        }
+      }
+      else if([7,].includes(stock.currency_id)) {
+        console.log("Enterd EGP Part");
+        let Shekle_curr = this.all_stocks.find(x => x.id == 2)
+        if(Shekle_curr == null || Shekle_curr == undefined) return;
+        let shekle_avg_curr = parseFloat(Shekle_curr.mid).toFixed(7) * 1;
+        let new_price = parseFloat(shekle_avg_curr / new_value).toFixed(4) * 1;
+        console.table(new_value,Shekle_curr,shekle_avg_curr,new_price);
+        if(type == 'buy') {
+          stock.start_purchasing_price = new_price;
+        }else {
+          stock.start_selling_price = new_price;
+        }
+      }
+      else if([4,].includes(stock.currency_id)) {
+        if(type == 'buy') stock.start_purchasing_price = parseFloat(1 / stock.start_purchasing_price).toFixed(4) * 1;
+        else stock.start_selling_price = parseFloat(1 / stock.start_selling_price).toFixed(4) * 1;
+      }
+      else {
+        console.log("Enterd else Part");
+        return;
+      }
     },
     // generate_stocks(items) {
     //   return items.map((currency) => {

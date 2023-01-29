@@ -68,13 +68,13 @@
         </v-col>
         <v-col
           ><DatePicker
-            @change="search"
+            @input="search"
             v-model="filters.from"
             text="from_date"
           />
         </v-col>
         <v-col>
-          <DatePicker @change="search" v-model="filters.to" text="to_date" />
+          <DatePicker @input="search" v-model="filters.to" text="to_date" />
         </v-col>
       </v-row>
     </Card>

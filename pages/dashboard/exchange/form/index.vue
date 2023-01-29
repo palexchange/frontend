@@ -87,13 +87,19 @@
       <template v-slot:expanded-item="{ headers }">
         <td :colspan="headers.length" class="pa-0">
           <v-card color="primary" flat class="px-8">
-            <DataTable
+            <v-data-table
+              :headers="detial_headers"
+              hide-default-footer
+              :items="detail_items"
+            >
+            </v-data-table>
+            <!-- <DataTable
               hide_pagination
               no_class
               module="exchange_detail"
               :params="params2"
               :noActions="true"
-            />
+            /> -->
           </v-card>
         </td>
       </template>
@@ -107,10 +113,19 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      detial_headers: [
+        { text: "id", value: "id" },
+        { text: "exchange_id", value: "exchange_id" },
+        { text: "amount", value: "amount" },
+        { text: "currency_name", value: "currency_name" },
+        { text: "exchange_rate", value: "exchange_rate" },
+        { text: "type", value: "type" },
+      ],
       show_filter: false,
       expanded_item: [],
       params2: {},
       params: {},
+      detail_items: [],
       filters: {
         from: new Date().toISOString().slice(0, 10),
         to: new Date().toISOString().slice(0, 10),
@@ -133,10 +148,11 @@ export default {
   watch: {
     expanded_item(val) {
       if (val[0]) {
-        this.params2 = {
-          exchange_id: val[0].id ? val[0].id : "",
-          per_page: -1,
-        };
+        this.detail_items = val[0].details;
+        // this.params2 = {
+        //   exchange_id: val[0].id ? val[0].id : "",
+        //   per_page: -1,
+        // };
       }
     },
     action(val) {

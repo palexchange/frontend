@@ -141,6 +141,9 @@ export default (context, inject) => {
         } catch (err) {
           console.log(err);
         }
+        if (resource.return_response) {
+          return response
+        }
         if (resource.functions) {
           commit('setFunctions', resource.functions);
         }
@@ -244,6 +247,7 @@ export default (context, inject) => {
             root: true
           });
           // commit('setOne', response.data);
+
           if (!resource.silent) {
             if (!data.silent) {
               dispatch('setSuccessMsg', 'updated_successfully', {

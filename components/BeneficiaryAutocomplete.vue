@@ -7,10 +7,13 @@
       >{{ $t(text) }}</label
     >
     <v-autocomplete
+      ref="compoleto"
+      cache-items
       color="#FF7171"
       style="border-radius: 0px !important"
       :items="all"
       dense
+      :search-input.sync="search"
       :disabled="dashed"
       :required="this.required ? true : false"
       outlined
@@ -70,6 +73,7 @@ export default {
   data() {
     return {
       rulesss: ruless(this),
+      count: 0,
     };
   },
   created() {
@@ -82,6 +86,12 @@ export default {
     ...mapState({
       all: (state) => state.party.all_records,
     }),
+  },
+  methods: {
+    search(e) {
+      console.log(e);
+      console.log("key down");
+    },
   },
 };
 </script>

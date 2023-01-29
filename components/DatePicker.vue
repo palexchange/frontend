@@ -28,6 +28,7 @@
         readonly
         :hide-details="hide_details"
         :disabled="disabled"
+        clearable
         v-bind="{ attrs, param }"
         :label="$t(label)"
         v-on="on"
@@ -83,6 +84,10 @@ export default {
     noInitDate: Boolean,
     perpend_label: String,
     hide_details: Boolean,
+    clear_date: {
+      type: Boolean,
+      default: false,
+    },
   },
   // ["value", "label", "param", "disabled", "required"],
   data() {

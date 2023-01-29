@@ -17,7 +17,7 @@
                     text="beneficiary"
                     holder="beneficiary"
                     required
-                    v-model="item.beneficairy"
+                    v-model="exchange.beneficiary_id"
                   />
                   <!-- <AutoComplete
                     text="beneficiary"
@@ -337,7 +337,6 @@ export default {
       number: 1,
       buttons_colors: new Array(9).fill(0).map(() => new Array(4).fill(false)),
       item: {
-        beneficairy: this.defaultBeneficiry,
         currency: {},
         reminder: null,
         factor_view: 0.0,
@@ -351,11 +350,6 @@ export default {
     };
   },
   computed: {
-    defaultBeneficiry() {
-      return this.app_setting["general_customer"]
-        ? { id: this.app_setting["general_customer"]["value"] * 1 }
-        : { id: 1 };
-    },
     ...mapState({
       all_currencies: (state) => state.currency.all,
       all_stocks: (state) => state.stock.all,
@@ -386,9 +380,7 @@ export default {
         );
         obj.calc_profit_factor = (obj.buy_factor + obj.sale_factor) / 2;
 
-        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor).toFixed(
-          2
-        ); // -2.824858757062147
+        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor);
         e.amount_in_main_curr = obj.amount;
         total_extra_amount += obj.amount * 1;
 
@@ -424,18 +416,22 @@ export default {
       );
       let mid = (buying + saling) / 2;
 
-      total_extra_amount = total_extra_amount.toFixed(5) * 1;
-      main_amount = main_amount.toFixed(5) * 1;
+      total_extra_amount = total_extra_amount * 1;
+      main_amount = main_amount * 1;
       final_profit = final_profit - (total_extra_amount - main_amount) * mid;
       this.exchange.profit = parseFloat(final_profit).toFixed(5);
-      return parseFloat(final_profit).toFixed(5);
+      return parseFloat(final_profit).toFixed(4);
     },
   },
   methods: {
+    setDefaultParty() {
+      this.exchange.beneficiary_id = this.app_setting["general_customer"]
+        ? this.app_setting["general_customer"]["value"] * 1
+        : 1;
+    },
     prepare_exchange() {
       return new Promise((resolve, reject) => {
         this.exchange.date = this.$getDateTime();
-        this.exchange.beneficiary_id = this.item.beneficairy;
         this.exchange.profit = this.exchange_profit;
         this.exchange.status = 1;
         // this.exchange.currency_id = this.item.currency.id;
@@ -544,10 +540,10 @@ export default {
             )
           : temp;
 
-      this.items[index].exchanged_vactor = temp.toFixed(5) * 1;
+      this.items[index].exchanged_vactor = temp * 1;
       this.items[index].exchanged_vactor_view = factor_to_view.toFixed(5);
 
-      this.items[index].exchanged_amount = (amount * temp).toFixed(2);
+      this.items[index].exchanged_amount = (amount * temp).toFixed(5);
       this.items[index].modified_factor = null;
       this.items[index].modified_factor_view = null;
       this.number = this.number + 1;
@@ -582,37 +578,34 @@ export default {
     changed_ex_factor(element, event, index, to_curr) {
       let new_value = parseFloat(event.target.value);
       let old_value = parseFloat(element.exchanged_vactor);
+      console.log("old_value");
+      console.log(old_value);
+      console.log("new_value");
+      console.log(new_value);
       // element.exchanged_vactor = new_value;
 
       let from = this.item.currency;
       let to = to_curr;
 
       if (to.weight * 1 > from.weight * 1) {
-        new_value = (1 / new_value).toFixed(5);
+        new_value = (1 / new_value) * 1;
       }
-      console.log("new_value: ", new_value);
-      console.log("old_value: ", old_value);
       if (new_value == old_value) return;
       let old_amount = element.exchanged_amount / parseFloat(old_value);
       let new_ex_amount = old_amount * new_value;
       element.exchanged_vactor = (new_value * 1).toFixed(5);
       element.exchanged_amount = new_ex_amount.toFixed(2);
-      console.log(element, old_value, new_value);
-      console.log(new_value, new_ex_amount);
     },
     sum_fields() {
-      console.log("Enterd Sum: >>>");
       if (!this.items[0]) return 0;
       console.log(this.items);
-      let total = this.items
-        .reduce((e, n) => {
-          let factor =
-            parseFloat(n.modified_factor || 0) > 0
-              ? n.modified_factor
-              : parseFloat(n.exchanged_vactor || 1);
-          return e + parseFloat(n.exchanged_amount || 0) / factor;
-        }, 0)
-        .toFixed(5);
+      let total = this.items.reduce((e, n) => {
+        let factor =
+          parseFloat(n.modified_factor || 0) > 0
+            ? n.modified_factor
+            : parseFloat(n.exchanged_vactor || 1);
+        return e + parseFloat(n.exchanged_amount || 0) / factor;
+      }, 0);
       return total;
     },
     round_amount(element, index, to_curr) {
@@ -629,7 +622,7 @@ export default {
       } else {
         element.modified_factor_view = new_factor.toFixed(5);
       }
-      element.modified_factor = new_factor.toFixed(5);
+      element.modified_factor = new_factor;
       element.exchanged_amount = new_amount.toFixed(5);
       let holder = this.buttons_colors[index][1];
       this.buttons_colors[index] = this.buttons_colors[index].map(() => {
@@ -652,7 +645,7 @@ export default {
       } else {
         element.modified_factor_view = new_factor.toFixed(5);
       }
-      element.modified_factor = new_factor.toFixed(5);
+      element.modified_factor = new_factor;
       element.exchanged_amount = new_amount.toFixed(5);
       let holder = this.buttons_colors[index][2];
       this.buttons_colors[index] = this.buttons_colors[index].map(() => {
@@ -675,7 +668,7 @@ export default {
       } else {
         element.modified_factor_view = new_factor.toFixed(5);
       }
-      element.modified_factor = new_factor.toFixed(5);
+      element.modified_factor = new_factor;
       element.exchanged_amount = new_amount.toFixed(5);
       let holder = this.buttons_colors[index][3];
       this.buttons_colors[index] = this.buttons_colors[index].map(() => {
@@ -702,6 +695,8 @@ export default {
       this.prepare_exchange().then(() => {
         this.$store.dispatch("exchange/store", this.exchange).then(() => {
           this.items = [];
+          this.exchange = {};
+          this.setDefaultParty();
           this.keyNum = this.keyNum + 1;
           this.addItems();
           this.exchange.started_at = this.$getDateTime();
@@ -711,6 +706,7 @@ export default {
     },
   },
   mounted() {
+    this.setDefaultParty();
     if (!this.all_currencies[0]) {
       this.$store.dispatch("currency/index");
     }
@@ -737,9 +733,6 @@ export default {
         });
       });
     }
-    // this.item.beneficairy = this.app_setting["general_customer"]
-    //   ? { id: this.app_setting["general_customer"]["value"] * 1 }
-    //   : null;
   },
   watch: {
     all_currencies(val) {
@@ -758,11 +751,6 @@ export default {
     },
     all_stocks(val) {
       this.stocks = val;
-    },
-    app_setting(val) {
-      this.item.beneficairy = val["general_customer"]
-        ? parseFloat(val["general_customer"]["value"])
-        : null;
     },
   },
 };

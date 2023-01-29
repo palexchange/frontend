@@ -14,15 +14,15 @@
             </v-col>
             <v-col>
               <DatePicker
+                clear_date
                 v-model="report_data.from"
-                required
                 holder="from"
                 text="from"
               />
             </v-col>
             <v-col>
               <DatePicker
-                required
+                clear_date
                 v-model="report_data.to"
                 holder="to"
                 text="to"
@@ -148,7 +148,7 @@ export default {
       ).mid;
       receipt.from_amount = this.receipt.amount;
       receipt.to_amount = this.receipt.amount / receipt.exchange_rate;
-      receipt.to_account_id = this.user.active_accounts.find((e) => {
+      receipt.to_account_id = this.user.main_active_accounts.find((e) => {
         return receipt.currency_id == e.currency_id;
       }).id;
       receipt.from_account_id = this.report_data.account;

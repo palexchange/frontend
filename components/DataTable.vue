@@ -63,7 +63,7 @@
           </v-col>
         </v-row>
       </template>
-      <template v-slot:[`item.${nums}`]="{ item, index }">
+      <template v-slot:item.id="{ index }">
         {{ index + 1 }}
       </template>
       <template v-slot:item.status="{ item }">

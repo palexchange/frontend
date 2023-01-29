@@ -104,7 +104,6 @@ export default (context) => {
   {
     child: 'exchange',
     parent: '',
-    reload_user: true,
     load_after_store: true,
     headers: ['id', 'user.name', 'profit', 'party_name', 'status', 'date'],
 
@@ -327,7 +326,7 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['id', 'type', 'from_account_name', 'to_account_name', 'from_amount', 'exchange_rate', 'to_amount', 'status', 'created_at'],
+    headers: ['id', 'user.name', 'from_account_name', 'to_account_name', 'from_amount', 'currency.name', 'exchange_rate', 'to_amount', 'status', 'created_at'],
     functions: [
       {
         key: 'status',
@@ -341,6 +340,13 @@ export default (context) => {
     child: 'export_data',
     parent: '',
     has_headers: true,
+    is_file: true
+
+  },
+  {
+    child: 'pdf',
+    parent: '',
+    return_response: true,
     is_file: true
 
   },

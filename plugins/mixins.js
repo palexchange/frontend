@@ -215,7 +215,7 @@ export default (context, inject) => {
     });
     if (to.id == 1) {
       if (from_currency) {
-        return (1 / from_currency.start_selling_price).toFixed(digits || 5);
+        return (1 / from_currency.start_selling_price) * 1;
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -231,7 +231,7 @@ export default (context, inject) => {
       }
       if (to_currency && from_currency) {
 
-        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(digits || 5);
+        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price) * 1;
       }
     }
 
@@ -250,7 +250,7 @@ export default (context, inject) => {
       return 1;
     } else if (to.id == 1) {
       if (from_currency) {
-        return (1 / from_currency.start_purchasing_price).toFixed(digits || 5);
+        return (1 / from_currency.start_purchasing_price) * 1;
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -265,17 +265,19 @@ export default (context, inject) => {
         return converter.start_purchasing_price;
       }
       if (to_currency && from_currency) {
-        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(digits || 5);
+        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price) * 1;
       }
     }
 
   });
   inject('download_pdf', (ModelAndId) => {
-    context.$axios.get(`/pdf`, { responseType: "blob", params: ModelAndId })
-      .then((response) => {
-        const blob = new Blob([response.data], { type: "application/pdf" });
-        saveAs(blob, "document");
-      });
+    // context.store.dispatch('pdf/index', ModelAndId).then((response) => {
+    context.$axios.$get(`/pdf`, { responseType: "blob", params: ModelAndId }).then((response) => {
+      const blob = new Blob([response], { type: "application/pdf" });
+      saveAs(blob, "document");
+    });
+    // context.$axios.$get(`/pdf`, { responseType: "blob", params: ModelAndId })
+
 
   });
 }

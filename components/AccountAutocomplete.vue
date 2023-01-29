@@ -7,6 +7,7 @@
       >{{ $t(text) }}</label
     >
     <v-autocomplete
+      cache-items
       color="#FF7171"
       style="border-radius: 0px !important"
       :items="filter ? all.filter(filter) : all"
@@ -107,7 +108,7 @@ export default {
   },
   created() {
     if (this.no_fetch) return;
-    if (!this.all[0]) { 
+    if (!this.all[0]) {
       this.$store.dispatch("account/index", this.params);
     }
   },

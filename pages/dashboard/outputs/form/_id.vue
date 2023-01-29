@@ -152,12 +152,12 @@ export default {
   },
   methods: {
     setToaccount(currency_id) {
-      if (!this.user.active_accounts[0]) {
+      if (!this.user.main_active_accounts[0]) {
         this.$error_alert();
         return;
       }
       this.form.to_account_id = (
-        this.user.active_accounts.find((e) => {
+        this.user.main_active_accounts.find((e) => {
           return e.currency_id == currency_id;
         }) || {}
       ).id;

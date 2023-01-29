@@ -15,18 +15,12 @@
             <v-col>
               <DatePicker
                 v-model="report_data.from_date"
-                required
                 holder="from"
                 text="from"
               />
             </v-col>
             <v-col>
-              <DatePicker
-                required
-                v-model="report_data.to_date"
-                holder="to"
-                text="to"
-              />
+              <DatePicker v-model="report_data.to_date" holder="to" text="to" />
             </v-col>
             <v-col>
               <CurrencyAutoComplete

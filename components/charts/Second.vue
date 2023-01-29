@@ -82,7 +82,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("report/index", { ...this.report_data });
+    // this.$store.dispatch("report/index", { ...this.report_data });
   },
   computed: {
     ...mapState({

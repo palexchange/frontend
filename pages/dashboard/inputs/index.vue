@@ -12,7 +12,7 @@
         </v-row>
       </v-card-title>
     </Card>
-    <DataTable module="receipt" :params="{ type: 1 }" />
+    <DataTable module="receipt" :params="params" />
   </div>
 </template>
 
@@ -22,6 +22,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      params: {},
       form: {
         type: "0",
         main_currency_id: 1,
@@ -36,6 +37,7 @@ export default {
     }),
   },
   mounted() {
+    this.params = { type: 1 };
     if (!this.all_currencies[0]) {
       this.$store.dispatch("currency/index");
     }

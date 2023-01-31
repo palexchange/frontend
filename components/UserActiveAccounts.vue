@@ -15,14 +15,10 @@
           return-object
           @change="(v) => updateAccount(v)"
           :value="
-            $auth.user.main_active_accounts.find(
-              (v) => v.currency_id == currency.id
-            )
+            main_active_accounts.find((v) => v.currency_id == currency.id)
           "
           :items="
-            $auth.user.active_accounts.filter(
-              (v) => v.currency_id == currency.id
-            )
+            user.active_accounts.filter((v) => v.currency_id == currency.id)
           "
         >
         </v-autocomplete>
@@ -43,6 +39,7 @@ export default {
     ...mapState({
       currencies: (state) => state.currency.all,
       main_active_accounts: (state) => state.auth.user.main_active_accounts,
+      user: (state) => state.auth.user,
     }),
   },
   methods: {

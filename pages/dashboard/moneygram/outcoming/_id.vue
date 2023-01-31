@@ -138,7 +138,7 @@
               required
               @change="
                 (v) => {
-                  setReceiverDate(v);
+                  setSenderData(v);
                   item.sender_party_id = v.id;
                 }
               "
@@ -164,7 +164,7 @@
               required
               @change="
                 (v) => {
-                  setReceiverDate(v);
+                  setSenderData(v);
                   item.sender_party_id = v.id;
                 }
               "
@@ -707,6 +707,7 @@ export default {
     ...mapState({
       currencies: (state) => state.currency.all,
       one: (state) => state.transfer.one,
+      one_party: (state) => state.party.one,
     }),
   },
   methods: {
@@ -719,20 +720,7 @@ export default {
       this.item.receiver_city_id = item.city_id;
     },
     setSenderData(item) {
-      if (item.sended_money_gram_count >= 2) {
-        this.$swal({
-          title: "تحذير",
-          text: `عدد الحركات السابقة ل ${item.name}  هو :  ${item.sended_money_gram_count}`,
-
-          icon: "warning",
-          confirmButtonText: this.$t("ok"),
-        });
-      }
-      if (!item) return;
-      this.item.sender_id_no = item.id_no;
-      this.sender_id_image = item.image ? item.image.url : null;
-      this.item.sender_phone = item.phone;
-      this.item.sender_address = item.address;
+      this.$store.dispatch("party/show", item.id);
     },
     signCurrency(vCalc, vModel, type, fromCurr, toCurr) {
       if (fromCurr == null || toCurr == null) return;
@@ -804,6 +792,26 @@ export default {
       if (val) {
         this.item = { ...val }; //JSON.parse(JSON.stringify(val));
       }
+    },
+    one_party: {
+      handler(item) {
+        if (!item) return;
+        if (item.sended_money_gram_count >= 2) {
+          this.$swal({
+            title: "تحذير",
+            text: `عدد الحركات السابقة ل ${item.name}  هو :  ${item.sended_money_gram_count}`,
+
+            icon: "warning",
+            confirmButtonText: this.$t("ok"),
+          });
+        }
+        if (!item) return;
+        this.item.sender_id_no = item.id_no;
+        this.sender_id_image = item.image ? item.image.url : null;
+        this.item.sender_phone = item.phone;
+        this.item.sender_address = item.address;
+      },
+      deep: true,
     },
   },
   mounted() {

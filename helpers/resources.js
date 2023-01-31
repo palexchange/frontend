@@ -25,7 +25,7 @@ export default (context) => {
     child: 'account',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name', 'description'],
+    headers: ['num', 'id', 'name', 'description'],
     functions: [{
       key: 'is_transaction',
       f: (v) => boolean_string(v)
@@ -35,7 +35,7 @@ export default (context) => {
     child: 'item',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'image_url', 'name', 'category.name', 'price', 'price1', 'price2', 'price3', 'description', 'created_at']
+    headers: ['num', 'id', 'image_url', 'name', 'category.name', 'price', 'price1', 'price2', 'price3', 'description', 'created_at']
   },
   {
     child: 'currency',
@@ -63,49 +63,49 @@ export default (context) => {
     child: 'daily_meal',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'item.name', 'item.image_url', 'date']
+    headers: ['num', 'id', 'item.name', 'item.image_url', 'date']
   },
   {
     child: 'order',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'user.name', 'total', 'created_at', 'status', 'notes'],
+    headers: ['num', 'id', 'user.name', 'total', 'created_at', 'status', 'notes'],
   },
   {
     child: 'file',
     parent: '',
     has_files: true,
     // load_after_store: true,
-    // headers: ['id', 'user.name', 'total', 'created_at', 'status', 'notes'],
+    // headers: ['num','id', 'user.name', 'total', 'created_at', 'status', 'notes'],
   },
   {
     child: 'party',
     parent: '',
-    headers: ['id', 'image', 'name', 'id_no', 'created_at', 'address', 'country_name', 'phone'],
+    headers: ['num', 'id', 'image', 'name', 'id_no', 'created_at', 'address', 'country_name', 'phone'],
   },
   {
     child: 'role',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name'],
+    headers: ['num', 'id', 'name'],
   },
   {
     child: 'permission',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name'],
+    headers: ['num', 'id', 'name'],
   },
   {
     child: 'role_permission',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name'],
+    headers: ['num', 'id', 'name'],
   },
   {
     child: 'exchange',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'user.name', 'profit', 'party_name', 'status', 'date'],
+    headers: ['num', 'id', 'user.name', 'profit', 'party_name', 'status', 'date'],
 
     functions: [
       {
@@ -120,20 +120,20 @@ export default (context) => {
   //   child: 'receipt',
   //   parent: '',
   //   load_after_store: true,
-  //   headers: ['id', 'party_name', 'amount', 'currency', 'date', 'factor'],
+  //   headers: ['num','id', 'party_name', 'amount', 'currency', 'date', 'factor'],
   // },
   {
     child: 'account_type',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name', 'parent_name'],
+    headers: ['num', 'id', 'name', 'parent_name'],
   },
   {
     child: 'exchange_detail',
     parent: '',
     load_after_store: false,
     silent: true,
-    headers: ['id', 'exchange_id', 'amount', 'currency_name', 'exchange_rate', 'type'],
+    headers: ['num', 'id', 'exchange_id', 'amount', 'currency_name', 'exchange_rate', 'type'],
     functions: [
       {
         key: 'type',
@@ -147,7 +147,7 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'receiver_party.name', 'office.name', 'profit'],
+    headers: ['num', 'id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'receiver_party.name', 'office.name', 'profit'],
     functions: [
       {
         key: 'profit',
@@ -179,7 +179,7 @@ export default (context) => {
     child: 'user',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name', 'email', 'status', 'role', 'created_at'],
+    headers: ['num', 'id', 'name', 'email', 'status', 'role', 'created_at'],
     functions: [{
       key: 'status',
       f: (v) => v == 1 ? t('active') : t('inactive')
@@ -194,31 +194,31 @@ export default (context) => {
     child: 'category',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'image_url', 'name', 'description', 'created_at'],
+    headers: ['num', 'id', 'image_url', 'name', 'description', 'created_at'],
   },
   {
     child: 'order_item',
     parent: 'order',
     load_after_store: true,
-    headers: ['id', 'order_id', 'item.name', 'qty', 'item_price']
+    headers: ['num', 'id', 'order_id', 'item.name', 'qty', 'item_price']
   },
   {
     child: 'country',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name', 'iso3', 'currency_id']
+    headers: ['num', 'id', 'name', 'iso3', 'currency_id']
   },
   {
     child: 'city',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name']
+    headers: ['num', 'id', 'name']
   },
   {
     child: 'setting',
     parent: '',
     load_after_store: true,
-    headers: ['id', 'name', 'type']
+    headers: ['num', 'id', 'name', 'type']
   },
   {
     child: 'report',
@@ -285,7 +285,7 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['id', 'statement', 'inverse_entry_id', 'status', 'created_at'],
+    headers: ['num', 'id', 'statement', 'inverse_entry_id', 'status', 'created_at'],
     functions: [
       {
         key: 'statement',
@@ -299,7 +299,7 @@ export default (context) => {
     parent: '',
     silent: true,
     load_after_store: false,
-    headers: ['id', 'account_name', 'debtor', 'creditor', 'currency_name', 'exchange_rate', 'ac_debtor', 'ac_creditor'],
+    headers: ['num', 'id', 'account_name', 'debtor', 'creditor', 'currency_name', 'exchange_rate', 'ac_debtor', 'ac_creditor'],
     functions: [
       {
         key: 'ac_creditor',
@@ -326,7 +326,7 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['id', 'user.name', 'from_account_name', 'to_account_name', 'from_amount', 'currency.name', 'exchange_rate', 'to_amount', 'status', 'created_at'],
+    headers: ['num', 'id', 'user.name', 'from_account_name', 'to_account_name', 'from_amount', 'currency.name', 'exchange_rate', 'to_amount', 'status', 'created_at'],
     functions: [
       {
         key: 'status',

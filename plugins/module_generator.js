@@ -64,7 +64,7 @@ export default (context, inject) => {
           });
           response = await this.$axios.$get(`/${path}`, {
             params: {
-              page: state.meta.current_page,
+              page: state.meta?.current_page,
               per_page: -1,
               ...params,
             },
@@ -133,7 +133,7 @@ export default (context, inject) => {
         try {
           response = await this.$axios.$get(`/${path}`, {
             params: {
-              page: state.meta.current_page,
+              page: state.meta?.current_page,
               ...params,
             },
             responseType: (resource.is_file && params.is_file) ? 'blob' : ''
@@ -337,7 +337,8 @@ export default (context, inject) => {
         commit,
         dispatch,
         state
-      }, data) {
+      }, ItemAndParams) {
+        const data = ItemAndParams.item;
         // dispatch("setDeleteRequest", {
         // rq: async () => {
         let url = (resource.parent ? `/${resource.parent}/${data[resource.parent + '_id']}/` : '') + resource.child + '/' + data.id;
@@ -351,7 +352,9 @@ export default (context, inject) => {
         if (resource.parent) {
           params[resource.parent + '_id'] = data[resource.parent + '_id'];
         }
-        dispatch('index', state.params);
+        console.log(ItemAndParams);
+        console.log("ItemAndParams");
+        dispatch('index', ItemAndParams.params);
         commit('setOne', response.data);
         //     },
         //     resource,
@@ -402,7 +405,10 @@ export default (context, inject) => {
         if (data[1]) {
           const key = data[1]
           const value = data[0]
-          Object.assign(state, { [key]: { ...value } });
+          console.log("key");
+          console.log(key);
+          console.log(value);
+          Object.assign(state, { [key]: structuredClone(value) });
           // state = { ...state, :  };
         }
         else {

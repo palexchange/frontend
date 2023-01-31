@@ -48,7 +48,7 @@
         <v-col>
           <AutoComplete
             @input="search"
-            :items="transfers_status"
+            :items="transfers_statuses"
             v-model="filters.status"
             hide-details
             holder="transfer status"
@@ -135,7 +135,7 @@ export default {
       );
     },
     cancel(item) {
-      this.$remove(item, "transfer");
+      this.$remove(item, "transfer", this.params);
     },
     // delete(item) {
     //   this.$remove(item, "item");

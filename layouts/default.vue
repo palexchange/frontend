@@ -168,7 +168,10 @@ export default {
         }).then((v) => {
           this.$store.dispatch("setModule", null);
           if (v.value) {
-            this.$store.dispatch(`${val.resource}/delete`, val.item);
+            this.$store.dispatch(`${val.resource}/delete`, {
+              item: val.item,
+              params: val.params,
+            });
           }
         });
       }

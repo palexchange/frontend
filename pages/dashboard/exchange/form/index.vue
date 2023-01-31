@@ -92,6 +92,9 @@
               hide-default-footer
               :items="detail_items"
             >
+              <template v-slot:item.type="{ item }">
+                {{ [$t("from"), $t("to")][item.type - 1] }};
+              </template>
             </v-data-table>
             <!-- <DataTable
               hide_pagination
@@ -114,12 +117,28 @@ export default {
   data() {
     return {
       detial_headers: [
-        { text: "id", value: "id" },
-        { text: "exchange_id", value: "exchange_id" },
-        { text: "amount", value: "amount" },
-        { text: "currency_name", value: "currency_name" },
-        { text: "exchange_rate", value: "exchange_rate" },
-        { text: "type", value: "type" },
+        { align: "center", text: `${this.$t("id")}`, value: "id" },
+        {
+          align: "center",
+          text: `${this.$t("exchange_id")}`,
+          value: "exchange_id",
+        },
+        {
+          align: "center",
+          text: `${this.$t("type")}`,
+          value: "type",
+        },
+        { align: "center", text: `${this.$t("amount")}`, value: "amount" },
+        {
+          align: "center",
+          text: `${this.$t("currency_name")}`,
+          value: "currency_name",
+        },
+        {
+          align: "center",
+          text: `${this.$t("exchange_rate")}`,
+          value: "exchange_rate",
+        },
       ],
       show_filter: false,
       expanded_item: [],

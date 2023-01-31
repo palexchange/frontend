@@ -63,7 +63,7 @@
           </v-col>
         </v-row>
       </template>
-      <template v-slot:item.id="{ index }">
+      <template v-slot:item.num="{ index }">
         {{ index + 1 }}
       </template>
       <template v-slot:item.status="{ item }">
@@ -76,9 +76,9 @@
           >
             {{ all_status[item.status].label }}
           </div>
-          <div v-else :class="static_status[item.status].class">
+          <!-- <div v-else :class="static_status[item.status].class">
             {{ $t(item.status) }}
-          </div>
+          </div> -->
         </div>
       </template>
       <template v-slot:item.currency_id="{ item }">
@@ -91,9 +91,9 @@
           >
             {{ all_currencies_id[item.currency_id].label }}
           </div>
-          <div v-else :class="static_status[item.currency_id].class">
+          <!-- <div v-else :class="static_status[item.currency_id].class">
             {{ $t(item.currency_id) }}
-          </div>
+          </div> -->
         </div>
       </template>
       <template v-slot:item.actions="{ item }">

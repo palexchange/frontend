@@ -13,7 +13,6 @@
       style="border-radius: 0px !important"
       :items="all"
       dense
-      :search-input.sync="search"
       :disabled="dashed"
       :required="this.required ? true : false"
       outlined

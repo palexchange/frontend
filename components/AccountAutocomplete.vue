@@ -28,9 +28,9 @@
             color="#E0E0FF"
             depressed
             block
-            @click="$store.dispatch('setDialog', { name: 'AddBeneficiary' })"
+            @click="$store.dispatch('setDialog', { name: 'AddAccount' })"
           >
-            {{ $t("add beneficiary") }}
+            {{ $t("add account") }}
           </v-btn>
           <v-btn
             color="#E0E0FF"
@@ -91,6 +91,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    force_fetch: {
+      type: Boolean,
+      default: false,
+    },
     filter: {
       type: Function,
     },
@@ -108,10 +112,12 @@ export default {
   },
   created() {
     if (this.no_fetch) return;
-    if (!this.all[0]) {
+    if (!this.all[0] || this.force_fetch) {
       this.$store.dispatch("account/index", this.params);
     }
+    // this.$store.dispatch("account/index", this.params);
   },
+
   computed: {
     ...mapState({
       all: (state) => JSON.parse(JSON.stringify(state.account.all)),

@@ -369,22 +369,28 @@ export default {
         obj.used_factor = parseFloat(
           e.modified_factor || e.exchanged_vactor || 0
         );
-        console.log("Used Factor: ", obj.used_factor);
+
         if (obj.sale_factor == 0) return;
 
         obj.sale_factor = parseFloat(
           this.$newCalcSalePrice(this.item.currency, this.all_currencies[index])
         );
-        obj.buy_factor = parseFloat(
-          this.$newCalcBuyPrice(this.item.currency, this.all_currencies[index])
-        );
-        obj.calc_profit_factor = (obj.buy_factor + obj.sale_factor) / 2;
+        obj.buy_factor =
+          this.$newCalcBuyPrice(
+            this.item.currency,
+            this.all_currencies[index]
+          ) * 1;
 
-        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor);
+        obj.calc_profit_factor = (
+          (obj.buy_factor + obj.sale_factor) /
+          2
+        ).toFixed((obj.buy_factor + "").length - 1);
+
+        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor).toFixed();
         e.amount_in_main_curr = obj.amount;
         total_extra_amount += obj.amount * 1;
 
-        obj.new_amount = parseFloat(obj.amount * obj.calc_profit_factor);
+        obj.new_amount = parseFloat(obj.amount * obj.calc_profit_factor).toFixed(5)*1;
         obj.profit_in_to_currency = obj.new_amount - obj.exchanged_amount;
         obj.sale_factor_from_to_currency = parseFloat(
           this.$newCalcSalePrice(this.all_currencies[index], { id: 1 })
@@ -396,6 +402,8 @@ export default {
           (obj.sale_factor_from_to_currency + obj.buy_factor_from_to_currency) /
           2;
         obj.profit = obj.profit_in_to_currency * obj.calc_new_factor;
+        console.log("obj");
+        console.log(obj);
         final_profit += obj.profit;
       });
 
@@ -420,6 +428,8 @@ export default {
       main_amount = main_amount * 1;
       final_profit = final_profit - (total_extra_amount - main_amount) * mid;
       this.exchange.profit = parseFloat(final_profit).toFixed(5);
+      console.log("final_profit");
+      console.log(final_profit);
       return parseFloat(final_profit).toFixed(4);
     },
   },
@@ -578,10 +588,6 @@ export default {
     changed_ex_factor(element, event, index, to_curr) {
       let new_value = parseFloat(event.target.value);
       let old_value = parseFloat(element.exchanged_vactor);
-      console.log("old_value");
-      console.log(old_value);
-      console.log("new_value");
-      console.log(new_value);
       // element.exchanged_vactor = new_value;
 
       let from = this.item.currency;
@@ -598,7 +604,7 @@ export default {
     },
     sum_fields() {
       if (!this.items[0]) return 0;
-      console.log(this.items);
+
       let total = this.items.reduce((e, n) => {
         let factor =
           parseFloat(n.modified_factor || 0) > 0

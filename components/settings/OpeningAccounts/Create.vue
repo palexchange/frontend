@@ -15,8 +15,9 @@
                 <AccountAutocomplete
                   @change="(v) => get_boxes(v)"
                   required
+                  force_fetch
                   return-object
-                  :params="{ type_id: 4, per_page: -1 }"
+                  :params="{ type_id: 4, per_page: 1000 }"
                   v-model="main_account"
                   text="حساب الخزينة"
                   holder="حساب الخزينة"

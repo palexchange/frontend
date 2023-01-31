@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     cancel(item) {
-      this.$remove(item, "receipt");
+      this.$remove(item, "receipt", this.params);
     },
   },
 

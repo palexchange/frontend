@@ -89,12 +89,12 @@ export default (context, inject) => {
     return data;
 
   });
-  inject('remove', (item, resource, redirect = null) => {
+  inject('remove', (item, resource, params = null) => {
     console.log(item);
     console.log(resource);
     console.log("☺1♦☻♥");
     if (item.id) {
-      context.store.dispatch('setDeleteData', { item, resource });
+      context.store.dispatch('setDeleteData', { item, resource, params });
     }
   });
   inject('editPreventer', (item, resource, redirect = null) => {
@@ -215,7 +215,7 @@ export default (context, inject) => {
     });
     if (to.id == 1) {
       if (from_currency) {
-        return (1 / from_currency.start_selling_price) * 1;
+        return (1 / from_currency.start_selling_price).toFixed(16);
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -231,7 +231,7 @@ export default (context, inject) => {
       }
       if (to_currency && from_currency) {
 
-        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price) * 1;
+        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(16);
       }
     }
 
@@ -250,7 +250,7 @@ export default (context, inject) => {
       return 1;
     } else if (to.id == 1) {
       if (from_currency) {
-        return (1 / from_currency.start_purchasing_price) * 1;
+        return (1 / from_currency.start_purchasing_price).toFixed(16);
       }
     } else if (from.id == 1) {
       if (to_currency) {
@@ -265,7 +265,7 @@ export default (context, inject) => {
         return converter.start_purchasing_price;
       }
       if (to_currency && from_currency) {
-        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price) * 1;
+        return ((1 / from_currency.start_purchasing_price) * to_currency.start_purchasing_price).toFixed(16);
       }
     }
 

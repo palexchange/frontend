@@ -22,7 +22,7 @@
         >
       </v-col>
     </v-row>
-    <data-table module="account"> </data-table>
+    <data-table :params="{ per_page: 15 }" module="account"> </data-table>
   </div>
 </template>
 

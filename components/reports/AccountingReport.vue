@@ -150,7 +150,16 @@ export default {
       receipt.to_amount = this.receipt.amount / receipt.exchange_rate;
       receipt.to_account_id = this.user.main_active_accounts.find((e) => {
         return receipt.currency_id == e.currency_id;
-      }).id;
+      })?.id;
+      if (!receipt.to_account_id) {
+        this.$swal({
+          title: this.$t("Error Happend"),
+          text: "ليس لديك صندوق للترحيل عليه بهذه العملة",
+          icon: "error",
+          confirmButtonText: this.$t("yes"),
+        });
+        return;
+      }
       receipt.from_account_id = this.report_data.account;
       receipt.statement = this.receipt.statement;
       this.$save(receipt, "receipt").then(() => {

@@ -123,7 +123,7 @@ export default {
       );
     },
     cancel(item) {
-      this.$remove(item, "transfer");
+      this.$remove(item, "transfer", this.params);
     },
     print(item) {
       this.$download_pdf({

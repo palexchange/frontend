@@ -72,7 +72,7 @@
                         allow-overflow
                         chips
                         select_all
-                        :params="{ per_page: -1, type_id: 3 }"
+                        :params="{ per_page: 1000, type_id: 3 }"
                         return-object
                         :filter="filter"
                         v-model="user_account"

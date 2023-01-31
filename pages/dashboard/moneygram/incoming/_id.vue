@@ -137,7 +137,7 @@
               required
               @change="
                 (v) => {
-                  setReceiverDate(v);
+                  setReceiverData(v);
                   item.receiver_party_id = v.id;
                 }
               "
@@ -190,7 +190,7 @@
               required
               @change="
                 (v) => {
-                  setReceiverDate(v);
+                  setReceiverData(v);
                   item.receiver_party_id = v.id;
                 }
               "
@@ -216,7 +216,7 @@
               required
               @change="
                 (v) => {
-                  setReceiverDate(v);
+                  setReceiverData(v);
                   item.receiver_party_id = v.id;
                 }
               "
@@ -705,6 +705,7 @@ export default {
     ...mapState({
       currencies: (state) => state.currency.all,
       one: (state) => state.transfer.one,
+      one_party: (state) => state.party.one,
     }),
   },
   methods: {
@@ -779,21 +780,8 @@ export default {
       );
       // console.log(this.item);
     },
-    setReceiverDate(item) {
-      if (item.received_money_gram_count >= 2) {
-        this.$swal({
-          title: "تحذير",
-          text: `عدد الحركات السابقة ل ${item.name}  هو :  ${item.received_money_gram_count}`,
-          icon: "warning",
-          confirmButtonText: this.$t("ok"),
-        });
-      }
-      if (!item) return;
-      console.log(item);
-      this.item.receiver_party_id = item.id_no;
-      this.receiver_id_image = item.image ? item.image.url : null;
-      this.item.receiver_phone = item.phone;
-      this.item.receiver_address = item.address;
+    setReceiverData(item) {
+      this.$store.dispatch("party/show", item.id);
     },
     setSenderDate(item) {
       this.item.sender_id_no = item.id_no;
@@ -894,7 +882,7 @@ export default {
       : null;
   },
   mounted() {
-        if (!this.$route.params.id) {
+    if (!this.$route.params.id) {
       this.item.started_at = this.$getDateTime();
     }
     if (this.$route.query.show && this.$route.query.show == "true") {
@@ -910,6 +898,24 @@ export default {
         // this.item.exchange_rate_to_reference_currency_view =
         //   this.one.exchange_rate_to_reference_currency;
       }
+    },
+    one_party: {
+      handler(item) {
+        if (!item) return;
+        if (item.received_money_gram_count >= 2) {
+          this.$swal({
+            title: "تحذير",
+            text: `عدد الحركات السابقة ل ${item.name}  هو :  ${item.received_money_gram_count}`,
+            icon: "warning",
+            confirmButtonText: this.$t("ok"),
+          });
+        }
+        this.item.receiver_id_no = item.id_no;
+        this.receiver_id_image = item.image ? item.image.url : null;
+        this.item.receiver_phone = item.phone;
+        this.item.receiver_address = item.address;
+      },
+      deep: true,
     },
     app_setting(val) {
       this.item.sender_party_id = val["general_customer"]

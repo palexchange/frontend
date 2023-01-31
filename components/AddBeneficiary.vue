@@ -167,6 +167,7 @@ export default {
         } else {
           this.$store.dispatch("party/push", data.id);
         }
+        this.$store.dispatch("account/index", { per_page: -1 });
       });
       this.dialog = false;
       this.form = {};

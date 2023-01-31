@@ -16,7 +16,7 @@
                   @change="(v) => get_boxes(v)"
                   required
                   return-object
-                  :params="{ type_id: 4, per_page: -1 }"
+                  :params="{ type_id: 4, per_page: 1000 }"
                   v-model="main_account"
                   text="إلي حساب الخزينة"
                   holder="إلي حساب الخزينة"

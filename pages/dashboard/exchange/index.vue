@@ -381,16 +381,20 @@ export default {
             this.all_currencies[index]
           ) * 1;
 
-        obj.calc_profit_factor = (
-          (obj.buy_factor + obj.sale_factor) /
-          2
-        ).toFixed((obj.buy_factor + "").length - 1);
+        obj.calc_profit_factor =
+          // the mid
+          ((obj.buy_factor + obj.sale_factor) / 2).toFixed(
+            (obj.buy_factor + "").length - 1
+          ) * 1;
 
-        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor).toFixed();
+        obj.amount = parseFloat(
+          obj.exchanged_amount / obj.used_factor
+        ).toFixed();
         e.amount_in_main_curr = obj.amount;
         total_extra_amount += obj.amount * 1;
 
-        obj.new_amount = parseFloat(obj.amount * obj.calc_profit_factor).toFixed(5)*1;
+        obj.new_amount =
+          parseFloat(obj.amount * obj.calc_profit_factor).toFixed(5) * 1;
         obj.profit_in_to_currency = obj.new_amount - obj.exchanged_amount;
         obj.sale_factor_from_to_currency = parseFloat(
           this.$newCalcSalePrice(this.all_currencies[index], { id: 1 })

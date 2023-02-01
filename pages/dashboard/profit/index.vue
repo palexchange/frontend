@@ -87,6 +87,18 @@
           <v-row class="shadowing">
             <v-col
               ><h3>
+                {{ transfer_profit_acc.name }}
+              </h3></v-col
+            >
+            <v-col>
+              <h2>
+                {{ transfer_profit_acc.balance }}
+              </h2></v-col
+            >
+          </v-row>
+          <v-row class="shadowing">
+            <v-col
+              ><h3>
                 {{ exchange_profit_acc.name }}
               </h3></v-col
             >
@@ -173,7 +185,11 @@ export default {
   },
   mounted() {
     // this.$auth.fetchUser();
-    this.$store.dispatch("account/index", { is_transaction: true });
+    this.$store.dispatch("account/index", {
+      is_transaction: true,
+      no_party: true,
+      per_page: -1,
+    });
     this.$store.dispatch("stock_transaction/index", {
       per_page: 14,
     });

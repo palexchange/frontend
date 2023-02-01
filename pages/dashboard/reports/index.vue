@@ -103,6 +103,9 @@ export default {
       report: (state) => state.report.all || [],
     }),
   },
+  mounted() {
+    this.$store.dispatch("account/index", { per_page: -1 });
+  },
 };
 </script>
 

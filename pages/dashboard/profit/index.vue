@@ -188,7 +188,7 @@ export default {
     this.$store.dispatch("account/index", {
       is_transaction: true,
       no_party: true,
-      per_page: -1,
+      per_page: 300,
     });
     this.$store.dispatch("stock_transaction/index", {
       per_page: 14,

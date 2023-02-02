@@ -406,9 +406,42 @@ export default {
           (obj.sale_factor_from_to_currency + obj.buy_factor_from_to_currency) /
           2;
         obj.profit = obj.profit_in_to_currency * obj.calc_new_factor;
-        console.log("obj");
-        console.log(obj);
-        final_profit += obj.profit;
+        const new_obj = {};
+        if (e.exchanged_amount) {
+          new_obj.from_amount = e.amount_in_main_curr * 1;
+          new_obj.from_curr_id = this.item.currency?.id;
+          new_obj.to_amount = e.exchanged_amount * 1;
+          new_obj.to_curr_id = e.currency_id;
+          new_obj.from_curr_to_doller_mid =
+            this.all_stocks.find((s) => s.currency_id == new_obj.from_curr_id)
+              ?.mid * 1;
+          new_obj.to_curr_to_doller_mid =
+            this.all_stocks.find((s) => s.currency_id == new_obj.to_curr_id)
+              ?.mid * 1;
+
+          if (new_obj.from_curr_id == 4) {
+            new_obj.from_in_usd_amout =
+              new_obj.from_amount * new_obj.from_curr_to_doller_mid;
+          } else {
+            new_obj.from_in_usd_amout =
+              new_obj.from_amount / new_obj.from_curr_to_doller_mid;
+          }
+          if (new_obj.to_curr_id == 4) {
+            new_obj.to_in_usd_amout =
+              new_obj.to_amount * new_obj.to_curr_to_doller_mid;
+          } else {
+            new_obj.to_in_usd_amout =
+              new_obj.to_amount / new_obj.to_curr_to_doller_mid;
+          }
+
+          new_obj.profit = new_obj.from_in_usd_amout - new_obj.to_in_usd_amout;
+          console.log("eeeeeeeeeeeeeeeee");
+          console.log(e.amount_in_main_curr);
+          console.log(e);
+          console.log("new_obj");
+          console.log(new_obj);
+        }
+        final_profit += new_obj.profit;
       });
 
       // this.stocks;
@@ -545,7 +578,9 @@ export default {
       let sale = this.$newCalcSalePrice(from, to);
       let buy = this.$newCalcBuyPrice(from, to);
       let temp = Math.min(buy, sale);
-
+      if (this.items[index].currency_id == 4) {
+        temp = Math.max(buy, sale);
+      }
       let factor_to_view =
         to.weight * 1 > from.weight * 1
           ? Math.max(
@@ -553,11 +588,16 @@ export default {
               this.$newCalcSalePrice(to, from)
             )
           : temp;
-
+      if (this.items[index].currency_id == 4) {
+        factor_to_view = temp;
+      }
       this.items[index].exchanged_vactor = temp * 1;
       this.items[index].exchanged_vactor_view = factor_to_view.toFixed(5);
 
       this.items[index].exchanged_amount = (amount * temp).toFixed(5);
+      if (this.items[index].currency_id == 4) {
+        this.items[index].exchanged_amount = (amount / temp).toFixed(5);
+      }
       this.items[index].modified_factor = null;
       this.items[index].modified_factor_view = null;
       this.number = this.number + 1;
@@ -600,10 +640,15 @@ export default {
       if (to.weight * 1 > from.weight * 1) {
         new_value = (1 / new_value) * 1;
       }
+      console.log(new_value, "|new_value");
+      console.log(old_value, "old_value");
       if (new_value == old_value) return;
       let old_amount = element.exchanged_amount / parseFloat(old_value);
+      if (this.items[index].currency_id == 4) {
+        old_amount = element.exchanged_amount * parseFloat(old_value);
+      }
       let new_ex_amount = old_amount * new_value;
-      element.exchanged_vactor = (new_value * 1).toFixed(5);
+      element.exchanged_vactor = new_value * 1;
       element.exchanged_amount = new_ex_amount.toFixed(2);
     },
     sum_fields() {
@@ -694,14 +739,28 @@ export default {
         .map(() => new Array(4).fill(false));
       this.addnumberToReRender();
       if (this.exchange_profit < 0) {
-        this.$swal.fire({
-          title: this.$t("Error Happend"),
-          text: this.$t("cant create exchnage in minus"),
-          icon: "error",
-          confirmButtonText: "Ok",
-          confirmButtonColor: "#41b882",
-        });
+        this.$swal
+          .fire({
+            title: this.$t("warning"),
+            text: this.$t("cant create exchnage in minus"),
+            icon: "warning",
+            confirmButtonText: this.$t("continue"),
+            showCloseButton: true,
+            showCancelButton: true,
+            cancelButtonText: this.$t("back"),
+            confirmButtonColor: "#41b882",
+          })
+          .then((data) => {
+            if (data.isConfirmed) {
+              this.submit_save();
+            }
+          });
+      } else {
+        this.submit_save();
       }
+    },
+
+    submit_save() {
       this.prepare_exchange().then(() => {
         this.$store.dispatch("exchange/store", this.exchange).then(() => {
           this.items = [];

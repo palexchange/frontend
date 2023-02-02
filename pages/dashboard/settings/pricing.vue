@@ -288,17 +288,18 @@ export default {
         } else {
           stock.start_selling_price = new_price;
         }
-      } else if ([4].includes(stock.currency_id)) {
-        if (type == "buy")
-          stock.start_purchasing_price =
-            parseFloat(1 / stock.start_purchasing_price).toFixed(4) * 1;
-        else
-          stock.start_selling_price =
-            parseFloat(1 / stock.start_selling_price).toFixed(4) * 1;
-      } else {
-        console.log("Enterd else Part");
-        return;
       }
+      // else if ([4].includes(stock.currency_id)) {
+      //   if (type == "buy")
+      //     stock.start_purchasing_price =
+      //       parseFloat(1 / stock.start_purchasing_price).toFixed(4) * 1;
+      //   else
+      //     stock.start_selling_price =
+      //       parseFloat(1 / stock.start_selling_price).toFixed(4) * 1;
+      // } else {
+      //   console.log("Enterd else Part");
+      //   return;
+      // }
     },
     // generate_stocks(items) {
     //   return items.map((currency) => {

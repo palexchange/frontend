@@ -280,7 +280,8 @@
   "to box": "إلي صندوق",
   "from ammount": "من كمية",
   "to ammount": "إلي كمية",
-  "cant create exchnage in minus": "لا يمكن انشاء حركة صرافة بالسالب",
+  "warning": "تحذير",
+  "cant create exchnage in minus": "لا يمكن انشاء حركة صرافة بربحية سالبة",
   "admin": "مدير نظام",
   "accounting settings": "الإعدادات المحاسبية",
   "from_account_name": "من حساب",
@@ -446,6 +447,8 @@
   "exchange status": "حالة عملية الصرف",
   "from currency": "من العملة",
   "export name": "اسم ملف التصدير",
+  "back": "تراجع",
+  "continue": "استكمال",
   "transfers and exchange transactions": "حركات و مبالغ عمليات الصرافة و الحوالات",
   "to currency": "إلى العملة"
 }

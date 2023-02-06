@@ -163,33 +163,31 @@ export default {
   methods: {
     save() {
       this.$save(this.form, "account").then((data) => {
-        if (this.expand && this.user_account[0] && data) {
-          this.user_account.forEach((v) => {
-            let item = {
-              account_id: data.id,
-              id: v.id,
-              user_id: v.user_id,
-              name: v.name,
-              status: v.status == 1 ? 1 : 0,
-            };
-            this.$save(item, "user_account");
-          });
-        }
-        if (
-          (data && data.id && this.entry.creditor > 0) ||
-          this.entry.creditor > 0
-        ) {
-          this.$save(this.entry, "entry").then((data) => {
-            if (data.id) {
-              let transition = {
-                debtor: this.entry.debtor,
-                creditor: this.entry.creditor,
-                entry_id: data.id,
-              };
-              this.$save(this.entry, "entry_transaction");
-            }
-          });
-        }
+        // if (this.expand && this.user_account[0] && data) {
+        //   this.user_account.forEach((v) => {
+        //     let item = {
+        //       account_id: data.id,
+        //       id: v.id,
+        //       user_id: v.user_id,
+        //       name: v.name,
+        //       status: v.status == 1 ? 1 : 0,
+        //     };
+        //     this.$save(item, "user_account");
+        //   });
+        // }
+        // if ((data && data.id && this.entry.creditor > 0) ||this.entry.creditor > 0) {
+        //   this.$save(this.entry, "entry").then((data) => {
+        //     if (data.id) {
+        //       let transition = {
+        //         debtor: this.entry.debtor,
+        //         creditor: this.entry.creditor,
+        //         entry_id: data.id,
+        //       };
+        //       this.$save(this.entry, "entry_transaction");
+        //     }
+        //   });
+        // }
+        this.$store.dispatch("account/pushToAll", data.id);
         if (data && data.id) {
           this.$store.dispatch("closeDialog");
         }

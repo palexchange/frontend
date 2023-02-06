@@ -10,11 +10,7 @@
                   {{ acc.name }}
                 </v-card-title>
                 <v-card-subtitle>
-                  {{
-                    $t("balance") +
-                    ": " +
-                    (acc.net_balance < 0 ? 0 : acc.net_balance)
-                  }}
+                  {{ $t("balance") + ": " + acc.net_balance }}
                 </v-card-subtitle>
               </v-card>
             </v-col>
@@ -295,7 +291,7 @@ export default {
     },
     funds_total() {
       this.totals = this.active_accounts.map((account) => {
-        let net_balance = account.net_balance <= 0 ? 0 : account.net_balance;
+        let net_balance = account.net_balance;
         return (
           net_balance / this.getMorningExchangeRate(account.currency_id)
         ).toFixed(3);
@@ -304,7 +300,7 @@ export default {
     },
     funds_total2() {
       this.totals2 = this.active_accounts.map((account) => {
-        let net_balance = account.net_balance <= 0 ? 0 : account.net_balance;
+        let net_balance = account.net_balance;
         return (
           net_balance / this.getNightExchangeRate(account.currency_id)
         ).toFixed(3);

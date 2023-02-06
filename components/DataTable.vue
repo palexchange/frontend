@@ -11,6 +11,7 @@
       :items-per-page="per_page_num"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
+      @dblclick:row="click_function"
       :headers="
         noActions
           ? $translateHeaders(headers)
@@ -184,6 +185,10 @@ export default {
       type: String,
       defualt: null,
     },
+    click_function: {
+      type: Function,
+      defualt: () => 1,
+    },
     hidden_headers: Array,
   },
   data() {
@@ -338,6 +343,9 @@ export default {
     },
   },
   methods: {
+    EmptyFun() {
+      return this.click_function;
+    },
     updateSortBy(event) {
       this.sortingData.sortBy = event;
       let jsonObj = JSON.stringify(this.sortingData);

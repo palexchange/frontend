@@ -9,6 +9,7 @@
           <v-row class="mt-5 lg5-custome-row">
             <v-col cols="12" lg="4" xs="12" sm="6">
               <AutoComplete
+                :readonly="showReadOnly"
                 required
                 :items="accounts"
                 text="from account"
@@ -18,6 +19,8 @@
             </v-col>
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
+                type="number"
+                :readonly="showReadOnly"
                 required
                 text="recived amount"
                 holder="recived amount"
@@ -28,6 +31,7 @@
 
             <v-col cols="12" lg="4" xs="12" sm="6">
               <CurrencyAutoComplete
+                :readonly="showReadOnly"
                 @change="(v) => setToaccount(v)"
                 required
                 text="currency"
@@ -43,6 +47,7 @@
                 " -->
 
               <AccountAutocomplete
+                :readonly="showReadOnly"
                 required
                 text="إلي حساب"
                 holder="إلي حساب"
@@ -66,7 +71,9 @@
 
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
+                :readonly="showReadOnly"
                 required
+                type="number"
                 text="conversion factor to usd"
                 @input="(v) => this.refreshNum++"
                 holder="conversion factor to usd"
@@ -75,7 +82,9 @@
             </v-col>
             <v-col cols="12" md="2" sm="12">
               <InputField
+                :readonly="showReadOnly"
                 disabledd
+                type="number"
                 text="amount in usd"
                 holder="amount in usd"
                 :value="to_amount"
@@ -85,6 +94,7 @@
           <v-row dense>
             <v-col cols="12" md="6" sm="12">
               <InputField
+                :readonly="showReadOnly"
                 text="statement"
                 holder="statement"
                 v-model="form.statement"
@@ -93,7 +103,7 @@
           </v-row>
         </v-form>
         <v-row justify="center">
-          <v-col cols="2">
+          <v-col v-if="!showReadOnly" cols="2">
             <v-btn
               @click="
                 validated
@@ -118,6 +128,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      showReadOnly: false,
       validated: false,
       refreshNum: 0,
       form: {
@@ -134,6 +145,7 @@ export default {
     ...mapState({
       all_currencies: (state) => state.currency.all,
       user: (state) => state.auth.user,
+      one: (state) => state.receipt.one,
       accounts: (state) => state.account.all,
     }),
     to_amount() {
@@ -151,6 +163,9 @@ export default {
     }
     if (!this.accounts[0]) {
       this.$store.dispatch("account/index");
+    }
+    if (this.$route.query.show && this.$route.query.show == "true") {
+      this.showReadOnly = true;
     }
   },
   methods: {
@@ -182,6 +197,25 @@ export default {
     //   this.form.exchange_rate = this.$newCalcSalePrice({ id: 1 }, { id: e });
     //   this.refreshNum++;
     // },
+  },
+  watch: {
+    one: {
+      handler(val) {
+        if (val) {
+          this.form = { ...val }; //JSON.parse(JSON.stringify(val));
+        }
+      },
+      immediate: true,
+    },
+  },
+  created() {
+    if (process.client) {
+      if (this.$route.params.id) {
+        if (this.one && this.one.id != this.$route.params.id) {
+          this.$store.dispatch("receipt/show", this.$route.params.id);
+        }
+      }
+    }
   },
 };
 </script>

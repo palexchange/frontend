@@ -26,6 +26,7 @@
                 :is="tab.component_name"
               >
                 <data-table
+                  :click_function="showDocument"
                   noActions
                   nums="#"
                   module="report"
@@ -72,9 +73,56 @@ export default {
     };
   },
   methods: {
-    test() {
-      this.$download_pdf();
+    async showDocument(event, { item }) {
+      if (!item.document_type) return;
+      let resource = this.resources.get(item.document_type);
+      const document = await this.$store.dispatch(
+        `${resource}/show`,
+        item.r_id
+      );
+      if (item.document_type == 1) {
+        this.handle_transfer(document);
+      } else if (item.document_type == 2) {
+        this.handle_exchange(document);
+      } else if (item.document_type == 3) {
+        this.handle_recipt(document);
+      }
     },
+    handle_transfer(transfer) {
+      if (transfer.delivering_type == 2) {
+        if (transfer.type == 0) {
+          this.$router.push(
+            `/dashboard/moneygram/outcoming/${transfer.id}?show=true`
+          );
+        } else {
+          this.$router.push(
+            `/dashboard/moneygram/incoming/${transfer.id}?show=true`
+          );
+        }
+      } else {
+        if (transfer.type == 0) {
+          this.$router.push(
+            `/dashboard/transfers/outcoming/${transfer.id}?show=true`
+          );
+        } else {
+          this.$router.push(
+            `/dashboard/transfers/incoming/${transfer.id}?show=true`
+          );
+        }
+      }
+    },
+    handle_exchange(exchange) {
+      this.$router.push(`/dashboard/exchange/form/${exchange.id}`);
+    },
+    handle_recipt(receipt) {
+      if (receipt.type == 1) {
+        this.$router.push(`/dashboard/inputs/form/${receipt.id}?show=true`);
+      }
+      if (receipt.type == 2) {
+        this.$router.push(`/dashboard/outputs/form/${receipt.id}?show=true`);
+      }
+    },
+
     download_item(report_date) {
       if (this.create_one) {
         this.create_one = false;
@@ -102,6 +150,14 @@ export default {
     ...mapState({
       report: (state) => state.report.all || [],
     }),
+
+    resources() {
+      const resource_map = new Map();
+      resource_map.set(1, "transfer");
+      resource_map.set(2, "exchange");
+      resource_map.set(3, "receipt");
+      return resource_map;
+    },
   },
   mounted() {
     this.$store.dispatch("account/index", { per_page: -1 });
@@ -109,5 +165,8 @@ export default {
 };
 </script>
 
-<style>
+<style  >
+tbody tr {
+  cursor: pointer;
+}
 </style>

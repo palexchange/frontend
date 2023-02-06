@@ -4,11 +4,8 @@
       @change_dawer="() => (drawer = !drawer)"
       :forgin_drawer="drawer"
     />
-    <v-app-bar
-      :fixed="$vuetify.breakpoint.mobile"
-      color="#EEEEEE"
-      elevation="0"
-    >
+    <!-- :fixed="$vuetify.breakpoint.mobile" -->
+    <v-app-bar fixed color="#EEEEEE" elevation="0">
       <v-app-bar-nav-icon
         :class="$vuetify.breakpoint.mobile ? 'nomargin' : ''"
         :style="drawer ? 'margin-right: 160px' : 'margin-right: 240px'"
@@ -26,6 +23,47 @@
         {{ account.name }}
       </span> -->
       <v-spacer></v-spacer>
+      <v-expand-transition>
+        <v-row v-show="toggle_profits" style="justify-content: end">
+          <v-col class="pa-8" @mousemove.once="$store.dispatch('user/index')" cols="5">
+            {{ $t("today exchanges profit") }}
+            :
+            <span
+              class="change-hover font-weight-bold"
+              @mouseleave="active_exchange_profit_detail = false"
+              @mousemove="(e) => show_exchange_profit_detail(e)"
+            >
+              {{ (this.$auth.user.daily_exchange_profit * 1).toFixed(2) }}
+            </span>
+            <MenuComponent
+              profit_name="daily_exchange_profit"
+              :coordinates="daily_exchange_coo"
+              :active_menu="active_exchange_profit_detail"
+            ></MenuComponent>
+          </v-col>
+          <v-col class="pa-8" @mousemove.once="$store.dispatch('user/index')" cols="5">
+            {{ $t("today transfers profit") }}
+            :
+            <span
+              class="change-hover font-weight-bold"
+              @mouseleave="active_transfer_profit_detail = false"
+              @mousemove="(e) => show_transfer_profit_detail(e)"
+            >
+              {{ (this.$auth.user.daily_transfer_profit * 1).toFixed(2) }}
+            </span>
+            <MenuComponent
+              profit_name="daily_transfer_profit"
+              :coordinates="daily_transfer_coo"
+              :active_menu="active_transfer_profit_detail"
+            >
+            </MenuComponent>
+          </v-col>
+        </v-row>
+      </v-expand-transition>
+      <v-btn @click="toggle_profits = !toggle_profits" icon small>
+        <v-icon v-if="!toggle_profits" small> fas fa-eye </v-icon>
+        <v-icon v-else small> fas fa-eye-slash </v-icon>
+      </v-btn>
       <v-menu :close-on-content-click="true" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon dark color="primary" v-bind="attrs" v-on="on">
@@ -64,7 +102,7 @@
       </v-menu>
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
-      <v-container style="max-width: 1340px !important">
+      <v-container class="pt-6" style="max-width: 1340px !important">
         <!-- <Boxes /> -->
         <UserActiveAccounts />
         <Breadcrumbs />
@@ -109,6 +147,11 @@ export default {
   data() {
     return {
       name: "",
+      toggle_profits: true,
+      daily_exchange_coo: {},
+      daily_transfer_coo: {},
+      active_transfer_profit_detail: false,
+      active_exchange_profit_detail: false,
       // clipped: false,
       // drawer: true,
       // fixed: false,
@@ -153,6 +196,7 @@ export default {
       state_dialog: (state) => state.state_dialog,
       success_msg: (state) => state.success_msg,
       errors_msg: (state) => state.errors,
+      users: (state) => state.user.all,
     }),
   },
 
@@ -239,6 +283,20 @@ export default {
     },
   },
   methods: {
+    show_exchange_profit_detail(e) {
+      if (this.$auth.user.role != 1) return;
+      this.daily_exchange_coo.x = e.screenX;
+      this.daily_exchange_coo.y = e.screenY;
+
+      this.active_exchange_profit_detail = true;
+    },
+    show_transfer_profit_detail(e) {
+      if (this.$auth.user.role != 1) return;
+      this.daily_transfer_coo.x = e.screenX;
+      this.daily_transfer_coo.y = e.screenY;
+
+      this.active_transfer_profit_detail = true;
+    },
     delete(item) {},
     changeLocale(locale) {
       console.log(locale.code);
@@ -279,5 +337,11 @@ export default {
 }
 .nomargin {
   margin-right: 0px !important ;
+}
+.change-hover {
+  padding: 20px;
+}
+.change-hover:hover {
+  cursor: pointer;
 }
 </style>

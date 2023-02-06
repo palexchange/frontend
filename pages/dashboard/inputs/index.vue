@@ -46,11 +46,15 @@ export default {
     cancel(item) {
       this.$remove(item, "receipt", this.params);
     },
+    show(item) {
+      this.$router.push(`/dashboard/inputs/form/${item.id}?show=true`);
+    },
+    edit(item) {
+      this.$router.push(`/dashboard/inputs/form/${item.id}`);
+    },
   },
   watch: {
     action(val) {
-      console.log(this.item);
-      console.log("this.item");
       if (this[val]) {
         this[val](this.item);
       }

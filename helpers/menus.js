@@ -21,10 +21,15 @@ export default {
     },
     receipt: {
         menu_btns: [
-            // {
-            //     title: "edit",
-            //     icon: "fas fa-pen",
-            // },
+            {
+                title: "edit",
+                icon: "fas fa-pen",
+            },
+            {
+                title: "show",
+                icon: "fas fa-eye",
+            },
+
             // {
             //     title: "activate",
             //     icon: "fas fa-check",
@@ -44,6 +49,10 @@ export default {
             // {
             //     title: "edit",
             //     icon: "fas fa-pen",
+            // },
+            //             {
+            //     title: "show",
+            //     icon: "fas fa-eye",
             // },
             // {
             //     title: "activate",

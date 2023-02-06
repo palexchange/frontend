@@ -218,7 +218,7 @@
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
               <AutoComplete text="country" holder="country" required />
             </v-col> -->
-          <v-col cols="12" md="2" sm="6">
+          <v-col cols="12" md="4" sm="6">
             <InputField
               :readonly="showReadOnly"
               holder="address"
@@ -743,6 +743,7 @@ export default {
       this.item.final_received_amount = office_amount;
 
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
+      console.log("exchange_rate");
       console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
       // let tottal =
@@ -750,27 +751,42 @@ export default {
       //     ? parseFloat(office_amount * exchange_rate)
       //     : parseFloat(office_amount / exchange_rate);
 
-      let sale = this.$newCalcSalePrice(
-        { id: this.item.received_currency_id },
-        { id: 1 },
-        12
-      );
-      let buy = this.$newCalcBuyPrice(
-        { id: this.item.received_currency_id },
-        { id: 1 },
-        12
-      );
-      let factor = (buy * 1 + sale * 1) / 2;
+      // let sale = this.$newCalcSalePrice(
+      //   { id: this.item.received_currency_id },
+      //   { id: 1 },
+      //   12
+      // );
+      // let buy = this.$newCalcBuyPrice(
+      //   { id: this.item.received_currency_id },
+      //   { id: 1 },
+      //   12
+      // );
+
+      // let factor = (buy * 1 + sale * 1) / 2;
       let tottal = exchange_rate * this.item.to_send_amount || 0;
 
       this.item.received_amount_no_commision =
         parseFloat(tottal).toFixed(4) || 0;
       this.item.received_amount =
         parseFloat(tottal - this.calcCommisson).toFixed() || 0;
+
+      var operators = {
+        "*": function (a, b) {
+          return a * b;
+        },
+        "/": function (a, b) {
+          return a / b;
+        },
+        // ...
+      };
+      let factor = this.stocks.find(
+        (e) => e.currency_id == this.item.received_currency_id
+      )?.mid;
+      let op = "*";
+      if (this.item.received_currency_id == 4) op = "/";
       this.item.a_received_amount =
-        parseFloat(parseFloat(tottal - this.calcCommisson) * factor).toFixed(
-          1
-        ) || 0;
+        (operators[op](tottal - this.calcCommisson, factor) * 1).toFixed(1) ||
+        0;
 
       // this.item.received_amount = tottal;
       return tottal || 0;
@@ -855,13 +871,12 @@ export default {
   methods: {
     setFinalAmount(amount) {
       this.item.exchange_rate_to_reference_currency = parseFloat(
-        (parseFloat(amount) + parseFloat(this.calcCommisson)) /
-          this.item.to_send_amount
-      ).toFixed(7);
+        (~~amount + ~~this.calcCommisson) / this.item.to_send_amount
+      ).toFixed(16);
       this.item.exchange_rate_to_reference_currency_view = parseFloat(
         (parseFloat(amount) + parseFloat(this.calcCommisson)) /
           this.item.to_send_amount
-      ).toFixed(7);
+      ).toFixed(16);
       // this.officeProfitComp;
     },
     confirmProcess() {
@@ -948,17 +963,17 @@ export default {
             (
               parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
               parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
-            ).toFixed(7)
+            ).toFixed(16)
           ) / 2;
         if (toCurr.weight * 1 > fromCurr.weight * 1) {
-          this.item[vModel] = (1 / this.item[vModel]).toFixed(4);
+          this.item[vModel] = (1 / this.item[vModel]).toFixed(16);
         }
         this.item[vCalc] =
           parseFloat(
             (
               parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
               parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
-            ).toFixed(7)
+            ).toFixed(16)
           ) / 2;
 
         console.log(
@@ -993,7 +1008,7 @@ export default {
       //     (
       //       parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
       //       parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
-      //     ).toFixed(7) / 2;
+      //     ).toFixed(16) / 2;
       // }
     },
     showConversionFactor(to, factorModel, new_value) {
@@ -1001,8 +1016,8 @@ export default {
       if (!to || !factorModel) return;
       this.item[factorModel] =
         to.id == 1
-          ? parseFloat(1 / parseFloat(new_value)).toFixed(7)
-          : parseFloat(new_value).toFixed(7);
+          ? parseFloat(1 / parseFloat(new_value)).toFixed(16)
+          : parseFloat(new_value).toFixed(16);
     },
     showConversionFactor_ibr(
       $event,
@@ -1020,8 +1035,8 @@ export default {
       console.log("To: ", to);
       if (to.weight * 1 > from.weight * 1) {
         // this.item[viewModel] = parseFloat(new_value);
-        new_value = (1 / new_value).toFixed(7);
-        this.item[calcModel] = parseFloat(new_value).toFixed(4) * 1;
+        new_value = (1 / new_value).toFixed(16);
+        this.item[calcModel] = parseFloat(new_value).toFixed(16) * 1;
       } else {
         this.item[calcModel] = $event.target.value;
       }

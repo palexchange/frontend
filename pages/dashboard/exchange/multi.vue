@@ -110,7 +110,7 @@
               text="amount to exchange"
               holder="amount to exchange"
               required
-              v-model.number="exchange.amount"
+              v-model.reRenderNumber="exchange.amount"
             />
           </v-col>
           <v-col cols="12" xs="12" sm="4" md="3" class="ml-40">
@@ -181,7 +181,7 @@
               </td>
             </tr>
           </thead>
-          <tbody :key="number">
+          <tbody :key="reRenderNumber">
             <tr
               :key="i"
               v-for="(currency, i) in all_currencies"
@@ -334,8 +334,8 @@ export default {
     return {
       numberToReRender: 1,
       keyNum: 1,
-      selected: {},
-      number: 1,
+      selected_to_currency: {},
+      reRenderNumber: 1,
       buttons_colors: new Array(9).fill(0).map(() => new Array(4).fill(false)),
       item: {
         beneficairy: this.defaultBeneficiry,
@@ -365,68 +365,39 @@ export default {
       user: (state) => state.auth.user || {},
     }),
     exchange_profit() {
-      this.number;
+      this.reRenderNumber;
+      let total_to = this.item.total_exchanged_amount;
+      var total_exchanges_in_dollar = 0;
       this.exchanges.forEach((exchange) => {
-        let test_amount = exchange.exchanged_amount;
-        let main_amount = parseFloat(exchange.amount || 0);
-        let final_profit = 0;
-        let total_extra_amount = 0;
-        if (main_amount == 0) return 0;
-        let obj = {};
-        obj.test_amount = test_amount;
-        obj.exchanged_amount = parseFloat(exchange.exchanged_amount || 0);
-        if (obj.exchanged_amount == 0) return;
-
-        obj.used_factor = parseFloat(
-          exchange.modified_factor || exchange.exchanged_vactor || 0
-        );
-        if (obj.sale_factor == 0) return;
-
-        obj.sale_factor = parseFloat(
-          this.$newCalcSalePrice(exchange.currency, exchange.to_currency)
-        );
-        obj.buy_factor = parseFloat(
-          this.$newCalcBuyPrice(exchange.currency, exchange.to_currency)
-        );
-        obj.calc_profit_factor = (obj.buy_factor + obj.sale_factor) / 2;
-
-        obj.amount = parseFloat(obj.exchanged_amount / obj.used_factor); // -2.824858757062147
-        exchange.amount_in_main_curr = obj.amount;
-        total_extra_amount += obj.amount;
-
-        obj.new_amount = parseFloat(obj.amount * obj.calc_profit_factor);
-        obj.profit_in_to_currency = obj.new_amount - obj.exchanged_amount;
-        obj.sale_factor_from_to_currency = parseFloat(
-          this.$newCalcSalePrice(exchange.to_currency, { id: 1 })
-        );
-        obj.buy_factor_from_to_currency = parseFloat(
-          this.$newCalcBuyPrice(exchange.to_currency, { id: 1 })
-        );
-        obj.calc_new_factor =
-          (obj.sale_factor_from_to_currency + obj.buy_factor_from_to_currency) /
-          2;
-        obj.profit = obj.profit_in_to_currency * obj.calc_new_factor;
-        final_profit += obj.profit;
-        let saling = parseFloat(
-          this.$newCalcSalePrice(exchange.currency, { id: 1 })
-        );
-        let buying = parseFloat(
-          this.$newCalcBuyPrice(exchange.currency, { id: 1 })
-        );
-        let mid = (buying + saling) / 2;
-
-        total_extra_amount = total_extra_amount.toFixed(5) * 1;
-        main_amount = main_amount.toFixed(5) * 1;
-        final_profit = final_profit - (total_extra_amount - main_amount) * mid;
-        exchange.profit = parseFloat(final_profit).toFixed(5);
+        if (exchange.currency) {
+          console.log("exchange");
+          console.log(exchange);
+          const new_obj = {};
+          new_obj.exchange_amount = exchange.amount;
+          new_obj.exchange_curr_id = exchange.currency.id;
+          new_obj.curr_to_doller_mid =
+            this.all_stocks.find(
+              (s) => s.currency_id == new_obj.exchange_curr_id
+            )?.mid * 1;
+          new_obj.dolar_amount =
+            new_obj.exchange_amount / new_obj.curr_to_doller_mid;
+          total_exchanges_in_dollar =
+            total_exchanges_in_dollar + new_obj.dolar_amount;
+        }
       });
-      return (
-        (this.item.edited_profit +
-          this.exchanges.reduce((a, c) => {
-            return a + (c.profit || 0) * 1;
-          }, 0)) *
-        1
-      ).toFixed(3);
+      const to_id = this.selected_to_currency?.id || 1;
+      const selected_to_doller_mid =
+        this.all_stocks.find((s) => s.currency_id == to_id)?.mid * 1;
+      let total_to_in_dollar = total_to / selected_to_doller_mid;
+
+      return (total_exchanges_in_dollar - total_to_in_dollar).toFixed(4);
+      // return (
+      //   (this.item.edited_profit +
+      //     this.exchanges.reduce((a, c) => {
+      //       return a + (c.profit || 0) * 1;
+      //     }, 0)) *
+      //   1
+      // ).toFixed(3);
     },
     total_profits() {},
   },
@@ -497,6 +468,7 @@ export default {
     },
 
     setRow(index, item, is_reminder = false) {
+      this.selected_to_currency = item;
       this.item.edited_profit = 0;
       let total_exchanged_amount = 0;
 
@@ -529,8 +501,11 @@ export default {
         let from = exchange.currency;
         let to = item;
         if (!to || !from) return;
+        console.log("from", "to");
+        console.log(from, to);
         let sale = this.$newCalcSalePrice(from, to);
         let buy = this.$newCalcBuyPrice(from, to);
+
         const temp = Math.min(buy, sale) || 0;
 
         let factor_to_view =
@@ -542,13 +517,13 @@ export default {
             : temp;
 
         exchange.to_currency = to;
-        exchange.exchanged_vactor = temp.toFixed(5) * 1;
+        exchange.exchanged_vactor = temp.toFixed(16) * 1;
         exchange.exchanged_vactor_view = factor_to_view.toFixed(5);
         exchange.exchanged_amount = (amount * temp).toFixed(5);
         total_exchanged_amount += (amount * temp).toFixed(5) * 1;
         exchange.modified_factor = null;
         exchange.modified_factor_view = null;
-        this.number = this.number + 1;
+        this.reRenderNumber = this.reRenderNumber + 1;
       });
 
       // this.items[index].exchanged_vactor = temp.toFixed(5) * 1;
@@ -568,18 +543,23 @@ export default {
         this.buttons_colors[index][0] = !holder;
       }
 
-      this.number = this.number + 1;
+      this.reRenderNumber = this.reRenderNumber + 1;
       this.variable_key++;
     },
 
     changed_ex_amount(element, i, new_value) {
       // if (new_value == element.exchanged_amount) return;
-      const reverse_mid = this.all_stocks
-        .find((el) => el.currency_id == element.currency_id)
-        .mid.toFixed(5);
+      let reverse_mid = this.all_stocks.find(
+        (el) => el.currency_id == element.currency_id
+      ).mid;
+      console.log("reverse_mid");
+      console.log(reverse_mid);
+      // reverse_mid = (~~reverse_mid).toFixed(16);
       const diff = this.item.total_exchanged_amount - new_value * 1;
-      this.item.edited_profit = diff * (1 / reverse_mid);
+      this.item.edited_profit = diff / reverse_mid;
       element.exchanged_amount = (1 * new_value).toFixed(2);
+      this.item.total_exchanged_amount = ~~(1 * new_value).toFixed(2);
+      this.reRenderNumber = this.reRenderNumber + 1;
     },
     changed_ex_factor(element, event, index, to_curr) {
       let new_value = parseFloat(event.target.value);

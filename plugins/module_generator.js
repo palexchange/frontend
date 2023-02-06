@@ -200,6 +200,20 @@ export default (context, inject) => {
         commit('pushToAllData', response.data);
 
       },
+      async pushToAll({
+        commit
+      }, id) {
+        let path = resource.child;
+        // if (!path || path == '') {
+        //   path = resource.child
+        // } else {
+        //   path = path + '/' + one[resource.parent + '_id'] + '/' + resource.child;
+        // }
+        path += `/${id}`;
+        const response = await this.$axios.$get(`/${path}`);
+        commit('pushToAll', response.data);
+
+      },
       async show({
         commit
       }, one) {
@@ -400,6 +414,7 @@ export default (context, inject) => {
     let mutations = {
       setAll: (state, all) => state.all = all,
       pushToAllData: (state, data) => state.all_records.unshift(data),
+      pushToAll: (state, data) => state.all.unshift(data),
       setAllData: (state, data) => state.all_records = data,
       setData: (state, data) => {
         if (data[1]) {

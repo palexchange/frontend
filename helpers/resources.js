@@ -326,7 +326,7 @@ export default (context) => {
     parent: '',
     reload_user: true,
     load_after_store: true,
-    headers: ['num', 'id', 'user.name', 'from_account_name', 'to_account_name', 'from_amount', 'currency.name', 'exchange_rate', 'to_amount', 'status', 'created_at'],
+    headers: ['num', 'id', 'user.name', 'from_account_name', 'to_account_name', "statement", 'from_amount', 'currency.name', 'exchange_rate', 'to_amount', 'status', 'created_at'],
     functions: [
       {
         key: 'status',

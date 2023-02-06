@@ -9,8 +9,9 @@
           <v-row dense class="mt-5 lg5-custome-row">
             <v-col cols="12" lg="4" xs="12" sm="6">
               <AutoComplete
+                :readonly="showReadOnly"
                 required
-                :items="accounts.filter((v) => v.type_id != 7)"
+                :items="accounts_with_no_expenses"
                 text="to account"
                 holder="to account"
                 v-model="form.from_account_id"
@@ -18,6 +19,8 @@
             </v-col>
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
+                type="number"
+                :readonly="showReadOnly"
                 required
                 text="المبلغ المسحوب"
                 holder="المبلغ المسحوب"
@@ -28,6 +31,7 @@
 
             <v-col cols="12" lg="4" xs="12" sm="6">
               <CurrencyAutoComplete
+                :readonly="showReadOnly"
                 @change="(v) => setToaccount(v)"
                 required
                 text="currency"
@@ -42,6 +46,7 @@
                   )
                 " -->
               <AccountAutocomplete
+                :readonly="showReadOnly"
                 required
                 text="من حساب"
                 holder="من حساب"
@@ -51,6 +56,8 @@
 
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
+                type="number"
+                :readonly="showReadOnly"
                 required
                 @input="(v) => this.refreshNum++"
                 text="conversion factor to usd"
@@ -60,6 +67,8 @@
             </v-col>
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
+                type="number"
+                :readonly="showReadOnly"
                 disabledd
                 text="amount in usd"
                 holder="amount in usd"
@@ -70,6 +79,7 @@
           <v-row dense>
             <v-col cols="12" md="6" sm="12">
               <InputField
+                :readonly="showReadOnly"
                 text="statement"
                 holder="statement"
                 :value="form.statement"
@@ -78,7 +88,11 @@
           </v-row>
           <v-row dense>
             <v-col cols="12" lg="4" xs="12" sm="6">
-              <v-checkbox v-model="form.is_expenses" label="إيصال مصروف ؟">
+              <v-checkbox
+                :readonly="showReadOnly"
+                v-model="form.is_expenses"
+                label="إيصال مصروف ؟"
+              >
               </v-checkbox>
             </v-col>
           </v-row>
@@ -86,17 +100,30 @@
             <v-row dense v-show="form.is_expenses">
               <v-col cols="12" lg="4" xs="12" sm="6">
                 <AutoComplete
-                  :items="accounts.filter((v) => v.type_id == 7)"
+                  :readonly="showReadOnly"
+                  :items="expensess_accounts"
                   text="علي حساب مصروف"
                   holder="علي حساب مصروف"
                   v-model="form.expenses_account_id"
-                />
+                >
+                  <template v-slot:prepend-item>
+                    <v-btn
+                      depressed
+                      block
+                      @click="
+                        $store.dispatch('setDialog', { name: 'AddBeneficiary' })
+                      "
+                    >
+                      {{ $t("add beneficiary") }}
+                    </v-btn>
+                  </template>
+                </AutoComplete>
               </v-col>
             </v-row>
           </v-expand-transition>
         </v-form>
         <v-row justify="center">
-          <v-col cols="2">
+          <v-col v-if="!showReadOnly" cols="2">
             <v-btn
               @click="
                 validated
@@ -121,6 +148,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      showReadOnly: false,
       validated: false,
       refreshNum: 0,
       form: {
@@ -134,8 +162,15 @@ export default {
     ...mapState({
       all_currencies: (state) => state.currency.all,
       user: (state) => state.auth.user,
+      one: (state) => state.receipt.one,
       accounts: (state) => state.account.all,
     }),
+    accounts_with_no_expenses() {
+      return this.accounts.filter((v) => v.type_id != 7);
+    },
+    expensess_accounts() {
+      return this.accounts.filter((v) => v.type_id == 7);
+    },
     to_amount() {
       this.refreshNum;
       let factor = this.form.exchange_rate;
@@ -148,6 +183,9 @@ export default {
   mounted() {
     if (!this.all_currencies[0]) {
       this.$store.dispatch("currency/index");
+    }
+    if (this.$route.query.show && this.$route.query.show == "true") {
+      this.showReadOnly = true;
     }
   },
   methods: {
@@ -166,6 +204,20 @@ export default {
       console.log(e);
       this.form.exchange_rate = this.$newCalcBuyPrice({ id: 1 }, { id: e });
     },
+  },
+  watch: {
+    one(val) {
+      if (val) {
+        this.form = { ...val }; //JSON.parse(JSON.stringify(val));
+      }
+    },
+  },
+  created() {
+    if (process.client) {
+      if (this.$route.params.id) {
+        this.$store.dispatch("receipt/show", this.$route.params.id);
+      }
+    }
   },
 };
 </script>

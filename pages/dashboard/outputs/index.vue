@@ -44,6 +44,12 @@ export default {
     cancel(item) {
       this.$remove(item, "receipt", this.params);
     },
+    show(item) {
+      this.$router.push(`/dashboard/outputs/form/${item.id}?show=true`);
+    },
+    edit(item) {
+      this.$router.push(`/dashboard/outputs/form/${item.id}`);
+    },
   },
 
   watch: {

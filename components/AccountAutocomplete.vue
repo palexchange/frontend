@@ -6,6 +6,7 @@
       :class="required ? 'required form-label' : 'form-label'"
       >{{ $t(text) }}</label
     >
+ 
     <v-autocomplete
       cache-items
       color="#FF7171"
@@ -113,7 +114,7 @@ export default {
   created() {
     if (this.no_fetch) return;
     if (!this.all[0] || this.force_fetch) {
-      this.$store.dispatch("account/index", this.params);
+    this.$store.dispatch("account/index", this.params);
     }
     // this.$store.dispatch("account/index", this.params);
   },

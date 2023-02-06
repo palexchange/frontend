@@ -326,17 +326,29 @@ export default {
     },
     funds_total() {
       this.totals = this.boxes_accounts.map((account) => {
-        return (
-          account.balance / this.getMorningExchangeRate(account.currency_id)
-        ).toFixed(3);
+        let total = 0;
+        if (account.currency_id == 4) {
+          total =
+            account.balance * this.getMorningExchangeRate(account.currency_id);
+        } else {
+          total =
+            account.balance / this.getMorningExchangeRate(account.currency_id);
+        }
+        return total.toFixed(3);
       });
       return this.totals.reduce((c, n) => (parseFloat(n) || 0) + c, 0);
     },
     funds_total2() {
       this.totals2 = this.boxes_accounts.map((account) => {
-        return (
-          account.balance / this.getNightExchangeRate(account.currency_id)
-        ).toFixed(3);
+        let total = 0;
+        if (account.currency_id == 4) {
+          total =
+            account.balance * this.getNightExchangeRate(account.currency_id);
+        } else {
+          total =
+            account.balance / this.getNightExchangeRate(account.currency_id);
+        }
+        return total.toFixed(3);
       });
       return this.totals2.reduce((c, n) => (parseFloat(n) || 0) + c, 0);
     },

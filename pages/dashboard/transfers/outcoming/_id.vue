@@ -902,7 +902,7 @@ export default {
     },
     ...mapState({
       currencies: (state) => state.currency.all,
-      one: (state) => state.transfer.one,
+      one: (state) => state.transfer.one || {},
       stocks: (state) => state.stock.all,
     }),
   },
@@ -1025,9 +1025,7 @@ export default {
   created() {
     if (process.client) {
       if (this.$route.params.id) {
-        if (!this.one[0]) {
-          this.$store.dispatch("transfer/show", this.$route.params.id);
-        }
+        this.$store.dispatch("transfer/show", this.$route.params.id);
       }
       // this.$store.dispatch("party/index", { per_page: -1 });
       if (!this.currencies[0]) {

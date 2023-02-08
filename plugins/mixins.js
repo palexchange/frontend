@@ -47,6 +47,16 @@ export default (context, inject) => {
     //   });
 
   });
+  inject('get_type_id', (resource) => {
+    const morphs = {
+      transfer: 1,
+      exchange: 2,
+      receipt: 3,
+      party: 4,
+    };
+
+    return morphs[resource]
+  });
   inject('upload', (file, resource, data) => {
     if (file) {
       let file_item = {
@@ -54,7 +64,7 @@ export default (context, inject) => {
         attachable_type: context.$get_type_id(resource),
         attachable_id: data.id
       }
-      context.store.dispatch(`file/store`, file_item);
+      return context.store.dispatch(`file/store`, file_item);
     }
   });
   inject('save', async (item, resource, form_ref = null, redirect = null, file_attribute = null) => {

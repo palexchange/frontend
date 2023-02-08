@@ -312,7 +312,7 @@
       </v-col>
       <v-col cols="4" class="text-left">
         <v-btn
-          @click="$router.push('exchange/form')"
+          @click="$router.push('/dashboard/exchange/form')"
           height="50"
           class="text-center"
           color="primary"
@@ -402,6 +402,7 @@ export default {
     total_profits() {},
   },
   methods: {
+ 
     prepare_exchange() {
       return new Promise((resolve, reject) => {
         this.exchange.date = this.$getDateTime();

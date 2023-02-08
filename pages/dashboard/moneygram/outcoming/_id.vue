@@ -106,6 +106,7 @@
               :readonly="showReadOnly"
               required
               min="0"
+              v-model="image_file"
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
@@ -542,6 +543,7 @@ export default {
   name: "moneygram-outcoming",
   data() {
     return {
+      image_file: null,
       showReadOnly: false,
       sender_id_image: null,
 
@@ -761,6 +763,7 @@ export default {
       this.item.issued_at = this.$getDateTime();
       this.$save(this.item, "transfer", null, "/dashboard/moneygram");
     },
+
     showConversionFactor(to, factorModel, new_value) {
       if (!to || !factorModel) return;
       this.item[factorModel] =
@@ -788,6 +791,19 @@ export default {
     }
   },
   watch: {
+    image_file(file) {
+      if (file) {
+        if (!this.item.sender_party_id) return;
+        let docment_data = {
+          id: this.item.sender_party_id,
+          
+        };
+ 
+        this.$upload(file, "party", docment_data).then((data)=>{
+          this.$store.dispatch("party/show", docment_data.id);
+        });
+      }
+    },
     one(val) {
       if (val) {
         this.item = { ...val }; //JSON.parse(JSON.stringify(val));

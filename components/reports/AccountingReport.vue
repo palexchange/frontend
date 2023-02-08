@@ -162,7 +162,7 @@ export default {
       }
       receipt.from_account_id = this.report_data.account;
       receipt.statement = this.receipt.statement;
-      this.$save(receipt, "receipt").then(() => {
+      this.$save({ ...receipt, no_reload: true }, "receipt").then(() => {
         this.getData();
         this.receipt = {};
       });
@@ -172,7 +172,7 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("report/index", { ...this.report_data });
         this.loading = false;
-      }, 500);
+      }, 1);
     },
   },
   watch: {

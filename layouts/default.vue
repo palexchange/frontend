@@ -102,11 +102,11 @@
       </v-menu>
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
-      <v-container class="pt-6" style="max-width: 1340px !important">
+      <v-container   style="max-width: 1340px !important;margin-top: 50px;">
         <!-- <Boxes /> -->
         <UserActiveAccounts />
         <Breadcrumbs />
-        <div style="min-height: 75vh">
+        <div  style="min-height: 75vh">
           <Nuxt />
         </div>
 

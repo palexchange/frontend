@@ -745,24 +745,7 @@ export default {
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
       console.log("exchange_rate");
       console.log(exchange_rate);
-      // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
-      // let tottal =
-      //   this.item.office_currency_id == 1
-      //     ? parseFloat(office_amount * exchange_rate)
-      //     : parseFloat(office_amount / exchange_rate);
-
-      // let sale = this.$newCalcSalePrice(
-      //   { id: this.item.received_currency_id },
-      //   { id: 1 },
-      //   12
-      // );
-      // let buy = this.$newCalcBuyPrice(
-      //   { id: this.item.received_currency_id },
-      //   { id: 1 },
-      //   12
-      // );
-
-      // let factor = (buy * 1 + sale * 1) / 2;
+      
       let tottal = exchange_rate * this.item.to_send_amount || 0;
 
       this.item.received_amount_no_commision =
@@ -771,10 +754,10 @@ export default {
         parseFloat(tottal - this.calcCommisson).toFixed() || 0;
 
       var operators = {
-        "*": function (a, b) {
+        "*": (a, b) => {
           return a * b;
         },
-        "/": function (a, b) {
+        "/": (a, b) => {
           return a / b;
         },
         // ...
@@ -782,8 +765,9 @@ export default {
       let factor = this.stocks.find(
         (e) => e.currency_id == this.item.received_currency_id
       )?.mid;
-      let op = "*";
-      if (this.item.received_currency_id == 4) op = "/";
+      let op = "/";
+      if (this.item.received_currency_id == 4) op = "*";
+ 
       this.item.a_received_amount =
         (operators[op](tottal - this.calcCommisson, factor) * 1).toFixed(1) ||
         0;

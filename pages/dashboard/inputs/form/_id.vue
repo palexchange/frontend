@@ -211,9 +211,7 @@ export default {
   created() {
     if (process.client) {
       if (this.$route.params.id) {
-        if (this.one && this.one.id != this.$route.params.id) {
-          this.$store.dispatch("receipt/show", this.$route.params.id);
-        }
+        this.$store.dispatch("receipt/show", this.$route.params.id);
       }
     }
   },

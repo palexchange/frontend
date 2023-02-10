@@ -120,7 +120,7 @@ export default (context, inject) => {
         dispatch
       }, params) {
         params = params == null ? {} : params
-        await dispatch('empty');
+        // await dispatch('empty');
 
         let path = resource.parent;
         if (!path) {

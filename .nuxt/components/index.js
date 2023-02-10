@@ -66,15 +66,15 @@ export { default as ReportsPartiesReportOneCurrTotal } from '../..\\components\\
 export { default as ReportsPartiesReportTotals } from '../..\\components\\reports\\PartiesReportTotals.vue'
 export { default as ReportsProfitReport } from '../..\\components\\reports\\ProfitReport.vue'
 export { default as SettingsAccounts } from '../..\\components\\settings\\Accounts\\Index.vue'
+export { default as SettingsCloseingAccountsCreate } from '../..\\components\\settings\\CloseingAccounts\\Create.vue'
+export { default as SettingsCloseingAccounts } from '../..\\components\\settings\\CloseingAccounts\\Index.vue'
+export { default as SettingsOpeningAccountsCreate } from '../..\\components\\settings\\OpeningAccounts\\Create.vue'
+export { default as SettingsOpeningAccounts } from '../..\\components\\settings\\OpeningAccounts\\Index.vue'
 export { default as SettingsEntryCreate } from '../..\\components\\settings\\Entry\\Create.vue'
 export { default as SettingsEntry } from '../..\\components\\settings\\Entry\\Index.vue'
 export { default as SettingsUsersCreate } from '../..\\components\\settings\\Users\\Create.vue'
 export { default as SettingsUsers } from '../..\\components\\settings\\Users\\Index.vue'
 export { default as SettingsUsersRoleManagement } from '../..\\components\\settings\\Users\\RoleManagement.vue'
-export { default as SettingsOpeningAccountsCreate } from '../..\\components\\settings\\OpeningAccounts\\Create.vue'
-export { default as SettingsOpeningAccounts } from '../..\\components\\settings\\OpeningAccounts\\Index.vue'
-export { default as SettingsCloseingAccountsCreate } from '../..\\components\\settings\\CloseingAccounts\\Create.vue'
-export { default as SettingsCloseingAccounts } from '../..\\components\\settings\\CloseingAccounts\\Index.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

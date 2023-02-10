@@ -82,7 +82,7 @@
                 :readonly="showReadOnly"
                 text="statement"
                 holder="statement"
-                :value="form.statement"
+                v-model="form.statement"
               ></InputField>
             </v-col>
           </v-row>

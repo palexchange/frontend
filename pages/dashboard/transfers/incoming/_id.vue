@@ -745,7 +745,7 @@ export default {
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
       console.log("exchange_rate");
       console.log(exchange_rate);
-      
+
       let tottal = exchange_rate * this.item.to_send_amount || 0;
 
       this.item.received_amount_no_commision =
@@ -767,7 +767,7 @@ export default {
       )?.mid;
       let op = "/";
       if (this.item.received_currency_id == 4) op = "*";
- 
+
       this.item.a_received_amount =
         (operators[op](tottal - this.calcCommisson, factor) * 1).toFixed(1) ||
         0;
@@ -1064,6 +1064,9 @@ export default {
         this.item = { ...val }; //JSON.parse(JSON.stringify(val));
         this.item.exchange_rate_to_office_currency_view =
           this.one.exchange_rate_to_office_currency;
+        this.item.exchange_rate_to_reference_currency_view =
+          this.one.exchange_rate_to_reference_currency;
+        this.item.received_currency = { id: val.received_currency_id };
       }
     },
     app_setting(val) {

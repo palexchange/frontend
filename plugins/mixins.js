@@ -1,4 +1,5 @@
 import { saveAs } from "file-saver";
+import filter_map from '~/helpers/filter_map';
 export default (context, inject) => {
   inject('inputNumberFormat', (number) => {
     let input_number_format = context.store.state.input_number_format
@@ -286,6 +287,21 @@ export default (context, inject) => {
     });
     // context.$axios.$get(`/pdf`, { responseType: "blob", params: ModelAndId })
 
+
+  });
+  inject('filterMenu', (choices, name, item) => {
+    return choices.filter(v => {
+      if (filter_map[name]) {
+        if (filter_map[name][v.title]) {
+          return filter_map[name][v.title](item)
+        } else {
+          return true
+        }
+      } else {
+        return true
+        
+      }
+    })
 
   });
 }

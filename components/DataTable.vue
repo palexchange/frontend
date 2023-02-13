@@ -104,6 +104,7 @@
               @click="
                 context_menu($event, item);
                 setModule();
+                setEditedMenu(item);
               "
               color="primary"
               dark
@@ -118,9 +119,7 @@
             <v-list-item
               link
               dense
-              v-for="(item, index) in menu_items.filter((i) =>
-                i.types ? i.types[c_type] : true
-              )"
+              v-for="(item, index) in edited_menu"
               :key="index"
               @click="setAction(item.title)"
             >
@@ -193,6 +192,7 @@ export default {
   },
   data() {
     return {
+      edited_menu: [],
       download_name: this.module,
       shoowDownloadName: false,
       DownloadLoad: false,
@@ -343,6 +343,9 @@ export default {
     },
   },
   methods: {
+    setEditedMenu(item) {
+      this.edited_menu = this.$filterMenu(this.menu_items, this.module, item);
+    },
     EmptyFun() {
       return this.click_function;
     },

@@ -106,7 +106,7 @@
         <!-- <Boxes /> -->
         <UserActiveAccounts />
         <Breadcrumbs />
-        <div  style="min-height: 75vh">
+        <div  style="min-height: 67vh">
           <Nuxt />
         </div>
 

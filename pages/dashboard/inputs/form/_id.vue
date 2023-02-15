@@ -201,7 +201,7 @@ export default {
   watch: {
     one: {
       handler(val) {
-        if (val) {
+        if (val && this.$route.params.id) {
           this.form = { ...val }; //JSON.parse(JSON.stringify(val));
         }
       },

@@ -137,6 +137,17 @@
           </v-list>
         </v-menu>
       </template>
+      <template v-slot:item.acc_balance="{ item }">
+        <div
+          :style="{
+            color: item.acc_balance < 0 ? 'red' : 'green',
+            fontWeight: 'bold',
+            fontSize: '20px',
+          }"
+        >
+          {{ (Math.abs(item.acc_balance) * 1).toFixed(3) }}
+        </div>
+      </template>
       <template v-slot:item.image="{ item }">
         <img width="60" :src="item.image ? item.image.url : ''" alt="" />
       </template>

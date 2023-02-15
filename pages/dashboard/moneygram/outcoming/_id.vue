@@ -104,13 +104,10 @@
             >
             <v-file-input
               :readonly="showReadOnly"
-              required
-              min="0"
               v-model="image_file"
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
-              dashed
               outlined
               v-on="$listeners"
               :placeholder="$t('id image')"
@@ -722,6 +719,7 @@ export default {
       this.item.receiver_city_id = item.city_id;
     },
     setSenderData(item) {
+      this.image_file = null;
       this.$store.dispatch("party/show", item.id);
     },
     signCurrency(vCalc, vModel, type, fromCurr, toCurr) {
@@ -796,10 +794,9 @@ export default {
         if (!this.item.sender_party_id) return;
         let docment_data = {
           id: this.item.sender_party_id,
-          
         };
- 
-        this.$upload(file, "party", docment_data).then((data)=>{
+
+        this.$upload(file, "party", docment_data).then((data) => {
           this.$store.dispatch("party/show", docment_data.id);
         });
       }

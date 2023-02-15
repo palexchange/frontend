@@ -9,7 +9,7 @@
       <v-form v-model="validated">
         <v-card-text class="pa-6">
           <v-row>
-            <v-col cols="12" sm="4" xs="12">
+            <v-col cols="12" sm="8">
               <InputField
                 required
                 text="beneficiary name"

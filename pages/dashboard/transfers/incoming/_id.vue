@@ -651,7 +651,10 @@ export default {
       transfer_photo: null,
       showReadOnly: false,
       rulesss: ruless(this),
-      transfer_types: [{ id: 1, name: "تسليم يد" }],
+      transfer_types: [
+        { id: 1, name: "تسليم يد" },
+        { id: 4, name: "تسليم يد في الحساب" },
+      ],
       charMap: {
         1: "H",
         2: "M",
@@ -855,7 +858,7 @@ export default {
   methods: {
     setFinalAmount(amount) {
       this.item.exchange_rate_to_reference_currency = parseFloat(
-        (~~amount + ~~this.calcCommisson) / this.item.to_send_amount
+        (amount * 1 + this.calcCommisson * 1) / this.item.to_send_amount
       ).toFixed(16);
       this.item.exchange_rate_to_reference_currency_view = parseFloat(
         (parseFloat(amount) + parseFloat(this.calcCommisson)) /
@@ -898,8 +901,9 @@ export default {
     },
 
     signCurrency(vCalc, vModel, type, fromCurr, toCurr) {
-      if (fromCurr == null || toCurr == null) return;
-
+      if (fromCurr == undefined || toCurr == undefined) return;
+      if (!fromCurr) return;
+      if (!toCurr) return;
       fromCurr = this.currencies.find((x) => x.id == fromCurr.id);
       console.log("FromCurr Modern: ", fromCurr);
       console.log("ToCurr Modern: ", toCurr);
@@ -949,6 +953,10 @@ export default {
               parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
             ).toFixed(16)
           ) / 2;
+
+        if (fromCurr == undefined || toCurr == undefined) return;
+        if (!fromCurr) return;
+        if (!toCurr) return;
         if (toCurr.weight * 1 > fromCurr.weight * 1) {
           this.item[vModel] = (1 / this.item[vModel]).toFixed(16);
         }

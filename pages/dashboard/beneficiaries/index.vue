@@ -4,7 +4,7 @@
       <v-card-actions>
         <v-row>
           <v-col cols="3" class="align-self-center">
-            <h1 class="fs-20">{{ $t("show beneficiaries") }}</h1>
+            <div style="font-size:20px;font-weight:700" >{{ $t("show beneficiaries") }}</div>
           </v-col>
           <v-col v-if="show_filter" cols="6">
             <v-row>

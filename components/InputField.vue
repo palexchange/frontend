@@ -8,7 +8,7 @@
     >
     <v-text-field
       min="0"
-      :maxlength="maxlength || '30'"
+      :maxlength="maxlength || '70'"
       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
       color="#FF7171"
       style="border-radius: 0px !important"

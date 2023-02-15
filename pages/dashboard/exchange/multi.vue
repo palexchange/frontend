@@ -402,7 +402,6 @@ export default {
     total_profits() {},
   },
   methods: {
- 
     prepare_exchange() {
       return new Promise((resolve, reject) => {
         this.exchange.date = this.$getDateTime();
@@ -555,11 +554,11 @@ export default {
       ).mid;
       console.log("reverse_mid");
       console.log(reverse_mid);
-      // reverse_mid = (~~reverse_mid).toFixed(16);
+      // reverse_mid = (reverse_mid).toFixed(16);
       const diff = this.item.total_exchanged_amount - new_value * 1;
       this.item.edited_profit = diff / reverse_mid;
       element.exchanged_amount = (1 * new_value).toFixed(2);
-      this.item.total_exchanged_amount = ~~(1 * new_value).toFixed(2);
+      this.item.total_exchanged_amount = (1 * new_value).toFixed(2) * 1;
       this.reRenderNumber = this.reRenderNumber + 1;
     },
     changed_ex_factor(element, event, index, to_curr) {

@@ -8,9 +8,9 @@
           </v-col>
 
           <v-col class="text-left align-self-center">
-            <v-btn icon small @click="show_filter = !show_filter">
+            <!-- <v-btn icon small @click="show_filter = !show_filter">
               <v-icon> fas fa-solid fa-search </v-icon>
-            </v-btn>
+            </v-btn> -->
             <span>&nbsp;&nbsp;</span>
             <v-btn color="primary" to="transfers/outcoming">
               <span> {{ $t("add outcoming transfer") }} </span>
@@ -23,10 +23,9 @@
       </v-card-actions>
     </Card>
     <Card v-show="show_filter" class="pa-5">
-      <v-row>
+      <v-row align="center">
         <v-col>
           <InputField
-            @change="search"
             type="number"
             v-model="filters.transfer_id"
             hide-details
@@ -36,7 +35,6 @@
         </v-col>
         <v-col>
           <AutoComplete
-            @input="search"
             clearable
             :items="transfers_type"
             v-model="filters.type"
@@ -47,7 +45,6 @@
         </v-col>
         <v-col>
           <AutoComplete
-            @input="search"
             :items="transfers_statuses"
             v-model="filters.status"
             hide-details
@@ -57,7 +54,6 @@
         </v-col>
         <v-col>
           <BeneficiaryAutocomplete
-            @input="search"
             clearable
             no_fetch
             v-model="filters.party_id"
@@ -67,14 +63,13 @@
           />
         </v-col>
         <v-col
-          ><DatePicker
-            @input="search"
-            v-model="filters.from"
-            text="from_date"
-          />
+          ><DatePicker hide_details v-model="filters.from" text="from_date" />
         </v-col>
         <v-col>
-          <DatePicker @input="search" v-model="filters.to" text="to_date" />
+          <DatePicker hide_details v-model="filters.to" text="to_date" />
+        </v-col>
+        <v-col cols="1" class="py-0 mt-4">
+          <v-btn @click="search" color="primary"> بحث </v-btn>
         </v-col>
       </v-row>
     </Card>
@@ -87,7 +82,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      show_filter: false,
+      show_filter: true,
       filter: false,
       params: {},
       transfers_type: [

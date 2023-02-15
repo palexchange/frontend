@@ -155,13 +155,12 @@
             >
             <v-file-input
               :disabled="showReadOnly"
-              min="0"
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
               dashed
-              :required="true"
               outlined
+              v-model="image_file"
               v-on="$listeners"
               :rules="rulesss.requiredRules"
               :placeholder="$t('id image')"
@@ -561,6 +560,7 @@ export default {
   name: "moneygram-incoming",
   data() {
     return {
+      image_file: null,
       receiver_id_image: null,
       transfer_photo: null,
       expand: null,
@@ -671,7 +671,7 @@ export default {
         2;
 
       this.item.received_amount = tottal;
-      this.item.a_received_amount = (tottal * mid).toFixed();
+      this.item.a_received_amount = (tottal * mid).toFixed(3);
       return tottal;
     },
     officeAmount() {
@@ -756,7 +756,7 @@ export default {
           ) *
             1) /
         2;
-      this.item.a_received_amount = (v * mid).toFixed();
+      this.item.a_received_amount = (v * mid).toFixed(3);
       this.officeProfitComp();
       this.item.a_received_amount_key++;
     },
@@ -781,6 +781,7 @@ export default {
       // console.log(this.item);
     },
     setReceiverData(item) {
+      this.image_file = null;
       this.$store.dispatch("party/show", item.id);
     },
     setSenderDate(item) {
@@ -890,6 +891,18 @@ export default {
     }
   },
   watch: {
+    image_file(file) {
+      if (file) {
+        if (!this.item.receiver_party_id) return;
+        let docment_data = {
+          id: this.item.receiver_party_id,
+        };
+
+        this.$upload(file, "party", docment_data).then((data) => {
+          this.$store.dispatch("party/show", docment_data.id);
+        });
+      }
+    },
     one(val) {
       if (val) {
         this.item = { ...val }; //JSON.parse(JSON.stringify(val));

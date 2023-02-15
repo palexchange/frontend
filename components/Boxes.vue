@@ -54,6 +54,11 @@ export default {
 
   mounted() {
     this.$auth.fetchUser();
+    let coiunt = this.$auth.user.active_accounts.reduce((a, n) => {
+      return a + n.net_balance * 1;
+    }, 0);
+    console.log("coiunt");
+    console.log(coiunt);
   },
   filters: {
     money(value) {

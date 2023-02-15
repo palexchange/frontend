@@ -11,7 +11,9 @@
         <v-list-item v-for="(item, i) in users" :key="i">
           <v-list-item-title dir="rtl">
             {{ item.name }} :
-            {{ item.id == 1 ? getAdminAmount() : item[profit_name] }}
+            {{
+              item.id == 1 ? getAdminAmount() : (item[profit_name]*1).toFixed(3)
+            }}
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -55,7 +57,7 @@ export default {
         return 0;
       }, 0);
       const admin = this.users.find((user) => user.id == 1);
-      return admin[this.profit_name] - sub_amount;
+      return (admin[this.profit_name] - sub_amount).toFixed(3);
     },
   },
 };

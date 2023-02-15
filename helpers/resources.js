@@ -238,23 +238,23 @@ export default (context) => {
         key: 'transaction_type',
         f: v => transactions_statuses(v)
       },
-      {
-        key: 'acc_balance',
+      // {
+      //   key: 'acc_balance',
 
-        f: v => {
-          {
-            let amount = v;
-            if (amount == 0) return amount
-            let minus = amount < 0;
-            let final = parseFloat(minus ? (amount * -1) : amount).toLocaleString(undefined, { minimumFractionDigits: 2 })
-            if (minus) {
-              return `${final} د`;
-            } else {
-              return `${final} م`;
-            }
-          }
-        },
-      },
+      //   f: v => {
+      //     {
+      //       let amount = v;
+      //       if (amount == 0) return amount
+      //       let minus = amount < 0;
+      //       let final = parseFloat(minus ? (amount * -1) : amount).toLocaleString(undefined, { minimumFractionDigits: 2 })
+      //       if (minus) {
+      //         return `${final} د`;
+      //       } else {
+      //         return `${final} م`;
+      //       }
+      //     }
+      //   },
+      // },
       {
         key: 'ac_creditor',
         f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })

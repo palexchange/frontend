@@ -104,12 +104,12 @@
         </v-text-field>
       </v-col>
       <v-col>
-        <v-btn @click="Amount(1)" class="pa-4" color="info"
-          >استلام دفعة ↓</v-btn
+        <v-btn @click="Amount(1)" class="pa-4 font-weight-bold" color="info"
+          >سند قبض ↓</v-btn
         >
 
-        <v-btn @click="Amount(-1)" class="pa-4" color="error">
-          صرف دفعة ↑</v-btn
+        <v-btn @click="Amount(-1)" class="pa-4 font-weight-bold" color="error">
+          سند صرف ↑</v-btn
         >
       </v-col>
     </v-row>

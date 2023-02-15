@@ -175,9 +175,9 @@ export default {
   mounted() {
     // this.$auth.fetchUser();
     this.$store.dispatch("account/index", { is_transaction: true });
-    this.$store.dispatch("stock_transaction/index", {
-      per_page: 14,
-    });
+    // this.$store.dispatch("stock_transaction/index", {
+    //   per_page: 14,
+    // });
   },
   methods: {
     save() {
@@ -222,19 +222,16 @@ export default {
       console.log(item);
     },
     getMorningExchangeRate(currency_id) {
-      let trans = this.new_transactions.find(
-        (v) => v.stock.currency_id == currency_id
-      );
-      if (trans) {
-        return trans.mid.toFixed(4);
+      let stock = this.stocks.find((v) => v.currency_id == currency_id);
+      if (stock) {
+        console.log();
+        return (stock.mid * 1).toFixed(4);
       }
     },
     getNightExchangeRate(currency_id) {
-      let trans = this.old_transactions.find(
-        (v) => v.stock.currency_id == currency_id
-      );
-      if (trans) {
-        return trans.mid.toFixed(4);
+      let stock = this.stocks.find((v) => v.currency_id == currency_id);
+      if (stock) {
+        return (stock.close_mid * 1).toFixed(4);
       }
     },
     getDate() {
@@ -249,10 +246,11 @@ export default {
     ...mapState({
       active_accounts: (state) =>
         JSON.parse(JSON.stringify(state.auth.user.main_active_accounts)),
-      stock_transaction: (state) =>
-        JSON.parse(JSON.stringify(state.stock_transaction.all)),
+      // stock_transaction: (state) =>
+      //   JSON.parse(JSON.stringify(state.stock_transaction.all)),
       all_accounts: (state) =>
         JSON.parse(JSON.stringify(state.account.all)) || [],
+      stocks: (state) => state.stock.all || [],
     }),
     transfer_profit_acc() {
       if (this.$auth.user.role == 1) {
@@ -319,14 +317,14 @@ export default {
     },
   },
   watch: {
-    stock_transaction(val) {
-      val.sort((a, b) => b.id - a.id);
-      val.forEach((element) => {
-        console.log(element.id);
-      });
-      this.old_transactions = val.slice(0, 7);
-      this.new_transactions = val.slice(7, 14);
-    },
+    // stock_transaction(val) {
+    //   val.sort((a, b) => b.id - a.id);
+    //   val.forEach((element) => {
+    //     console.log(element.id);
+    //   });
+    //   this.old_transactions = val.slice(0, 7);
+    //   this.new_transactions = val.slice(7, 14);
+    // },
     all_accounts(val) {
       if (val[0]) {
         this.accounts = val.filter((v) => v.type_id == 4);

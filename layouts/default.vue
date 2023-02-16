@@ -25,7 +25,7 @@
       <v-spacer></v-spacer>
       <v-expand-transition>
         <v-row v-show="toggle_profits" style="justify-content: end">
-          <v-col class="pa-8" @mousemove.once="$store.dispatch('user/index')" cols="5">
+          <v-col class="pa-8" @mousemove.once="$store.dispatch('user/index')">
             {{ $t("today exchanges profit") }}
             :
             <span
@@ -41,7 +41,7 @@
               :active_menu="active_exchange_profit_detail"
             ></MenuComponent>
           </v-col>
-          <v-col class="pa-8" @mousemove.once="$store.dispatch('user/index')" cols="5">
+          <v-col class="pa-8" @mousemove.once="$store.dispatch('user/index')">
             {{ $t("today transfers profit") }}
             :
             <span
@@ -102,11 +102,11 @@
       </v-menu>
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
-      <v-container   style="max-width: 1340px !important;margin-top: 50px;">
+      <v-container style="max-width: 1340px !important; margin-top: 50px">
         <!-- <Boxes /> -->
         <UserActiveAccounts />
         <Breadcrumbs />
-        <div  style="min-height: 67vh">
+        <div style="min-height: 67vh">
           <Nuxt />
         </div>
 

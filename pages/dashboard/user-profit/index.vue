@@ -72,18 +72,18 @@
             >
           </v-row>
 
-          <v-row class="shadowing">
+          <!-- <v-row class="shadowing">
             <v-col
               ><h3>
                 {{ $t("exchange rate profit") }}
               </h3></v-col
             >
-            <v-col>
+             <v-col>
               <h2>
                 {{ (funds_total2 - funds_total) | money }}
               </h2></v-col
-            >
-          </v-row>
+            > 
+          </v-row> -->
           <v-row class="shadowing">
             <v-col
               ><h3>
@@ -131,10 +131,11 @@
                 {{
                   (
                     parseFloat(transfer_profit_acc.balance) +
-                    parseFloat(exchange_profit_acc.balance) +
-                    (funds_total2 - funds_total)
-                  ).toFixed(2)
+                    parseFloat(exchange_profit_acc.balance)
+                  ).toFixed(3)
                 }}
+                <!-- +
+                    (funds_total2 - funds_total) -->
               </h2></v-col
             >
           </v-row>
@@ -256,12 +257,12 @@ export default {
       if (this.$auth.user.role == 1) {
         let acc = this.all_accounts.find((v) => v.id == 2) || {};
         if (acc.balance < 0) {
-          acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
+          acc.balance = (this.$auth.user.daily_transfer_profit * 1).toFixed(3);
         }
         return acc;
       } else {
         let acc = {};
-        acc.balance = (this.$auth.user.transfers_profit * 1).toFixed(2);
+        acc.balance = (this.$auth.user.daily_transfer_profit * 1).toFixed(3);
         acc.name = "ربحية الحوالات";
         return acc;
       }
@@ -277,12 +278,12 @@ export default {
       if (this.$auth.user.role == 1) {
         let acc = this.all_accounts.find((v) => v.id == 3) || {};
         if (acc.balance < 0) {
-          acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
+          acc.balance = (this.$auth.user.daily_exchange_profit * 1).toFixed(3);
         }
         return acc;
       } else {
         let acc = {};
-        acc.balance = (this.$auth.user.exchnages_profit * 1).toFixed(2);
+        acc.balance = (this.$auth.user.daily_exchange_profit * 1).toFixed(3);
         acc.name = "ربحية الصرافة";
         return acc;
       }

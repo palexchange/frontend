@@ -72,18 +72,18 @@
             >
           </v-row>
 
-          <v-row v-if="$auth.user.role == 1" class="shadowing">
+          <!-- <v-row v-if="$auth.user.role == 1" class="shadowing">
             <v-col
               ><h3>
                 {{ $t("exchange rate profit") }}
               </h3></v-col
             >
-            <v-col>
+             <v-col>
               <h2>
                 {{ (funds_total2 - funds_total) | money }}
               </h2></v-col
-            >
-          </v-row>
+            >  
+          </v-row> -->
           <v-row class="shadowing">
             <v-col
               ><h3>
@@ -129,23 +129,24 @@
             >
             <v-col>
               <h2>
-                {{ profit_total.toFixed(2) }}
+                {{ profit_total.toFixed(3) }}
               </h2></v-col
             >
           </v-row>
-          <v-row class="shadowing">
+          <!-- <v-row class="shadowing">
             <v-col><h3>مصرفات</h3></v-col>
             <v-col>
               <h2>
                 {{ expenses_account }}
               </h2></v-col
             >
-          </v-row>
+          </v-row> -->
           <v-row class="shadowing">
             <v-col><h3>صافي الربح</h3></v-col>
             <v-col>
               <h2>
-                {{ (profit_total - expenses_account).toFixed(2) }}
+                {{ profit_total.toFixed(3) }}
+                <!-- - expenses_account -->
               </h2></v-col
             >
           </v-row>
@@ -215,10 +216,10 @@ export default {
           name: "مجموع الخزائن بمعامل التحويل المسائي",
           balance: this.funds_total2,
         },
-        {
-          name: " ربحية فرق العملة",
-          balance: this.funds_total2 - this.funds_total,
-        },
+        // {
+        //   name: " ربحية فرق العملة",
+        //   balance: this.funds_total2 - this.funds_total,
+        // },
         { name: "ربحية الصرافة", balance: this.exchange_profit_acc.balance },
         { name: "ربحية الحوالات", balance: this.transfer_profit_acc.balance },
         {
@@ -227,7 +228,7 @@ export default {
             parseFloat(this.transfer_profit_acc.balance) +
             parseFloat(this.exchange_profit_acc.balance) +
             (this.funds_total2 - this.funds_total)
-          ).toFixed(2),
+          ).toFixed(3),
         },
       ];
       item.value = [...item.value, ...extra_headers];
@@ -269,34 +270,34 @@ export default {
     profit_total() {
       return (
         this.transfer_profit_acc.balance * 1 +
-        this.exchange_profit_acc.balance * 1 +
-        (this.funds_total2 * 1 - this.funds_total * 1)
+        this.exchange_profit_acc.balance * 1
       );
+      // (this.funds_total2 * 1 - this.funds_total * 1)
     },
-    expenses_account() {
-      let acc =
-        this.all_accounts.find((v) => v.type_id == 7 && v.parent_id == null) ||
-        {};
-      if (acc.children && acc.children.length > 0) {
-        let chidren_balance = acc.children.reduce((a, n) => {
-          return a + n.balance * 1;
-        }, 0);
-        chidren_balance * 1 + acc.balance * 1;
-        return chidren_balance + acc.balance;
-      } else {
-        return 0;
-      }
-    },
+    // expenses_account() {
+    //   let acc =
+    //     this.all_accounts.find((v) => v.type_id == 7 && v.parent_id == null) ||
+    //     {};
+    //   if (acc.children && acc.children.length > 0) {
+    //     let chidren_balance = acc.children.reduce((a, n) => {
+    //       return a + n.balance * 1;
+    //     }, 0);
+    //     chidren_balance * 1 + acc.balance * 1;
+    //     return chidren_balance + acc.balance;
+    //   } else {
+    //     return 0;
+    //   }
+    // },
     transfer_profit_acc() {
       if (this.$auth.user.role == 1) {
         let acc = this.all_accounts.find((v) => v.id == 2) || {};
         if (acc.balance < 0) {
-          acc.balance = parseFloat(acc.balance).toFixed(3) * -1;
+          acc.balance = (this.$auth.user.daily_transfer_profit * 1).toFixed(3);
         }
         return acc;
       } else {
         let acc = {};
-        acc.balance = (this.$auth.user.transfers_profit * 1).toFixed(2);
+        acc.balance = (this.$auth.user.daily_transfer_profit * 1).toFixed(3);
         acc.name = "ربحية الحوالات";
         return acc;
       }
@@ -312,12 +313,12 @@ export default {
       if (this.$auth.user.role == 1) {
         let acc = this.all_accounts.find((v) => v.id == 3) || {};
         if (acc.balance < 0) {
-          acc.balance = parseFloat(acc.balance).toFixed(3) * -1;
+          acc.balance = (this.$auth.user.daily_exchange_profit * 1).toFixed(3);
         }
         return acc;
       } else {
         let acc = {};
-        acc.balance = (this.$auth.user.exchnages_profit * 1).toFixed(2);
+        acc.balance = (this.$auth.user.daily_exchange_profit * 1).toFixed(3);
         acc.name = "ربحية الصرافة";
         return acc;
       }

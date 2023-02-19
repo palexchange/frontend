@@ -257,11 +257,11 @@ export default (context) => {
       // },
       {
         key: 'ac_creditor',
-        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+        f: v => v == null ? null : parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
       },
       {
         key: 'ac_debtor',
-        f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+        f: v => v == null ? null : parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
       },
       {
         key: 'statement',

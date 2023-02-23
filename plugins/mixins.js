@@ -224,23 +224,23 @@ export default (context, inject) => {
     });
     if (to.id == 1) {
       if (from_currency) {
-        return (1 / from_currency.start_selling_price).toFixed(16);
+        return (1 / from_currency.final_selling_price).toFixed(16);
       }
     } else if (from.id == 1) {
       if (to_currency) {
 
-        return (to_currency.start_selling_price);
+        return (to_currency.final_selling_price);
       }
     } else {
       let converter = context.store.state.stock.all.find(v => {
         return v.currency_id == from.id && v.ref_currency_id == to.id
       });
       if (converter) {
-        return converter.start_selling_price;
+        return converter.final_selling_price;
       }
       if (to_currency && from_currency) {
 
-        return ((1 / from_currency.start_selling_price) * to_currency.start_selling_price).toFixed(16);
+        return ((1 / from_currency.final_selling_price) * to_currency.final_selling_price).toFixed(16);
       }
     }
 

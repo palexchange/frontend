@@ -10,6 +10,12 @@ const transactions_name_map = () => {
   status_map.set(0, "صادرة")
   status_map.set(1, "واردة")
   status_map.set(2, "عمولة حوالة")
+  status_map.set(3, "عمولة وسيط")
+  status_map.set(4, "مرجع")
+  status_map.set(5, "عمولة موني غرام إضافية")
+  status_map.set(6, "مبلغ حوالة صادرة")
+  status_map.set(8, "ربحية من الوسيط")
+  status_map.set(9, "ربحية فرق عملة")
   status_map.set(7, "مصروف")
   return status_map
 }
@@ -46,6 +52,7 @@ export default (context) => {
   {
     child: 'stock',
     parent: '',
+    reload_user: true,
     load_after_store: true,
     // headers:['id','image_url','name','category.name','price','price1','price2','price3','description','created_at']
   },
@@ -146,6 +153,7 @@ export default (context) => {
     child: 'transfer',
     parent: '',
     reload_user: true,
+    empty_data: true,
     load_after_store: true,
     headers: ['num', 'id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'receiver_party.name', 'office.name', 'profit'],
     functions: [
@@ -299,11 +307,15 @@ export default (context) => {
     parent: '',
     silent: true,
     load_after_store: false,
-    headers: ['num', 'id', 'account_name', 'debtor', 'creditor', 'currency_name', 'exchange_rate', 'ac_debtor', 'ac_creditor'],
+    headers: ['num', 'id', 'account_name', 'debtor', 'creditor', 'currency_name', 'exchange_rate', 'ac_debtor', 'ac_creditor', 'transaction_type'],
     functions: [
       {
         key: 'ac_creditor',
         f: v => parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+      },
+      {
+        key: 'transaction_type',
+        f: v => transactions_statuses(v)
       },
       {
         key: 'ac_debtor',
@@ -325,6 +337,7 @@ export default (context) => {
     child: 'receipt',
     parent: '',
     reload_user: true,
+    empty_data: true,
     load_after_store: true,
     headers: ['num', 'id', 'user.name', 'from_account_name', 'to_account_name', "statement", 'from_amount', 'currency.name', 'exchange_rate', 'to_amount', 'status', 'created_at'],
     functions: [

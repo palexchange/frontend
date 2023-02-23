@@ -41,21 +41,21 @@
               <v-text-field
                 v-model.number="currency.final_purchasing_price"
                 dense
-                @keydown.enter="calcDollaySellBuyPrice($event, currency, 'buy')"
-                @focusout="calcDollaySellBuyPrice($event, currency, 'buy')"
               ></v-text-field
             ></v-col>
+            <!-- @keydown.enter="calcDollaySellBuyPrice($event, currency, 'buy')"
+                @focusout="calcDollaySellBuyPrice($event, currency, 'buy')" -->
             <v-col cols="3">
               <label for="">{{ $t("sale") }}</label>
               <v-text-field
                 v-model.number="currency.final_selling_price"
                 dense
-                @keydown.enter="
-                  calcDollaySellBuyPrice($event, currency, 'sell')
-                "
-                @focusout="calcDollaySellBuyPrice($event, currency, 'sell')"
               ></v-text-field
             ></v-col>
+            <!-- @keydown.enter="
+                  calcDollaySellBuyPrice($event, currency, 'sell')
+                "
+                @focusout="calcDollaySellBuyPrice($event, currency, 'sell')" -->
           </v-row>
         </v-col>
       </v-row>
@@ -64,25 +64,17 @@
     <v-card-actions class="justify-center">
       <v-row>
         <v-col>
-          <v-btn class="primary" @click="dialog2 = true">
+          <v-btn
+            class="primary"
+            @click="
+              dialog2 = true;
+              save_type = 2;
+            "
+          >
             إعتماد اغلاق الجرد
           </v-btn>
         </v-col>
       </v-row>
-      <v-dialog width="500" v-model="dialog2">
-        <v-sheet class="pa-5">
-          <h4>هل انت متأكد لحفظ الاسعار للجرد ؟</h4>
-          <v-btn
-            class="primary"
-            @click="
-              dialog2 = false;
-              save(2);
-            "
-            >نعم</v-btn
-          >
-          <v-btn @click="dialog2 = false">لا</v-btn>
-        </v-sheet>
-      </v-dialog>
     </v-card-actions>
 
     <v-card-text>
@@ -128,23 +120,24 @@
                 <v-text-field
                   v-model.number="currency.start_purchasing_price"
                   dense
-                  @keydown.enter="
-                    calcDollaySellBuyPrice($event, currency, 'buy')
-                  "
-                  @focusout="calcDollaySellBuyPrice($event, currency, 'buy')"
                 ></v-text-field
               ></v-col>
+              <!-- @keydown.enter="
+                    calcDollaySellBuyPrice($event, currency, 'buy')
+                  "
+                  @focusout="calcDollaySellBuyPrice($event, currency, 'buy')" -->
               <v-col cols="3">
                 <label for="">{{ $t("sale") }}</label>
                 <v-text-field
                   v-model.number="currency.start_selling_price"
                   dense
+                ></v-text-field
+              ></v-col>
+              <!-- 
                   @keydown.enter="
                     calcDollaySellBuyPrice($event, currency, 'sell')
                   "
-                  @focusout="calcDollaySellBuyPrice($event, currency, 'sell')"
-                ></v-text-field
-              ></v-col>
+                  @focusout="calcDollaySellBuyPrice($event, currency, 'sell')" -->
             </v-row>
           </v-col>
         </v-row>
@@ -153,7 +146,13 @@
       <v-card-actions class="justify-center">
         <v-row>
           <v-col>
-            <v-btn class="primary" @click="dialog2 = true">
+            <v-btn
+              class="primary"
+              @click="
+                dialog2 = true;
+                save_type = 1;
+              "
+            >
               اعتماد فتح الجرد
             </v-btn>
           </v-col>
@@ -165,7 +164,7 @@
               class="primary"
               @click="
                 dialog2 = false;
-                save(1);
+                save(save_type);
               "
               >نعم</v-btn
             >
@@ -182,6 +181,7 @@ export default {
   name: "pricing",
   data() {
     return {
+      save_type: 1,
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -213,15 +213,18 @@ export default {
     save(type) {
       let dateTime = this.$getDateTime();
       let stocks = this.stocks;
-      if (type == 1) {
+
+      if (type == "1") {
         stocks.map((v) => {
           v.opened_at = dateTime;
         });
       } else {
         stocks.map((v) => {
+          console.log(dateTime);
           v.closed_at = dateTime;
         });
       }
+
       this.$save(stocks, "stock");
     },
     calcDollaySellBuyPrice(event, stock, type) {

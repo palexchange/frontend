@@ -289,18 +289,10 @@ export default {
     //   }
     // },
     transfer_profit_acc() {
-      if (this.$auth.user.role == 1) {
-        let acc = this.all_accounts.find((v) => v.id == 2) || {};
-        if (acc.balance < 0) {
-          acc.balance = (this.$auth.user.daily_transfer_profit * 1).toFixed(3);
-        }
-        return acc;
-      } else {
-        let acc = {};
-        acc.balance = (this.$auth.user.daily_transfer_profit * 1).toFixed(3);
-        acc.name = "ربحية الحوالات";
-        return acc;
-      }
+      let acc = {};
+      acc.balance = (this.$auth.user.daily_transfer_profit * 1).toFixed(3);
+      acc.name = "ربحية الحوالات";
+      return acc;
     },
     profit_and_losse_acc() {
       let acc = this.all_accounts.find((v) => v.id == 33) || {};
@@ -310,18 +302,10 @@ export default {
       return acc;
     },
     exchange_profit_acc() {
-      if (this.$auth.user.role == 1) {
-        let acc = this.all_accounts.find((v) => v.id == 3) || {};
-        if (acc.balance < 0) {
-          acc.balance = (this.$auth.user.daily_exchange_profit * 1).toFixed(3);
-        }
-        return acc;
-      } else {
-        let acc = {};
-        acc.balance = (this.$auth.user.daily_exchange_profit * 1).toFixed(3);
-        acc.name = "ربحية الصرافة";
-        return acc;
-      }
+      let acc = {};
+      acc.balance = (this.$auth.user.daily_exchange_profit * 1).toFixed(3);
+      acc.name = "ربحية الصرافة";
+      return acc;
     },
     funds_total() {
       this.totals = this.boxes_accounts.map((account) => {

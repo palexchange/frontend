@@ -22,10 +22,9 @@
       </v-card-actions>
     </Card>
     <Card v-show="show_filter" class="pa-5">
-      <v-row>
+      <v-row align="center">
         <v-col>
           <InputField
-            @change="search"
             type="number"
             v-model="filters.transfer_id"
             hide-details
@@ -35,7 +34,6 @@
         </v-col>
         <v-col>
           <AutoComplete
-            @input="search"
             clearable
             :items="transfers_type"
             v-model="filters.type"
@@ -47,7 +45,6 @@
 
         <v-col>
           <AutoComplete
-            @input="search"
             :items="transfers_statuses"
             v-model="filters.status"
             hide-details
@@ -57,7 +54,6 @@
         </v-col>
         <v-col>
           <BeneficiaryAutocomplete
-            @input="search"
             v-model="filters.party_id"
             hide-details
             holder="party_name"
@@ -65,14 +61,13 @@
           />
         </v-col>
         <v-col>
-          <DatePicker
-            @change="search"
-            v-model="filters.from"
-            text="from_date"
-          />
+          <DatePicker hide_details v-model="filters.from" text="from_date" />
         </v-col>
         <v-col>
-          <DatePicker @change="search" v-model="filters.to" text="to_date" />
+          <DatePicker hide_details v-model="filters.to" text="to_date" />
+        </v-col>
+        <v-col cols="1" class="py-0 mt-4">
+          <v-btn @click="search" color="primary"> بحث </v-btn>
         </v-col>
       </v-row>
     </Card>
@@ -85,7 +80,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      show_filter: false,
+      show_filter: true,
       filter: false,
       filters: {
         from: new Date().toISOString().slice(0, 10),
@@ -146,7 +141,7 @@ export default {
     },
   },
   mounted() {
-    this.params = { delivering_type: [2] };
+    this.params = { delivering_type: [2], issued_at: this.$getDateTime() };
   },
 };
 </script>

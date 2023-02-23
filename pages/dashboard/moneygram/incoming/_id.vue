@@ -690,7 +690,7 @@ export default {
       let returned = this.item.returned_commision || 0;
       commission =
         this.item.office_commission_type == 1
-          ? (commission / 100) * officeAmount
+          ? (commission * officeAmount) / 100
           : commission;
       let tempVar = officeAmount - returned + commission;
 
@@ -698,7 +698,7 @@ export default {
       //   console.log("Rounded: ", rounedRes);
       this.totalOfficeAmountFraction = -(this.rounedRes - tempVar);
 
-      this.item.office_amount = tempVar;
+      // this.item.office_amount = tempVar;
       return tempVar ? this.rounedRes : null;
     },
 

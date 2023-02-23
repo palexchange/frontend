@@ -294,12 +294,12 @@
               slot="append"
               hide-details
               :label="
-                item.is_commission_percentage
+                item.is_commission_percentage == 1
                   ? `${$t('commission')} %`
                   : $t('commission')
               "
               :append-icon="
-                item.is_commission_percentage == false
+                item.is_commission_percentage == 0
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
@@ -308,7 +308,7 @@
                   showReadOnly
                     ? ''
                     : (item.is_commission_percentage =
-                        !item.is_commission_percentage)
+                        item.is_commission_percentage == 1 ? 0 : 1)
               "
               v-model.number="item.transfer_commission"
             >
@@ -482,8 +482,8 @@
                   );
                   item.office_currency_id = v.id;
                   item.office_currency = v;
-                  computed_office_exchange_rate_to_usd =
-                    (1 / getMidCurrencyTousd(v)).toFixed(5) * 1;
+                  item.office_exchange_rate_to_usd =
+                    getMidCurrencyTousd(v).toFixed(5) * 1;
                 }
               "
               return-object
@@ -613,7 +613,7 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
-              v-model="computed_office_exchange_rate_to_usd"
+              v-model="item.office_exchange_rate_to_usd"
               holder="exchange rate to usd"
               text="exchange rate to usd"
             />
@@ -709,7 +709,7 @@ export default {
         sender_id_no: null,
         sender_phone: null,
         sender_address: null,
-        is_commission_percentage: false,
+        is_commission_percentage: 0,
         office_commission_type: 0,
         returned_commission_type: 0,
         office_exchange_rate_to_usd: 0,
@@ -723,16 +723,6 @@ export default {
     };
   },
   computed: {
-    computed_office_exchange_rate_to_usd: {
-      set: function (val) {
-        if (val > 0) {
-          this.item.office_exchange_rate_to_usd = 1 / val; //0.7 , 1.42
-        }
-      },
-      get: function () {
-        return 1 / (this.item.office_exchange_rate_to_usd || 1); // 0.7
-      },
-    },
     computed_exchange_rate_to_delivery_currency: {
       get: function () {
         return this.item.exchange_rate_to_delivery_currency_view
@@ -818,18 +808,12 @@ export default {
       //   sub_factor,
       // });
 
-      let convParam =
-        1 /
-        (this.item.exchange_rate_to_reference_currency /
-          this.item.exchange_rate_to_office_currency);
-      const a_amount = (res * convParam || 0).toFixed();
+      let exchange_rate = this.item.exchange_rate_to_reference_currency || 1;
+      let curr = this.item.received_currency_id;
 
-      // const a_amount = (res * mid).toFixed();
-      // console.table({
-      //   res,
-      //   a_amount,
-      //   exchange_rate: this.item.exchange_rate_to_reference_currency,
-      // });
+      const a_amount =
+        curr == 4 ? amountInUSD * exchange_rate : amountInUSD / exchange_rate;
+
       this.item.a_received_amount = a_amount;
 
       return res <= 0 ? null : res;
@@ -838,6 +822,8 @@ export default {
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
         totalRecvAmount = parseFloat(this.totalRecvAmountComp || 0);
       let officeAmount = totalRecvAmount * conversionParam;
+      this.item.office_amount_befor_commission =
+        officeAmount <= 0 ? null : officeAmount;
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
@@ -857,21 +843,20 @@ export default {
           : commission;
       let tempVar = officeAmount + commission - returned;
       //  $newCalcBuyPrice(item.office_currency,{id:1}) ;
-      const sale = this.$newCalcSalePrice(
-        { id: this.item.office_currency_id },
-        { id: 1 }
-      );
-      const buy = this.$newCalcBuyPrice(
-        { id: this.item.office_currency_id },
-        { id: 1 }
-      );
+      // const sale = this.$newCalcSalePrice(
+      //   { id: this.item.office_currency_id },
+      //   { id: 1 }
+      // );
+      // const buy = this.$newCalcBuyPrice(
+      //   { id: this.item.office_currency_id },
+      //   { id: 1 }
+      // );
 
-      const mid = (sale * 1 + buy * 1) / 2;
-      this.item.office_amount = this.item.office_currency_id
-        ? parseFloat(
-            tempVar * (this.item.office_exchange_rate_to_usd || mid)
-          ).toFixed()
-        : parseFloat(tempVar).toFixed();
+      // const mid = (sale * 1 + buy * 1) / 2;
+      this.item.office_amount =
+        this.item.office_currency_id == 4
+          ? (tempVar * (this.item.office_exchange_rate_to_usd || 1)).toFixed()
+          : (tempVar / (this.item.office_exchange_rate_to_usd || 1)).toFixed();
       this.item.office_amount_in_office_currency =
         parseFloat(tempVar).toFixed();
       return tempVar <= 0 ? null : parseFloat(tempVar).toFixed();
@@ -909,10 +894,11 @@ export default {
   methods: {
     getMidCurrencyTousd(currency) {
       if (currency == undefined) return null;
-      const sale = this.$newCalcSalePrice({ id: currency.id }, { id: 1 });
-      const buy = this.$newCalcBuyPrice({ id: currency.id }, { id: 1 });
-      const mid = (sale * 1 + buy * 1) / 2;
-      return mid.toFixed(5) * 1;
+      const mid = this.stocks.find(
+        (e) => e.currency_id == currency.id
+      ).close_mid;
+
+      return (mid * 1).toFixed(10) * 1;
     },
     setReceiverDate(item) {
       if (!item) return;
@@ -976,14 +962,14 @@ export default {
             (
               parseFloat(this.$newCalcBuyPrice(toCurr, fromCurr)) +
               parseFloat(this.$newCalcSalePrice(toCurr, fromCurr))
-            ).toFixed(7)
+            ).toFixed(12)
           ) / 2;
         this.item[vCalc] =
           parseFloat(
             (
               parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr)) +
               parseFloat(this.$newCalcSalePrice(fromCurr, toCurr))
-            ).toFixed(7)
+            ).toFixed(12)
           ) / 2;
       }
     },
@@ -995,9 +981,10 @@ export default {
       let percentage = this.item.is_commission_percentage;
       let amount = 0;
       if (commisson_amount != 0) {
-        amount = percentage
-          ? (transferringAmount * commisson_amount) / 100
-          : commisson_amount;
+        amount =
+          percentage == 1
+            ? (transferringAmount * commisson_amount) / 100
+            : commisson_amount;
       }
 
       return amount;
@@ -1040,8 +1027,6 @@ export default {
     one(val) {
       if (val) {
         this.item = { ...val }; //JSON.parse(JSON.stringify(val));
-        this.computed_office_exchange_rate_to_usd =
-          val.office_exchange_rate_to_usd;
       }
     },
   },

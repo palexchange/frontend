@@ -33,7 +33,7 @@
               </div>
               <div style="font-size: 20px; color: black">رصيد جرد</div>
               <div style="font-size: 20px; color: light-black">
-                {{ account.balance | money }}
+                {{ account.inventory_balance | money }}
               </div>
             </v-card-text>
           </v-card>

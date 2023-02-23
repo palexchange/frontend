@@ -395,29 +395,6 @@ export default {
           this.download_name = "";
         });
     },
-    // download(ext) {
-    //   let obj = null;
-    //   let file_name = `${this.module}_${new Date(Date.now())
-    //     .toLocaleString("en-GB")
-    //     .replaceAll("/", "-")}.${ext}`;
-    //   if (ext) {
-    //     obj = {
-    //       ext,
-    //       document_type: this.$get_type_id(this.module),
-    //       file_name,
-    //       ...this.params,
-    //     };
-    //   }
-    //   if (ext)
-    //     this.$store.dispatch("export_data/index", obj).then((data) => {
-    //       if (data) {
-    //         let blob = new Blob([data], {
-    //           type: `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`,
-    //         });
-    //         saveAs(blob, file_name);
-    //       }
-    //     });
-    // },
     context_menu(e, item) {
       this.menu_name = this.module;
       this.item = item;
@@ -436,48 +413,6 @@ export default {
 };
 </script>
  <style >
-/* .my-table th {
-  padding: 20px 0px !important;
-  font-weight: normal;
-  color: #000 !important;
-  font-size: 14px !important;
-  text-align: center !important;
-}
-
-.my-table th::after {
-  content: " | ";
-  display: inline-block;
-  padding: 0px 20px;
-  color: rgba(67, 46, 140, 0.5);
-}
-
-.my-table th:last-child::after {
-  content: "";
-}
-.my-table tr {
-  border-radius: 20px !important;
-}
-.my-table thead th {
-  border-bottom: 16px solid #eeeeee !important;
-}
-.my-table tbody td {
-  border-bottom: 16px solid #eeeeee !important;
-}
-.my-table thead > tr > th,
-.my-table tbody > td {
-  padding: 20px 0px !important;
-  text-align: center !important;
-}
-
-
-.my-table tbody,
-.my-table td {
-  padding: 20px 0px !important;
-  text-align: center !important;
-  font-weight: normal;
-  color: #000 !important;
-  font-size: 13px !important;
-} */
 .my-table tbody > tr:hover {
   background-color: rgb(247, 247, 247) !important;
 }
@@ -552,6 +487,9 @@ export default {
   border-radius: 4px;
   background-color: rgb(255, 105, 105);
   color: white;
+}
+.my-table td {
+  font-weight: 700;
 }
 </style>
 

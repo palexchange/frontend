@@ -38,11 +38,14 @@
             </v-col>
             <v-col>
               <CurrencyAutoComplete
+                :key="number"
                 clearable
                 multiple
                 v-model="report_data.currency_id"
                 holder="currency"
                 text="currency"
+                select_all
+                @select_all="(v) => selectAll(v)"
               />
             </v-col>
           </v-row>
@@ -73,6 +76,13 @@
         false-value="0"
         v-model="report_data.show_receiver"
         label="إظهار المستلم"
+      >
+      </v-checkbox>
+      <v-checkbox
+        true-value="1"
+        false-value="0"
+        v-model="report_data.no_details"
+        label="إظهار مبلغ المجموعة فقط"
       >
       </v-checkbox>
     </v-row>
@@ -124,6 +134,7 @@ export default {
     return {
       currency_signs: [],
       loading: false,
+      number: 0,
       receipt: {},
       validated: true,
       report_data: {
@@ -136,6 +147,10 @@ export default {
     };
   },
   methods: {
+    selectAll(all) {
+      this.report_data.currency_id = all.map((v) => v.id);
+      this.number++;
+    },
     Amount(in_or_out) {
       if (!(this.receipt.amount > 0)) return;
       if (!this.receipt.currency_id) return;

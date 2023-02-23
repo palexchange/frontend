@@ -218,7 +218,7 @@
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
               <AutoComplete text="country" holder="country" required />
             </v-col> -->
-          <v-col cols="12" md="4" sm="6">
+          <v-col cols="12" md="3">
             <InputField
               :readonly="showReadOnly"
               holder="address"
@@ -233,6 +233,14 @@
               <InputField
               :readonly="showReadOnly" holder="address" text="address" />
             </v-col> -->
+          <v-col cols="12" md="3">
+            <InputField
+              :readonly="showReadOnly"
+              holder="notes"
+              text="notes"
+              v-model="item.receiver_notes"
+            />
+          </v-col>
         </v-row>
       </v-card-text>
     </Card>
@@ -359,7 +367,7 @@
             <!--  (يتم خصم المبلغ من المبلغ المرسل)" -->
             <InputField
               :readonly="showReadOnly"
-              v-model.number="item.returned_commision"
+              v-model.number="item.returned_commission"
               holder="عمولة الوسيط"
               text="عمولة الوسيط"
             />
@@ -369,12 +377,12 @@
               class="form-label"
               style="color: rgba(0, 0, 0); font-size: 16px"
             >
-              {{ item.office_commision_type == 1 ? "%" : "" }}
+              {{ item.office_commission_type == 1 ? "%" : "" }}
               مرجع
             </label>
             <v-text-field
               :readonly="showReadOnly"
-              v-model.number="item.office_commision"
+              v-model.number="item.office_commission"
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
@@ -382,14 +390,14 @@
               slot="append"
               hide-details
               :append-icon="
-                item.office_commision_type == 0
+                item.office_commission_type == 0
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
               @click:append="
                 () =>
-                  (item.office_commision_type =
-                    item.office_commision_type == 1 ? 0 : 1)
+                  (item.office_commission_type =
+                    item.office_commission_type == 1 ? 0 : 1)
               "
             >
             </v-text-field>
@@ -535,7 +543,7 @@
             <InputField
               :readonly="showReadOnly"
               dashed
-              v-model.number="item.received_amount_no_commision"
+              v-model.number="item.received_amount"
               holder="final amount to give"
               text="final amount to give"
               required
@@ -555,14 +563,14 @@
               slot="append"
               hide-details
               :append-icon="
-                item.is_commission_percentage == false
+                item.is_commission_percentage == 0
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
               @click:append="
                 () =>
                   (item.is_commission_percentage =
-                    !item.is_commission_percentage)
+                    item.is_commission_percentage == 0 ? 1 : 0)
               "
               v-model.number="item.transfer_commission"
             >
@@ -571,7 +579,7 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
-              v-model.number="item.received_amount"
+              v-model.number="item.final_received_amount"
               holder="final amount to give after commission "
               text="final amount to give after commission"
               @change="(v) => setFinalAmount(v)"
@@ -593,9 +601,9 @@
     </Card>
 
     <v-row v-if="!showReadOnly">
-      <v-col cols="12" xs="12">
+      <!-- <v-col cols="12" xs="12">
         <v-checkbox :label="$t('send sms to the sender')"> </v-checkbox>
-      </v-col>
+      </v-col> -->
     </v-row>
     <v-row v-if="!showReadOnly" class="justify-center">
       <v-card color="transparent" flat>
@@ -678,8 +686,8 @@ export default {
         sender_id_no: null,
         sender_phone: null,
         sender_address: null,
-        is_commission_percentage: true,
-        office_commision_type: 0,
+        is_commission_percentage: 0,
+        office_commission_type: 0,
         exchange_rate_to_delivery_currency: 0,
         exchange_rate_to_delivery_currency_view: null,
         exchange_rate_to_reference_currency_view: null,
@@ -705,15 +713,16 @@ export default {
   // },
   computed: {
     calcCommisson() {
-      let received_amount = this.item.received_amount_no_commision || 0;
+      let received_amount = this.item.received_amount || 0;
       let commisson_amount = this.item.transfer_commission || 0;
 
       let percentage = this.item.is_commission_percentage;
       let amount = 0;
       if (commisson_amount > 0) {
-        amount = percentage
-          ? (received_amount * commisson_amount) / 100
-          : commisson_amount;
+        amount =
+          percentage == 1
+            ? (received_amount * commisson_amount) / 100
+            : commisson_amount;
       }
 
       return amount;
@@ -736,14 +745,13 @@ export default {
       // this.item.received_amount = amountToDelv;
       // console.log("aaahahahaaaa hhhaaa hhaaa hhhaaahhhaa hhhaaa hhhaaa");
       this.item.received_amount;
-      this.item.returned_commision;
-      this.item.office_commision;
+      this.item.returned_commission;
+      this.item.office_commission;
       this.totalOfficeAmount;
       this.item.a_received_amount;
       this.item.exchange_rate_to_reference_currency;
       let office_amount = this.item.to_send_amount;
       // this.item.office_amount_in_office_currency = this.item.to_send_amount;
-      this.item.final_received_amount = office_amount;
 
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
       console.log("exchange_rate");
@@ -751,9 +759,8 @@ export default {
 
       let tottal = exchange_rate * this.item.to_send_amount || 0;
 
-      this.item.received_amount_no_commision =
-        parseFloat(tottal).toFixed(4) || 0;
-      this.item.received_amount =
+      this.item.received_amount = parseFloat(tottal).toFixed(4) || 0;
+      this.item.final_received_amount =
         parseFloat(tottal - this.calcCommisson).toFixed() || 0;
 
       var operators = {
@@ -768,13 +775,15 @@ export default {
       let factor = this.stocks.find(
         (e) => e.currency_id == this.item.received_currency_id
       )?.mid;
+
       let op = "/";
       if (this.item.received_currency_id == 4) op = "*";
 
       this.item.a_received_amount =
         (operators[op](tottal - this.calcCommisson, factor) * 1).toFixed(1) ||
         0;
-
+      this.item.a_received_amount_exchange_rate =
+        this.item.received_currency_id == 4 ? 1 / factor : factor;
       // this.item.received_amount = tottal;
       return tottal || 0;
     },
@@ -789,15 +798,15 @@ export default {
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      let commission = this.item.office_commision || 0;
+      let commission = this.item.office_commission || 0;
       // /
       //   this.item.exchange_rate_to_office_currency || 0,
       let officeAmount = parseFloat(this.item.to_send_amount || 0);
-      let returned = this.item.returned_commision || 0;
+      let returned = this.item.returned_commission || 0;
       // /
       //   this.item.exchange_rate_to_office_currency || 0;
       commission =
-        this.item.office_commision_type == 1
+        this.item.office_commission_type == 1
           ? (commission / 100) * officeAmount
           : commission;
       let tempVar = officeAmount - returned + commission;
@@ -806,8 +815,20 @@ export default {
       //   console.log("Rounded: ", rounedRes);
       this.totalOfficeAmountFraction = -(this.rounedRes - tempVar);
 
+      var operators = {
+        "*": (a, b) => {
+          return a * b;
+        },
+        "/": (a, b) => {
+          return a / b;
+        },
+      };
+      const op = this.item.office_currency_id == 4 ? "/" : "*";
       this.item.office_amount = this.item.exchange_rate_to_office_currency
-        ? (tempVar * this.item.exchange_rate_to_office_currency).toFixed(1)
+        ? operators[op](
+            tempVar,
+            this.item.exchange_rate_to_office_currency
+          ).toFixed(1)
         : tempVar.toFixed(1);
       this.item.office_amount_in_office_currency = tempVar
         ? this.rounedRes
@@ -823,8 +844,8 @@ export default {
       // let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
       // let res = fromInDoller - finalOfficeAmount * convParam;
       // console.table({ fromInDoller, finalOfficeAmount, convParam, res });
-      this.item.returned_commision;
-      this.item.office_commision;
+      this.item.returned_commission;
+      this.item.office_commission;
       this.totalOfficeAmount;
       this.item.a_received_amount;
       this.item.exchange_rate_to_reference_currency;
@@ -841,8 +862,8 @@ export default {
 
       // return (
       //   total -
-      //   (this.item.returned_commision || 0) +
-      //   (this.item.office_commision || 0)
+      //   (this.item.returned_commission || 0) +
+      //   (this.item.office_commission || 0)
       // );
       return (
         parseFloat(this.item.office_amount) -

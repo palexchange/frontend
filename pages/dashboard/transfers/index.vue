@@ -105,7 +105,7 @@ export default {
     //   this.$download_pdf({});
     // },
     search() {
-      this.params = { ...this.filters, delivering_type: [1, 3 ,4] };
+      this.params = { ...this.filters, delivering_type: [1, 3, 4] };
     },
     print(item) {
       this.$download_pdf({
@@ -150,7 +150,11 @@ export default {
     },
   },
   mounted() {
-    this.params = { delivering_type: [1, 3 ,4] };
+    this.params = {
+      delivering_type: [1, 3, 4],
+      from: this.$getDateTime().slice(0,10),
+      to: this.$getDateTime().slice(0,10),
+    };
   },
 };
 </script>

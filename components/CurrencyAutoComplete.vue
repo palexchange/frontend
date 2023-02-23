@@ -21,6 +21,19 @@
       item-text="name"
       item-value="id"
     >
+      <template v-slot:prepend-item>
+        <div>
+          <v-btn
+            color="#E0E0FF"
+            v-if="select_all"
+            depressed
+            block
+            @click="$emit('select_all', all)"
+          >
+            {{ $t("select all") }}
+          </v-btn>
+        </div>
+      </template>
     </v-autocomplete>
   </div>
 </template>
@@ -39,6 +52,10 @@ export default {
       default: "",
     },
     required: {
+      type: Boolean,
+      default: false,
+    },
+    select_all: {
       type: Boolean,
       default: false,
     },

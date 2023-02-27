@@ -55,7 +55,6 @@
         <v-col>
           <BeneficiaryAutocomplete
             clearable
-            no_fetch
             v-model="filters.party_id"
             hide-details
             holder="party_name"
@@ -152,8 +151,8 @@ export default {
   mounted() {
     this.params = {
       delivering_type: [1, 3, 4],
-      from: this.$getDateTime().slice(0,10),
-      to: this.$getDateTime().slice(0,10),
+      from: this.$getDateTime().slice(0, 10),
+      to: this.$getDateTime().slice(0, 10),
     };
   },
 };

@@ -125,8 +125,13 @@ export default {
     ...mapState({
       user: (state) => state.auth.user,
     }),
-    model_drawer() {
-      return this.$vuetify.breakpoint.mobile ? this.drawer : "";
+    model_drawer: {
+      get: function () {
+        return this.$vuetify.breakpoint.mobile ? this.drawer : "";
+      },
+      set: function (val) {
+        return;
+      },
     },
     // c_type() {
     //   let types = ["admin", "customer"];

@@ -296,23 +296,7 @@
               outlined
               slot="append"
               hide-details
-              :label="
-                item.is_commission_percentage == 0
-                  ? `${$t('extra commission')} %`
-                  : $t('extra commission')
-              "
-              :append-icon="
-                item.is_commission_percentage == 0
-                  ? 'fas fa-sort-numeric-up-alt'
-                  : 'fas fa-percentage'
-              "
-              @click:append="
-                () =>
-                  showReadOnly
-                    ? ''
-                    : (item.is_commission_percentage =
-                        item.is_commission_percentage == 1 ? 0 : 1)
-              "
+              :label="$t('extra commission') + ' $ '"
               v-model.number="item.transfer_commission"
             >
             </v-text-field>
@@ -575,7 +559,7 @@ export default {
         sender_id_no: null,
         sender_phone: null,
         sender_address: null,
-        is_commission_percentage: -1,
+        is_commission_percentage: 0,
         office_commission_type: 0,
         received_currency_id: 1,
         exchange_rate_to_delivery_currency: 1,

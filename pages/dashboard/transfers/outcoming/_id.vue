@@ -773,7 +773,7 @@ export default {
           : 0;
       let otherExp = (this.item.other_amounts_on_sender || 0) * convert_param;
       let final = commVal + total + otherExp;
-      this.item.final_received_amount = final;
+      this.item.final_received_amount = (final * 1).toFixed();
       return final > 0 ? final.toFixed() : null;
     },
     recivedAmountComp() {

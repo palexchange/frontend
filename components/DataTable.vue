@@ -203,6 +203,17 @@ export default {
   },
   data() {
     return {
+      defualt_options: {
+        groupBy: [],
+        groupDesc: [],
+        itemKey: "item.",
+        itemsPerPage: 15,
+        multiSort: true,
+        mustSort: false,
+        page: 1,
+        sortBy: [],
+        sortDesc: [],
+      },
       edited_menu: [],
       download_name: this.module,
       shoowDownloadName: false,
@@ -329,7 +340,18 @@ export default {
         //   old_values == new_values && old_values.length == new_values.length;
 
         if (old_values.length == 3 && empty == false) return;
+        console.log("!!this.params");
+        console.log("!!this.params");
+        console.log(!!this.params);
+        if (
+          this.$deepEqual(val, this.defualt_options) &&
+          !!Object.keys(this.params)[0]
+        )
+          return;
+
         // if (empty == true && same == true) return;
+        console.log("options");
+        console.log(val);
         if (this.loaded && this.options.itemsPerPage > -2) {
           this.$store.dispatch(`${this.module}/index`, {
             ...val,
@@ -341,7 +363,12 @@ export default {
       // immediate: true,
     },
     params: {
-      handler(val) {
+      handler(val, old_val) {
+        if (Object.keys(val).length === 0) return;
+        if (this.$deepEqual(val, old_val)) return;
+        console.log("params");
+        console.log(val);
+        console.log(old_val);
         if (this.loaded && Object.keys(this.params).length > 0) {
           this.$store.dispatch(`${this.module}/index`, {
             ...val,

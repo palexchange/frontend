@@ -244,53 +244,16 @@
         </v-row>
       </v-card-text>
     </Card>
-    <!-- <v-btn @click="expand2 = !expand2" icon>
-      <v-icon v-if="expand2" small> fas fa-eye-slash</v-icon>
-      <v-icon v-else small> fas fa-eye</v-icon>
-    </v-btn>
-    <v-expand-transition>
-      <Card v-show="expand2" class="mb-5">
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" md="3" sm="12">
-              <v-radio-group mandatory v-model="item.commission_side" row>
-                <v-radio :value="2" label="العمولة علي المستلم"></v-radio>
-              </v-radio-group>
-            </v-col>
-
-            <v-col class="align-self-center" md="3" sm="12">
-              <v-text-field
-                color="#FF7171"
-                style="border-radius: 0px !important"
-                dense
-                outlined
-                slot="append"
-                hide-details
-                :label="
-                  item.is_commission_percentage
-                    ? `${$t('commission')} %`
-                    : $t('commission')
-                "
-                :append-icon="
-                  item.is_commission_percentage == false
-                    ? 'fas fa-sort-numeric-up-alt'
-                    : 'fas fa-percentage'
-                "
-                @click:append="
-                  () =>
-                    (item.is_commission_percentage =
-                      !item.is_commission_percentage)
-                "
-                v-model.number="item.transfer_commission"
-              >
-              </v-text-field>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </Card>
-    </v-expand-transition> -->
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات الوسيط المالية</v-card-title>
+      <v-card-subtitle style="w">
+        <v-checkbox
+          v-model="item.on_dollar_account"
+          dense
+          label="ترصيد علي الدولار"
+        >
+        </v-checkbox>
+      </v-card-subtitle>
       <v-card-text>
         <v-row class="responseveCols">
           <v-col cols="12" sm="2">
@@ -429,74 +392,6 @@
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات المبلغ للتسليم </v-card-title>
       <v-card-text>
-        <!-- <v-row class="justify-center responseveCols">
-          <v-col>
-            <InputField
-            :readonly="showReadOnly"
-              v-model.number="item.to_send_amount"
-              holder="transfirrig amount"
-              text="transfirrig amount"
-              required
-            />
-          </v-col>
-          <v-col>
-            <AutoComplete
-              @change="
-                (v) => {
-                  signCurrency(
-                    'exchange_rate_to_delivery_currency',
-                    'exchange_rate_to_delivery_currency_view',
-                    'buy',
-                    v,
-                    currencies[0]
-                  );
-                  item.delivery_currency_id = v.id;
-                }
-              "
-              v-model="item.delivery_currency"
-              :items="currencies"
-              item-name="name"
-              return-object
-              text="العملة الإستلام"
-              holder="العملة الإستلام"
-              required
-            />
-          </v-col>
-          <v-col>
-            <InputField
-            :readonly="showReadOnly"
-              v-model.number="item.exchange_rate_to_delivery_currency_view"
-              @input="
-                (new_value) => {
-                  showConversionFactor(
-                    currencies.find((e) => e.id == 1),
-                    'exchange_rate_to_office_currency',
-                    new_value
-                  );
-                }
-              "
-              holder="converting to dollar amount"
-              text="converting to dollar amount"
-              required
-            />
-          </v-col>
-
-          <v-col>
-            <InputField
-            :readonly="showReadOnly"
-              :value="recivedAmountInUSDComp | money"
-              dashed
-              holder="recived amount in USD"
-              text="recived amount in USD"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="text-center responseveCols">
-            <img src="~/assets/img/icons/to.png" alt="" />
-          </v-col>
-        </v-row> -->
-
         <v-row class="justify-center">
           <v-col>
             <AutoComplete
@@ -733,7 +628,7 @@ export default {
     recivedAmountInUSDComp() {
       let amount = this.item.to_send_amount || 0;
       let ratio = this.item.exchange_rate_to_delivery_currency || 0;
-      let commVal = parseFloat(this.calcCommisson() || 0);
+      let commVal = parseFloat(this.calcCommisson || 0);
       let res = amount * ratio - commVal;
       return res == 0 ? null : res;
     },
@@ -759,7 +654,7 @@ export default {
 
       let tottal = exchange_rate * this.item.to_send_amount || 0;
 
-      this.item.received_amount = parseFloat(tottal).toFixed(4) || 0;
+      this.item.received_amount = parseFloat(tottal).toFixed(1) || 0;
       this.item.final_received_amount =
         parseFloat(tottal - this.calcCommisson).toFixed() || 0;
 

@@ -423,9 +423,6 @@ export default (context, inject) => {
         if (data[1]) {
           const key = data[1]
           const value = data[0]
-          console.log("key");
-          console.log(key);
-          console.log(value);
           Object.assign(state, { [key]: structuredClone(value) });
           // state = { ...state, :  };
         }

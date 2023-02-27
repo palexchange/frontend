@@ -14,9 +14,10 @@ const transactions_name_map = () => {
   status_map.set(4, "مرجع")
   status_map.set(5, "عمولة موني غرام إضافية")
   status_map.set(6, "مبلغ حوالة صادرة")
+  status_map.set(7, "مصروف")
   status_map.set(8, "ربحية من الوسيط")
   status_map.set(9, "ربحية فرق عملة")
-  status_map.set(7, "مصروف")
+  status_map.set(10, "مبلغ تسليم واردة")
   return status_map
 }
 export default (context) => {

@@ -596,7 +596,7 @@ export default {
         sender_id_no: null,
         sender_phone: null,
         sender_address: null,
-        is_commission_percentage: false,
+        is_commission_percentage: 0,
         office_commission_type: 0,
         exchange_rate_to_delivery_currency: 1,
         exchange_rate_to_delivery_currency_view: 1,

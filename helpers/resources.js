@@ -7,17 +7,18 @@ const statuses_map = () => {
 }
 const transactions_name_map = () => {
   const status_map = new Map();
-  status_map.set(0, "صادرة")
-  status_map.set(1, "واردة")
-  status_map.set(2, "عمولة حوالة")
-  status_map.set(3, "عمولة وسيط")
-  status_map.set(4, "مرجع")
-  status_map.set(5, "عمولة موني غرام إضافية")
-  status_map.set(6, "مبلغ حوالة صادرة")
-  status_map.set(7, "مصروف")
-  status_map.set(8, "ربحية من الوسيط")
-  status_map.set(9, "ربحية فرق عملة")
-  status_map.set(10, "مبلغ تسليم واردة")
+  status_map.set(0, "صادرة");
+  status_map.set(1, "واردة");
+  status_map.set(2, "عمولة حوالة");
+  status_map.set(3, "عمولة وسيط");
+  status_map.set(4, "مرجع");
+  status_map.set(5, "عمولة موني غرام إضافية");
+  status_map.set(6, "مبلغ حوالة صادرة");
+  status_map.set(7, "مصروف");
+  status_map.set(8, "ربحية من الوسيط");
+  status_map.set(9, "ربحية فرق عملة");
+  status_map.set(10, "مبلغ تسليم واردة");
+  status_map.set(11, "عمولة حوالة علي الحساب");
   return status_map
 }
 export default (context) => {

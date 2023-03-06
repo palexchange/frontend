@@ -145,10 +145,7 @@
               </v-btn>
             </div> -->
             <div class="text-center">
-
-
-
-              <!-- <v-btn
+              <v-btn
                 v-if="cards[index].currency_id != 2"
                 :disabled="
                   !cards[index].balance > 0 && trans[index].length == 0
@@ -180,12 +177,7 @@
                     ? $t("إعتماد الجرد وإغلاق الصندوق")
                     : $t("ترحيل لصندوق العجز و الزيادة")
                 }}
-              </v-btn> -->
-
-
-
-
-
+              </v-btn>
 
               <!-- <v-btn
               v-show="(cards[index].inventory_balance != 0)"

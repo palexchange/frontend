@@ -566,6 +566,7 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
+        on_dollar_account: 1,
         receiver_id_no: "",
         receiver_phone: "",
         receiver_address: "",

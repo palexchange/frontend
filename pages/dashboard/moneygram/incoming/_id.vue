@@ -339,12 +339,12 @@
           </v-col> -->
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <label class="required form-label">
-              {{ item.office_commission_type == 1 ? "%" : "" }}
+              {{ item.is_commission_percentage == 1 ? "%" : "" }}
               عمولة إضافة
             </label>
             <v-text-field
               :readonly="showReadOnly"
-              v-model.number="item.office_commission"
+              v-model.number="item.transfer_commission"
               color="#FF7171"
               style="border-radius: 0px !important"
               dense
@@ -353,14 +353,14 @@
               hide-details
               required
               :append-icon="
-                item.office_commission_type == 0
+                item.is_commission_percentage == 0
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
               @click:append="
                 () =>
-                  (item.office_commission_type =
-                    item.office_commission_type == 1 ? 0 : 1)
+                  (item.is_commission_percentage =
+                    item.is_commission_percentage == 1 ? 0 : 1)
               "
               type="number"
             >
@@ -597,7 +597,7 @@ export default {
         sender_phone: null,
         sender_address: null,
         is_commission_percentage: 0,
-        office_commission_type: 0,
+        is_commission_percentage: 0,
         exchange_rate_to_delivery_currency: 1,
         exchange_rate_to_delivery_currency_view: 1,
         exchange_rate_to_reference_currency: null,
@@ -652,7 +652,7 @@ export default {
       // console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
       let tottal = parseFloat(
-        (office_amount - (this.item.office_commission || 0)) * exchange_rate
+        (office_amount - (this.item.transfer_commission || 0)) * exchange_rate
       );
 
       let mid =
@@ -685,11 +685,11 @@ export default {
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      let commission = this.item.office_commission || 0,
+      let commission = this.item.transfer_commission || 0,
         officeAmount = parseFloat(this.item.to_send_amount || 0);
       let returned = this.item.returned_commision || 0;
       commission =
-        this.item.office_commission_type == 1
+        this.item.is_commission_percentage == 1
           ? (commission * officeAmount) / 100
           : commission;
       let tempVar = officeAmount - returned + commission;
@@ -720,7 +720,7 @@ export default {
       // console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       this.item.returned_commision;
       this.finalAmountToDeliverComp;
-      this.item.office_commission;
+      this.item.transfer_commission;
       // let office_amount_usd =
       //   this.finalAmountToDeliverComp *
       //   this.$newCalcBuyPrice(
@@ -733,7 +733,7 @@ export default {
       // return (
       //   total -
       //   (this.item.returned_commision || 0) +
-      //   (this.item.office_commission || 0)
+      //   (this.item.transfer_commission || 0)
       // );
 
       return (
@@ -762,7 +762,7 @@ export default {
     },
     confirmProcess() {
       this.item.issued_at = this.$getDateTime();
-      // this.item.office_commission = 0;
+      // this.item.transfer_commission = 0;
       this.$save(this.item, "transfer", null, "/dashboard/moneygram").then(
         (data) => {
           if (this.transfer_photo) {

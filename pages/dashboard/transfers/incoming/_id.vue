@@ -167,6 +167,7 @@
           </v-col> -->
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
+            type="number"
             :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
@@ -192,6 +193,7 @@
           </v-col>
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
+            type="number"
             :readonly="showReadOnly"
               holder="id_no"
               text="id_no"
@@ -231,6 +233,7 @@
             </v-col> -->
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
               <InputField
+              type="number"
               :readonly="showReadOnly" holder="address" text="address" />
             </v-col> -->
           <v-col cols="12" md="3">
@@ -268,6 +271,7 @@
           </v-col>
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <InputField
+              type="number"
               :readonly="showReadOnly"
               v-model.number="item.to_send_amount"
               holder="المبلغ المُرسل"
@@ -301,6 +305,7 @@
 
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <InputField
+              type="number"
               :readonly="showReadOnly"
               v-model.number="item.exchange_rate_to_office_currency_view"
               @input="
@@ -319,6 +324,7 @@
           </v-col>
           <!-- <v-col cols="12" sm="3" v-show="!is_moneygram">
             <InputField
+            type="number"
             :readonly="showReadOnly"
               :value="officeAmount | money"
               dashed
@@ -329,6 +335,7 @@
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <!--  (يتم خصم المبلغ من المبلغ المرسل)" -->
             <InputField
+              type="number"
               :readonly="showReadOnly"
               v-model.number="item.returned_commission"
               holder="عمولة الوسيط"
@@ -368,6 +375,7 @@
 
           <v-col cols="12" sm="3" v-show="!is_moneygram">
             <InputField
+              type="number"
               :readonly="showReadOnly"
               :value="totalOfficeAmount | money"
               dashed
@@ -379,6 +387,7 @@
         <v-row dense> -->
           <v-col cols="12" sm="3">
             <InputField
+              type="number"
               :readonly="showReadOnly"
               :value="item.office_amount | money"
               dashed
@@ -419,6 +428,7 @@
           </v-col>
           <v-col>
             <InputField
+              type="number"
               :readonly="showReadOnly"
               @keydown.enter="
                 showConversionFactor_ibr(
@@ -436,6 +446,7 @@
           </v-col>
           <v-col>
             <InputField
+              type="number"
               :readonly="showReadOnly"
               dashed
               v-model.number="item.received_amount"
@@ -473,6 +484,7 @@
           </v-col>
           <v-col>
             <InputField
+              type="number"
               :readonly="showReadOnly"
               v-model.number="item.final_received_amount"
               holder="final amount to give after commission "
@@ -483,6 +495,7 @@
           </v-col>
           <v-col>
             <InputField
+              type="number"
               :readonly="showReadOnly"
               :value="item.a_received_amount | money"
               holder="final amount to give in usd"
@@ -566,7 +579,7 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
-        on_dollar_account: 1,
+        on_dollar_account: true,
         receiver_id_no: "",
         receiver_phone: "",
         receiver_address: "",

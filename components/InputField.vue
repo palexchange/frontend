@@ -78,4 +78,9 @@ export default {
 .v-text-field input {
   font-size: 20px;
 }
+
+.v-text-field input[type=number] {
+    direction: ltr;
+    unicode-bidi: embed;
+}
 </style>

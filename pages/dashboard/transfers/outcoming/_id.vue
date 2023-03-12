@@ -314,6 +314,14 @@
             >
             </v-text-field>
           </v-col>
+          <v-col class="align-self-center" md="2" sm="12">
+            <CurrencyAutoComplete
+              @change="setCommissionFactor"
+              holder="commission currency"
+              hide-details
+              v-model="item.transfer_commission_currency"
+            />
+          </v-col>
         </v-row>
       </v-card-text>
     </Card>
@@ -691,6 +699,8 @@ export default {
         { id: 3, name: "تسليم يد على الحساب" },
       ],
       item: {
+        transfer_commission_currency: 1,
+        transfer_commission_exchange_rate: 1,
         sender_party_id: "",
         sender_id_no: "",
         sender_phone: "",
@@ -892,6 +902,11 @@ export default {
     }),
   },
   methods: {
+    setCommissionFactor(curr_id) {
+      this.item.transfer_commission_exchange_rate = this.stocks.find(
+        (e) => e.currency_id == curr_id
+      ).close_mid;
+    },
     getMidCurrencyTousd(currency) {
       if (currency == undefined) return null;
       const mid = this.stocks.find(
@@ -986,8 +1001,10 @@ export default {
             ? (transferringAmount * commisson_amount) / 100
             : commisson_amount;
       }
-
-      return amount;
+      let factor = this.item.transfer_commission_exchange_rate;
+      return this.item.transfer_commission_currency == 4
+        ? amount * factor
+        : amount / factor;
     },
     confirmProcess(status) {
       this.item.status = status;

@@ -3,6 +3,7 @@
   <div>
     <SideInfoTransfer
       :profit="item.profit"
+      :key="refreshKey"
       :officeProfitComp="officeProfitComp"
       :t_type="item.delivering_type"
     >
@@ -428,6 +429,7 @@
           </v-col>
           <v-col>
             <InputField
+              @change="refreshKey++"
               type="number"
               :readonly="showReadOnly"
               @keydown.enter="
@@ -449,6 +451,7 @@
               type="number"
               :readonly="showReadOnly"
               dashed
+              @change="refreshKey++"
               v-model.number="item.received_amount"
               holder="final amount to give"
               text="final amount to give"
@@ -473,6 +476,12 @@
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
               "
+              @change="
+                refreshKey++;
+                $nextTick(() => {
+                  refreshKey++;
+                });
+              "
               @click:append="
                 () =>
                   (item.is_commission_percentage =
@@ -486,18 +495,18 @@
             <InputField
               type="number"
               :readonly="showReadOnly"
+              @change="refreshKey++"
               v-model.number="item.final_received_amount"
               holder="final amount to give after commission "
               text="final amount to give after commission"
-              @change="(v) => setFinalAmount(v)"
               required
             />
           </v-col>
-          <v-col>
+          <v-col :key="item.final_received_amount">
             <InputField
               type="number"
               :readonly="showReadOnly"
-              :value="item.a_received_amount | money"
+              :value="a_received_amount_computed | money"
               holder="final amount to give in usd"
               text="final amount to give in usd"
               required
@@ -527,24 +536,18 @@
               >
             </template>
             <v-list>
-              <v-list-item>
+              <!-- <v-list-item>
                 <v-list-item-title> طباعة ايصال </v-list-item-title>
                 <v-list-item-icon>
                   <v-icon small>fas fa-print</v-icon>
                 </v-list-item-icon>
-              </v-list-item>
-              <v-list-item>
+              </v-list-item> -->
+              <!-- <v-list-item>
                 <v-list-item-title> {{ $t("حفظ كمسودة") }}</v-list-item-title>
                 <v-list-item-icon>
                   <v-icon small>fas fa-save</v-icon>
                 </v-list-item-icon>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title> ترحيل علي الحساب</v-list-item-title>
-                <v-list-item-icon>
-                  <v-icon small>fas fa-arrow-left</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
+              </v-list-item> -->
             </v-list>
           </v-menu>
         </v-card-actions>
@@ -561,6 +564,8 @@ export default {
   name: "incoming-transfer",
   data() {
     return {
+      count: 1,
+      refreshKey: 1,
       expand: false,
       expand2: false,
       receiver_id_image: null,
@@ -604,22 +609,9 @@ export default {
         exchange_rate_to_office_currency: null,
         exchange_rate_to_office_currency_view: null,
       },
-      // a:0,
-      // b:0,
-      //recivedAmountInUSD:0
     };
   },
-  // methods: {
-  //     recivedAmountInUSDFunc() {
-  //         // this.a = 45
-  //         // this.b = this.a * 3.5
-  //         let temp = this.item.a * this.item.b;
-  //         console.log("Amount: ",this.item.a);
-  //         console.log("Ratio to USD: ",this.item.b);
-  //         this.recivedAmountInUSD = temp;
-  //         return temp;
-  //       }
-  // },
+
   computed: {
     calcCommisson() {
       let received_amount = this.item.received_amount || 0;
@@ -646,6 +638,35 @@ export default {
       let res = amount * ratio - commVal;
       return res == 0 ? null : res;
     },
+    a_received_amount_computed() {
+      this.refreshKey;
+      console.log("test a_received_amount_computed a_received_amount_computed");
+      var operators = {
+        "*": (a, b) => {
+          return a * b;
+        },
+        "/": (a, b) => {
+          return a / b;
+        },
+        // ...
+      };
+      let factor = this.stocks.find(
+        (e) => e.currency_id == this.item.received_currency_id
+      )?.close_mid;
+      this.item.transfer_commission_exchange_rate = factor;
+      let op = "/";
+      if (this.item.received_currency_id == 4) op = "*";
+
+      let tottal =
+        (operators[op](this.item.final_received_amount, factor) * 1).toFixed(
+          1
+        ) || 0;
+      this.item.a_received_amount_exchange_rate =
+        this.item.received_currency_id == 4 ? 1 / factor : factor;
+      // this.item.received_amount = tottal;
+      this.item.a_received_amount = tottal;
+      return tottal || 0;
+    },
     finalAmountToDeliverComp() {
       // let recvAmountInUSD = parseFloat(this.recivedAmountInUSDComp || 0);
       // let ratio = this.item.exchange_rate_to_reference_currency || null;
@@ -669,32 +690,9 @@ export default {
       let tottal = exchange_rate * this.item.to_send_amount || 0;
 
       this.item.received_amount = parseFloat(tottal).toFixed(1) || 0;
+
       this.item.final_received_amount =
-        parseFloat(tottal - this.calcCommisson).toFixed() || 0;
-
-      var operators = {
-        "*": (a, b) => {
-          return a * b;
-        },
-        "/": (a, b) => {
-          return a / b;
-        },
-        // ...
-      };
-      let factor = this.stocks.find(
-        (e) => e.currency_id == this.item.received_currency_id
-      )?.mid;
-
-      let op = "/";
-      if (this.item.received_currency_id == 4) op = "*";
-
-      this.item.a_received_amount =
-        (operators[op](tottal - this.calcCommisson, factor) * 1).toFixed(1) ||
-        0;
-      this.item.a_received_amount_exchange_rate =
-        this.item.received_currency_id == 4 ? 1 / factor : factor;
-      // this.item.received_amount = tottal;
-      return tottal || 0;
+        parseFloat(tottal - this.calcCommisson).toFixed(1) || 0;
     },
     officeAmount() {
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
@@ -745,35 +743,13 @@ export default {
       return tempVar ? this.rounedRes : null;
     },
     officeProfitComp() {
-      // let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
-      // let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
-
-      // let recvCurr = this.item.office_currency || null;
-      // if (recvCurr == undefined) return;
-      // let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
-      // let res = fromInDoller - finalOfficeAmount * convParam;
-      // console.table({ fromInDoller, finalOfficeAmount, convParam, res });
+      this.refreshKey;
       this.item.returned_commission;
       this.item.office_commission;
       this.totalOfficeAmount;
       this.item.a_received_amount;
       this.item.exchange_rate_to_reference_currency;
       this.finalAmountToDeliverComp;
-
-      // let office_amount_usd =
-      //   this.finalAmountToDeliverComp *
-      //   this.$newCalcBuyPrice(
-      //     { id: this.item.received_currency_id },
-      //     { id: 1 }
-      //   );
-      // let s = this.item.a_received_amount;
-      // let total = office_amount_usd - s;
-
-      // return (
-      //   total -
-      //   (this.item.returned_commission || 0) +
-      //   (this.item.office_commission || 0)
-      // );
       return (
         parseFloat(this.item.office_amount) -
         parseFloat(this.item.a_received_amount)
@@ -787,13 +763,14 @@ export default {
   },
   methods: {
     setFinalAmount(amount) {
-      this.item.exchange_rate_to_reference_currency = parseFloat(
-        (amount * 1 + this.calcCommisson * 1) / this.item.to_send_amount
-      ).toFixed(16);
-      this.item.exchange_rate_to_reference_currency_view = parseFloat(
-        (parseFloat(amount) + parseFloat(this.calcCommisson)) /
-          this.item.to_send_amount
-      ).toFixed(16);
+      this.item.a_received_amount = 0;
+      // this.item.exchange_rate_to_reference_currency = parseFloat(
+      //   (amount * 1 + this.calcCommisson * 1) / this.item.to_send_amount
+      // ).toFixed(16);
+      // this.item.exchange_rate_to_reference_currency_view = parseFloat(
+      //   (parseFloat(amount) + parseFloat(this.calcCommisson)) /
+      //     this.item.to_send_amount
+      // ).toFixed(16);
       // this.officeProfitComp;
     },
     confirmProcess() {

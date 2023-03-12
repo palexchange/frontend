@@ -94,7 +94,13 @@
               "
             />
           </v-col>
-          <v-col v-if="!sender_id_image" cols="12" md="4" sm="6" lg="2">
+          <v-col v-if="item.sender_party.image">
+            <img width="70" :src="item.sender_party.image.url" alt="" />
+          </v-col>
+          <v-col v-else-if="sender_id_image" cols="12" md="4" sm="6" lg="2">
+            <img width="70" :src="sender_id_image" alt="" />
+          </v-col>
+          <v-col v-else cols="12" md="4" sm="6" lg="2">
             <label
               style="color: rgba(0, 0, 0); font-size: 16px"
               :class="
@@ -115,18 +121,7 @@
               prepend-inner-icon="fa-solid fa-image"
             />
           </v-col>
-          <v-col v-else cols="12" md="4" sm="6" lg="2">
-            <img width="70" :src="sender_id_image" alt="" />
-          </v-col>
-          <!-- <v-col cols="12" lg="2" md="4" sm="6">
-            <InputField
-              required
-              :readonly="showReadOnly"
-              holder="id number"
-              text="id number"
-              v-model="item.sender_id_no"
-            />
-          </v-col> -->
+
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
               no_fetch
@@ -144,16 +139,8 @@
               :value="{ id: item.sender_party_id }"
             />
           </v-col>
-          <!-- <v-col cols="12" lg="2" md="4" sm="6">
-            <InputField
-              required
-              :readonly="showReadOnly"
-              holder="mobile"
-              text="mobile"
-              v-model="item.sender_phone"
-            />
-          </v-col> -->
-          <v-col cols="12" md="4" sm="6" lg="2">
+
+          <v-col>
             <PhonesAutoComplete
               no_fetch
               :readonly="showReadOnly"
@@ -170,7 +157,35 @@
               :value="{ id: item.sender_party_id }"
             />
           </v-col>
-          <v-col cols="12" lg="3" md="4" sm="6">
+          <v-col v-if="item.image">
+            <img width="70" :src="item.image.url" alt="" />
+          </v-col>
+          <v-col v-else>
+            <label
+              style="color: rgba(0, 0, 0); font-size: 16px"
+              :class="
+                item.delivering_type == 2 ? 'required form-label' : 'form-label'
+              "
+              >{{ $t("transfer image") }}</label
+            >
+            <v-file-input
+              :disabled="showReadOnly"
+              min="0"
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              dashed
+              :required="true"
+              outlined
+              v-on="$listeners"
+              v-model="transfer_photo"
+              :rules="rulesss.requiredRules"
+              :placeholder="$t('transfer image')"
+              prepend-icon=""
+              prepend-inner-icon="fa-solid fa-image"
+            />
+          </v-col>
+          <v-col>
             <InputField
               :readonly="showReadOnly"
               holder="address"
@@ -202,14 +217,6 @@
               required
             />
           </v-col>
-          <!-- <v-col class="lg16" cols="12" md="4" lg="2" sm="6">
-            <InputField
-              :readonly="showReadOnly"
-              holder="id number"
-              text="id number"
-              v-model="item.receiver_id_no"
-            />
-          </v-col> -->
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
               :readonly="showReadOnly"
@@ -227,14 +234,7 @@
               :value="{ id: item.receiver_party_id }"
             />
           </v-col>
-          <!-- <v-col class="lg16" cols="12" md="4" lg="2" sm="6">
-            <InputField
-              :readonly="showReadOnly"
-              holder="mobile"
-              text="mobile"
-              v-model="item.receiver_phone"
-            />
-          </v-col> -->
+
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
               no_fetch
@@ -296,10 +296,19 @@
               outlined
               slot="append"
               hide-details
+              @change="count++"
               :label="$t('extra commission') + ' $ '"
               v-model.number="item.transfer_commission"
             >
             </v-text-field>
+          </v-col>
+          <v-col class="align-self-center" md="2" sm="12">
+            <CurrencyAutoComplete
+              @change="setCommissionFactor"
+              holder="commission currency"
+              hide-details
+              v-model="item.transfer_commission_currency"
+            />
           </v-col>
         </v-row>
       </v-card-text>
@@ -346,130 +355,9 @@
             />
           </v-col>
         </v-row>
-        <!-- <v-row>
-          <v-col class="text-center">
-            <img src="~/assets/img/icons/to.png" alt="" />
-          </v-col>
-        </v-row>
-        <v-row class="justify-center responseveCols">
-          <v-col>
-            <AutoComplete
-              :readonly="showReadOnly"
-              @change="
-                (v) => {
-                  signCurrency(
-                    'exchange_rate_to_reference_currency',
-                    'exchange_rate_to_reference_currency',
-                    'sale',
-                    this.currencies[0],
-                    v
-                  );
-                  item.received_currency_id = v.id;
-                  item.received_currency = v;
-                }
-              "
-              v-model="item.received_currency_id"
-              return-object
-              :items="currencies"
-              item-name="name"
-              holder="currency to give"
-              text="currency to give"
-              required
-            />
-          </v-col>
-          <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              v-model.number="item.exchange_rate_to_reference_currency"
-              holder="convert to receiver currency"
-              text="convert to receiver currency"
-              required
-            />
-          </v-col>
-          <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              :value="recivedAmountComp | money"
-              dashed
-              holder="amount to give"
-              text="amount to give"
-              required
-            />
-          </v-col>
-          <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              v-model.number="item.other_amounts_on_receiver"
-              holder="another expenses on receiver"
-              text="another expenses on receiver"
-            />
-          </v-col>
-          <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              :value="totalRecvAmountComp | money"
-              dashed
-              holder="final amount to give"
-              text="final amount to give"
-            />
-          </v-col>
-          <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              :value="item.a_received_amount | money"
-              dashed
-              holder="المبلغ للتسليم بالدولار"
-              text="المبلغ للتسليم بالدولار"
-            />
-          </v-col>
-        </v-row> -->
       </v-card-text>
     </Card>
-    <!-- <Card class="mb-5 pa-3">
-      <v-card-title style="font-weight: 700">المكتب</v-card-title>
-      <v-card-text>
-        <v-row class="responseveCols">
-          <v-col cols="5">
-            <BeneficiaryAutocomplete
-              :readonly="showReadOnly"
-              no_fetch
-              holder="beneficiary"
-              text="beneficiary"
-              v-model="item.office_id"
-              required
-            />
-          </v-col>
 
-          <v-col>
-            <InputField
-              :readonly="showReadOnly"
-              v-model.number="computed_exchange_rate_to_office_currency"
-              @input="
-                (new_value) => {
-                  showConversionFactor(
-                    item.office_currency,
-                    'exchange_rate_to_office_currency',
-                    new_value
-                  );
-                }
-              "
-              holder="conversion price"
-              text="conversion price"
-              required
-            />
-          </v-col>
-          <v-col cols="3">
-            <InputField
-              :readonly="showReadOnly"
-              :value="item.office_amount | money"
-              dashed
-              holder="final amount to office in usd"
-              text="final amount to office in usd"
-            />
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </Card> -->
     <v-row>
       <v-col>
         <v-checkbox :label="$t('send sms to the sender')"> </v-checkbox>
@@ -520,23 +408,19 @@
 
 <script>
 import { mapState } from "vuex";
+import ruless from "~/helpers/rules";
 export default {
   name: "moneygram-outcoming",
   data() {
     return {
+      count: 1,
+
       image_file: null,
+      transfer_photo: null,
+      rulesss: ruless(this),
       showReadOnly: false,
       sender_id_image: null,
 
-      // currencies_test: [
-      //   { id: 1, name: this.$t("dollar"), values: { sale: 1, buy: 1 } },
-      //   { id: 2, name: this.$t("denar"), values: { sale: 0.7, buy: 0.69 } },
-      //   { id: 3, name: this.$t("shekel"), values: { sale: 3.23, buy: 3.22 } },
-      //   { id: 3, name: this.$t("shekel"), values: { sale: 3.32, buy: 3.3 } },
-      //   { id: 4, name: this.$t("euro"), values: { sale: 1.03, buy: 1.01 } },
-      //   { id: 5, name: this.$t("pound"), values: { sale: 16, buy: 15 } },
-      //   { id: 6, name: this.$t("derhm"), values: { sale: 3.63, buy: 3.6 } },
-      // ],
       prices: [],
       transfer_types: [
         { id: 1, name: "تسليم يد نقداً" },
@@ -544,7 +428,10 @@ export default {
         { id: 3, name: "تسليم يد على الحساب" },
       ],
       item: {
+        transfer_commission_currency: 1,
+        transfer_commission_exchange_rate: 1,
         sender_party_id: "",
+        sender_party: {},
         receiver_party_id: 1,
         office_id: 2,
         office_currency_id: 1,
@@ -677,23 +564,26 @@ export default {
       return tempVar <= 0 ? null : tempVar;
     },
     officeProfitComp() {
-      // let fromInDoller = parseFloat(this.totalAmountInUSDComp) || 0;
-      // let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
-      // let recvCurr = this.item.office_currency || null;
-      // if (recvCurr == undefined) return;
-      // let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
-      // let res = fromInDoller - finalOfficeAmount * convParam;
-      // let otherExp = this.item.other_amounts_on_receiver || 0;
-      // return res - otherExp;
-      return this.item.transfer_commission;
+      this.count;
+      let amount = this.item.transfer_commission * 1;
+      let factor = this.item.transfer_commission_exchange_rate * 1;
+      return this.item.transfer_commission_currency == 4
+        ? amount * factor
+        : amount / factor;
     },
     ...mapState({
       currencies: (state) => state.currency.all,
       one: (state) => state.transfer.one,
       one_party: (state) => state.party.one,
+      stocks: (state) => state.stock.all,
     }),
   },
   methods: {
+    setCommissionFactor(curr_id) {
+      this.item.transfer_commission_exchange_rate = this.stocks.find(
+        (e) => e.currency_id == curr_id
+      ).close_mid;
+    },
     setReceiverDate(item) {
       if (!item) return;
       this.item.receiver_id_no = item.id_no;
@@ -744,7 +634,21 @@ export default {
     confirmProcess(status) {
       this.item.status = status;
       this.item.issued_at = this.$getDateTime();
-      this.$save(this.item, "transfer", null, "/dashboard/moneygram");
+      this.$save(this.item, "transfer", null, "/dashboard/moneygram").then(
+        (data) => {
+          if (this.transfer_photo) {
+            this.$save(
+              {
+                file: this.transfer_photo,
+                attachable_type: 1,
+                attachable_id: data.id,
+                silent: true,
+              },
+              "file"
+            );
+          }
+        }
+      );
     },
 
     showConversionFactor(to, factorModel, new_value) {

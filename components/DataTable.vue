@@ -364,11 +364,10 @@ export default {
     },
     params: {
       handler(val, old_val) {
+        if (val.no_fetch) return;
         if (Object.keys(val).length === 0) return;
         if (this.$deepEqual(val, old_val)) return;
-        console.log("params");
-        console.log(val);
-        console.log(old_val);
+
         if (this.loaded && Object.keys(this.params).length > 0) {
           this.$store.dispatch(`${this.module}/index`, {
             ...val,

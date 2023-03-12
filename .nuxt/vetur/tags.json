@@ -182,6 +182,9 @@
   "ReportsAccountingReport": {
     "description": "Auto imported from components/reports/AccountingReport.vue"
   },
+  "ReportsDocumentsReport": {
+    "description": "Auto imported from components/reports/DocumentsReport.vue"
+  },
   "ReportsPartiesReportOneCurrTotal": {
     "description": "Auto imported from components/reports/PartiesReportOneCurrTotal.vue"
   },

@@ -29,6 +29,11 @@ export default function ({ $axios, redirect, store, response, app }) {
             store.dispatch('addErrors', [error.response.data.message])
             console.log("TEST 422");
         }
+        else if (error.response.status === 422) {
+
+            store.dispatch('addErrors', [["لا يوجد بيانات لتحميلها"]])
+            console.log("TEST 422 sss");
+        }
         else if (error.response.status === 421 && error.response.data.message) {
             app.$toast(error.response.data.message);
             console.log("TEST 422");

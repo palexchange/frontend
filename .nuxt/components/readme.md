@@ -67,6 +67,7 @@ You can directly use them in pages and other components without the need to impo
 - `<FiltersOrderFilter>` | `<filters-order-filter>` (components/filters/OrderFilter.vue)
 - `<FiltersReportFilter>` | `<filters-report-filter>` (components/filters/ReportFilter.vue)
 - `<ReportsAccountingReport>` | `<reports-accounting-report>` (components/reports/AccountingReport.vue)
+- `<ReportsDocumentsReport>` | `<reports-documents-report>` (components/reports/DocumentsReport.vue)
 - `<ReportsPartiesReportOneCurrTotal>` | `<reports-parties-report-one-curr-total>` (components/reports/PartiesReportOneCurrTotal.vue)
 - `<ReportsPartiesReportTotals>` | `<reports-parties-report-totals>` (components/reports/PartiesReportTotals.vue)
 - `<ReportsProfitReport>` | `<reports-profit-report>` (components/reports/ProfitReport.vue)

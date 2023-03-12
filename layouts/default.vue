@@ -283,6 +283,15 @@ export default {
     },
   },
   methods: {
+    handleKeyDown(event) {
+      event.preventDefault();
+
+      // handle keydown event here
+      if (event.keyCode >= 112 && event.keyCode <= 123) {
+        console.log("F" + (event.keyCode - 111));
+      }
+      console.log(event.key);
+    },
     show_exchange_profit_detail(e) {
       if (this.$auth.user.role != 1) return;
       this.daily_exchange_coo.x = e.screenX;
@@ -317,6 +326,12 @@ export default {
     if (!this.settings[0]) {
       this.$store.dispatch("setting/index");
     }
+  },
+  beforeMount() {
+    window.addEventListener("keydown", this.handleKeyDown);
+  },
+  beforeDestroy() {
+    window.removeEventListener("keydown", this.handleKeyDown);
   },
 };
 </script>

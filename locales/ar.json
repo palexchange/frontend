@@ -455,5 +455,10 @@
   "general customer account": "حساب المستفيد العام",
   "continue": "استكمال",
   "transfers and exchange transactions": "حركات و مبالغ عمليات الصرافة و الحوالات",
+  "commission currency": "عملة العمولة",
+  "documents_download": "تحميل حولات موني غرام",
+  "the receiver": "المستلم",
+  "the sender": "المرسل",
+  "download": "تحميل",
   "to currency": "إلى العملة"
 }

@@ -88,7 +88,6 @@
           <v-row>
             <v-col cols="12" md="3" sm="6">
               <BeneficiaryAutocomplete
-                no_fetch
                 :readonly="showReadOnly"
                 text="beneficiary"
                 holder="beneficiary"
@@ -145,7 +144,19 @@
               :value="item.receiver_party_id"
             />
           </v-col>
-          <v-col v-if="!receiver_id_image" cols="12" md="4" sm="6" lg="2">
+          <v-col
+            v-if="item.receiver_party.image"
+            cols="12"
+            md="4"
+            sm="6"
+            lg="2"
+          >
+            <img width="70" :src="item.receiver_party.image.url" alt="" />
+          </v-col>
+          <v-col v-else-if="receiver_id_image" cols="12" md="4" sm="6" lg="2">
+            <img width="70" :src="receiver_id_image" alt="" />
+          </v-col>
+          <v-col v-else cols="12" md="4" sm="6" lg="2">
             <label
               style="color: rgba(0, 0, 0); font-size: 16px"
               :class="
@@ -168,18 +179,7 @@
               prepend-inner-icon="fa-solid fa-image"
             />
           </v-col>
-          <v-col v-else cols="12" md="4" sm="6" lg="2">
-            <img width="70" :src="receiver_id_image" alt="" />
-          </v-col>
-          <!-- <v-col cols="12" md="4" sm="6" lg="2">
-            <InputField
-            :readonly="showReadOnly"
-              holder="mobile"
-              text="mobile"
-              required
-              v-model="item.receiver_phone"
-            />
-          </v-col> -->
+
           <v-col cols="12" md="4" sm="6" lg="2">
             <PhonesAutoComplete
               no_fetch
@@ -197,15 +197,7 @@
               :value="{ id: item.receiver_party_id }"
             />
           </v-col>
-          <!-- <v-col cols="12" md="4" sm="6" lg="2">
-            <InputField
-            :readonly="showReadOnly"
-              holder="id_no"
-              text="id_no"
-              required
-              v-model="item.receiver_id_no"
-            />
-          </v-col> -->
+
           <v-col cols="12" md="4" sm="6" lg="2">
             <IDsAutoComplete
               no_fetch
@@ -223,7 +215,10 @@
               :value="{ id: item.receiver_party_id }"
             />
           </v-col>
-          <v-col cols="12" md="2" sm="6" lg="2">
+          <v-col v-if="item.image">
+            <img width="70" :src="item.image.url" alt="" />
+          </v-col>
+          <v-col v-else cols="12" md="2" sm="6" lg="2">
             <label
               style="color: rgba(0, 0, 0); font-size: 16px"
               :class="
@@ -248,11 +243,6 @@
               prepend-inner-icon="fa-solid fa-image"
             />
           </v-col>
-
-          <!-- <v-col cols="12" md="4" sm="6" lg="2">
-              <AutoComplete
-               :readonly="showReadOnly" text="country" holder="country" required />
-            </v-col> -->
           <v-col cols="12" md="2" sm="6">
             <InputField
               :readonly="showReadOnly"
@@ -328,15 +318,6 @@
             />
           </v-col>
 
-          <!-- <v-col cols="12" sm="3" v-show="!is_moneygram">
-            <InputField
-            :readonly="showReadOnly"
-              :value="officeAmount | money"
-              dashed
-              holder="office amount"
-              text="office amount"
-            />
-          </v-col> -->
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <label class="required form-label">
               {{ item.is_commission_percentage == 1 ? "%" : "" }}
@@ -352,7 +333,11 @@
               slot="append"
               hide-details
               required
-              :append-icon="
+              type="number"
+            >
+            </v-text-field>
+          </v-col>
+          <!-- :append-icon="
                 item.is_commission_percentage == 0
                   ? 'fas fa-sort-numeric-up-alt'
                   : 'fas fa-percentage'
@@ -361,12 +346,7 @@
                 () =>
                   (item.is_commission_percentage =
                     item.is_commission_percentage == 1 ? 0 : 1)
-              "
-              type="number"
-            >
-            </v-text-field>
-          </v-col>
-
+              " -->
           <!-- </v-row>
         <v-row dense> -->
           <v-col cols="12" sm="3">
@@ -384,75 +364,6 @@
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات الحوالة المالية </v-card-title>
       <v-card-text>
-        <!-- <v-row class="justify-center responseveCols">
-          <v-col>
-            <InputField
-            :readonly="showReadOnly"
-              v-model.number="item.to_send_amount"
-              holder="transfirrig amount"
-              text="transfirrig amount"
-              required
-            />
-          </v-col>
-          <v-col>
-            <AutoComplete
-             :readonly="showReadOnly"
-              @change="
-                (v) => {
-                  signCurrency(
-                    'exchange_rate_to_delivery_currency',
-                    'exchange_rate_to_delivery_currency_view',
-                    'buy',
-                    v,
-                    currencies[0]
-                  );
-                  item.delivery_currency_id = v.id;
-                }
-              "
-              v-model="item.delivery_currency"
-              :items="currencies"
-              item-name="name"
-              return-object
-              text="العملة الإستلام"
-              holder="العملة الإستلام"
-              required
-            />
-          </v-col>
-          <v-col>
-            <InputField
-            :readonly="showReadOnly"
-              v-model.number="item.exchange_rate_to_delivery_currency_view"
-              @input="
-                (new_value) => {
-                  showConversionFactor(
-                    currencies.find((e) => e.id == 1),
-                    'exchange_rate_to_office_currency',
-                    new_value
-                  );
-                }
-              "
-              holder="converting to dollar amount"
-              text="converting to dollar amount"
-              required
-            />
-          </v-col>
-
-          <v-col>
-            <InputField
-            :readonly="showReadOnly"
-              :value="recivedAmountInUSDComp | money"
-              dashed
-              holder="recived amount in USD"
-              text="recived amount in USD"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="text-center responseveCols">
-            <img src="~/assets/img/icons/to.png" alt="" />
-          </v-col>
-        </v-row> -->
-
         <v-row class="justify-center">
           <v-col>
             <AutoComplete
@@ -522,7 +433,7 @@
     <v-row v-if="!showReadOnly" class="justify-center">
       <v-card color="transparent" flat>
         <v-card-actions>
-          <v-btn @click="confirmProcess" class="px-16" color="primary"
+          <v-btn @click="confirmProcess(1)" class="px-16" color="primary"
             >إتمام العملة</v-btn
           >
           &nbsp; &nbsp;
@@ -579,6 +490,7 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
+        receiver_party: {},
         receiver_party_id: "",
         office_currency_id: 1,
         delivery_currency_id: 1,
@@ -671,6 +583,7 @@ export default {
         2;
 
       this.item.received_amount = tottal;
+      this.item.transfer_commission_exchange_rate = mid;
       this.item.a_received_amount = (tottal * mid).toFixed(3);
       return tottal;
     },
@@ -756,13 +669,15 @@ export default {
           ) *
             1) /
         2;
+
+      this.item.transfer_commission_exchange_rate = mid;
       this.item.a_received_amount = (v * mid).toFixed(3);
       this.officeProfitComp();
       this.item.a_received_amount_key++;
     },
-    confirmProcess() {
+    confirmProcess(status) {
       this.item.issued_at = this.$getDateTime();
-      // this.item.transfer_commission = 0;
+      this.item.status = status;
       this.$save(this.item, "transfer", null, "/dashboard/moneygram").then(
         (data) => {
           if (this.transfer_photo) {
@@ -906,6 +821,7 @@ export default {
     one(val) {
       if (val) {
         this.item = { ...val }; //JSON.parse(JSON.stringify(val));
+        // this.receiver_id_image = item;
         // this.item.exchange_rate_to_office_currency_view =
         //   this.one.exchange_rate_to_office_currency;
         // this.item.exchange_rate_to_reference_currency_view =

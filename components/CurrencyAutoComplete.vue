@@ -20,6 +20,7 @@
       :placeholder="$t(holder)"
       item-text="name"
       item-value="id"
+      class="ma-0"
     >
       <template v-slot:prepend-item>
         <div>

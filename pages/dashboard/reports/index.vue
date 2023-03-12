@@ -67,8 +67,10 @@ export default {
           header: "parties_report",
           component_name: "ReportsPartiesReportOneCurrTotal",
         },
-        // { header: "currencies report", component_name: "Card" },
-        // { header: "courier report", component_name: "Card" },
+        {
+          header: "documents_download",
+          component_name: "ReportsDocumentsReport",
+        },
       ],
     };
   },

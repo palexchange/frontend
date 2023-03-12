@@ -59,6 +59,7 @@ export { default as FiltersItemFilter } from '../..\\components\\filters\\ItemFi
 export { default as FiltersOrderFilter } from '../..\\components\\filters\\OrderFilter.vue'
 export { default as FiltersReportFilter } from '../..\\components\\filters\\ReportFilter.vue'
 export { default as ReportsAccountingReport } from '../..\\components\\reports\\AccountingReport.vue'
+export { default as ReportsDocumentsReport } from '../..\\components\\reports\\DocumentsReport.vue'
 export { default as ReportsPartiesReportOneCurrTotal } from '../..\\components\\reports\\PartiesReportOneCurrTotal.vue'
 export { default as ReportsPartiesReportTotals } from '../..\\components\\reports\\PartiesReportTotals.vue'
 export { default as ReportsProfitReport } from '../..\\components\\reports\\ProfitReport.vue'

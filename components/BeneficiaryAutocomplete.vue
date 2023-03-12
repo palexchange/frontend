@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     ...mapState({
-      all: (state) => state.party.all_records,
+      all: (state) => [...state.party.all_records],
     }),
   },
   methods: {

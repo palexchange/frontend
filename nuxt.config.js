@@ -30,6 +30,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/global-keydown.js', ssr: false },
+
     {
       src: "~/plugins/vuetify",
       ssr: false

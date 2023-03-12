@@ -144,7 +144,7 @@ export default (context, inject) => {
         } catch (err) {
           console.log(err);
         }
-        if (resource.return_response) {
+        if (resource.return_response || params.return_response) {
           return response
         }
         if (resource.functions) {

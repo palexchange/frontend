@@ -596,14 +596,6 @@
             >
             </v-text-field>
           </v-col>
-          <!-- <v-col cols="3">
-            <InputField
-              :readonly="showReadOnly"
-              v-model.number="item.returned_commission"
-              holder="returned"
-              text="returned"
-            />
-          </v-col> -->
           <v-col>
             <InputField
               :readonly="showReadOnly"
@@ -789,49 +781,43 @@ export default {
     recivedAmountComp() {
       let conversionParam = this.item.exchange_rate_to_reference_currency || 0,
         amountInUSD = parseFloat(this.amountInUSDComp || 0);
-      let res = (conversionParam * amountInUSD * 1).toFixed();
+      let curr = this.item.received_currency_id;
+      let res =
+        curr == 4
+          ? ((amountInUSD / conversionParam) * 1).toFixed()
+          : (conversionParam * amountInUSD * 1).toFixed();
       this.item.received_amount = res;
       return res <= 0 ? null : res;
     },
     totalRecvAmountComp() {
-      let amountInUSD = parseFloat(this.amountInUSDComp || 0),
+      let amount_in_ = this.recivedAmountComp * 1,
         conversionParam = this.item.exchange_rate_to_reference_currency || 0;
       let commission =
         this.item.commission_side == 1 ? 0 : this.calcCommisson() || 0;
       let otherExp = this.item.other_amounts_on_receiver || 0;
-      let res = (
-        (amountInUSD - commission - otherExp) *
-        conversionParam
-      ).toFixed();
-      // let factor = this.$newCalcSalePrice(
-      //   { id: this.item.received_currency_id },
-      //   { id: 1 }
-      // );
-      // let sub_factor = this.$newCalcBuyPrice(
-      //   { id: this.item.received_currency_id },
-      //   { id: 1 }
-      // );
-      // const mid = (factor * 1 + sub_factor * 1) / 2;
-      // console.table({
-      //   mid,
-      //   factor,
-      //   sub_factor,
-      // });
 
       let exchange_rate = this.item.exchange_rate_to_reference_currency || 1;
       let curr = this.item.received_currency_id;
 
       const a_amount =
-        curr == 4 ? amountInUSD * exchange_rate : amountInUSD / exchange_rate;
+        curr == 4 ? amount_in_ * exchange_rate : amount_in_ / exchange_rate;
 
       this.item.a_received_amount = a_amount;
 
-      return res <= 0 ? null : res;
+      return a_amount <= 0 ? null : a_amount;
     },
     officeAmount() {
+      this.totalRecvAmountComp;
+      let curr = this.item.office_currency_id;
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
-        totalRecvAmount = parseFloat(this.totalRecvAmountComp || 0);
-      let officeAmount = totalRecvAmount * conversionParam;
+        totalRecvAmount = parseFloat(this.recivedAmountComp || 0);
+      console.log("{ curr, conversionParam, totalRecvAmount }");
+      console.log({ curr, conversionParam, totalRecvAmount });
+      let officeAmount =
+        curr == 4
+          ? totalRecvAmount / conversionParam
+          : totalRecvAmount * conversionParam;
+
       this.item.office_amount_befor_commission =
         officeAmount <= 0 ? null : officeAmount;
       return officeAmount <= 0 ? null : officeAmount;
@@ -931,8 +917,6 @@ export default {
     },
     signCurrency(vCalc, vModel, type, fromCurr, toCurr) {
       if (fromCurr == null || toCurr == null) return;
-
-      console.log("FromCurr: ", fromCurr);
 
       // fromCurr = {id: fromCurr};
       //   this.item[vCalc] = parseFloat(

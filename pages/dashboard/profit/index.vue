@@ -265,9 +265,12 @@ export default {
       all_accounts: (state) =>
         JSON.parse(JSON.stringify(state.account.all)) || [],
       boxes_accounts: (state) => state.auth.user.funds_accounts_balance || [],
+      start_boxes_accounts: (state) =>
+        state.auth.user.start_funds_accounts_balance || [],
       stocks: (state) => state.stock.all || [],
     }),
     profit_total() {
+      return this.funds_total - this.funds_total2
       return (
         this.transfer_profit_acc.balance * 1 +
         this.exchange_profit_acc.balance * 1
@@ -308,7 +311,10 @@ export default {
       return acc;
     },
     funds_total() {
-      this.totals = this.boxes_accounts.map((account) => {
+      let accounts = this.start_boxes_accounts[0]
+        ? this.start_boxes_accounts
+        : this.boxes_accounts;
+      this.totals = accounts.map((account) => {
         let total = 0;
         if (account.currency_id == 4) {
           total =

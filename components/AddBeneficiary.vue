@@ -8,7 +8,7 @@
     <div>
       <v-form v-model="validated">
         <v-card-text class="pa-6">
-          <v-row>
+          <v-row dense no-gutters>
             <v-col cols="12" sm="8">
               <InputField
                 required

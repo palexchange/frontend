@@ -196,6 +196,13 @@
     "_name": "_6e699d36"
   },
   {
+    "name": "dashboard-settings-short-cuts",
+    "path": "/dashboard/settings/short-cuts",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\settings\\\\short-cuts.vue",
+    "chunkName": "pages/dashboard/settings/short-cuts",
+    "_name": "_10f707f5"
+  },
+  {
     "name": "dashboard-moneygram-incoming-temp_old",
     "path": "/dashboard/moneygram/incoming/temp_old",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\moneygram\\\\incoming\\\\temp_old.vue",

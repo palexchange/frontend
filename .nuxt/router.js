@@ -32,6 +32,7 @@ const _62e9f842 = () => interopDefault(import('..\\pages\\dashboard\\reports\\fo
 const _04809c03 = () => interopDefault(import('..\\pages\\dashboard\\settings\\pricing.vue' /* webpackChunkName: "pages/dashboard/settings/pricing" */))
 const _9ce5c68c = () => interopDefault(import('..\\pages\\dashboard\\settings\\roles.vue' /* webpackChunkName: "pages/dashboard/settings/roles" */))
 const _6e699d36 = () => interopDefault(import('..\\pages\\dashboard\\settings\\settings.vue' /* webpackChunkName: "pages/dashboard/settings/settings" */))
+const _10f707f5 = () => interopDefault(import('..\\pages\\dashboard\\settings\\short-cuts.vue' /* webpackChunkName: "pages/dashboard/settings/short-cuts" */))
 const _47a89df9 = () => interopDefault(import('..\\pages\\dashboard\\moneygram\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/moneygram/incoming/temp_old" */))
 const _a3bd146c = () => interopDefault(import('..\\pages\\dashboard\\transfers\\incoming\\temp_old.vue' /* webpackChunkName: "pages/dashboard/transfers/incoming/temp_old" */))
 const _287ab703 = () => interopDefault(import('..\\pages\\dashboard\\beneficiaries\\form\\_id.vue' /* webpackChunkName: "pages/dashboard/beneficiaries/form/_id" */))
@@ -169,6 +170,10 @@ export const routerOptions = {
     path: "/dashboard/settings/settings",
     component: _6e699d36,
     name: "dashboard-settings-settings"
+  }, {
+    path: "/dashboard/settings/short-cuts",
+    component: _10f707f5,
+    name: "dashboard-settings-short-cuts"
   }, {
     path: "/dashboard/moneygram/incoming/temp_old",
     component: _47a89df9,

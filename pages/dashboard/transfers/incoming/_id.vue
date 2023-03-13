@@ -378,7 +378,7 @@
             <InputField
               type="number"
               :readonly="showReadOnly"
-              :value="totalOfficeAmount | money"
+              :value="totalOfficeAmount"
               dashed
               holder="final amount to office"
               text="final amount to office"
@@ -429,7 +429,12 @@
           </v-col>
           <v-col>
             <InputField
-              @change="refreshKey++"
+              @change="
+                refreshKey++;
+                $nextTick(() => {
+                  refreshKey++;
+                });
+              "
               type="number"
               :readonly="showReadOnly"
               @keydown.enter="
@@ -668,12 +673,6 @@ export default {
       return tottal || 0;
     },
     finalAmountToDeliverComp() {
-      // let recvAmountInUSD = parseFloat(this.recivedAmountInUSDComp || 0);
-      // let ratio = this.item.exchange_rate_to_reference_currency || null;
-      // if (ratio == null) return;
-      // let amountToDelv = recvAmountInUSD * ratio;
-      // this.item.received_amount = amountToDelv;
-      // console.log("aaahahahaaaa hhhaaa hhaaa hhhaaahhhaa hhhaaa hhhaaa");
       this.item.received_amount;
       this.item.returned_commission;
       this.item.office_commission;
@@ -740,9 +739,12 @@ export default {
       this.item.office_amount_in_office_currency = tempVar
         ? this.rounedRes
         : null;
+      console.log("{ tempVar, rounedRes: this.rounedRes }");
+      console.log({ tempVar, rounedRes: this.rounedRes });
       return tempVar ? this.rounedRes : null;
     },
     officeProfitComp() {
+      this.item.exchange_rate_to_reference_currency_view;
       this.refreshKey;
       this.item.returned_commission;
       this.item.office_commission;

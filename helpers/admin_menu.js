@@ -128,6 +128,11 @@ export default [
         title: "app settings",
         to: '/dashboard/settings/settings',
       },
+      {
+        icon: "arrows-exchange.png",
+        title: "short cuts",
+        to: '/dashboard/settings/short-cuts',
+      },
     ]
   },
 

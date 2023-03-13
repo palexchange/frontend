@@ -29,7 +29,7 @@
               </v-row>
               <div style="font-size: 20px; color: black">رصيد صندوق</div>
               <div style="font-size: 20px; color: black">
-                {{ account.net_balance | money }}
+                {{ (account.net_balance * 1 + account.price * 1) | money }}
               </div>
               <div style="font-size: 20px; color: black">رصيد جرد</div>
               <div style="font-size: 20px; color: light-black">

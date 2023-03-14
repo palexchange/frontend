@@ -44,6 +44,48 @@
             </v-col>
           </v-row>
         </v-col>
+        <v-col :key="i" v-for="(acc, i) in start_boxes_accounts">
+          <v-row dense class="flex-column">
+            <v-col>
+              <v-card class="text-center">
+                <v-card-title style="font-size: 14px" class="justify-center">
+                  {{ " خزينة : " + acc.name }}
+                </v-card-title>
+                <v-card-subtitle>
+                  {{ $t("balance") + ": " + acc.balance }}
+                </v-card-subtitle>
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-card class="py-5 text-center">
+                <v-badge class="mx-2" dot></v-badge>
+                {{
+                  $t("opening") + ": " + getMorningExchangeRate(acc.currency_id)
+                }}
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-card class="py-5 text-center">
+                <v-badge class="mx-2" dot></v-badge>
+                {{ $t("in USD") + ": " + totals[i] }}
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-card class="py-5 text-center">
+                <v-badge color="blue" class="mx-2" dot></v-badge>
+                {{
+                  $t("closing") + ": " + getNightExchangeRate(acc.currency_id)
+                }}
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-card class="py-5 text-center">
+                <v-badge color="blue" class="mx-2" dot></v-badge>
+                {{ $t("in USD") + ": " + totals2[i] }}
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-col>
       </v-row>
       <v-row>
         <v-col>

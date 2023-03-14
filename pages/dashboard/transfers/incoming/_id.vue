@@ -416,6 +416,10 @@
                     v
                   );
                   item.received_currency_id = v.id;
+                  refreshKey++;
+                  $nextTick(() => {
+                    refreshKey++;
+                  });
                 }
               "
               v-model="item.received_currency"

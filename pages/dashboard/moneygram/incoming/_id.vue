@@ -263,46 +263,6 @@
       </v-card-text>
     </Card>
 
-    <!-- <Card class="mb-5">
-      <v-card-text>
-        <v-row>
-          <v-col cols="12" md="3" sm="12">
-            <v-radio-group mandatory v-model="item.commission_side" row>
-              <v-radio :value="2" label="العمولة علي المستلم"></v-radio>
-            </v-radio-group>
-          </v-col>
-
-          <v-col class="align-self-center" md="3" sm="12">
-            <v-text-field
-             :readonly="showReadOnly"
-              color="#FF7171"
-              style="border-radius: 0px !important"
-              dense
-              outlined
-              slot="append"
-              hide-details
-              :label="
-                item.is_commission_percentage
-                  ? `${$t('commission')} %`
-                  : $t('commission')
-              "
-              :append-icon="
-                item.is_commission_percentage == false
-                  ? 'fas fa-sort-numeric-up-alt'
-                  : 'fas fa-percentage'
-              "
-              @click:append="
-                () =>
-                  (item.is_commission_percentage =
-                    !item.is_commission_percentage)
-              "
-              v-model.number="item.transfer_commission"
-            >
-            </v-text-field>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </Card> -->
     <Card class="mb-5 pa-3">
       <v-card-title>معلومات الحوالة الموني غرام</v-card-title>
       <v-card-text>

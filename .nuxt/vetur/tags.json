@@ -206,11 +206,11 @@
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
-  "SettingsCloseingAccountsCreate": {
-    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
+  "SettingsEntryCreate": {
+    "description": "Auto imported from components/settings/Entry/Create.vue"
   },
-  "SettingsCloseingAccounts": {
-    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
+  "SettingsEntry": {
+    "description": "Auto imported from components/settings/Entry/Index.vue"
   },
   "SettingsOpeningAccountsCreate": {
     "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
@@ -227,10 +227,10 @@
   "SettingsUsersRoleManagement": {
     "description": "Auto imported from components/settings/Users/RoleManagement.vue"
   },
-  "SettingsEntryCreate": {
-    "description": "Auto imported from components/settings/Entry/Create.vue"
+  "SettingsCloseingAccountsCreate": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
   },
-  "SettingsEntry": {
-    "description": "Auto imported from components/settings/Entry/Index.vue"
+  "SettingsCloseingAccounts": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
   }
 }

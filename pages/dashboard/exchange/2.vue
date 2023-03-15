@@ -354,6 +354,7 @@ export default {
   },
   computed: {
     ...mapState({
+     
       all_currencies: (state) => state.currency.all,
       user: (state) => state.user.one || {},
     }),
@@ -654,6 +655,7 @@ export default {
     }
   },
   watch: {
+
     all_currencies(val) {
       if (!this.items[0]) {
         val.map((item) => {

@@ -105,7 +105,7 @@
       <v-container style="max-width: 1340px !important; margin-top: 50px">
         <!-- <Boxes /> -->
         <UserActiveAccounts />
-        <Breadcrumbs />
+        <!-- <Breadcrumbs /> -->
         <div style="min-height: 67vh">
           <Nuxt />
         </div>
@@ -146,6 +146,7 @@ export default {
   middleware: "auth",
   data() {
     return {
+      last_key_listener_value: null,
       name: "",
       toggle_profits: true,
       daily_exchange_coo: {},
@@ -286,7 +287,8 @@ export default {
     handleKeyDown(event) {
       if (event.key.startsWith("F") && event.key.length > 1) {
         event.preventDefault();
-        
+        this.last_key_listener_value = event.key;
+        this.$store.dispatch("setLastListenerKey", event.key);
       }
 
       // handle keydown event here

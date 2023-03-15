@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="refresh_key">
     <v-row justify="end">
       <v-col cols="12" xs="12" sm="4" md="3">
         <v-btn @click="clearTrans" color="primary" block>
@@ -150,10 +150,12 @@
                 :disabled="
                   !cards[index].balance > 0 && trans[index].length == 0
                 "
-                @click.once="
-                  cards[index].inventory_balance == 0
-                    ? closeInventory(index, curr)
-                    : transferToShekeleBox(cards[index])
+                @click="
+                  dialog = true;
+                  global_inventory_balance =
+                    cards[index].inventory_balance == 0;
+                  global_inventory_index = index;
+                  global_inventory_curr = curr;
                 "
                 height="25"
               >
@@ -210,6 +212,22 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-dialog width="500" v-model="dialog">
+      <v-sheet class="pa-5">
+        <h4>هل انت متأكد من الحفظ ؟</h4>
+        <v-btn
+          class="primary"
+          @click="
+            dialog = false;
+            global_inventory_balance
+              ? closeInventory(global_inventory_index, global_inventory_curr)
+              : transferToShekeleBox(cards[global_inventory_index]);
+          "
+          >نعم</v-btn
+        >
+        <v-btn @click="dialog = false">لا</v-btn>
+      </v-sheet>
+    </v-dialog>
   </div>
 </template>
 
@@ -220,7 +238,13 @@ export default {
   name: "test-killua",
   data() {
     return {
+      refresh_key: 1,
       inputs_accounts: [],
+      inventory_balance: null,
+      global_inventory_balance: null,
+      global_inventory_index: null,
+      global_inventory_curr: null,
+      dialog: false,
       item: {
         convertToUSD: null,
       },
@@ -230,7 +254,7 @@ export default {
       entry: {
         status: 1,
         statement: "إغلاق صندوق",
-        document_sub_type: 3,
+        document_sub_type: 6,
         date: this.$getDateTime(),
       },
       report_data: {
@@ -242,17 +266,20 @@ export default {
   },
   methods: {
     closeToProfitAndLose(acc) {
+      console.log("closeToProfitAndLose");
       const diff = acc.inventory_balance;
       if (diff == 0) return;
       const exchange_rate = this.stocks.find(
         (v) => v.currency_id == acc.currency_id
-      ).mid;
+      ).close_mid;
+      console.log("befor diff < 0");
       if (diff < 0) {
+        console.log("in diff < 0");
         this.$save(
           {
             status: 1,
             statement: "ترصيد عجز ",
-            document_sub_type: 3,
+            document_sub_type: 6,
             date: this.$getDateTime(),
           },
           "entry"
@@ -279,12 +306,14 @@ export default {
           });
         });
       }
+      console.log("befor diff > 0");
       if (diff > 0) {
+        console.log("in diff > 0");
         this.$save(
           {
             status: 1,
             statement: "ترصيد زيادة ",
-            document_sub_type: 3,
+            document_sub_type: 6,
             date: this.$getDateTime(),
           },
           "entry"
@@ -299,17 +328,31 @@ export default {
             currency_id: acc.currency_id,
             account_id: 33,
           });
-          this.$store.dispatch("entry_transaction/store", {
-            entry_id: entry.id,
-            debtor: 0,
-            ac_debtor: 0,
-            creditor: diff,
-            ac_creditor: diff / exchange_rate,
-            exchange_rate: exchange_rate,
-            currency_id: acc.currency_id,
-            account_id: acc.id,
-          });
+          this.$store
+            .dispatch("entry_transaction/store", {
+              entry_id: entry.id,
+              debtor: 0,
+              ac_debtor: 0,
+              creditor: diff,
+              ac_creditor: diff / exchange_rate,
+              exchange_rate: exchange_rate,
+              currency_id: acc.currency_id,
+              account_id: acc.id,
+            })
+            .then(() => {
+              console.log("in then 1");
+              this.clearTrans();
+              console.log("in then 2");
+              this.$auth.fetchUser();
+              console.log("in then 3");
+            });
         });
+      } else {
+        console.log("in else 1");
+        this.clearTrans();
+        console.log("in else 2");
+        this.$auth.fetchUser();
+        console.log("in else 3");
       }
     },
     // closeFromInputs(index, acc) {
@@ -317,7 +360,7 @@ export default {
     //     let amount = acc.balance * -1;
     //     let exchange_rate = this.stocks.find(
     //       (v) => v.currency_id == acc.currency_id
-    //     ).mid;
+    //     ).close_mid;
     //     this.$save(
     //       {
     //         status: 1,
@@ -357,6 +400,8 @@ export default {
     //   }
     // },
     closeInventory(index, acc) {
+      console.log("closeInventory");
+      console.log("closeInventory");
       let total = this.trans[index].reduce((c, n) => {
         return c + parseFloat(n);
       }, 0);
@@ -369,7 +414,7 @@ export default {
 
       let exchange_rate = this.stocks.find(
         (v) => v.currency_id == acc.currency_id
-      ).mid;
+      ).close_mid;
       if (total == 0) return;
 
       this.$save(this.entry, "entry").then((res_entry) => {
@@ -384,18 +429,21 @@ export default {
             currency_id: acc.currency_id,
             account_id: main_box.id,
           });
-          this.$store.dispatch("entry_transaction/store", {
-            entry_id: res_entry.id,
-            debtor: 0,
-            ac_debtor: 0,
-            creditor: total,
-            ac_creditor: total / exchange_rate,
-            exchange_rate: exchange_rate,
-            currency_id: acc.currency_id,
-            account_id: acc.id,
-          });
+          this.$store
+            .dispatch("entry_transaction/store", {
+              entry_id: res_entry.id,
+              debtor: 0,
+              ac_debtor: 0,
+              creditor: total,
+              ac_creditor: total / exchange_rate,
+              exchange_rate: exchange_rate,
+              currency_id: acc.currency_id,
+              account_id: acc.id,
+            })
+            .then(() => {
+              this.$auth.fetchUser();
+            });
         }
-        // this.$auth.fetchUser();
       });
     },
     addTrans(val, index) {
@@ -430,6 +478,7 @@ export default {
       }
     },
     transferToShekeleBox(acc) {
+      console.log("transferToShekeleBox");
       if (acc.inventory_balance == 0) return;
       let shakel_box = this.main_active_accounts.find(
         (el) => el.currency_id == 2
@@ -438,10 +487,10 @@ export default {
       const amount = Math.abs(acc.inventory_balance);
       let usd_to_nis_exchange_rate = this.stocks.find(
         (v) => v.currency_id == 2
-      ).mid;
+      ).close_mid;
       let usd_to_acc_crr_exchange_rate = this.stocks.find(
         (v) => v.currency_id == acc.currency_id
-      ).mid;
+      ).close_mid;
       const acc_to_nis_exchange_rate = parseFloat(
         (this.$newCalcBuyPrice({ id: acc.currency_id }, { id: 2 }) * 1 +
           this.$newCalcSalePrice({ id: acc.currency_id }, { id: 2 }) * 1) /
@@ -455,31 +504,32 @@ export default {
           date: this.$getDateTime(),
         },
         "entry"
-      ).then((res_entry) => {
-        if (res_entry && res_entry.id) {
-          this.$store
-            .dispatch("entry_transaction/store", {
-              entry_id: res_entry.id,
-              transaction_type: !negative ? 1 : 0,
-              account_id: shakel_box.id,
-              debtor: !negative ? amount * acc_to_nis_exchange_rate : 0,
-              ac_debtor: !negative
-                ? amount *
-                  acc_to_nis_exchange_rate *
-                  (1 / usd_to_nis_exchange_rate)
-                : 0,
-              creditor: negative ? amount * acc_to_nis_exchange_rate : 0,
-              ac_creditor: negative
-                ? amount *
-                  acc_to_nis_exchange_rate *
-                  (1 / usd_to_nis_exchange_rate)
-                : 0,
-              exchange_rate: 1 / usd_to_nis_exchange_rate,
-              currency_id: 2,
-            })
-            .then(() => {
-              this.$store
-                .dispatch("entry_transaction/store", {
+      )
+        .then((res_entry) => {
+          console.log("then((res_entry)");
+          if (res_entry && res_entry.id) {
+            this.$store
+              .dispatch("entry_transaction/store", {
+                entry_id: res_entry.id,
+                transaction_type: !negative ? 1 : 0,
+                account_id: shakel_box.id,
+                debtor: !negative ? amount * acc_to_nis_exchange_rate : 0,
+                ac_debtor: !negative
+                  ? amount *
+                    acc_to_nis_exchange_rate *
+                    (1 / usd_to_nis_exchange_rate)
+                  : 0,
+                creditor: negative ? amount * acc_to_nis_exchange_rate : 0,
+                ac_creditor: negative
+                  ? amount *
+                    acc_to_nis_exchange_rate *
+                    (1 / usd_to_nis_exchange_rate)
+                  : 0,
+                exchange_rate: 1 / usd_to_nis_exchange_rate,
+                currency_id: 2,
+              })
+              .then(() => {
+                this.$store.dispatch("entry_transaction/store", {
                   entry_id: res_entry.id,
                   account_id: acc.id,
                   transaction_type: negative ? 1 : 0,
@@ -493,19 +543,23 @@ export default {
                     : 0,
                   exchange_rate: 1 / usd_to_acc_crr_exchange_rate,
                   currency_id: acc.currency_id,
-                })
-                .then(() => {
-                  this.$auth.fetchUser();
                 });
-            });
-        }
-      });
+              });
+          }
+        })
+        .then(() => {
+          console.log("helow ");
+          this.clearTrans();
+          this.$auth.fetchUser();
+          this.refresh_key++;
+        });
     },
   },
   computed: {
     ...mapState({
       active_accounts: (state) =>
         JSON.parse(JSON.stringify(state.auth.user.active_accounts)),
+      user: (state) => state.auth.user.active_accounts,
       stocks: (state) => state.stock.all,
       main_boxes: (state) => state.account.all,
       main_active_accounts: (state) => state.auth.user.main_active_accounts,

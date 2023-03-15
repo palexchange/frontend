@@ -1,8 +1,15 @@
 <template>
   <Card>
     <v-card-text>
-      <v-row dense>
-        <v-col :key="i" v-for="(acc, i) in active_accounts">
+      <v-row
+        v-if="start_active_accounts[0].start_net_balance > 0"
+        class="pt-5"
+        dense
+      >
+        <v-col class="text-center"> <h3>رصيد اول اليوم</h3> </v-col>
+      </v-row>
+      <v-row v-if="start_active_accounts[0].start_net_balance > 0" dense>
+        <v-col :key="i" v-for="(acc, i) in start_active_accounts">
           <v-row dense class="flex-column">
             <v-col>
               <v-card class="text-center">
@@ -10,7 +17,10 @@
                   {{ acc.name }}
                 </v-card-title>
                 <v-card-subtitle>
-                  {{ $t("balance") + ": " + acc.net_balance }}
+                  {{ $t("balance") + ": " }}
+                  {{
+                    (acc.start_net_balance * 1 + acc.start_price * 1) | money
+                  }}
                 </v-card-subtitle>
               </v-card>
             </v-col>
@@ -25,9 +35,34 @@
             <v-col>
               <v-card class="py-5 text-center">
                 <v-badge class="mx-2" dot></v-badge>
-                {{ $t("in USD") + ": " + totals[i] }}
+                {{ $t("in USD") + ": " }}
+
+                {{ totals[i] | money }}
               </v-card>
             </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+      <v-row class="pt-5" dense>
+        <v-col align-self="center" class="text-center">
+          <h3>رصيد اخر اليوم</h3></v-col
+        >
+      </v-row>
+      <v-row dense>
+        <v-col :key="i" v-for="(acc, i) in active_accounts">
+          <v-row dense class="flex-column">
+            <v-col>
+              <v-card class="text-center">
+                <v-card-title style="font-size: 14px" class="justify-center">
+                  {{ acc.name }}
+                </v-card-title>
+                <v-card-subtitle>
+                  {{ $t("balance") + ": " }}
+                  {{ (acc.net_balance * 1 + acc.price * 1) | money }}
+                </v-card-subtitle>
+              </v-card>
+            </v-col>
+
             <v-col>
               <v-card class="py-5 text-center">
                 <v-badge color="blue" class="mx-2" dot></v-badge>
@@ -39,12 +74,14 @@
             <v-col>
               <v-card class="py-5 text-center">
                 <v-badge color="blue" class="mx-2" dot></v-badge>
-                {{ $t("in USD") + ": " + totals2[i] }}
+                {{ $t("in USD") + ": " }}
+                {{ totals2[i] | money }}
               </v-card>
             </v-col>
           </v-row>
         </v-col>
       </v-row>
+
       <v-row>
         <v-col>
           <v-row class="shadowing">
@@ -96,7 +133,7 @@
               </h2></v-col
             >
           </v-row>
-          <v-row class="shadowing">
+          <!-- <v-row class="shadowing">
             <v-col
               ><h3>
                 {{ transfer_profit_acc.name }}
@@ -107,7 +144,7 @@
                 {{ transfer_profit_acc.balance }}
               </h2></v-col
             >
-          </v-row>
+          </v-row> -->
           <v-row class="shadowing">
             <v-col
               ><h3>
@@ -128,12 +165,7 @@
             >
             <v-col>
               <h2>
-                {{
-                  (
-                    parseFloat(transfer_profit_acc.balance) +
-                    parseFloat(exchange_profit_acc.balance)
-                  ).toFixed(3)
-                }}
+                {{ this.funds_total2 - this.funds_total }}
                 <!-- +
                     (funds_total2 - funds_total) -->
               </h2></v-col
@@ -244,9 +276,17 @@ export default {
     },
   },
   computed: {
+    // active_accounts() {
+    //   return this.main_active_accounts.map((acc) => {
+    //     let main = this.my_active_accounts.find((ac) => ac.id == acc.id);
+    //     return { ...acc, price: main.price };
+    //   });
+    // },
     ...mapState({
       active_accounts: (state) =>
         JSON.parse(JSON.stringify(state.auth.user.main_active_accounts)),
+      start_active_accounts: (state) =>
+        JSON.parse(JSON.stringify(state.auth.user.start_main_active_accounts)),
       // stock_transaction: (state) =>
       //   JSON.parse(JSON.stringify(state.stock_transaction.all)),
       all_accounts: (state) =>
@@ -273,8 +313,9 @@ export default {
       return acc;
     },
     funds_total() {
-      this.totals = this.active_accounts.map((account) => {
-        let net_balance = account.net_balance;
+      this.totals = this.start_active_accounts.map((account) => {
+        let net_balance =
+          account.start_net_balance * 1 + account.start_price * 1;
         let total = 0;
         if (account.currency_id == 4) {
           total =
@@ -289,7 +330,7 @@ export default {
     },
     funds_total2() {
       this.totals2 = this.active_accounts.map((account) => {
-        let net_balance = account.net_balance;
+        let net_balance = account.net_balance * 1 + account.price * 1;
         let total = 0;
         if (account.currency_id == 4) {
           total = net_balance * this.getNightExchangeRate(account.currency_id);
@@ -319,7 +360,7 @@ export default {
 
   filters: {
     money(value) {
-      parseFloat(value);
+      value = parseFloat(value);
       if (typeof value == "number") {
         return parseFloat(value).toLocaleString(undefined, {
           minimumFractionDigits: 3,

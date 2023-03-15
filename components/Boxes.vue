@@ -21,13 +21,15 @@
                   :src="`/icons/currencies/${account.id}.png`"
                   alt=""
               /> -->
-                  {{ account.name }}
+                  <h3>
+                    {{ account.name }}
+                  </h3>
                 </v-col>
                 <!-- <v-col style="font-size: 18px; color: black">
                 {{ account.name }}
               </v-col> -->
               </v-row>
-              <div style="font-size: 20px; color: black">رصيد صندوق</div>
+              <div style="font-size: 20px; color: black">رأس مال</div>
               <div style="font-size: 20px; color: black">
                 {{ (account.net_balance * 1 + account.price * 1) | money }}
               </div>

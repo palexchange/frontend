@@ -13,6 +13,7 @@ export const state = () => ({
   success_msg: null,
   all_codes: codes.all(),
   deletingData: null,
+  last_key_listener_value: null,
   editingData: null,
   locales,
   module_name: null,
@@ -28,6 +29,9 @@ export const actions = {
   // nuxtServerInit ({ commit,dispatch}, { req }) {
   //   dispatch('setDefaultDigitsNumber')
   // },
+  setLastListenerKey({ commit }, data) {
+    commit('set_listener_key', data)
+  },
   setSettings({ commit }, data) {
     commit('set_settings', data)
   },
@@ -111,6 +115,11 @@ export const actions = {
 }
 
 export const mutations = {
+  set_listener_key(state, newKey) {
+    console.log("newKey");
+    console.log(newKey);
+    state.last_key_listener_value = newKey
+  },
   set_logout(state, settingData) {
     this.$axios.$post('/auth/logout')
   },

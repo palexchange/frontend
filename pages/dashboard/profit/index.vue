@@ -1,33 +1,63 @@
 <template>
   <Card>
     <v-card-text>
+      <v-row v-if="start_boxes_accounts[0]" class="pt-5" dense>
+        <v-col class="text-center"> <h3>رصيد اول اليوم</h3> </v-col>
+      </v-row>
+      <v-row>
+        <v-col :key="i" v-for="(acc, i) in start_boxes_accounts">
+          <v-row dense class="flex-column">
+            <v-col>
+              <v-card class="text-center">
+                <v-card-title style="font-size: 14px" class="justify-center">
+                  {{ " خ : " + acc.name }}
+                </v-card-title>
+                <v-card-subtitle>
+                  {{ $t("balance") + ": " }}
+                  {{ acc.balance | money }}
+                </v-card-subtitle>
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-card class="py-5 text-center">
+                <v-badge class="mx-2" dot></v-badge>
+                {{
+                  $t("opening") + ": " + getMorningExchangeRate(acc.currency_id)
+                }}
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-card class="py-5 text-center">
+                <v-badge class="mx-2" dot></v-badge>
+                {{ $t("in USD") + ": " }}
+                {{ totals[i] | money }}
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
+      <v-row class="pt-5" dense>
+        <v-col align-self="center" class="text-center">
+          <h3>رصيد اخر اليوم</h3></v-col
+        >
+      </v-row>
       <v-row v-if="$auth.user.role == 1" dense>
         <v-col :key="i" v-for="(acc, i) in boxes_accounts">
           <v-row dense class="flex-column">
             <v-col>
               <v-card class="text-center">
                 <v-card-title style="font-size: 14px" class="justify-center">
-                  {{ " خزينة : " + acc.name }}
+                  {{ " خ : " + acc.name }}
                 </v-card-title>
                 <v-card-subtitle>
-                  {{ $t("balance") + ": " + acc.balance }}
+                  {{ $t("balance") + ": " }}
+
+                  {{ acc.balance | money }}
                 </v-card-subtitle>
               </v-card>
             </v-col>
-            <v-col>
-              <v-card class="py-5 text-center">
-                <v-badge class="mx-2" dot></v-badge>
-                {{
-                  $t("opening") + ": " + getMorningExchangeRate(acc.currency_id)
-                }}
-              </v-card>
-            </v-col>
-            <v-col>
-              <v-card class="py-5 text-center">
-                <v-badge class="mx-2" dot></v-badge>
-                {{ $t("in USD") + ": " + totals[i] }}
-              </v-card>
-            </v-col>
+
             <v-col>
               <v-card class="py-5 text-center">
                 <v-badge color="blue" class="mx-2" dot></v-badge>
@@ -39,54 +69,14 @@
             <v-col>
               <v-card class="py-5 text-center">
                 <v-badge color="blue" class="mx-2" dot></v-badge>
-                {{ $t("in USD") + ": " + totals2[i] }}
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col :key="i" v-for="(acc, i) in start_boxes_accounts">
-          <v-row dense class="flex-column">
-            <v-col>
-              <v-card class="text-center">
-                <v-card-title style="font-size: 14px" class="justify-center">
-                  {{ " خزينة : " + acc.name }}
-                </v-card-title>
-                <v-card-subtitle>
-                  {{ $t("balance") + ": " + acc.balance }}
-                </v-card-subtitle>
-              </v-card>
-            </v-col>
-            <v-col>
-              <v-card class="py-5 text-center">
-                <v-badge class="mx-2" dot></v-badge>
-                {{
-                  $t("opening") + ": " + getMorningExchangeRate(acc.currency_id)
-                }}
-              </v-card>
-            </v-col>
-            <v-col>
-              <v-card class="py-5 text-center">
-                <v-badge class="mx-2" dot></v-badge>
-                {{ $t("in USD") + ": " + totals[i] }}
-              </v-card>
-            </v-col>
-            <v-col>
-              <v-card class="py-5 text-center">
-                <v-badge color="blue" class="mx-2" dot></v-badge>
-                {{
-                  $t("closing") + ": " + getNightExchangeRate(acc.currency_id)
-                }}
-              </v-card>
-            </v-col>
-            <v-col>
-              <v-card class="py-5 text-center">
-                <v-badge color="blue" class="mx-2" dot></v-badge>
-                {{ $t("in USD") + ": " + totals2[i] }}
+                {{ $t("in USD") + ": " }}
+                {{ totals2[i] | money }}
               </v-card>
             </v-col>
           </v-row>
         </v-col>
       </v-row>
+
       <v-row>
         <v-col>
           <v-row v-if="$auth.user.role == 1" class="shadowing">
@@ -113,40 +103,11 @@
               </h2></v-col
             >
           </v-row>
-
-          <!-- <v-row v-if="$auth.user.role == 1" class="shadowing">
-            <v-col
-              ><h3>
-                {{ $t("exchange rate profit") }}
-              </h3></v-col
-            >
-             <v-col>
-              <h2>
-                {{ (funds_total2 - funds_total) | money }}
-              </h2></v-col
-            >  
-          </v-row> -->
-          <v-row class="shadowing">
-            <v-col
-              ><h3>
-                {{ transfer_profit_acc.name }}
-              </h3></v-col
-            >
+          <v-row v-if="$auth.user.role == 1" class="shadowing">
+            <v-col><h3>ربحية الجرد</h3></v-col>
             <v-col>
               <h2>
-                {{ transfer_profit_acc.balance }}
-              </h2></v-col
-            >
-          </v-row>
-          <v-row class="shadowing">
-            <v-col
-              ><h3>
-                {{ exchange_profit_acc.name }}
-              </h3></v-col
-            >
-            <v-col>
-              <h2>
-                {{ exchange_profit_acc.balance }}
+                {{ (this.funds_total2 - this.funds_total) | money }}
               </h2></v-col
             >
           </v-row>
@@ -159,11 +120,11 @@
             >
             <v-col>
               <h2>
-                {{ profit_and_losse_acc.balance }}
+                {{ profit_and_losse_acc.usd_balance * -1 }}
               </h2></v-col
             >
           </v-row>
-          <v-row class="shadowing">
+          <!-- <v-row class="shadowing">
             <v-col
               ><h3>
                 {{ $t("profit total") }}
@@ -174,15 +135,15 @@
                 {{ profit_total.toFixed(3) }}
               </h2></v-col
             >
-          </v-row>
-          <!-- <v-row class="shadowing">
-            <v-col><h3>مصرفات</h3></v-col>
+          </v-row> -->
+          <v-row class="shadowing">
+            <v-col><h3>مصروفات</h3></v-col>
             <v-col>
               <h2>
                 {{ expenses_account }}
               </h2></v-col
             >
-          </v-row> -->
+          </v-row>
           <v-row class="shadowing">
             <v-col><h3>صافي الربح</h3></v-col>
             <v-col>
@@ -312,27 +273,29 @@ export default {
       stocks: (state) => state.stock.all || [],
     }),
     profit_total() {
-      return this.funds_total - this.funds_total2
       return (
-        this.transfer_profit_acc.balance * 1 +
-        this.exchange_profit_acc.balance * 1
+        this.funds_total2 -
+        this.funds_total -
+        this.profit_and_losse_acc.usd_balance * 1 -
+        this.expenses_account * 1
       );
+
       // (this.funds_total2 * 1 - this.funds_total * 1)
     },
-    // expenses_account() {
-    //   let acc =
-    //     this.all_accounts.find((v) => v.type_id == 7 && v.parent_id == null) ||
-    //     {};
-    //   if (acc.children && acc.children.length > 0) {
-    //     let chidren_balance = acc.children.reduce((a, n) => {
-    //       return a + n.balance * 1;
-    //     }, 0);
-    //     chidren_balance * 1 + acc.balance * 1;
-    //     return chidren_balance + acc.balance;
-    //   } else {
-    //     return 0;
-    //   }
-    // },
+    expenses_account() {
+      let acc =
+        this.all_accounts.find((v) => v.type_id == 7 && v.parent_id == null) ||
+        {};
+      if (acc.children && acc.children.length > 0) {
+        let chidren_balance = acc.children.reduce((a, n) => {
+          return a + n.usd_balance * 1;
+        }, 0);
+        chidren_balance * 1 + acc.balance * 1;
+        return chidren_balance + acc.balance;
+      } else {
+        return 0;
+      }
+    },
     transfer_profit_acc() {
       let acc = {};
       acc.balance = (this.$auth.user.daily_transfer_profit * 1).toFixed(3);
@@ -341,7 +304,7 @@ export default {
     },
     profit_and_losse_acc() {
       let acc = this.all_accounts.find((v) => v.id == 33) || {};
-      // if (acc.balance < 0) {
+      // if (acc.usd_balance < 0) {
       //   acc.balance = parseFloat(acc.balance).toFixed(3) * -1 + " " + "د";
       // }
       return acc;
@@ -402,7 +365,7 @@ export default {
 
   filters: {
     money(value) {
-      parseFloat(value);
+      value = parseFloat(value);
       if (typeof value == "number") {
         return parseFloat(value).toLocaleString(undefined, {
           minimumFractionDigits: 3,

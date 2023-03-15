@@ -351,6 +351,7 @@ export default {
   },
   computed: {
     ...mapState({
+      pressed_key: (state) => state.last_key_listener_value,
       all_currencies: (state) => state.currency.all,
       all_stocks: (state) => state.stock.all,
       user: (state) => state.auth.user || {},
@@ -804,6 +805,44 @@ export default {
     }
   },
   watch: {
+    pressed_key(val) {
+      if (val) {
+        let currency_id = this.item.currency;
+        switch (val) {
+          case "F1":
+            console.log(":as khello");
+            if (currency_id == 1) {
+              this.item.currency = 2;
+              this.setRow(0, 1);
+            } else {
+              this.item.currency = 1;
+              this.setRow(1, 2);
+            }
+            break;
+          case "F2":
+            break;
+          case "F3":
+            break;
+          case "F4":
+            break;
+          case "F5":
+            break;
+          case "F6":
+            break;
+          case "F7":
+            break;
+          case "F8":
+            break;
+          case "F9":
+            break;
+          case "F10":
+            break;
+
+          default:
+            break;
+        }
+      }
+    },
     all_currencies(val) {
       if (!this.items[0]) {
         val.map((item) => {

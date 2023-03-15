@@ -1,30 +1,37 @@
 <template>
-  <v-row>
-    <v-col
-      :key="currency.id"
-      class="text-center"
-      v-for="currency in currencies"
-    >
-      <div>
-        {{ currency.name }}
-      </div>
-      <div>
-        <v-autocomplete
-          item-text="name"
-          item-value="id"
-          return-object
-          @change="(v) => updateAccount(v)"
-          :value="
-            main_active_accounts.find((v) => v.currency_id == currency.id)
-          "
-          :items="
-            user.active_accounts.filter((v) => v.currency_id == currency.id)
-          "
+  <div>
+    <v-btn   @click="expand = !expand" icon>
+      <v-icon small> fas fa-eye</v-icon>
+    </v-btn>
+    <v-expand-transition>
+      <v-row v-show="expand">
+        <v-col
+          :key="currency.id"
+          class="text-center"
+          v-for="currency in currencies"
         >
-        </v-autocomplete>
-      </div>
-    </v-col>
-  </v-row>
+          <div>
+            {{ currency.name }}
+          </div>
+          <div>
+            <v-autocomplete
+              item-text="name"
+              item-value="id"
+              return-object
+              @change="(v) => updateAccount(v)"
+              :value="
+                main_active_accounts.find((v) => v.currency_id == currency.id)
+              "
+              :items="
+                user.active_accounts.filter((v) => v.currency_id == currency.id)
+              "
+            >
+            </v-autocomplete>
+          </div>
+        </v-col>
+      </v-row>
+    </v-expand-transition>
+  </div>
 </template>
 
 <script>
@@ -33,6 +40,7 @@ export default {
   data() {
     return {
       main_accounts: {},
+      expand: false,
     };
   },
   computed: {

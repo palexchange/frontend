@@ -1,17 +1,17 @@
 <template>
   <div>
     <Boxes :key="keyNum" />
-    <v-row>
+    <v-row dense>
       <v-col cols="12" xs="12" lg="7">
         <Card class="mb-5 pt-3 pl-3 pr-6">
-          <v-row class="mb-1">
+          <v-row dense class="mb-1">
             <v-col cols="12" xs="12" sm="6" lg="8">
-              <v-row class="text-h6 mb-4">
+              <v-row dense class="text-h6 mb-4">
                 <v-col>
                   <Title title="create an exchange process"></Title>
                 </v-col>
               </v-row>
-              <v-row class="mb-4">
+              <v-row dense class="mb-4">
                 <v-col cols="12" xs="12" sm="6" lg="6">
                   <BeneficiaryAutocomplete
                     text="beneficiary"
@@ -19,13 +19,6 @@
                     required
                     v-model="exchange.beneficiary_id"
                   />
-                  <!-- <AutoComplete
-                    text="beneficiary"
-                    holder="beneficiary"
-                    :items="all_parties"
-                    required
-                    v-model="item.beneficairy"
-                  /> -->
                 </v-col>
                 <v-col cols="12" xs="12" sm="6" lg="6">
                   <DatePicker v-model="exchange.date" required text="date" />
@@ -49,7 +42,7 @@
       </v-col>
       <v-col cols="12" xs="12" lg="5">
         <Card>
-          <v-row class="text-right text-h6 mt-5 mr-5">
+          <v-row dense class="text-right text-h6 mt-5 mr-5">
             <v-col cols="1">
               <v-icon class="mr-4 ml-3">fas fa-solid fa-user</v-icon>
             </v-col>
@@ -62,7 +55,7 @@
               >
             </v-col>
           </v-row>
-          <v-row class="text-right text-h6 mt-5 mr-5">
+          <v-row dense class="text-right text-h6 mt-5 mr-5">
             <v-col cols="1">
               <v-icon class="mr-4 ml-3">fas fa-solid fa-arrow-down</v-icon>
             </v-col>
@@ -79,7 +72,7 @@
               >
             </v-col>
           </v-row>
-          <v-row class="text-right text-h6 mt-5 mr-5 mb-5">
+          <v-row dense class="text-right text-h6 mt-5 mr-5 mb-5">
             <v-col cols="1">
               <v-icon class="mr-4 ml-3">fas fa-solid fa-clock</v-icon>
             </v-col>
@@ -100,7 +93,7 @@
 
     <Card>
       <v-card-text>
-        <v-row align="center">
+        <v-row dense align="center">
           <v-col cols="12" xs="12" sm="4" md="3">
             <InputField
               text="amount to exchange"
@@ -291,7 +284,7 @@
       </v-simple-table>
     </Card>
 
-    <v-row justify="center" class="mt-5 mb-5">
+    <v-row dense justify="center" class="mt-5 mb-5">
       <v-col cols="8" class="d-flex justify-end">
         <v-btn
           :key="numberToReRender"
@@ -837,6 +830,7 @@ export default {
             this.setPressededKey(currency, 3, 2, 2, 1);
             break;
           case "F5":
+            this.save();
             break;
           case "F6":
             break;

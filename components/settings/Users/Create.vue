@@ -171,9 +171,9 @@ export default {
       });
     },
     save() {
-      this.$save(this.form, "user").then((data) => {
+      this.$save({ ...this.form, no_reload: true }, "user").then((data) => {
         if (this.expand && this.user_account[0] && data) {
-          this.user_account.forEach((v) => {
+          let items = this.user_account.map((v) => {
             let item = {
               account_id: v.account_id,
               currency_id: v.currency_id,
@@ -182,11 +182,11 @@ export default {
               name: v.name,
               status: v.status == 1 ? 1 : 0,
             };
-            this.$save(item, "user_account");
+            return item;
           });
+          this.$save({ items, silent: true }, "user_account");
         }
         this.$store.dispatch("closeDialog");
-        this.$auth.fetchUser();
       });
     },
     filter() {
@@ -195,18 +195,7 @@ export default {
       };
     },
     selectAll(v) {
-      // let ids = this.user_accounts;
       this.user_account = v;
-      // if (this.item.user_ids) {
-      //   if (ids.length == this.item.user_ids.length) {
-      //     this.item.user_ids = [];
-      //   } else {
-      //     this.item.user_ids = ids;
-      //   }
-      // } else {
-      //   this.item.user_ids = ids;
-      // }
-      // this.key++;
     },
   },
   computed: {
@@ -232,18 +221,15 @@ export default {
     },
     user_account(val, old) {
       if (old.length > val.length) {
-        let obj = {};
-        old.forEach((v, index) => {
-          if (index < val.length) {
-            if (v.name !== val[index].name) {
-              obj = v;
-            }
-          } else {
-            obj = v;
-          }
-        });
+        let difference = old.filter(
+          (obj1) => !val.some((obj2) => obj1.id == obj2.id)
+        );
+        let obj = difference[0] || {};
         if (obj.id) {
-          this.$store.dispatch("user_account/delete", obj);
+          this.$store.dispatch("user_account/delete", {
+            item: obj,
+            no_reload: true,
+          });
         }
       }
       if (val) {

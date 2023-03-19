@@ -116,8 +116,6 @@ export const actions = {
 
 export const mutations = {
   set_listener_key(state, newKey) {
-    console.log("newKey");
-    console.log(newKey);
     state.last_key_listener_value = newKey
   },
   set_logout(state, settingData) {

@@ -293,7 +293,7 @@ export default (context) => {
   {
     child: 'entry',
     parent: '',
-    reload_user: true,
+
     load_after_store: true,
     headers: ['num', 'id', 'statement', 'inverse_entry_id', 'status', 'created_at'],
     functions: [

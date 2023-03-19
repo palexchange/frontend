@@ -285,6 +285,9 @@ export default {
   },
   methods: {
     handleKeyDown(event) {
+      console.log("event.key");
+      console.log(event.ctrlKey);
+      console.log(event.key);
       if (event.key.startsWith("F") && event.key.length > 1) {
         event.preventDefault();
         this.last_key_listener_value = event.key;

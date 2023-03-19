@@ -1,5 +1,5 @@
 <template>
-  <div :key="refresh_key">
+  <div>
     <v-row justify="end">
       <v-col cols="12" xs="12" sm="4" md="3">
         <v-btn @click="clearTrans" color="primary" block>
@@ -8,13 +8,14 @@
       </v-col>
     </v-row>
     <!-- class="lg5-custome-row" -->
-    <v-row justify="center">
+    <v-row :key="refresh_key" justify="center">
       <v-col
         v-for="(curr, index) in active_accounts"
         :key="curr.id"
         cols="12"
         sm="6"
         md="3"
+        v-show="curr.inventory_balance > 0 || trans[index].length > 0"
       >
         <v-card class="black-font">
           <!-- v-if="cards[index].balance > 0 || cards[index].balance < 0" -->
@@ -38,36 +39,30 @@
                 style="color: rgba(0, 0, 0); font-size: 16px"
               >
                 رصيد الصندوق :
-                {{ cards[index].net_balance | money }}
+                {{ curr.net_balance | money }}
               </div>
               <div
                 class="black-font"
                 style="color: rgba(0, 0, 0); font-size: 16px"
               >
                 مسحوبات ومقبوضات:
-                {{ cards[index].inputs_balance | money }}
+                {{ curr.inputs_balance | money }}
               </div>
               <div
                 class="black-font"
                 style="color: rgba(0, 0, 0); font-size: 16px"
               >
                 الرصيد للجرد :
-                {{ (cards[index].inventory_balance * 1) | money }}
+                {{ (curr.inventory_balance * 1) | money }}
               </div>
             </v-col>
             <v-col class="text-center pb-0 black-font" cols="12">
               <div class="pa-3 black-font">
                 <input
-                  :disabled="
-                    !cards[index].balance > 0 && trans[index].length == 0
-                  "
+                  :disabled="!curr.balance > 0 && curr.length == 0"
                   @keydown.enter="(v) => addTrans(v.target.value, index)"
                   @keydown.space="
-                    (v) =>
-                      addTrans(
-                        parseFloat(cards[index].inventory_balance),
-                        index
-                      )
+                    (v) => addTrans(parseFloat(curr.inventory_balance), index)
                   "
                   type="number"
                   class="border"
@@ -105,16 +100,14 @@
           <v-card
             :style="{
               'background-color':
-                cards[index].inventory_balance == 0
-                  ? '#83b97b'
-                  : 'rgba(255,1,1 , 0.5)',
+                curr.inventory_balance == 0 ? '#83b97b' : 'rgba(255,1,1 , 0.5)',
             }"
             class="white--text mt-1 black-font justify-center"
             block
             height="140"
           >
             <v-card-title
-              v-if="cards[index].inventory_balance == 0"
+              v-if="curr.inventory_balance == 0"
               class="justify-center"
             >
               {{ $t("balanced") }}
@@ -122,10 +115,7 @@
             <div v-else class="text-center pt-2">
               {{ $t("unbalanced") }}
               <br />
-              <p
-                style="font-size: small"
-                v-if="cards[index].inventory_balance > 0"
-              >
+              <p style="font-size: small" v-if="curr.inventory_balance > 0">
                 {{ $t("shortage in real balance") }}
               </p>
               <p style="font-size: small" v-else>
@@ -146,36 +136,33 @@
             </div> -->
             <div class="text-center">
               <v-btn
-                v-if="cards[index].currency_id != 2"
-                :disabled="
-                  !cards[index].balance > 0 && trans[index].length == 0
-                "
+                v-if="curr.currency_id != 2"
+                :disabled="!curr.balance > 0 && trans[index].length == 0"
                 @click="
                   dialog = true;
-                  global_inventory_balance =
-                    cards[index].inventory_balance == 0;
+                  global_inventory_balance = curr.inventory_balance == 0;
                   global_inventory_index = index;
                   global_inventory_curr = curr;
                 "
                 height="25"
               >
                 {{
-                  cards[index].inventory_balance == 0
+                  curr.inventory_balance == 0
                     ? $t("إعتماد الجرد وإغلاق الصندوق")
                     : $t("ترحيل لصندوق الشيكل")
                 }}
               </v-btn>
               <v-btn
                 @click.once="
-                  cards[index].inventory_balance == 0
+                  curr.inventory_balance == 0
                     ? closeInventory(index, curr)
-                    : closeToProfitAndLose(cards[index])
+                    : closeToProfitAndLose(curr)
                 "
                 v-else
                 height="25"
               >
                 {{
-                  cards[index].inventory_balance == 0
+                  curr.inventory_balance == 0
                     ? $t("إعتماد الجرد وإغلاق الصندوق")
                     : $t("ترحيل لصندوق العجز و الزيادة")
                 }}
@@ -221,7 +208,7 @@
             dialog = false;
             global_inventory_balance
               ? closeInventory(global_inventory_index, global_inventory_curr)
-              : transferToShekeleBox(cards[global_inventory_index]);
+              : transferToShekeleBox(active_accounts[global_inventory_index]);
           "
           >نعم</v-btn
         >
@@ -266,17 +253,16 @@ export default {
   },
   methods: {
     closeToProfitAndLose(acc) {
-      console.log("closeToProfitAndLose");
       const diff = acc.inventory_balance;
       if (diff == 0) return;
       const exchange_rate = this.stocks.find(
         (v) => v.currency_id == acc.currency_id
       ).close_mid;
-      console.log("befor diff < 0");
       if (diff < 0) {
-        console.log("in diff < 0");
         this.$save(
           {
+            silent: true,
+            no_reload: true,
             status: 1,
             statement: "ترصيد عجز ",
             document_sub_type: 6,
@@ -286,6 +272,7 @@ export default {
         ).then((entry) => {
           this.$store.dispatch("entry_transaction/store", {
             entry_id: entry.id,
+            silent: true,
             debtor: Math.abs(diff),
             ac_debtor: Math.abs(diff) / exchange_rate,
             creditor: 0,
@@ -294,23 +281,29 @@ export default {
             currency_id: acc.currency_id,
             account_id: acc.id,
           });
-          this.$store.dispatch("entry_transaction/store", {
-            entry_id: entry.id,
-            debtor: 0,
-            ac_debtor: 0,
-            creditor: Math.abs(diff),
-            ac_creditor: Math.abs(diff) / exchange_rate,
-            exchange_rate: exchange_rate,
-            currency_id: acc.currency_id,
-            account_id: 33, // ربحية عجز و زيادة
-          });
+          this.$store
+            .dispatch("entry_transaction/store", {
+              entry_id: entry.id,
+              debtor: 0,
+              ac_debtor: 0,
+              creditor: Math.abs(diff),
+              ac_creditor: Math.abs(diff) / exchange_rate,
+              exchange_rate: exchange_rate,
+              currency_id: acc.currency_id,
+              account_id: 33, // ربحية عجز و زيادة
+            })
+            .then(() => {
+              this.clearTrans();
+              this.$auth.fetchUser().then(() => {
+                this.refresh_key++;
+              });
+            });
         });
-      }
-      console.log("befor diff > 0");
-      if (diff > 0) {
-        console.log("in diff > 0");
+      } else if (diff > 0) {
         this.$save(
           {
+            no_reload: true,
+            silent: true,
             status: 1,
             statement: "ترصيد زيادة ",
             document_sub_type: 6,
@@ -320,6 +313,7 @@ export default {
         ).then((entry) => {
           this.$store.dispatch("entry_transaction/store", {
             entry_id: entry.id,
+            silent: true,
             debtor: diff,
             ac_debtor: diff / exchange_rate,
             creditor: 0,
@@ -340,19 +334,12 @@ export default {
               account_id: acc.id,
             })
             .then(() => {
-              console.log("in then 1");
               this.clearTrans();
-              console.log("in then 2");
-              this.$auth.fetchUser();
-              console.log("in then 3");
+              this.$auth.fetchUser().then(() => {
+                this.refresh_key++;
+              });
             });
         });
-      } else {
-        console.log("in else 1");
-        this.clearTrans();
-        console.log("in else 2");
-        this.$auth.fetchUser();
-        console.log("in else 3");
       }
     },
     // closeFromInputs(index, acc) {
@@ -400,8 +387,6 @@ export default {
     //   }
     // },
     closeInventory(index, acc) {
-      console.log("closeInventory");
-      console.log("closeInventory");
       let total = this.trans[index].reduce((c, n) => {
         return c + parseFloat(n);
       }, 0);
@@ -417,10 +402,15 @@ export default {
       ).close_mid;
       if (total == 0) return;
 
-      this.$save(this.entry, "entry").then((res_entry) => {
+      this.$save(
+        { ...this.entry, silent: true, no_reload: true },
+        "entry"
+      ).then((res_entry) => {
         if (res_entry && res_entry.id) {
+          console.log("start");
           this.$store.dispatch("entry_transaction/store", {
             entry_id: res_entry.id,
+            silent: true,
             debtor: total,
             ac_debtor: total / exchange_rate,
             creditor: 0,
@@ -429,6 +419,7 @@ export default {
             currency_id: acc.currency_id,
             account_id: main_box.id,
           });
+          console.log("mid");
           this.$store
             .dispatch("entry_transaction/store", {
               entry_id: res_entry.id,
@@ -440,45 +431,51 @@ export default {
               currency_id: acc.currency_id,
               account_id: acc.id,
             })
+
             .then(() => {
-              this.$auth.fetchUser();
+              console.log("last");
+              this.clearTrans();
+
+              this.$auth.fetchUser().then(() => {
+                this.refresh_key++;
+              });
             });
+          console.log("last");
         }
       });
     },
     addTrans(val, index) {
       if (val.length == 0 || parseFloat(val) == 0) return;
       this.trans[index].push(parseFloat(val));
-      this.cards[index].amount = null;
-      this.cards[index].inventory_balance -= parseFloat(val);
+      this.active_accounts[index].amount = null;
+      this.active_accounts[index].inventory_balance -= parseFloat(val);
     },
     clearTrans() {
       for (let arr of this.trans) {
         while (arr.length > 0) arr.pop();
       }
-      this.cards.forEach((e, index) => {
+      this.active_accounts.forEach((e, index) => {
         e.inventory_balance = this.active_accounts[index].inventory_balance;
       });
     },
     removeRow(val, index, i) {
       this.trans[index].splice(i, 1);
-      this.cards[index].inventory_balance += parseFloat(val);
+      this.active_accounts[index].inventory_balance += parseFloat(val);
     },
     reset(val) {
       if (val.length > 0) {
         val.forEach((e) => {
           this.trans.push([]);
         });
-        if (this.active_accounts[0] && !this.cards[0]) {
+        if (this.active_accounts[0] && !this.active_accounts[0]) {
           this.active_accounts.forEach((e) => {
             // let inventory_balance = e.net_balance * 1 + e.inputs_balance * 1;
-            this.cards.push({ ...e });
+            this.active_accounts.push({ ...e });
           });
         }
       }
     },
     transferToShekeleBox(acc) {
-      console.log("transferToShekeleBox");
       if (acc.inventory_balance == 0) return;
       let shakel_box = this.main_active_accounts.find(
         (el) => el.currency_id == 2
@@ -501,57 +498,61 @@ export default {
           status: 1,
           statement: "عجز وارباح للشيكل",
           document_sub_type: 6,
+          silent: true,
+          no_reload: true,
           date: this.$getDateTime(),
         },
         "entry"
       )
         .then((res_entry) => {
-          console.log("then((res_entry)");
           if (res_entry && res_entry.id) {
-            this.$store
-              .dispatch("entry_transaction/store", {
-                entry_id: res_entry.id,
-                transaction_type: !negative ? 1 : 0,
-                account_id: shakel_box.id,
-                debtor: !negative ? amount * acc_to_nis_exchange_rate : 0,
-                ac_debtor: !negative
-                  ? amount *
-                    acc_to_nis_exchange_rate *
-                    (1 / usd_to_nis_exchange_rate)
-                  : 0,
-                creditor: negative ? amount * acc_to_nis_exchange_rate : 0,
-                ac_creditor: negative
-                  ? amount *
-                    acc_to_nis_exchange_rate *
-                    (1 / usd_to_nis_exchange_rate)
-                  : 0,
-                exchange_rate: 1 / usd_to_nis_exchange_rate,
-                currency_id: 2,
-              })
-              .then(() => {
-                this.$store.dispatch("entry_transaction/store", {
-                  entry_id: res_entry.id,
-                  account_id: acc.id,
-                  transaction_type: negative ? 1 : 0,
-                  debtor: negative ? amount : 0,
-                  ac_debtor: negative
-                    ? amount * (1 / usd_to_acc_crr_exchange_rate)
-                    : 0,
-                  creditor: !negative ? amount : 0,
-                  ac_creditor: !negative
-                    ? amount * (1 / usd_to_acc_crr_exchange_rate)
-                    : 0,
-                  exchange_rate: 1 / usd_to_acc_crr_exchange_rate,
-                  currency_id: acc.currency_id,
-                });
-              });
+            this.$store.dispatch("entry_transaction/store", {
+              entry_id: res_entry.id,
+              silent: true,
+              transaction_type: !negative ? 1 : 0,
+              account_id: shakel_box.id,
+              debtor: !negative ? amount * acc_to_nis_exchange_rate : 0,
+              ac_debtor: !negative
+                ? amount *
+                  acc_to_nis_exchange_rate *
+                  (1 / usd_to_nis_exchange_rate)
+                : 0,
+              creditor: negative ? amount * acc_to_nis_exchange_rate : 0,
+              ac_creditor: negative
+                ? amount *
+                  acc_to_nis_exchange_rate *
+                  (1 / usd_to_nis_exchange_rate)
+                : 0,
+              exchange_rate: 1 / usd_to_nis_exchange_rate,
+              currency_id: 2,
+            });
+            this.$store.dispatch("entry_transaction/store", {
+              entry_id: res_entry.id,
+              account_id: acc.id,
+              transaction_type: negative ? 1 : 0,
+              debtor: negative ? amount : 0,
+              ac_debtor: negative
+                ? amount * (1 / usd_to_acc_crr_exchange_rate)
+                : 0,
+              creditor: !negative ? amount : 0,
+              ac_creditor: !negative
+                ? amount * (1 / usd_to_acc_crr_exchange_rate)
+                : 0,
+              exchange_rate: 1 / usd_to_acc_crr_exchange_rate,
+              currency_id: acc.currency_id,
+            });
           }
         })
         .then(() => {
-          console.log("helow ");
           this.clearTrans();
-          this.$auth.fetchUser();
-          this.refresh_key++;
+
+          this.$auth.fetchUser().then(() => {
+            this.$nextTick(() => {
+              this.reset(this.active_accounts);
+              this.refresh_key++;
+            });
+            this.refresh_key++;
+          });
         });
     },
   },
@@ -567,9 +568,7 @@ export default {
       // report: (state) => state.report.all,
     }),
   },
-  mounted() {
-    // this.$auth.fetchUser();
-  },
+
   created() {
     // this.$store.dispatch("currency/index");
     // this.$auth.fetchUser();
@@ -591,17 +590,17 @@ export default {
     main_boxes(val) {
       this.inputs_accounts = val.filter((f) => f.type_id == 7);
     },
-    inputs_accounts(val) {
-      if (val[0]) {
-        this.active_accounts.forEach((el) => {
-          let acc =
-            this.inputs_accounts.find((i) => i.currency_id == el.currency_id) ||
-            {};
-          el.inputs_balance = acc.inputs_balance;
-          el.input_acc_id = acc.id;
-        });
-      }
-    },
+    // inputs_accounts(val) {
+    //   if (val[0]) {
+    //     this.active_accounts.forEach((el) => {
+    //       let acc =
+    //         this.inputs_accounts.find((i) => i.currency_id == el.currency_id) ||
+    //         {};
+    //       el.inputs_balance = acc.inputs_balance;
+    //       el.input_acc_id = acc.id;
+    //     });
+    //   }
+    // },
     active_accounts: {
       handler(val) {
         this.reset(val);

@@ -33,7 +33,7 @@
       <v-col>
         <Card>
           <v-card-title>
-            <Title title="test1"> </Title>
+            <Title title="اسعار الصرف لهذا الشهر"> </Title>
           </v-card-title>
           <ChartsFirst />
         </Card>
@@ -47,13 +47,13 @@
         /></Card>
       </v-col>
     </v-row>
-    <Card>
+    <!-- <Card>
       <v-card-title>
         <Title title="test1"> </Title>
       </v-card-title>
       <ChartsThird
-    /></Card>
-    <v-row>
+    /></Card> -->
+    <!-- <v-row>
       <v-col cols="4">
         <Card>
           <v-card-title>
@@ -70,7 +70,7 @@
           <ChartsSeventh
         /></Card>
       </v-col>
-    </v-row>
+    </v-row> -->
     <Card>
       <v-card-title>
         <Title title="test4"> </Title>

@@ -472,6 +472,18 @@ export default {
     },
   },
   methods: {
+    setPressededKey(currency, currFrom, currTo, row1, row2) {
+      if (currency.id == currFrom) {
+        this.item.currency = this.find_curr(currTo);
+        this.setRow(row1, this.find_curr(currFrom));
+      } else {
+        this.item.currency = this.find_curr(currFrom);
+        this.setRow(row2, this.find_curr(currTo));
+      }
+    },
+    find_curr(id) {
+      return this.all_currencies.find((e) => e.id == id);
+    },
     setDefaultParty() {
       this.exchange.beneficiary_id = this.app_setting["general_customer"]
         ? this.app_setting["general_customer"]["value"] * 1
@@ -776,6 +788,9 @@ export default {
     },
   },
   mounted() {
+    this.$store.dispatch("setLastListenerKey", null);
+    // this.$auth.fetchUser();
+
     this.setDefaultParty();
     if (!this.all_currencies[0]) {
       this.$store.dispatch("currency/index");
@@ -805,25 +820,21 @@ export default {
     }
   },
   watch: {
-    pressed_key(val) {
+    pressed_key(val, old_val) {
       if (val) {
-        let currency_id = this.item.currency;
+        let currency = this.item.currency;
         switch (val) {
-          case "F1":
-            console.log(":as khello");
-            if (currency_id == 1) {
-              this.item.currency = 2;
-              this.setRow(0, 1);
-            } else {
-              this.item.currency = 1;
-              this.setRow(1, 2);
-            }
+          case "F1": // doller , shkell , row1 , row2
+            this.setPressededKey(currency, 1, 2, 0, 1);
             break;
           case "F2":
+            this.setPressededKey(currency, 1, 3, 0, 2);
             break;
           case "F3":
+            this.setPressededKey(currency, 1, 4, 0, 3);
             break;
           case "F4":
+            this.setPressededKey(currency, 3, 2, 2, 1);
             break;
           case "F5":
             break;
@@ -837,10 +848,8 @@ export default {
             break;
           case "F10":
             break;
-
-          default:
-            break;
         }
+        this.$store.dispatch("setLastListenerKey", null);
       }
     },
     all_currencies(val) {

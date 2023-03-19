@@ -318,8 +318,7 @@ export default (context, inject) => {
             root: true
           });
           if (!resource.is_html) {
-            if (!resource.silent) {
-
+            if (!resource.silent || !data.silent) {
               dispatch('setSuccessMsg', 'added_successfully', {
                 root: true
               });
@@ -371,7 +370,9 @@ export default (context, inject) => {
         }
         console.log(ItemAndParams);
         console.log("ItemAndParams");
-        dispatch('index', ItemAndParams.params);
+        if (!ItemAndParams.no_reload) {
+          dispatch('index', ItemAndParams.params);
+        }
         commit('setOne', response.data);
         //     },
         //     resource,

@@ -92,7 +92,7 @@
             </v-col>
             <v-col>
               <h2>
-                {{ funds_total | money }}
+                {{ (funds_total || funds_total2) | money }}
               </h2>
             </v-col>
           </v-row>
@@ -121,7 +121,7 @@
               </h2></v-col
             > 
           </v-row> -->
-          <v-row class="shadowing">
+          <!-- <v-row class="shadowing">
             <v-col
               ><h3>
                 {{ exchange_profit_acc.name }}
@@ -132,7 +132,7 @@
                 {{ exchange_profit_acc.balance }}
               </h2></v-col
             >
-          </v-row>
+          </v-row> -->
           <!-- <v-row class="shadowing">
             <v-col
               ><h3>
@@ -145,7 +145,7 @@
               </h2></v-col
             >
           </v-row> -->
-          <v-row class="shadowing">
+          <!-- <v-row class="shadowing">
             <v-col
               ><h3>
                 {{ profit_and_losse_acc.name }}
@@ -156,7 +156,7 @@
                 {{ profit_and_losse_acc.balance }}
               </h2></v-col
             >
-          </v-row>
+          </v-row> -->
           <v-row class="shadowing">
             <v-col
               ><h3>
@@ -165,7 +165,9 @@
             >
             <v-col>
               <h2>
-                {{ this.funds_total2 - this.funds_total }}
+                {{
+                  this.funds_total2 - (this.funds_total || this.funds_total2)
+                }}
                 <!-- +
                     (funds_total2 - funds_total) -->
               </h2></v-col
@@ -244,7 +246,7 @@ export default {
           balance: (
             parseFloat(this.transfer_profit_acc.balance) +
             parseFloat(this.exchange_profit_acc.balance) +
-            (this.funds_total2 - this.funds_total)
+            (this.funds_total2 - this.funds_total || funds_total2)
           ).toFixed(2),
         },
       ];

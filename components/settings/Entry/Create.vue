@@ -191,11 +191,7 @@
                     />
                   </td>
 
-                  <v-btn
-                    v-if="index + 1 != entry.transactions.length"
-                    @click="entry.transactions.splice(index, 1)"
-                    icon
-                  >
+                  <v-btn @click="removeRow(index)" icon>
                     <v-icon color="red" size="12"> fas fa-times </v-icon>
                   </v-btn>
                 </tr>
@@ -279,6 +275,10 @@ export default {
     };
   },
   methods: {
+    removeRow(index) {
+      console.log(index);
+      this.entry.transactions.splice(index, 1);
+    },
     addRow() {
       // console.log(this.$refs[`test${index}`][0]);
       this.entry.transactions.push({ exchange_rate: 1 });

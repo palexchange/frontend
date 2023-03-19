@@ -12,58 +12,88 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
-    return {
-      series: [
+    return {};
+  },
+  computed: {
+    ...mapState({
+      all: (state) => state.stock_transaction.all,
+    }),
+    series() {
+      return [
         {
-          name: "High - 2013",
-          data: [100, 600, 300, 100, 600, 100, 600],
+          name: "doller",
+          data: this.all.filter((el) => el.stock_id == 1).map((e) => e.mid),
         },
         {
-          name: "Low - 2013",
-          data: [600, 100, 600, 600, 100, 600, 100],
+          name: "shekil",
+          data: this.all.filter((el) => el.stock_id == 2).map((e) => e.mid),
         },
-      ],
-      chartOptions: {
+        {
+          name: "dinar",
+          data: this.all.filter((el) => el.stock_id == 3).map((e) => e.mid),
+        },
+        {
+          name: "euro",
+          data: this.all.filter((el) => el.stock_id == 4).map((e) => e.mid),
+        },
+        {
+          name: "derhm",
+          data: this.all.filter((el) => el.stock_id == 5).map((e) => e.mid),
+        },
+        {
+          name: "riyal saudi ",
+          data: this.all.filter((el) => el.stock_id == 6).map((e) => e.mid),
+        },
+        {
+          name: "pond",
+          data: this.all.filter((el) => el.stock_id == 7).map((e) => e.mid),
+        },
+      ];
+    },
+    chartOptions() {
+      return {
         chart: {
           height: 350,
           type: "line",
-          dropShadow: {
-            enabled: true,
-            color: "#000",
-            top: 18,
-            left: 7,
-            blur: 10,
-            opacity: 0.2,
-          },
+          // dropShadow: {
+          //   enabled: true,
+          //   color: "#000",
+          //   top: 18,
+          //   left: 7,
+          //   blur: 10,
+          //   opacity: 0.2,
+          // },
           toolbar: {
             show: false,
           },
         },
-        colors: ["#644DA0", "#FF7171"],
+        colors: [
+          "#644DA0",
+          "#FF7171",
+          "#DD7D1A",
+          "#FF7D7F",
+          "#FF7AD2",
+          "#AA7D1A",
+          "#FF9844",
+        ],
 
         // stroke: {
         //   curve: "smooth",
         // },
         title: {
-          text: this.$t("Statistics"),
+          // text: this.$t("Statistics"),
           align: "center",
         },
-        // grid: {
-        //   borderColor: "#e7e7e7",
-        //   row: {
-        //     colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-        //     opacity: 0.5,
-        //   },
-        // },
 
-        // xaxis: {
-        //   categories: ["aaaJan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-        //   title: {
-        //     text: "Month",
-        //   },
-        // },
+        xaxis: {
+          categories: Array.from(new Set(this.all.map((el) => el.day))),
+          title: {
+            text: "اليوم",
+          },
+        },
         yaxis: {
           //   title: {
           //     text: "Temperature",
@@ -78,11 +108,11 @@ export default {
         //   offsetY: -25,
         //   offsetX: -5,
         // },
-      },
-    };
+      };
+    },
   },
   created() {
-    // this.$store.dispatch("stock/index");
+    this.$store.dispatch("stock_transaction/index");
     // this.$store.dispatch("report/index", {
     //   type: "statistics",
     //   sub_type: "test",

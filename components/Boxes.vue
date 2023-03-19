@@ -9,7 +9,7 @@
           :key="i"
           cols="2"
           v-for="(account, i) in $auth.user.active_accounts.filter(
-            (v) => v.balance != 0
+            (v) => v.net_balance + v.price != 0
           )"
         >
           <v-card flat style="border: 1px solid lightgrey">
@@ -68,6 +68,8 @@ export default {
         return (value * 1).toLocaleString(undefined, {
           minimumFractionDigits: 2,
         });
+      } else {
+        return 0.0;
       }
     },
   },

@@ -241,7 +241,7 @@ export default {
       entry: {
         status: 1,
         statement: "إغلاق صندوق",
-        document_sub_type: 6,
+        document_sub_type: 3,
         date: this.$getDateTime(),
       },
       report_data: {
@@ -272,6 +272,7 @@ export default {
         ).then((entry) => {
           this.$store.dispatch("entry_transaction/store", {
             entry_id: entry.id,
+            transaction_type: 14,
             silent: true,
             debtor: Math.abs(diff),
             ac_debtor: Math.abs(diff) / exchange_rate,
@@ -284,6 +285,7 @@ export default {
           this.$store
             .dispatch("entry_transaction/store", {
               entry_id: entry.id,
+              transaction_type: 0,
               debtor: 0,
               ac_debtor: 0,
               creditor: Math.abs(diff),
@@ -342,50 +344,6 @@ export default {
         });
       }
     },
-    // closeFromInputs(index, acc) {
-    //   if (acc.balance < 0) {
-    //     let amount = acc.balance * -1;
-    //     let exchange_rate = this.stocks.find(
-    //       (v) => v.currency_id == acc.currency_id
-    //     ).close_mid;
-    //     this.$save(
-    //       {
-    //         status: 1,
-    //         statement: "جبر عجز من مقبوضات",
-    //         document_sub_type: 3,
-    //         date: this.$getDateTime(),
-    //       },
-    //       "entry"
-    //     ).then((res_entry) => {
-    //       if (res_entry && res_entry.id) {
-    //         this.$store.dispatch("entry_transaction/store", {
-    //           entry_id: res_entry.id,
-    //           debtor: amount,
-    //           ac_debtor: amount / exchange_rate,
-    //           creditor: 0,
-    //           ac_creditor: 0,
-    //           exchange_rate: exchange_rate,
-    //           currency_id: acc.currency_id,
-    //           account_id: acc.id,
-    //         });
-    //         this.$store
-    //           .dispatch("entry_transaction/store", {
-    //             entry_id: res_entry.id,
-    //             debtor: 0,
-    //             ac_debtor: 0,
-    //             creditor: amount,
-    //             ac_creditor: amount / exchange_rate,
-    //             exchange_rate: exchange_rate,
-    //             currency_id: acc.currency_id,
-    //             account_id: acc.input_acc_id,
-    //           })
-    //           .then(() => {
-    //             this.$auth.fetchUser();
-    //           });
-    //       }
-    //     });
-    //   }
-    // },
     closeInventory(index, acc) {
       let total = this.trans[index].reduce((c, n) => {
         return c + parseFloat(n);
@@ -409,6 +367,8 @@ export default {
         if (res_entry && res_entry.id) {
           console.log("start");
           this.$store.dispatch("entry_transaction/store", {
+            account_id: main_box.id,
+            transaction_type: 1,
             entry_id: res_entry.id,
             silent: true,
             debtor: total,
@@ -417,11 +377,12 @@ export default {
             ac_creditor: 0,
             exchange_rate: exchange_rate,
             currency_id: acc.currency_id,
-            account_id: main_box.id,
           });
           console.log("mid");
           this.$store
             .dispatch("entry_transaction/store", {
+              account_id: acc.id,
+              transaction_type: 14,
               entry_id: res_entry.id,
               debtor: 0,
               ac_debtor: 0,
@@ -429,7 +390,6 @@ export default {
               ac_creditor: total / exchange_rate,
               exchange_rate: exchange_rate,
               currency_id: acc.currency_id,
-              account_id: acc.id,
             })
 
             .then(() => {
@@ -509,7 +469,7 @@ export default {
             this.$store.dispatch("entry_transaction/store", {
               entry_id: res_entry.id,
               silent: true,
-              transaction_type: !negative ? 1 : 0,
+              transaction_type: 13,
               account_id: shakel_box.id,
               debtor: !negative ? amount * acc_to_nis_exchange_rate : 0,
               ac_debtor: !negative
@@ -529,7 +489,7 @@ export default {
             this.$store.dispatch("entry_transaction/store", {
               entry_id: res_entry.id,
               account_id: acc.id,
-              transaction_type: negative ? 1 : 0,
+              transaction_type: 12,
               debtor: negative ? amount : 0,
               ac_debtor: negative
                 ? amount * (1 / usd_to_acc_crr_exchange_rate)

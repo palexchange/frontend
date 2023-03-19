@@ -492,9 +492,14 @@
                 });
               "
               @click:append="
-                () =>
-                  (item.is_commission_percentage =
-                    item.is_commission_percentage == 0 ? 1 : 0)
+                () => {
+                  item.is_commission_percentage =
+                    item.is_commission_percentage == 0 ? 1 : 0;
+                  refreshKey++;
+                  $nextTick(() => {
+                    refreshKey++;
+                  });
+                }
               "
               v-model.number="item.transfer_commission"
             >

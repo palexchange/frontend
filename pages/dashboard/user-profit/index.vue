@@ -9,7 +9,11 @@
         <v-col class="text-center"> <h3>رصيد اول اليوم</h3> </v-col>
       </v-row>
       <v-row v-if="start_active_accounts[0].start_net_balance > 0" dense>
-        <v-col :key="i" v-for="(acc, i) in start_active_accounts">
+        <v-col
+          v-show="acc.start_net_balance * 1 + acc.start_price * 1 > 0"
+          :key="i"
+          v-for="(acc, i) in start_active_accounts"
+        >
           <v-row dense class="flex-column">
             <v-col>
               <v-card class="text-center">
@@ -49,7 +53,11 @@
         >
       </v-row>
       <v-row dense>
-        <v-col :key="i" v-for="(acc, i) in active_accounts">
+        <v-col
+          v-show="acc.net_balance * 1 + acc.price * 1 > 0"
+          :key="i"
+          v-for="(acc, i) in active_accounts"
+        >
           <v-row dense class="flex-column">
             <v-col>
               <v-card class="text-center">

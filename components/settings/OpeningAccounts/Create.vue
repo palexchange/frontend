@@ -152,19 +152,21 @@ export default {
     },
     save() {
       if (!this.checkIfCanSave) return;
-      this.$save(this.entry, "entry").then((res_entry) => {
+      const users_accounts_length = this.users_accounts.length;
+      this.$save({ ...this.entry, silent: true }, "entry").then((res_entry) => {
         if (res_entry && res_entry.id) {
           this.$store.dispatch("entry_transaction/store", {
             entry_id: res_entry.id,
             debtor: 0,
             ac_debtor: 0,
+            silent: true,
             currency_id: this.main_account.currency_id,
             creditor: this.transactions_total,
             ac_creditor: this.transactions_total / this.exchange_rate,
             account_id: this.main_account.id,
             exchange_rate: this.exchange_rate,
           });
-          this.users_accounts.forEach((v) => {
+          this.users_accounts.forEach((v, index) => {
             if (!(v.debtor >= 0)) return;
             this.$store.dispatch("entry_transaction/store", {
               entry_id: res_entry.id,
@@ -172,6 +174,7 @@ export default {
               ac_debtor: v.debtor / this.exchange_rate,
               currency_id: this.main_account.currency_id,
               creditor: 0,
+              silent: index === users_accounts_length - 1 ? false : true,
               ac_creditor: 0,
               account_id: v.on_account_id,
               exchange_rate: this.exchange_rate,

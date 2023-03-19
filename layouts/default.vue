@@ -285,19 +285,30 @@ export default {
   },
   methods: {
     handleKeyDown(event) {
-      console.log("event.key");
-      console.log(event.ctrlKey);
-      console.log(event.key);
+      // console.log("event.key");
+      // console.log(event.ctrlKey);
+      // console.log(event.key);
       if (event.key.startsWith("F") && event.key.length > 1) {
         event.preventDefault();
         this.last_key_listener_value = event.key;
         this.$store.dispatch("setLastListenerKey", event.key);
+        switch (event.key) {
+          case "F6":
+            this.$router.push("/dashboard/transfers/outcoming");
+            break;
+          case "F7":
+            this.$router.push("/dashboard/transfers/incoming");
+            break;
+          case "F8":
+            this.$router.push("/dashboard/moneygram/outcoming");
+            break;
+          case "F9":
+            this.$router.push("/dashboard/moneygram/incoming");
+            break;
+          default:
+            break;
+        }
       }
-
-      // handle keydown event here
-      // if (event.keyCode >= 112 && event.keyCode <= 123) {
-      //   console.log("F" + (event.keyCode - 111));
-      // }
     },
     show_exchange_profit_detail(e) {
       if (this.$auth.user.role != 1) return;

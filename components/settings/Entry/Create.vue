@@ -295,7 +295,7 @@ export default {
       this.dialog = true;
     },
     confirm_save() {
-      this.$save(this.entry, "entry").then((data) => {
+      this.$save({ ...this.entry, silent: true }, "entry").then((data) => {
         if (data && data.id) {
           new Promise((resolve, reject) => {
             this.entry.transactions.forEach((element) => {

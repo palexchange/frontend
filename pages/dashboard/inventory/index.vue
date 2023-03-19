@@ -350,7 +350,10 @@ export default {
       }, 0);
       if (!total > 0) return;
       let main_box = this.main_boxes.find(
-        (v) => v.currency_id == acc.currency_id && v.type_id == 4
+        (v) =>
+          v.currency_id == acc.currency_id &&
+          v.type_id == 4 &&
+          v.is_transaction == true
       );
       let diff = acc.balance - total;
       if (!this.trans[index]) return;

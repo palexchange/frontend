@@ -155,8 +155,9 @@ export default (context, inject) => {
         }
         if (resource.has_headers && !params.is_file) {
           if (params.set_data) {
+            console.log("hello world 11");
             commit('setMeta', response.meta);
-            commit('setData', [response.data, params.resObjName]);
+            commit('setData', [response.data || response.items, params.resObjName]);
             commit('setLinks', response.links);
           } else {
             commit('setData', [response.items, state.params.resObjName]);
@@ -422,6 +423,10 @@ export default (context, inject) => {
       setAllData: (state, data) => state.all_records = data,
       setData: (state, data) => {
         if (data[1]) {
+          console.log("data[1]");
+          console.log(data[1]);
+          console.log(data);
+
           const key = data[1]
           const value = data[0]
           Object.assign(state, { [key]: structuredClone(value) });

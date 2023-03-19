@@ -20,18 +20,9 @@ export default {
         type: "statistics",
         resObjName: "second",
         set_data: true,
-        sub_type: "countTransfers",
+        sub_type: "exchangeRransfersCount",
       },
-      series: [
-        {
-          name: "`   حولات   ",
-          data: [100, 900],
-        },
-        {
-          name: "`   صرافة   ",
-          data: [900, 100],
-        },
-      ],
+
       chartOptions: {
         chart: {
           height: 350,
@@ -54,22 +45,22 @@ export default {
           curve: "smooth",
         },
         title: {
-          text: this.$t("transfers and exchange transactions"),
+          text: this.$t("transfers and exchange transactions today"),
           align: "center",
         },
 
-        xaxis: {
-          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-          title: {
-            text: "Month",
-          },
-        },
+        // xaxis: {
+        //   categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+        //   title: {
+        //     text: "Month",
+        //   },
+        // },
         yaxis: {
           //   title: {
           //     text: "Temperature",
           //   },
-          min: 10,
-          max: 1000,
+          min: 0,
+          max: 10,
         },
         // legend: {
         //   position: "top",
@@ -82,12 +73,24 @@ export default {
     };
   },
   created() {
-    // this.$store.dispatch("report/index", { ...this.report_data });
+    this.$store.dispatch("report/index", { ...this.report_data });
   },
   computed: {
     ...mapState({
-      all: (state) => state.report.second,
+      all: (state) => state.report.second || [],
     }),
+    series() {
+      return [
+        {
+          name: "`   حولات   ",
+          data: [this.all.find((el) => el.table_name == "transfers")?.count || 32],
+        },
+        {
+          name: "`   صرافة   ",
+          data: [this.all.find((el) => el.table_name == "exchanges")?.count] || 5,
+        },
+      ];
+    },
   },
 };
 </script>

@@ -24,31 +24,31 @@ export default {
     series() {
       return [
         {
-          name: "doller",
+          name: "دولار",
           data: this.all.filter((el) => el.stock_id == 1).map((e) => e.mid),
         },
         {
-          name: "shekil",
+          name: "شيكل",
           data: this.all.filter((el) => el.stock_id == 2).map((e) => e.mid),
         },
         {
-          name: "dinar",
+          name: "دينار",
           data: this.all.filter((el) => el.stock_id == 3).map((e) => e.mid),
         },
         {
-          name: "euro",
+          name: "يورو",
           data: this.all.filter((el) => el.stock_id == 4).map((e) => e.mid),
         },
         {
-          name: "derhm",
+          name: "درهم",
           data: this.all.filter((el) => el.stock_id == 5).map((e) => e.mid),
         },
         {
-          name: "riyal saudi ",
+          name: "ر.س",
           data: this.all.filter((el) => el.stock_id == 6).map((e) => e.mid),
         },
         {
-          name: "pond",
+          name: "جنيه",
           data: this.all.filter((el) => el.stock_id == 7).map((e) => e.mid),
         },
       ];

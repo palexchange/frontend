@@ -41,7 +41,7 @@
       <v-col>
         <Card>
           <v-card-title>
-            <Title title="test2"> </Title>
+            <Title title="الحولات و الصرافة"> </Title>
           </v-card-title>
           <ChartsSecond
         /></Card>
@@ -71,12 +71,12 @@
         /></Card>
       </v-col>
     </v-row> -->
-    <Card>
+    <!-- <Card>
       <v-card-title>
         <Title title="test4"> </Title>
       </v-card-title>
       <ChartsSixth
-    /></Card>
+    /></Card> -->
 
     <!-- <Card><ChartsNinth /></Card> -->
   </div>

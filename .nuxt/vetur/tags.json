@@ -203,14 +203,14 @@
   "ReportsProfitReport": {
     "description": "Auto imported from components/reports/ProfitReport.vue"
   },
-  "SettingsAccounts": {
-    "description": "Auto imported from components/settings/Accounts/Index.vue"
-  },
   "SettingsCloseingAccountsCreate": {
     "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
   },
   "SettingsCloseingAccounts": {
     "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
+  },
+  "SettingsAccounts": {
+    "description": "Auto imported from components/settings/Accounts/Index.vue"
   },
   "SettingsEntryCreate": {
     "description": "Auto imported from components/settings/Entry/Create.vue"

@@ -829,18 +829,8 @@ export default {
           case "F4":
             this.setPressededKey(currency, 3, 2, 2, 1);
             break;
-          case "F5":
+          case "F12":
             this.save();
-            break;
-          case "F6":
-            break;
-          case "F7":
-            break;
-          case "F8":
-            break;
-          case "F9":
-            break;
-          case "F10":
             break;
         }
         this.$store.dispatch("setLastListenerKey", null);

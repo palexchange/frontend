@@ -404,6 +404,7 @@
         </v-row>
       </v-card-text>
     </Card>
+    
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات المبلغ للتسليم </v-card-title>
       <v-card-text>

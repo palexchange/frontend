@@ -673,7 +673,7 @@ export default {
 
       let tottal =
         (operators[op](this.item.final_received_amount, factor) * 1).toFixed(
-          1
+          0
         ) || 0;
       this.item.a_received_amount_exchange_rate =
         this.item.received_currency_id == 4 ? 1 / factor : factor;
@@ -700,7 +700,7 @@ export default {
       this.item.received_amount = parseFloat(tottal).toFixed(1) || 0;
 
       this.item.final_received_amount =
-        parseFloat(tottal - this.calcCommisson).toFixed(1) || 0;
+        parseFloat(tottal - this.calcCommisson).toFixed(0) || 0;
     },
     officeAmount() {
       let conversionParam = this.item.exchange_rate_to_office_currency || 1,
@@ -743,8 +743,8 @@ export default {
         ? operators[op](
             tempVar,
             this.item.exchange_rate_to_office_currency
-          ).toFixed(1)
-        : tempVar.toFixed(1);
+          ).toFixed(0)
+        : tempVar.toFixed(0);
       this.item.office_amount_in_office_currency = tempVar
         ? this.rounedRes
         : null;

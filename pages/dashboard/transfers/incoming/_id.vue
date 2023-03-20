@@ -390,10 +390,15 @@
             <InputField
               type="number"
               :readonly="showReadOnly"
-              :value="item.office_amount | money"
-              dashed
+              v-model.number="item.office_amount"
               holder="final amount to office in usd"
               text="final amount to office in usd"
+              @change="
+                refreshKey++;
+                $nextTick(() => {
+                  refreshKey++;
+                });
+              "
             />
           </v-col>
         </v-row>

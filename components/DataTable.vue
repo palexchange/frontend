@@ -161,6 +161,7 @@
       :next-icon="$t('nextt')"
       :prev-icon="$t('prevv')"
       color="transparent"
+      @input="testPagination"
     ></v-pagination>
   </div>
 </template>
@@ -380,6 +381,11 @@ export default {
     },
   },
   methods: {
+    testPagination(v) {
+      if (v == 1) {
+        this.defualt_options.allow = true;
+      }
+    },
     setEditedMenu(item) {
       this.edited_menu = this.$filterMenu(this.menu_items, this.module, item);
     },

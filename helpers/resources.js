@@ -114,7 +114,7 @@ export default (context) => {
     child: 'exchange',
     parent: '',
     load_after_store: true,
-    headers: ['num', 'id', 'user.name', 'profit', 'party_name', 'status', 'date'],
+    headers: ['num', 'id', 'user_name', 'profit', 'party_name', 'status', 'date'],
 
     functions: [
       {
@@ -157,7 +157,7 @@ export default (context) => {
     reload_user: true,
     empty_data: true,
     load_after_store: true,
-    headers: ['num', 'id', 'type', 'issued_at', 'user.name', 'delivering_type', 'status', 'sender_party.name', 'receiver_party.name', 'office.name', 'profit'],
+    headers: ['num', 'id', 'type', 'issued_at', 'user_name', 'delivering_type', 'status', 'sender_party_name', 'receiver_party_name', 'office_name', 'profit'],
     functions: [
       {
         key: 'profit',
@@ -341,7 +341,7 @@ export default (context) => {
     reload_user: true,
     empty_data: true,
     load_after_store: true,
-    headers: ['num', 'id', 'user.name', 'from_account_name', 'to_account_name', "statement", 'from_amount', 'currency.name',  'status', 'created_at'],
+    headers: ['num', 'id', 'user_name', 'from_account_name', 'to_account_name', "statement", 'from_amount', 'currency_name', 'status', 'created_at'],
     functions: [
       {
         key: 'status',

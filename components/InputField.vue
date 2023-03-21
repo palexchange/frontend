@@ -13,6 +13,7 @@
       color="#FF7171"
       style="border-radius: 0px !important"
       dense
+      
       :disabled="dashed || disabledd"
       :required="this.required ? true : false"
       :outlined="outlined"
@@ -68,6 +69,11 @@ export default {
       rulesss: ruless(this),
     };
   },
+  methods: {
+    // focus() {
+    //   // this.$refs.input.focus();
+    // },
+  },
 };
 </script>
 
@@ -79,8 +85,8 @@ export default {
   font-size: 20px;
 }
 
-.v-text-field input[type=number] {
-    direction: ltr;
-    unicode-bidi: embed;
+.v-text-field input[type="number"] {
+  direction: ltr;
+  unicode-bidi: embed;
 }
 </style>

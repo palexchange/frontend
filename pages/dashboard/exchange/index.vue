@@ -96,6 +96,7 @@
         <v-row dense align="center">
           <v-col cols="12" xs="12" sm="4" md="3">
             <InputField
+              autofocus
               text="amount to exchange"
               holder="amount to exchange"
               required
@@ -112,29 +113,18 @@
               required
             />
           </v-col>
-          <v-col cols="1" md="2">
+          <v-col cols="12" md="1">
             <v-btn @click="$router.push('exchange/multi')" small icon>
               <v-icon> fas fa-plus </v-icon>
             </v-btn>
           </v-col>
-          <v-col
-            cols="12"
-            xs="12"
-            sm="3"
-            md="3"
-            lg="1"
-            class="text-center column-text font-weight-black py-2"
-          >
-            <span> {{ $t("reminder") }}:{{ item.reminder }} </span>
+          <v-col cols="12" md="2" class="column-text font-weight-black pa-2">
+            <div>
+              <span class="px-2">{{ $t("reminder") }} :</span
+              >{{ item.reminder }}
+            </div>
           </v-col>
-          <v-col
-            cols="12"
-            xs="12"
-            sm="12"
-            md="12"
-            lg="3"
-            class="text-h6 d-flex justify-end"
-          >
+          <v-col cols="12" md="3" class="text-h6 d-flex justify-end">
             <span>
               {{ $t("exchange profit") }}:
               <span class="text-h6">{{ exchange_profit }} $</span>
@@ -512,7 +502,7 @@ export default {
               currency_id: e.currency_id,
               amount: e.exchanged_amount,
               // amount_after: e.exchanged_amount / ex_factor,
-              exchange_rate: e.modified_factor || e.exchanged_vactor,
+              exchange_rate: e.exchanged_amount / e.exchanged_vactor_view,
               usd_factor: ex_factor,
               type: 2,
             };
@@ -633,7 +623,7 @@ export default {
         return false;
       }
 
-      this.item.reminder = (amount - sum).toFixed(5);
+      this.item.reminder = (amount - sum).toFixed(4);
     },
     changed_ex_factor(element, event, index, to_curr) {
       let new_value = parseFloat(event.target.value);
@@ -782,6 +772,16 @@ export default {
   },
   mounted() {
     this.$store.dispatch("setLastListenerKey", null);
+    // if (process.client) {
+    //   this.$nextTick(() => {
+    //     setTimeout(() => {
+    //       this.$refs.amount.focus();
+    //     });
+    //   });
+
+    //   console.log("this.$refs");
+    //   console.log(this.$refs);
+    // }
     // this.$auth.fetchUser();
 
     this.setDefaultParty();

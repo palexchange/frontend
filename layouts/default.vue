@@ -305,6 +305,9 @@ export default {
           case "F9":
             this.$router.push("/dashboard/moneygram/incoming");
             break;
+          case "F10":
+            this.$router.push("/dashboard/exchange");
+            break;
           default:
             break;
         }

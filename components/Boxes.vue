@@ -29,7 +29,7 @@
                 {{ account.name }}
               </v-col> -->
               </v-row>
-              <div style="font-size: 20px; color: black">  آخر اليوم</div>
+              <div style="font-size: 20px; color: black">آخر اليوم</div>
               <div style="font-size: 20px; color: black">
                 {{ (account.net_balance * 1 + account.price * 1) | money }}
               </div>

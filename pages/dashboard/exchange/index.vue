@@ -491,22 +491,29 @@ export default {
         // this.exchange.amount_after =
         //   this.exchange.amount * this.exchange.exchange_rate; // IN DOLLAR
         // // items
-        const trimed_and_modified_items = this.items
-          .filter((el) => el.exchanged_amount && el.exchanged_vactor)
-          .map((e) => {
-            let ex_factor =
-              1000 /
-              ((1000 / parseFloat(e.modified_factor || e.exchanged_vactor)) *
-                this.exchange.exchange_rate);
-            return {
-              currency_id: e.currency_id,
-              amount: e.exchanged_amount,
-              // amount_after: e.exchanged_amount / ex_factor,
-              exchange_rate: e.exchanged_amount / e.exchanged_vactor_view,
-              usd_factor: ex_factor,
-              type: 2,
-            };
-          });
+        let trimed_and_modified_items = this.items.filter(
+          (el) => el.exchanged_amount && el.exchanged_vactor
+        );
+        const items_length = trimed_and_modified_items.length;
+        trimed_and_modified_items = trimed_and_modified_items.map((e) => {
+          let ex_factor =
+            1000 /
+            ((1000 / parseFloat(e.modified_factor || e.exchanged_vactor)) *
+              this.exchange.exchange_rate);
+          return {
+            currency_id: e.currency_id,
+            amount: e.exchanged_amount,
+            // amount_after: e.exchanged_amount / ex_factor,
+            exchange_rate:
+              items_length > 1
+                ? e.exchanged_vactor
+                : e.exchanged_amount / this.exchange.amount,
+            usd_factor: ex_factor,
+            type: 2,
+          };
+        });
+        console.log("trimed_and_modified_items");
+        console.log(trimed_and_modified_items);
         let saling = parseFloat(
           this.$newCalcSalePrice({ id: 1 }, this.item.currency)
         );

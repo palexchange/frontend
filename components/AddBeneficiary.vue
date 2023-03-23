@@ -11,6 +11,7 @@
           <v-row dense no-gutters>
             <v-col cols="12" sm="8">
               <InputField
+              hide-details
                 required
                 text="beneficiary name"
                 v-model="form.name"
@@ -19,6 +20,7 @@
             </v-col>
             <v-col cols="12" sm="4" xs="12">
               <InputField
+              hide-details
                 v-model="form.phone"
                 text="phone"
                 holder="phone"
@@ -26,6 +28,7 @@
             </v-col>
             <v-col cols="12" sm="4" xs="12">
               <InputField
+              hide-details
                 v-model="form.id_no"
                 text="id number"
                 holder="id number"
@@ -33,6 +36,7 @@
             </v-col>
             <v-col cols="12" sm="4" xs="12">
               <InputField
+              hide-details
                 v-model="form.address"
                 text="address"
                 holder="address"
@@ -40,6 +44,7 @@
             </v-col>
             <v-col cols="12" sm="4" xs="12">
               <CountryAutocomplete
+               hide-details
                 v-model="form.country_id"
                 text="country"
                 holder="country"

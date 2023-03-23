@@ -141,7 +141,11 @@ export default {
     },
   },
   mounted() {
-    this.params = { delivering_type: [2], issued_at: this.$getDateTime() };
+    this.params = {
+      delivering_type: [2],
+      from: this.$getDateTime().slice(0, 10),
+      to: this.$getDateTime().slice(0, 10),
+    };
   },
 };
 </script>

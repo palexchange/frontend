@@ -7,31 +7,31 @@
           <v-col cols="2" class="align-self-center">
             <h1 class="fs-20">{{ $t("exchange") }}</h1>
           </v-col>
-          <v-col class="text-left align-self-center">
+          <!-- <v-col class="text-left align-self-center">
             <v-btn icon small @click="show_filter = !show_filter">
               <v-icon> fas fa-solid fa-search </v-icon>
             </v-btn>
             <span>&nbsp;&nbsp;</span>
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-card-actions>
     </Card>
     <Card v-show="show_filter" class="pa-5">
-      <v-row>
+      <v-row dense align="center">
         <v-col>
           <CurrencyAutoComplete
-            @change="search"
             clearabler
             v-model="filters.from_currency_id"
             text="from currency"
+            hide-details
             holder="from currency"
           ></CurrencyAutoComplete>
         </v-col>
 
         <v-col>
           <CurrencyAutoComplete
-            @change="search"
             clearabler
+            hide-details
             v-model="filters.to_currency_id"
             text="to currency"
             holder="to currency"
@@ -39,7 +39,6 @@
         </v-col>
         <v-col>
           <BeneficiaryAutocomplete
-            @input="search"
             v-model="filters.party_id"
             hide-details
             holder="party_name"
@@ -48,8 +47,8 @@
         </v-col>
         <v-col>
           <UserAutocomplete
-            @change="search"
             clearabler
+            hide-details
             v-model="filters.user_action_id"
             text="user name"
             holder="user name"
@@ -57,7 +56,6 @@
         </v-col>
         <v-col>
           <AutoComplete
-            @input="search"
             :items="transfers_statuses"
             v-model="filters.status"
             hide-details
@@ -66,14 +64,13 @@
           />
         </v-col>
         <v-col
-          ><DatePicker
-            @change="search"
-            v-model="filters.from"
-            text="from_date"
-          />
+          ><DatePicker hide_details v-model="filters.from" text="from_date" />
         </v-col>
         <v-col>
-          <DatePicker @change="search" v-model="filters.to" text="to_date" />
+          <DatePicker hide_details v-model="filters.to" text="to_date" />
+        </v-col>
+        <v-col cols="1" class="py-0 mt-4">
+          <v-btn @click="search" color="primary"> بحث </v-btn>
         </v-col>
       </v-row>
     </Card>
@@ -140,7 +137,7 @@ export default {
           value: "exchange_rate",
         },
       ],
-      show_filter: false,
+      show_filter: true,
       expanded_item: [],
       params2: {},
       params: {},
@@ -185,7 +182,9 @@ export default {
   // },
   methods: {
     search() {
-      this.params = { ...this.filters };
+      this.params = {
+        ...this.filters,
+      };
     },
     cancel(item) {
       this.$remove(item, "exchange");
@@ -233,6 +232,13 @@ export default {
       console.log("TempDate: ", diff);
       return diff > 0;
     },
+  },
+  mounted() {
+    this.params = {
+      ...this.filters,
+      from: this.$getDateTime().slice(0, 10),
+      to: this.$getDateTime().slice(0, 10),
+    };
   },
 };
 </script>

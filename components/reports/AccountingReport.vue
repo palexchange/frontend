@@ -193,6 +193,7 @@ export default {
   watch: {
     create_one: {
       handler(val) {
+        console.log("AccountingReport");
         if (val) this.$emit("download_item", this.report_data);
       },
     },

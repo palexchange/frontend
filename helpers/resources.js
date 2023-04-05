@@ -5,6 +5,9 @@ const statuses_map = () => {
   status_map.set(255, "ملغاة")
   return status_map
 }
+const moneyFilter = (v, minDigits) => {
+  return parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: minDigits || 2 })
+}
 const transactions_name_map = () => {
   const status_map = new Map();
   status_map.set(0, "صادرة");
@@ -267,15 +270,43 @@ export default (context) => {
       // },
       {
         key: 'ac_creditor',
-        f: v => v == null ? null : parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+        f: v => v == null ? null : moneyFilter(v)
       },
       {
         key: 'ac_debtor',
-        f: v => v == null ? null : parseFloat(v).toLocaleString(undefined, { minimumFractionDigits: 2 })
+        f: v => v == null ? null : moneyFilter(v)
       },
       {
         key: 'statement',
         f: v => t(v)
+      },
+      {
+        key: 'start_balance',
+        f: v => v == null ? null : moneyFilter(v)
+      },
+      {
+        key: 'close_balance',
+        f: v => v == null ? null : moneyFilter(v)
+      },
+      {
+        key: 'start_usd_amount',
+        f: v => v == null ? null : moneyFilter(v)
+      },
+      {
+        key: 'close_usd_amount',
+        f: v => v == null ? null : moneyFilter(v)
+      },
+      {
+        key: 'close_rate',
+        f: v => v == null ? null : moneyFilter(v , 4)
+      },
+      {
+        key: 'start_rate',
+        f: v => v == null ? null : moneyFilter(v , 4)
+      },
+      {
+        key: 'usd_diff',
+        f: v => v == null ? null : moneyFilter(v , 3)
       },
       // {
       //   key: 'balance',

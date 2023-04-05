@@ -4,6 +4,7 @@
     <v-row dense>
       <v-col cols="12" xs="12" lg="7">
         <Card class="mb-5 pt-3 pl-3 pr-6">
+          <v-btn to="/dashboard/exchange/excel"> excel </v-btn>
           <v-row dense class="mb-1">
             <v-col cols="12" xs="12" sm="6" lg="8">
               <v-row dense class="text-h6 mb-4">
@@ -301,6 +302,7 @@
         >
           {{ $t("show exchange processes") }}
         </v-btn>
+        <div ref="btn"></div>
       </v-col>
     </v-row>
   </div>
@@ -419,11 +421,7 @@ export default {
           }
 
           new_obj.profit = new_obj.from_in_usd_amout - new_obj.to_in_usd_amout;
-          console.log("eeeeeeeeeeeeeeeee");
-          console.log(e.amount_in_main_curr);
-          console.log(e);
-          console.log("new_obj");
-          console.log(new_obj);
+
         }
         final_profit += new_obj.profit;
       });
@@ -778,6 +776,11 @@ export default {
     },
   },
   mounted() {
+    var element = this.$refs.btn;
+    var top = element.offsetTop;
+    setTimeout(() => {
+      window.scrollTo(0, top);
+    }, 0);
     this.$store.dispatch("setLastListenerKey", null);
     // if (process.client) {
     //   this.$nextTick(() => {

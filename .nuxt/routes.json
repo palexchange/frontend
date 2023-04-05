@@ -140,6 +140,13 @@
     "_name": "_6a4a742f"
   },
   {
+    "name": "dashboard-exchange-excel",
+    "path": "/dashboard/exchange/excel",
+    "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\excel.vue",
+    "chunkName": "pages/dashboard/exchange/excel",
+    "_name": "_235541b4"
+  },
+  {
     "name": "dashboard-exchange-form",
     "path": "/dashboard/exchange/form",
     "component": "C:\\\\Users\\\\acer\\\\Desktop\\\\allfiles\\\\palExchange\\\\frontend\\\\pages\\\\dashboard\\\\exchange\\\\form\\\\index.vue",

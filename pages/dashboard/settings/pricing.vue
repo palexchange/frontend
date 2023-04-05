@@ -39,6 +39,7 @@
             <v-col cols="3">
               <label for="">{{ $t("buy") }}</label>
               <v-text-field
+                type="number"
                 v-model.number="currency.final_purchasing_price"
                 dense
               ></v-text-field
@@ -48,6 +49,7 @@
             <v-col cols="3">
               <label for="">{{ $t("sale") }}</label>
               <v-text-field
+                type="number"
                 v-model.number="currency.final_selling_price"
                 dense
               ></v-text-field
@@ -66,11 +68,7 @@
         <v-col>
           <v-btn
             class="primary"
-            @click="
-              dialog2 = true;
-              save_type = 2;
-            "
-          >
+            @click=" dialog2 = true; save_type = 2;">
             إعتماد اغلاق الجرد
           </v-btn>
         </v-col>
@@ -101,12 +99,15 @@
                   :label="$t('from')"
                   hide-details
                   readonly
+                  disabled
                   :items="all_currencies"
                 />
               </v-col>
               <v-col class="align-self-center" cols="3">
                 <AutoComplete
+                  readonly
                   required
+                  disabled
                   no_lable
                   :label="$t('to')"
                   hide-details
@@ -118,6 +119,8 @@
               <v-col cols="3">
                 <label for="">{{ $t("buy") }}</label>
                 <v-text-field
+                  readonly
+                  disabled
                   v-model.number="currency.start_purchasing_price"
                   dense
                 ></v-text-field
@@ -129,6 +132,8 @@
               <v-col cols="3">
                 <label for="">{{ $t("sale") }}</label>
                 <v-text-field
+                  readonly
+                  disabled
                   v-model.number="currency.start_selling_price"
                   dense
                 ></v-text-field
@@ -145,7 +150,7 @@
 
       <v-card-actions class="justify-center">
         <v-row>
-          <v-col>
+          <!-- <v-col>
             <v-btn
               class="primary"
               @click="
@@ -155,7 +160,7 @@
             >
               اعتماد فتح الجرد
             </v-btn>
-          </v-col>
+          </v-col> -->
         </v-row>
         <v-dialog width="500" v-model="dialog2">
           <v-sheet class="pa-5">

@@ -25,11 +25,14 @@
       <v-spacer></v-spacer>
       <v-expand-transition>
         <v-row v-show="toggle_profits" style="justify-content: end">
-          <v-col class="pa-8" @mousemove.once="$store.dispatch('user/index')">
+          <v-col
+            class="pa-8 color-green"
+            @mousemove.once="$store.dispatch('user/index')"
+          >
             {{ $t("today exchanges profit") }}
             :
             <span
-              class="change-hover font-weight-bold"
+              class="change-hover  font-weight-bold"
               @mouseleave="active_exchange_profit_detail = false"
               @mousemove="(e) => show_exchange_profit_detail(e)"
             >
@@ -41,7 +44,10 @@
               :active_menu="active_exchange_profit_detail"
             ></MenuComponent>
           </v-col>
-          <v-col class="pa-8" @mousemove.once="$store.dispatch('user/index')">
+          <v-col
+            class="pa-8 color-green"
+            @mousemove.once="$store.dispatch('user/index')"
+          >
             {{ $t("today transfers profit") }}
             :
             <span
@@ -376,6 +382,11 @@ export default {
 }
 .change-hover {
   padding: 20px;
+  color: #000;
+}
+.color-green {
+  color: #3bb77a;
+  font-weight: 700;
 }
 .change-hover:hover {
   cursor: pointer;

@@ -13,7 +13,6 @@
       color="#FF7171"
       style="border-radius: 0px !important"
       dense
-      
       :disabled="dashed || disabledd"
       :required="this.required ? true : false"
       :outlined="outlined"
@@ -73,6 +72,21 @@ export default {
     // focus() {
     //   // this.$refs.input.focus();
     // },
+    isUnicodeFunc(string) {
+      let isKhmer = true;
+      for (let i = 0; i < string.length; i++) {
+        let code = string.charCodeAt(i);
+        if (
+          code < 0x1780 ||
+          (code > 0x17ff && code < 0x19e0) ||
+          code > 0x19ff
+        ) {
+          isKhmer = false;
+          break;
+        }
+      }
+      return isKhmer;
+    },
   },
 };
 </script>

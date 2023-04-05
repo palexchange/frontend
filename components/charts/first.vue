@@ -89,15 +89,13 @@ export default {
         },
 
         xaxis: {
-          categories: Array.from(new Set(this.all.map((el) => el.day))),
-          title: {
-            text: "اليوم",
-          },
+          categories: Array.from(new Set(this.all.map((el) => el.at_date))),
+           
         },
         yaxis: {
-          //   title: {
-          //     text: "Temperature",
-          //   },
+            // title: {
+            //   text: "Temperature",
+            // },
           // min: 10,
           // max: 1000,
         },
@@ -118,6 +116,7 @@ export default {
     //   sub_type: "test",
     // });
   },
+
 };
 </script>
 

@@ -429,7 +429,7 @@ export default (context, inject) => {
 
           const key = data[1]
           const value = data[0]
-          Object.assign(state, { [key]: structuredClone(value) });
+          Object.assign(state, { [key]: JSON.parse(JSON.stringify(value)) });
           // state = { ...state, :  };
         }
         else {

@@ -39,7 +39,7 @@ export default {
             show: false,
           },
         },
-        colors: ["#644DA0", "#FF7171"],
+        colors: ["#644DA0", "#FF7171", "#ff2525"],
 
         stroke: {
           curve: "smooth",
@@ -49,18 +49,15 @@ export default {
           align: "center",
         },
 
-        // xaxis: {
-        //   categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-        //   title: {
-        //     text: "Month",
-        //   },
-        // },
+        xaxis: {
+          categories: [" "],
+        },
         yaxis: {
           //   title: {
           //     text: "Temperature",
           //   },
-          min: 0,
-          max: 10,
+          // min: 0,
+          // max: 10,
         },
         // legend: {
         //   position: "top",
@@ -83,11 +80,27 @@ export default {
       return [
         {
           name: "`   حولات   ",
-          data: [this.all.find((el) => el.table_name == "transfers")?.count || 32],
+          data: [
+            0,
+            this.all.find((el) => el.table_name == "transfers")?.count || 0,
+            0,
+          ],
         },
         {
           name: "`   صرافة   ",
-          data: [this.all.find((el) => el.table_name == "exchanges")?.count] || 5,
+          data: [
+            0,
+            this.all.find((el) => el.table_name == "exchanges")?.count,
+            0,
+          ],
+        },
+        {
+          name: "` موني غرام   ",
+          data: [
+            0,
+            this.all.find((el) => el.table_name == "money_gram")?.count || 0,
+            0,
+          ],
         },
       ];
     },
@@ -99,6 +112,9 @@ export default {
 .apexcharts-title-text {
   font-family: Tajawal !important;
 }
+/* * {
+  color: #ff2525;
+} */
 /* @media only screen and (max-width: 600px) {
   
   #chart {

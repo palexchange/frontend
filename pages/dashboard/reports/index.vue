@@ -126,6 +126,8 @@ export default {
     },
 
     download_item(report_date) {
+      console.log("report_date");
+      console.log(report_date);
       if (this.create_one) {
         this.create_one = false;
         this.$store

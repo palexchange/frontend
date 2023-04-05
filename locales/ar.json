@@ -454,15 +454,17 @@
   "back": "تراجع",
   "general customer account": "حساب المستفيد العام",
   "continue": "استكمال",
-  "transfers and exchange transactions today": "حركات و مبالغ عمليات الصرافة و الحوالات اليوم",
+  "transfers and exchange transactions today": "حركات  عمليات الصرافة و الحوالات اليوم",
   "commission currency": "عملة العمولة",
   "documents_download": "تحميل حولات موني غرام",
   "the receiver": "المستلم",
   "the sender": "المرسل",
   "download": "تحميل",
+  "dashboard-exchange-excel": "صرافة اكسل",
   "short cuts settings": "إعداد مفاتيح الاختصار",
   "short-cuts": "مفاتيح الإختصار",
   "short cuts": "مفاتيح الإختصار",
+  "show daily profit": "عرض الربحية اليومية",
   "dashboard-settings-short-cuts": "مفاتيح الإختصار",
   "to currency": "إلى العملة"
 }

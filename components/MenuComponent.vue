@@ -12,7 +12,9 @@
           <v-list-item-title dir="rtl">
             {{ item.name }} :
             {{
-              item.id == 1 ? getAdminAmount() : (item[profit_name]*1).toFixed(3)
+              item.id == 1
+                ? getAdminAmount()
+                : (item[profit_name] * 1).toFixed(3)
             }}
           </v-list-item-title>
         </v-list-item>

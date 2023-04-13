@@ -12,6 +12,7 @@
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
       @dblclick:row="click_function"
+      :item-class="row_classes"
       :headers="
         noActions
           ? $translateHeaders(headers)
@@ -232,6 +233,8 @@ export default {
         5: { class: "derham", label: this.$t("derham") }, //2
         6: { class: "reyal", label: this.$t("reyal") }, //2
         7: { class: "pond", label: this.$t("pond") }, //2
+        255: { class: "", label: this.$t("day_profit") }, //2
+        256: { class: "", label: this.$t("total_profit") }, //2
       },
 
       // loading: false,
@@ -381,6 +384,14 @@ export default {
     },
   },
   methods: {
+    row_classes(item) {
+      if (item.__name == "report__profit_total") {
+        return "orange orange-background"; //can also return multiple classes e.g ["orange","disabled"]
+      }
+      if (item.__name === "report__daily_profit") {
+        return "  grey-background"; //can also return multiple classes e.g ["orange","disabled"]
+      }
+    },
     testPagination(v) {
       if (v == 1) {
         this.defualt_options.allow = true;
@@ -445,9 +456,9 @@ export default {
 };
 </script>
  <style >
-.my-table tbody > tr:hover {
+/* .my-table tbody > tr:hover {
   background-color: rgb(247, 247, 247) !important;
-}
+} */
 .v-pagination__item {
   box-shadow: none !important;
   font-size: 1.075rem !important;
@@ -522,6 +533,9 @@ export default {
 }
 .my-table td {
   font-weight: 700;
+}
+.grey-background{
+   background-color: rgb(211, 214, 211) !important;
 }
 </style>
 

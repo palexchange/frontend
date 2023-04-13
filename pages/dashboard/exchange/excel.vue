@@ -95,7 +95,7 @@ import { mapState, mapMutations } from "vuex";
 import global from "../../../helpers/global";
 export default {
   mixins: [global],
-  name: "extchange",
+  name: "extchange-excel",
   data() {
     return {
       items: [],
@@ -115,7 +115,7 @@ export default {
       let items = this.items;
       let to = items.find((item) => item.to) || {};
       let from = items.find((item) => item.from) || {};
-      return (to.usd_amount - from.usd_amount || 0).toFixed(3);
+      return (from.usd_amount - to.usd_amount || 0).toFixed(3);
     },
   },
   methods: {
@@ -125,13 +125,9 @@ export default {
         if (item[key].amount != 0) {
           const amount = item[key].amount;
           if (amount < 0) {
-            items.push({
-              ...item[key],
-              from: true,
-              amount: Math.abs(amount),
-            });
+            items.push({ ...item[key], to: true, amount: Math.abs(amount) });
           } else {
-            items.push({ ...item[key], to: true });
+            items.push({ ...item[key], from: true });
           }
         }
       }
@@ -163,55 +159,19 @@ export default {
         this.exchange.date = this.$getDateTime();
         this.exchange.profit = this.exchange_profit;
         this.exchange.status = 1;
-        let factor =
-          this.items[0].modified_factor || this.items[0].exchanged_vactor;
-        this.exchange.exchange_rate = factor
-          ? factor
-          : this.$newCalcBuyPrice(
-              this.item.currency,
-              this.all_currencies.find((e) => e.id == 1),
-              11
-            );
-        // this.exchange.amount_after =
-        //   this.exchange.amount * this.exchange.exchange_rate; // IN DOLLAR
-        // // items
-        let trimed_and_modified_items = this.items.filter(
-          (el) => el.exchanged_amount && el.exchanged_vactor
-        );
-        const items_length = trimed_and_modified_items.length;
-        trimed_and_modified_items = trimed_and_modified_items.map((e) => {
-          let ex_factor =
-            1000 /
-            ((1000 / parseFloat(e.modified_factor || e.exchanged_vactor)) *
-              this.exchange.exchange_rate);
-          return {
-            currency_id: e.currency_id,
-            amount: e.exchanged_amount,
-            // amount_after: e.exchanged_amount / ex_factor,
-            exchange_rate:
-              items_length > 1
-                ? e.exchanged_vactor
-                : e.exchanged_amount / this.exchange.amount,
-            usd_factor: ex_factor,
-            type: 2,
-          };
-        });
-        console.log("trimed_and_modified_items");
-        console.log(trimed_and_modified_items);
-        let saling = parseFloat(
-          this.$newCalcSalePrice({ id: 1 }, this.item.currency)
-        );
-        let buying = parseFloat(
-          this.$newCalcBuyPrice({ id: 1 }, this.item.currency)
-        );
-        let mid = (buying + saling) / 2;
-        trimed_and_modified_items.push({
-          currency_id: this.item.currency.id,
-          amount: this.exchange.amount,
-          usd_factor: mid,
-          type: 1,
-        });
+        let trimed_and_modified_items = this.items
+          .filter((el) => el.exchange_rate && el.amount)
+          .map((e) => {
+            return {
+              currency_id: e.id,
+              amount: e.amount,
+              exchange_rate: e.exchange_rate,
+              usd_factor: e.usd_factor,
+              type: e.from ? 1 : 2,
+            };
+          });
         this.exchange.items = trimed_and_modified_items;
+        console.log(this.exchange);
         resolve("SUCCESS");
       });
     },
@@ -250,9 +210,7 @@ export default {
         this.$store.dispatch("exchange/store", this.exchange).then(() => {
           this.items = [];
           this.exchange = {};
-          this.setDefaultParty();
           this.keyNum = this.keyNum + 1;
-          this.addItems();
           this.exchange.started_at = this.$getDateTime();
           // this.$auth.fetchUser();
         });
@@ -260,6 +218,7 @@ export default {
     },
   },
   mounted() {
+    this.exchange.started_at = this.$getDateTime();
     var element = this.$refs.btn;
     var top = element.offsetTop;
     setTimeout(() => {

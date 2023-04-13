@@ -298,15 +298,15 @@ export default (context) => {
       },
       {
         key: 'close_rate',
-        f: v => v == null ? null : moneyFilter(v , 4)
+        f: v => v == null ? null : moneyFilter(v, 4)
       },
       {
         key: 'start_rate',
-        f: v => v == null ? null : moneyFilter(v , 4)
+        f: v => v == null ? null : moneyFilter(v, 4)
       },
       {
         key: 'usd_diff',
-        f: v => v == null ? null : moneyFilter(v , 3)
+        f: v => v == null ? null : moneyFilter(v)
       },
       // {
       //   key: 'balance',

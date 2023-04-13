@@ -154,7 +154,6 @@ export default {
     ...mapState({
       report: (state) => state.report.all || [],
     }),
-
     resources() {
       const resource_map = new Map();
       resource_map.set(1, "transfer");

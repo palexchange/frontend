@@ -76,7 +76,7 @@
       </v-col>
       <v-col cols="4" class="text-left">
         <v-btn
-          @click="$router.push('exchange/form')"
+          @click="$router.push('/dashboard/exchange/form')"
           height="50"
           class="text-center"
           color="primary"
@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import { forEach } from "country-codes-list/countriesData";
 import { mapState, mapMutations } from "vuex";
 import global from "../../../helpers/global";
 export default {
@@ -110,45 +111,65 @@ export default {
       all_stocks: (state) => state.stock.all,
       user: (state) => state.auth.user || {},
     }),
-
     exchange_profit() {
       let items = this.items;
+      let all_to = items
+        .filter((item) => item.to)
+        .map((i) => i.usd_amount)
+        .reduce((a, b) => a * 1 + b * 1, 0);
+      let all_froms = items
+        .filter((item) => item.from)
+        .map((i) => i.usd_amount)
+        .reduce((a, b) => a * 1 + b * 1, 0);
+
+      return (all_froms - all_to || 0).toFixed(3);
       let to = items.find((item) => item.to) || {};
       let from = items.find((item) => item.from) || {};
       return (from.usd_amount - to.usd_amount || 0).toFixed(3);
     },
   },
   methods: {
-    handleExcel(item) {
+    handleExcel(row_items) {
       let items = [];
-      for (const key of Object.keys(item)) {
-        if (item[key].amount != 0) {
-          const amount = item[key].amount;
-          if (amount < 0) {
-            items.push({ ...item[key], to: true, amount: Math.abs(amount) });
-          } else {
-            items.push({ ...item[key], from: true });
+      let last_items = [];
+      row_items.forEach((item) => {
+        let holder = [];
+        let in_ = false;
+        for (const key of Object.keys(item)) {
+          if (item[key].amount != 0) {
+            in_ = true;
+            const amount = item[key].amount;
+            if (amount < 0) {
+              holder.push({ ...item[key], to: true, amount: Math.abs(amount) });
+            } else {
+              holder.push({ ...item[key], from: true });
+            }
           }
         }
-      }
+        if (in_) items.push(holder);
+      });
 
       if (items.length > 0) {
-        let to_item = items.find((e) => e.to) || {};
-        let from_item = items.find((e) => e.from) || {};
-        let to_exchange_rate = to_item.amount / from_item.amount || 0;
-        this.items = items.map((i) => {
-          let mid = this.all_stocks.find(
-            (w) => w.currency_id == i.id
-          ).close_mid;
-          return {
-            ...i,
-            exchange_rate: to_exchange_rate,
-            usd_factor: mid,
-            usd_amount: this.get_usd_amount(i),
-            mid_usd_amount: i.amount / mid,
-          };
+        items.forEach((item) => {
+          let to_item = item.find((e) => e.to) || {};
+          let from_item = item.find((e) => e.from) || {};
+          let to_exchange_rate = to_item.amount / from_item.amount || 0;
+          let one_row_items = item.map((i) => {
+            let mid = this.all_stocks.find(
+              (w) => w.currency_id == i.id
+            ).close_mid;
+            return {
+              ...i,
+              exchange_rate: to_exchange_rate,
+              usd_factor: mid,
+              usd_amount: this.get_usd_amount(i),
+              mid_usd_amount: i.amount / mid,
+            };
+          });
+          last_items.push(one_row_items);
         });
       }
+      this.items = last_items.flat();
     },
     get_usd_amount(item) {
       let mid = this.all_stocks.find((w) => w.currency_id == item.id).close_mid;

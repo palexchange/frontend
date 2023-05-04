@@ -276,8 +276,9 @@ export default {
       return (
         this.funds_total2 -
         this.funds_total -
-        this.profit_and_losse_acc.usd_balance * 1 -
-        this.expenses_account * 1
+        this.profit_and_losse_acc.usd_balance * 1 
+        // -
+        // this.expenses_account * 1
       );
 
       // (this.funds_total2 * 1 - this.funds_total * 1)

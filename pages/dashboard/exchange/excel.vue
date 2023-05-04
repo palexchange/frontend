@@ -130,6 +130,7 @@ export default {
   },
   methods: {
     handleExcel(row_items) {
+      console.log(row_items);
       let items = [];
       let last_items = [];
       row_items.forEach((item) => {
@@ -170,6 +171,7 @@ export default {
         });
       }
       this.items = last_items.flat();
+      console.log(this.items);
     },
     get_usd_amount(item) {
       let mid = this.all_stocks.find((w) => w.currency_id == item.id).close_mid;

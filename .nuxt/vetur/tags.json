@@ -158,21 +158,6 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
-  "ReportsAccountingReport": {
-    "description": "Auto imported from components/reports/AccountingReport.vue"
-  },
-  "ReportsDocumentsReport": {
-    "description": "Auto imported from components/reports/DocumentsReport.vue"
-  },
-  "ReportsPartiesReportOneCurrTotal": {
-    "description": "Auto imported from components/reports/PartiesReportOneCurrTotal.vue"
-  },
-  "ReportsPartiesReportTotals": {
-    "description": "Auto imported from components/reports/PartiesReportTotals.vue"
-  },
-  "ReportsProfitReport": {
-    "description": "Auto imported from components/reports/ProfitReport.vue"
-  },
   "FiltersBookFilter": {
     "description": "Auto imported from components/filters/BookFilter.vue"
   },
@@ -206,11 +191,20 @@
   "RoleShowPermission": {
     "description": "Auto imported from components/role/ShowPermission.vue"
   },
-  "SettingsOpeningAccountsCreate": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
+  "ReportsAccountingReport": {
+    "description": "Auto imported from components/reports/AccountingReport.vue"
   },
-  "SettingsOpeningAccounts": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
+  "ReportsDocumentsReport": {
+    "description": "Auto imported from components/reports/DocumentsReport.vue"
+  },
+  "ReportsPartiesReportOneCurrTotal": {
+    "description": "Auto imported from components/reports/PartiesReportOneCurrTotal.vue"
+  },
+  "ReportsPartiesReportTotals": {
+    "description": "Auto imported from components/reports/PartiesReportTotals.vue"
+  },
+  "ReportsProfitReport": {
+    "description": "Auto imported from components/reports/ProfitReport.vue"
   },
   "SettingsCloseingAccountsCreate": {
     "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
@@ -235,5 +229,11 @@
   },
   "SettingsUsersRoleManagement": {
     "description": "Auto imported from components/settings/Users/RoleManagement.vue"
+  },
+  "SettingsOpeningAccountsCreate": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
+  },
+  "SettingsOpeningAccounts": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
   }
 }

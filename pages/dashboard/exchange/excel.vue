@@ -54,7 +54,7 @@
     </v-row>
 
     <Card>
-      <Excel @new_item="handleExcel" />
+      <Excel :save_clicked="times_clicked" @new_item="handleExcel" />
     </Card>
     <v-row dense justify="center" class="mt-5 mb-5">
       <v-col cols="8" class="d-flex justify-end">
@@ -99,6 +99,7 @@ export default {
   name: "extchange-excel",
   data() {
     return {
+      times_clicked: 0,
       items: [],
       exchange: {},
       numberToReRender: 0,
@@ -170,7 +171,11 @@ export default {
           last_items.push(one_row_items);
         });
       }
+      console.log("last_items");
+      console.log("last_items");
+      console.log(last_items);
       this.items = last_items.flat();
+      console.log("this.items");
       console.log(this.items);
     },
     get_usd_amount(item) {
@@ -183,7 +188,7 @@ export default {
         this.exchange.profit = this.exchange_profit;
         this.exchange.status = 1;
         let trimed_and_modified_items = this.items
-          .filter((el) => el.exchange_rate && el.amount)
+          .filter((el) => el.exchange_rate >= 0 && el.amount)
           .map((e) => {
             return {
               currency_id: e.id,
@@ -230,12 +235,13 @@ export default {
 
     submit_save() {
       this.prepare_exchange().then(() => {
+        this.times_clicked++;
         this.$store.dispatch("exchange/store", this.exchange).then(() => {
           this.items = [];
           this.exchange = {};
           this.keyNum = this.keyNum + 1;
           this.exchange.started_at = this.$getDateTime();
-          // this.$auth.fetchUser();
+          this.$auth.fetchUser();
         });
       });
     },
@@ -252,5 +258,3 @@ export default {
   watch: {},
 };
 </script>
-
- 

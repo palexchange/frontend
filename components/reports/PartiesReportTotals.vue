@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ReportsPartiesReportTotals">
     <v-row>
       <!-- <v-col cols="12" md="2" sm="12">
         <Autocomplete
@@ -49,8 +49,8 @@
     <slot />
   </div>
 </template>
-  
-  <script>
+
+<script>
 import { mapState } from "vuex";
 export default {
   props: ["create_one"],
@@ -93,6 +93,13 @@ export default {
   },
 };
 </script>
-  
-  <style>
+
+<style>
+.ReportsPartiesReportTotals table {
+  border-collapse: collapse;
+}
+.ReportsPartiesReportTotals table td,
+.ReportsPartiesReportTotals table th {
+  border: solid 1px black !important;
+}
 </style>

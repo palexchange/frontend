@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ReportsPartiesReportTotals">
     <v-row>
       <!-- <v-col cols="12" md="2" sm="12">
         <Autocomplete

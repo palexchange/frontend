@@ -215,6 +215,17 @@
         <v-btn @click="dialog = false">لا</v-btn>
       </v-sheet>
     </v-dialog>
+    <Excel :save_clicked="times_clicked" @new_item="handleExcel" />
+    <v-btn
+      :key="numberToReRender"
+      @click.prevent.once="save"
+      height="50"
+      class="text-center"
+      color="primary"
+    >
+      {{ $t("execute process") }}
+      <v-icon dence>fas fa-solid fa-check</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -225,6 +236,13 @@ export default {
   name: "test-killua",
   data() {
     return {
+      trans: [],
+
+      items: [],
+      times_clicked: 0,
+      numberToReRender: 0,
+      exchange: {},
+
       refresh_key: 1,
       inputs_accounts: [],
       inventory_balance: null,
@@ -235,7 +253,7 @@ export default {
       item: {
         convertToUSD: null,
       },
-      trans: [],
+
       cards: [],
       vall: null,
       entry: {
@@ -252,6 +270,119 @@ export default {
     };
   },
   methods: {
+    get_usd_amount(item) {
+      let mid = this.all_stocks.find((w) => w.currency_id == item.id).close_mid;
+      return item.id != 4 ? item.amount / mid : item.amount * mid;
+    },
+    handleExcel(row_items) {
+      console.log(row_items);
+      let items = [];
+      let last_items = [];
+      row_items.forEach((item) => {
+        let holder = [];
+        let in_ = false;
+        for (const key of Object.keys(item)) {
+          if (item[key].amount != 0) {
+            in_ = true;
+            const amount = item[key].amount;
+            if (amount < 0) {
+              holder.push({ ...item[key], to: true, amount: Math.abs(amount) });
+            } else {
+              holder.push({ ...item[key], from: true });
+            }
+          }
+        }
+        if (in_) items.push(holder);
+      });
+
+      if (items.length > 0) {
+        items.forEach((item) => {
+          let to_item = item.find((e) => e.to) || {};
+          let from_item = item.find((e) => e.from) || {};
+          let to_exchange_rate = to_item.amount / from_item.amount || 0;
+          let one_row_items = item.map((i) => {
+            let mid = this.all_stocks.find(
+              (w) => w.currency_id == i.id
+            ).close_mid;
+            return {
+              ...i,
+              exchange_rate: to_exchange_rate,
+              usd_factor: mid,
+              usd_amount: this.get_usd_amount(i),
+              mid_usd_amount: i.amount / mid,
+            };
+          });
+          last_items.push(one_row_items);
+        });
+      }
+      console.log("last_items");
+      console.log("last_items");
+      console.log(last_items);
+      this.items = last_items.flat();
+      console.log("this.items");
+      console.log(this.items);
+    },
+    addnumberToReRender() {
+      setTimeout(() => {
+        this.numberToReRender += 1;
+      }, 5000);
+    },
+    async save() {
+      this.addnumberToReRender();
+      if (this.exchange_profit < 0) {
+        this.$swal
+          .fire({
+            title: this.$t("warning"),
+            text: this.$t("cant create exchnage in minus"),
+            icon: "warning",
+            confirmButtonText: this.$t("continue"),
+            showCloseButton: true,
+            showCancelButton: true,
+            cancelButtonText: this.$t("back"),
+            confirmButtonColor: "#41b882",
+          })
+          .then((data) => {
+            if (data.isConfirmed) {
+              this.submit_save();
+            }
+          });
+      } else {
+        this.submit_save();
+      }
+    },
+    submit_save() {
+      this.prepare_exchange().then(() => {
+        this.times_clicked++;
+        this.$store.dispatch("exchange/store", this.exchange).then(() => {
+          this.items = [];
+          this.exchange = {};
+          this.keyNum = this.keyNum + 1;
+          this.exchange.started_at = this.$getDateTime();
+          this.$auth.fetchUser();
+        });
+      });
+    },
+    prepare_exchange() {
+      return new Promise((resolve, reject) => {
+        this.exchange.date = this.$getDateTime();
+        this.exchange.profit = this.exchange_profit;
+        this.exchange.status = 1;
+        let trimed_and_modified_items = this.items
+          .filter((el) => el.exchange_rate >= 0 && el.amount)
+          .map((e) => {
+            return {
+              currency_id: e.id,
+              amount: e.amount,
+              exchange_rate: e.exchange_rate,
+              usd_factor: e.usd_factor,
+              type: e.from ? 1 : 2,
+            };
+          });
+        this.exchange.items = trimed_and_modified_items;
+        console.log(this.exchange);
+        resolve("SUCCESS");
+      });
+    },
     closeToProfitAndLose(acc) {
       const diff = acc.inventory_balance;
       if (diff == 0) return;
@@ -520,6 +651,22 @@ export default {
     },
   },
   computed: {
+    exchange_profit() {
+      let items = this.items;
+      let all_to = items
+        .filter((item) => item.to)
+        .map((i) => i.usd_amount)
+        .reduce((a, b) => a * 1 + b * 1, 0);
+      let all_froms = items
+        .filter((item) => item.from)
+        .map((i) => i.usd_amount)
+        .reduce((a, b) => a * 1 + b * 1, 0);
+
+      return (all_froms - all_to || 0).toFixed(3);
+      let to = items.find((item) => item.to) || {};
+      let from = items.find((item) => item.from) || {};
+      return (from.usd_amount - to.usd_amount || 0).toFixed(3);
+    },
     ...mapState({
       active_accounts: (state) =>
         JSON.parse(JSON.stringify(state.auth.user.active_accounts)),
@@ -527,6 +674,11 @@ export default {
       stocks: (state) => state.stock.all,
       main_boxes: (state) => state.account.all,
       main_active_accounts: (state) => state.auth.user.main_active_accounts,
+
+      pressed_key: (state) => state.last_key_listener_value,
+      all_currencies: (state) => state.currency.all,
+      all_stocks: (state) => state.stock.all,
+      user: (state) => state.auth.user || {},
 
       // report: (state) => state.report.all,
     }),
@@ -571,6 +723,9 @@ export default {
       deep: true,
       immediate: true,
     },
+  },
+  mounted() {
+    this.exchange.started_at = this.$getDateTime();
   },
 };
 </script>

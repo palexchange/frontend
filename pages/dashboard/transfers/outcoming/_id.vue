@@ -509,10 +509,14 @@
               v-model.number="computed_exchange_rate_to_office_currency"
               @input="
                 (new_value) => {
+                  let val = new_value;
+                  if (item.received_currency_id == 4) {
+                    val = 1 / val;
+                  }
                   showConversionFactor(
                     item.office_currency,
                     'exchange_rate_to_office_currency',
-                    new_value
+                    val
                   );
                 }
               "
@@ -775,8 +779,8 @@ export default {
           : 0;
       let otherExp = (this.item.other_amounts_on_sender || 0) * convert_param;
       let final = commVal + total + otherExp;
-      this.item.final_received_amount = (final * 1).toFixed();
-      return final > 0 ? final.toFixed() : null;
+      this.item.final_received_amount = (final * 1).toFixed(2);
+      return final > 0 ? final.toFixed(2) : null;
     },
     recivedAmountComp() {
       let conversionParam = this.item.exchange_rate_to_reference_currency || 0,

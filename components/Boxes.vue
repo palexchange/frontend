@@ -48,6 +48,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
+  props: ["prop_expand"],
   data() {
     return {
       expand: true,
@@ -55,6 +56,9 @@ export default {
   },
 
   mounted() {
+    if (this.$props.prop_expand || this.$props.prop_expand == false) {
+      this.expand = this.$props.prop_expand;
+    }
     this.$auth.fetchUser();
     let coiunt = this.$auth.user.active_accounts.reduce((a, n) => {
       return a + n.net_balance * 1;

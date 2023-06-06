@@ -116,6 +116,7 @@ export default (context) => {
   {
     child: 'exchange',
     parent: '',
+    reload_user: true,
     load_after_store: true,
     headers: ['num', 'id', 'user_name', 'profit', 'party_name', 'status', 'date'],
 

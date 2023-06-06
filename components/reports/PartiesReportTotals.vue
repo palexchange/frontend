@@ -22,6 +22,15 @@
             <v-col>
               <DatePicker v-model="report_data.to_date" holder="to" text="to" />
             </v-col>
+
+            <v-col>
+              <BeneficiaryAutocomplete
+                clearable
+                v-model="report_data.party_id"
+                holder="beneficiary"
+                text="beneficiary"
+              />
+            </v-col>
             <v-col>
               <v-checkbox
                 true-value="1"

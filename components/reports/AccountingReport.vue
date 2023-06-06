@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ReportsPartiesReportTotals">
     <v-row>
       <v-col cols="12" md="10" sm="12">
         <v-form v-model="validated">

@@ -141,12 +141,15 @@
       <template v-slot:item.acc_balance="{ item }">
         <div
           :style="{
-            color: item.acc_balance < 0 ? 'red' : 'green',
+            color: item.acc_balance > 0 ? 'green' : 'red',
             fontWeight: 'bold',
             fontSize: '20px',
           }"
         >
-          {{ (Math.abs(item.acc_balance) * 1).toFixed(3) }}
+          {{
+            (Math.abs(item.acc_balance) * 1).toFixed(3) +
+            (item.acc_balance > 0 ? "+" : "-")
+          }}
         </div>
       </template>
       <template v-slot:item.image="{ item }">
@@ -534,8 +537,8 @@ export default {
 .my-table td {
   font-weight: 700;
 }
-.grey-background{
-   background-color: rgb(211, 214, 211) !important;
+.grey-background {
+  background-color: rgb(211, 214, 211) !important;
 }
 </style>
 

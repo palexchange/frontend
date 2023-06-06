@@ -1,62 +1,32 @@
 <template>
   <div>
-    <Boxes :key="keyNum" />
+    <Boxes :prop_expand="false" />
     <v-row dense>
       <v-col cols="12" xs="12" lg="7">
         <Card class="mb-5 pt-3 pl-3 pr-6">
-          <v-btn to="/dashboard/exchange/excel"> excel </v-btn>
-          <v-row dense class="mb-1">
-            <v-col cols="12" xs="12" sm="6" lg="8">
-              <v-row dense class="text-h6 mb-4">
-                <v-col>
-                  <Title title="create an exchange process"></Title>
-                </v-col>
-              </v-row>
-              <v-row dense class="mb-4">
-                <v-col cols="12" xs="12" sm="6" lg="6">
-                  <BeneficiaryAutocomplete
-                    text="beneficiary"
-                    holder="beneficiary"
-                    required
-                    v-model="exchange.beneficiary_id"
-                  />
-                </v-col>
-                <v-col cols="12" xs="12" sm="6" lg="6">
-                  <DatePicker v-model="exchange.date" required text="date" />
-                </v-col>
-              </v-row>
+          <v-row align="center" dense>
+            <v-col>
+              <BeneficiaryAutocomplete
+                text="beneficiary"
+                holder="beneficiary"
+                required
+                v-model="exchange.beneficiary_id"
+              />
             </v-col>
-            <!-- <v-col
-              cols="12"
-              xs="12"
-              sm="6"
-              lg="4"
-              class="text-h5 mt-5 text-left"
-              justify="left"
-            >
-              {{ $t("process id") }}:<span class="show-text mr-4"
-                >{{ exchange.processNo }}#</span
-              >
-            </v-col> -->
+            <v-col>
+              <DatePicker v-model="exchange.date" required text="date" />
+            </v-col>
+            <v-col cols="2">
+              <v-btn to="/dashboard/exchange/excel"> excel </v-btn>
+            </v-col>
           </v-row>
         </Card>
       </v-col>
+      <div ref="btn"></div>
+
       <v-col cols="12" xs="12" lg="5">
         <Card>
-          <v-row dense class="text-right text-h6 mt-5 mr-5">
-            <v-col cols="1">
-              <v-icon class="mr-4 ml-3">fas fa-solid fa-user</v-icon>
-            </v-col>
-            <v-col cols="4" class="mr-5">
-              {{ $t("user") }}
-            </v-col>
-            <v-col cols="5">
-              <span style="white-space: nowrap" class="show-text"
-                >{{ $auth.user.name + "  " }}#</span
-              >
-            </v-col>
-          </v-row>
-          <v-row dense class="text-right text-h6 mt-5 mr-5">
+          <v-row no-gutters dense class="text-right text-h6 mt-5 mr-5">
             <v-col cols="1">
               <v-icon class="mr-4 ml-3">fas fa-solid fa-arrow-down</v-icon>
             </v-col>
@@ -73,7 +43,7 @@
               >
             </v-col>
           </v-row>
-          <v-row dense class="text-right text-h6 mt-5 mr-5 mb-5">
+          <v-row no-gutters dense class="text-right text-h6 mt-5 mr-5 mb-5">
             <v-col cols="1">
               <v-icon class="mr-4 ml-3">fas fa-solid fa-clock</v-icon>
             </v-col>
@@ -98,6 +68,7 @@
           <v-col cols="12" xs="12" sm="4" md="3">
             <InputField
               autofocus
+              type="number"
               text="amount to exchange"
               holder="amount to exchange"
               required
@@ -134,145 +105,141 @@
         </v-row>
       </v-card-text>
     </Card>
-
     <Card class="pr-3 pb-3">
-      <v-simple-table class="my_tabel mt-3 mb-3">
-        <template v-slot:default>
-          <thead>
-            <tr class="text-right text-h6 font-weight-black">
-              <td>
-                <span
-                  class="fs-18 font-weight-black text-right"
-                  style="white-space: nowrap"
-                  >{{ $t("exchange to") }}</span
-                >
-              </td>
-              <td>
-                <span class="column-text mr-3" style="white-space: nowrap">{{
-                  $t("amount to exchange")
-                }}</span>
-              </td>
-              <td>
-                <span class="column-text mr-3" style="white-space: nowrap">{{
-                  $t("conversion price")
-                }}</span>
-              </td>
-              <td>
-                <span class="column-text mr-2" style="white-space: nowrap">{{
-                  $t("edited conversion price")
-                }}</span>
-              </td>
-            </tr>
-          </thead>
-          <tbody :key="number">
-            <tr
-              :key="i"
-              v-for="(currency, i) in all_currencies"
-              class="text-right"
-            >
-              <td>
-                <v-btn
-                  @click="setRow(i, currency)"
-                  depressed
-                  width="50"
-                  class="mt-2 fs-18"
-                  >{{ $t(currency.name) }}</v-btn
-                >
-              </td>
-              <td>
-                <v-text-field
-                  hide-details
-                  v-model="items[i].exchanged_amount"
-                  @keydown.enter="
-                    (v) => changed_ex_amount(items[i], i, v.target.value)
-                  "
-                  @input="
-                    (v) => {
-                      changed_ex_amount(items[i], i, v);
-                    }
-                  "
-                  class="mt-4 text-input"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                />
-              </td>
-              <td>
-                <v-text-field
-                  :value="items[i].exchanged_vactor_view"
-                  hide-details
-                  @keydown.enter="
-                    changed_ex_factor(items[i], $event, i, currency)
-                  "
-                  @blur="changed_ex_factor(items[i], $event, i, currency)"
-                  class="mt-4 text-input"
-                  min="0"
-                  color="#FF7171"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                />
-              </td>
-              <td style="width: 150px">
-                <v-text-field
-                  :value="items[i].modified_factor_view"
-                  hide-details
-                  class="mt-4 text-input"
-                  min="0"
-                  style="border-radius: 7px !important"
-                  dense
-                  outlined
-                  color="red"
-                  readonly
-                />
-              </td>
-              <td>
-                <v-btn
-                  @click="setRow(i, currency, true)"
-                  class="mt-4"
-                  color="primary"
-                  :key="variable_key"
-                  :outlined="buttons_colors[i][0]"
-                  >{{ $t("edit") }}</v-btn
-                >
-              </td>
-              <td>
-                <v-btn
-                  @click="round_amount(items[i], i, currency)"
-                  class="mt-4"
-                  color="primary"
-                  :key="variable_key"
-                  :outlined="buttons_colors[i][1]"
-                  >{{ $t("amount rounding") }}</v-btn
-                >
-              </td>
-              <td>
-                <v-btn
-                  @click="delete_factors(items[i], i, currency)"
-                  class="mt-4"
-                  color="primary"
-                  :key="variable_key"
-                  :outlined="buttons_colors[i][2]"
-                  >{{ $t("delete fraction") }}</v-btn
-                >
-              </td>
-              <td>
-                <v-btn
-                  @click="complete_factor(items[i], i, currency)"
-                  class="mt-4"
-                  :outlined="buttons_colors[i][3]"
-                  color="primary"
-                  :key="variable_key"
-                  >{{ $t("complete fraction") }}</v-btn
-                >
-              </td>
-            </tr>
-            <!-- HI KILLUA  -->
-          </tbody>
-        </template>
-      </v-simple-table>
+      <form @submit.prevent="" ref="form">
+        <v-simple-table class="my_tabel mt-3 mb-3">
+          <template v-slot:default>
+            <thead>
+              <tr class="text-right text-h6 font-weight-black">
+                <td>
+                  <span
+                    class="fs-18 font-weight-black text-right"
+                    style="white-space: nowrap"
+                    >{{ $t("exchange to") }}</span
+                  >
+                </td>
+                <td>
+                  <span class="column-text mr-3" style="white-space: nowrap">{{
+                    $t("amount to exchange")
+                  }}</span>
+                </td>
+                <td>
+                  <span class="column-text mr-3" style="white-space: nowrap">{{
+                    $t("conversion price")
+                  }}</span>
+                </td>
+                <td>
+                  <span class="column-text mr-2" style="white-space: nowrap">{{
+                    $t("edited conversion price")
+                  }}</span>
+                </td>
+              </tr>
+            </thead>
+            <tbody :key="number">
+              <tr
+                :key="i"
+                v-for="(currency, i) in all_currencies"
+                class="text-right"
+              >
+                <td>
+                  <v-btn
+                    @click="setRow(i, currency)"
+                    depressed
+                    width="50"
+                    class="mt-2 fs-18"
+                    >{{ $t(currency.name) }}</v-btn
+                  >
+                </td>
+                <td>
+                  <v-text-field
+                    type="number"
+                    hide-details
+                    v-model="items[i].exchanged_amount"
+                    @keydown.enter="
+                      (v) => changed_ex_amount(items[i], i, v.target.value)
+                    "
+                    @input="
+                      (v) => {
+                        changed_ex_amount(items[i], i, v);
+                      }
+                    "
+                    class="text-input"
+                    min="0"
+                    color="#FF7171"
+                    style="border-radius: 7px !important"
+                    dense
+                    outlined
+                  />
+                </td>
+                <td>
+                  <v-text-field
+                    type="number"
+                    :value="items[i].exchanged_vactor_view"
+                    hide-details
+                    @keydown.enter="
+                      changed_ex_factor(items[i], $event, i, currency)
+                    "
+                    @blur="changed_ex_factor(items[i], $event, i, currency)"
+                    class="text-input"
+                    min="0"
+                    color="#FF7171"
+                    style="border-radius: 7px !important"
+                    dense
+                    outlined
+                  />
+                </td>
+                <td style="width: 150px">
+                  <v-text-field
+                    type="number"
+                    :value="items[i].modified_factor_view"
+                    hide-details
+                    class="text-input"
+                    min="0"
+                    style="border-radius: 7px !important"
+                    dense
+                    outlined
+                    color="red"
+                    readonly
+                  />
+                </td>
+                <td>
+                  <v-btn
+                    @click="setRow(i, currency, true)"
+                    class="mt-4"
+                    color="primary"
+                    >{{ $t("edit") }}</v-btn
+                  >
+                </td>
+                <td>
+                  <v-btn
+                    @click="round_amount(items[i], i, currency)"
+                    class="mt-4"
+                    color="primary"
+                    >{{ $t("amount rounding") }}</v-btn
+                  >
+                </td>
+                <td>
+                  <v-btn
+                    @click="delete_factors(items[i], i, currency)"
+                    class="mt-4"
+                    color="primary"
+                    >{{ $t("delete fraction") }}</v-btn
+                  >
+                </td>
+                <td>
+                  <v-btn
+                    @click="complete_factor(items[i], i, currency)"
+                    class="mt-4"
+                    color="primary"
+                    >{{ $t("complete fraction") }}</v-btn
+                  >
+                </td>
+              </tr>
+              <!-- HI KILLUA  -->
+            </tbody>
+          </template>
+        </v-simple-table>
+      </form>
     </Card>
 
     <v-row dense justify="center" class="mt-5 mb-5">
@@ -302,7 +269,6 @@
         >
           {{ $t("show exchange processes") }}
         </v-btn>
-        <div ref="btn"></div>
       </v-col>
     </v-row>
   </div>
@@ -316,11 +282,11 @@ export default {
   name: "extchange",
   data() {
     return {
+      items_copy: [{}, {}, {}, {}, {}, {}, {}],
       numberToReRender: 1,
-      keyNum: 1,
       selected: {},
       number: 1,
-      buttons_colors: new Array(9).fill(0).map(() => new Array(4).fill(false)),
+
       item: {
         currency: {},
         reminder: null,
@@ -329,7 +295,6 @@ export default {
       items: [],
       stocks: [],
       exchange: {},
-      variable_key: 0,
       ignored_curr_obj: [],
       ignored_curr_names: ["دينار", "يورو"],
     };
@@ -421,7 +386,6 @@ export default {
           }
 
           new_obj.profit = new_obj.from_in_usd_amout - new_obj.to_in_usd_amout;
-
         }
         final_profit += new_obj.profit;
       });
@@ -453,6 +417,10 @@ export default {
     },
   },
   methods: {
+    resetForm() {
+      const form = this.$refs.form; //to get the form
+      form.reset(); // reset the form
+    },
     setPressededKey(currency, currFrom, currTo, row1, row2) {
       if (currency.id == currFrom) {
         this.item.currency = this.find_curr(currTo);
@@ -510,8 +478,6 @@ export default {
             type: 2,
           };
         });
-        console.log("trimed_and_modified_items");
-        console.log(trimed_and_modified_items);
         let saling = parseFloat(
           this.$newCalcSalePrice({ id: 1 }, this.item.currency)
         );
@@ -535,7 +501,7 @@ export default {
       }, 5000);
     },
     addItems() {
-      this.all_currencies.map((item) => {
+      this.all_currencies.forEach((item) => {
         this.items.push({
           currency_id: item.id,
           modified_factor: null,
@@ -545,11 +511,6 @@ export default {
           exchanged_vactor_view: null,
         });
       });
-    },
-    setSenderCurrecny(partyObj) {
-      this.item.currency = this.all_currencies.find(
-        (e) => e.id == partyObj.currency_id
-      );
     },
 
     setRow(index, item, is_reminder = false) {
@@ -602,15 +563,6 @@ export default {
       this.items[index].modified_factor = null;
       this.items[index].modified_factor_view = null;
       this.number = this.number + 1;
-
-      if (is_reminder) {
-        let holder = this.buttons_colors[index][0];
-        this.buttons_colors[index] = this.buttons_colors[index].map(() => {
-          new Array(4).fill(false);
-        });
-        this.buttons_colors[index][0] = !holder;
-      }
-      this.variable_key++;
     },
 
     changed_ex_amount(element, i, new_value) {
@@ -680,12 +632,6 @@ export default {
       }
       element.modified_factor = new_factor;
       element.exchanged_amount = new_amount.toFixed(5);
-      let holder = this.buttons_colors[index][1];
-      this.buttons_colors[index] = this.buttons_colors[index].map(() => {
-        new Array(4).fill(false);
-      });
-      this.buttons_colors[index][1] = !holder;
-      this.variable_key++;
     },
     delete_factors(element, index, to_curr) {
       let from = this.item.currency;
@@ -703,12 +649,6 @@ export default {
       }
       element.modified_factor = new_factor;
       element.exchanged_amount = new_amount.toFixed(5);
-      let holder = this.buttons_colors[index][2];
-      this.buttons_colors[index] = this.buttons_colors[index].map(() => {
-        new Array(4).fill(false);
-      });
-      this.buttons_colors[index][2] = !holder;
-      this.variable_key++;
     },
     complete_factor(element, index, to_curr) {
       let from = this.item.currency;
@@ -726,18 +666,10 @@ export default {
       }
       element.modified_factor = new_factor;
       element.exchanged_amount = new_amount.toFixed(5);
-      let holder = this.buttons_colors[index][3];
-      this.buttons_colors[index] = this.buttons_colors[index].map(() => {
-        new Array(4).fill(false);
-      });
-      this.buttons_colors[index][3] = !holder;
-      this.variable_key++;
+
       // element.modified_factor = 8;
     },
     async save() {
-      this.buttons_colors = new Array(9)
-        .fill(0)
-        .map(() => new Array(4).fill(false));
       this.addnumberToReRender();
       if (this.exchange_profit < 0) {
         this.$swal
@@ -764,11 +696,11 @@ export default {
     submit_save() {
       this.prepare_exchange().then(() => {
         this.$store.dispatch("exchange/store", this.exchange).then(() => {
-          this.items = [];
-          this.exchange = {};
+          this.resetForm();
           this.setDefaultParty();
-          this.keyNum = this.keyNum + 1;
-          this.addItems();
+          this.exchange = {};
+          this.items = [...this.items_copy];
+
           this.exchange.started_at = this.$getDateTime();
           // this.$auth.fetchUser();
         });
@@ -779,21 +711,9 @@ export default {
     var element = this.$refs.btn;
     var top = element.offsetTop;
     setTimeout(() => {
-      window.scrollTo(0, top);
+      window.scrollTo(0, top - 250);
     }, 0);
     this.$store.dispatch("setLastListenerKey", null);
-    // if (process.client) {
-    //   this.$nextTick(() => {
-    //     setTimeout(() => {
-    //       this.$refs.amount.focus();
-    //     });
-    //   });
-
-    //   console.log("this.$refs");
-    //   console.log(this.$refs);
-    // }
-    // this.$auth.fetchUser();
-
     this.setDefaultParty();
     if (!this.all_currencies[0]) {
       this.$store.dispatch("currency/index");
@@ -809,17 +729,21 @@ export default {
     // if (!this.all_stocks[0]) {
     //   this.$store.dispatch("stock/index");
     // }
+    let items = [];
     if (this.all_currencies[0] && this.items.length == 0) {
-      this.all_currencies.map((item) => {
-        this.items.push({
+      items = this.all_currencies.map((item) => {
+        return {
           currency_id: item.id,
           modified_factor: null,
           modified_factor_view: null,
           exchanged_vactor: null,
           exchanged_vactor_view: null,
           exchanged_amount: null,
-        });
+        };
       });
+
+      this.items_copy = items;
+      this.items = structuredClone(this.items_copy);
     }
   },
   watch: {

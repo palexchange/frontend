@@ -762,6 +762,12 @@ export default {
         this.item.exchange_rate_to_delivery_currency == undefined
       )
         return;
+      if (this.item.delivery_currency_id == 4) {
+        return (
+          this.item.to_send_amount /
+          this.item.exchange_rate_to_delivery_currency
+        ).toFixed();
+      }
       return (
         this.item.to_send_amount * this.item.exchange_rate_to_delivery_currency
       ).toFixed();

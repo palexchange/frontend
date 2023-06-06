@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap");
 
 * {
   font-family: Tajawal;
@@ -8,7 +8,7 @@
   content: "*";
   position: relative;
   font-size: inherit;
-  color: #F64E60;
+  color: #f64e60;
   padding-right: 0.25rem;
   font-weight: bold;
 }
@@ -41,7 +41,8 @@
   padding: 20px;
 }
 
-.bill-item-row:first {}
+.bill-item-row:first {
+}
 
 .bill-item-name,
 .bill-item-qty {
@@ -54,8 +55,8 @@
   height: 100%;
 }
 
-.item-img:hover>.item-overlay,
-.item-img:hover>.item-data {
+.item-img:hover > .item-overlay,
+.item-img:hover > .item-data {
   display: none !important;
 }
 
@@ -92,22 +93,25 @@
 //   display: inline-block;
 // }
 
-
-
-.fs-18{
+.fs-18 {
   font-size: 18px !important;
 }
-.my-body{
+.my-body {
   background-color: red;
 }
 ::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
+  width: 12px; /* width of the entire scrollbar */
 }
 ::-webkit-scrollbar-track {
-  background: #f9f1f1;        /* color of the tracking area */
+  background: #f9f1f1; /* color of the tracking area */
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #E0E0FF;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid #E0E0FF;  /* creates padding around scroll thumb */
+  background-color: #e0e0ff; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid #e0e0ff; /* creates padding around scroll thumb */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

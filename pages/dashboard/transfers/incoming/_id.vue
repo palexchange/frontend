@@ -259,7 +259,7 @@
         </v-checkbox>
       </v-card-subtitle>
       <v-card-text>
-        <v-row class="responseveCols">
+        <v-row align="center" class="responseveCols">
           <v-col cols="12" sm="2">
             <BeneficiaryAutocomplete
               no_fetch
@@ -352,6 +352,7 @@
               مرجع
             </label>
             <v-text-field
+              :disabled="item.dollar_returned"
               :readonly="showReadOnly"
               v-model.number="item.office_commission"
               color="#FF7171"
@@ -359,7 +360,6 @@
               dense
               outlined
               slot="append"
-              hide-details
               :append-icon="
                 item.office_commission_type == 0
                   ? 'fas fa-sort-numeric-up-alt'
@@ -401,10 +401,47 @@
               "
             />
           </v-col>
+          <v-col cols="2">
+            <v-checkbox
+              @change="item.office_commission_type = 0"
+              v-model="item.dollar_returned"
+              dense
+              label="مرجع دولار"
+            >
+            </v-checkbox>
+          </v-col>
+          <v-col
+            v-if="item.dollar_returned"
+            cols="12"
+            sm="2"
+            v-show="!is_moneygram"
+          >
+            <label
+              class="form-label"
+              style="color: rgba(0, 0, 0); font-size: 16px"
+            >
+              {{ item.office_commission_type == 1 ? "%" : "" }}
+              مرجع
+            </label>
+            <v-text-field
+              :readonly="showReadOnly"
+              @input="
+                (v) => {
+                  item.office_commission =
+                    1 * (v / item.exchange_rate_to_office_currency).toFixed(2);
+                }
+              "
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+            >
+            </v-text-field>
+          </v-col>
         </v-row>
       </v-card-text>
     </Card>
-    
+
     <Card class="mb-5 pa-3">
       <v-card-title>بيانات المبلغ للتسليم </v-card-title>
       <v-card-text>
@@ -586,6 +623,7 @@ export default {
     return {
       count: 1,
       refreshKey: 1,
+
       expand: false,
       expand2: false,
       receiver_id_image: null,
@@ -604,6 +642,7 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
+        office_commission: 0,
         on_dollar_account: true,
         receiver_id_no: "",
         receiver_phone: "",

@@ -788,18 +788,25 @@ export default {
     return {
       items: [],
       item: {
-        totalOne: { id: 1, amount: 0 },
-        totalTwo: { id: 2, amount: 0 },
-        totalTree: { id: 3, amount: 0 },
-        totalFour: { id: 4, amount: 0 },
-        totalSeven: { id: 7, amount: 0 },
+        totalOne: { id: 1, amount: 0, negative: 0, positive: 0 },
+        totalTwo: { id: 2, amount: 0, negative: 0, positive: 0 },
+        totalTree: { id: 3, amount: 0, negative: 0, positive: 0 },
+        totalFour: { id: 4, amount: 0, negative: 0, positive: 0 },
+        totalSeven: { id: 7, amount: 0, negative: 0, positive: 0 },
       },
     };
   },
   methods: {
     setValue(name, event, row_index, opirator) {
       const currentItem = JSON.parse(JSON.stringify(this.items[row_index]));
-      currentItem[name].amount = event.target.value * opirator;
+      if (opirator == -1) {
+        currentItem[name].negative = event.target.value * opirator;
+      } else if (opirator == 1) {
+        currentItem[name].positive = event.target.value;
+      }
+
+      currentItem[name].amount =
+        currentItem[name].negative*1 + currentItem[name].positive*1;
       this.items.splice(row_index, 1, currentItem);
 
       // this.items[row_index][name].amount = event.target.value * opirator;

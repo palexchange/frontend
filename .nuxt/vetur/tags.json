@@ -128,6 +128,39 @@
   "VuetifyLogo": {
     "description": "Auto imported from components/VuetifyLogo.vue"
   },
+  "RoleAdd": {
+    "description": "Auto imported from components/role/Add.vue"
+  },
+  "RoleBindPermission": {
+    "description": "Auto imported from components/role/BindPermission.vue"
+  },
+  "RoleShowPermission": {
+    "description": "Auto imported from components/role/ShowPermission.vue"
+  },
+  "FiltersBookFilter": {
+    "description": "Auto imported from components/filters/BookFilter.vue"
+  },
+  "FiltersCategoryFilter": {
+    "description": "Auto imported from components/filters/CategoryFilter.vue"
+  },
+  "FiltersCustomerFilter": {
+    "description": "Auto imported from components/filters/CustomerFilter.vue"
+  },
+  "FiltersDetailedReportFilter": {
+    "description": "Auto imported from components/filters/DetailedReportFilter.vue"
+  },
+  "FiltersInventoryBatchFilter": {
+    "description": "Auto imported from components/filters/InventoryBatchFilter.vue"
+  },
+  "FiltersItemFilter": {
+    "description": "Auto imported from components/filters/ItemFilter.vue"
+  },
+  "FiltersOrderFilter": {
+    "description": "Auto imported from components/filters/OrderFilter.vue"
+  },
+  "FiltersReportFilter": {
+    "description": "Auto imported from components/filters/ReportFilter.vue"
+  },
   "ChartsEighth": {
     "description": "Auto imported from components/charts/eighth.vue"
   },
@@ -158,30 +191,6 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
-  "FiltersBookFilter": {
-    "description": "Auto imported from components/filters/BookFilter.vue"
-  },
-  "FiltersCategoryFilter": {
-    "description": "Auto imported from components/filters/CategoryFilter.vue"
-  },
-  "FiltersCustomerFilter": {
-    "description": "Auto imported from components/filters/CustomerFilter.vue"
-  },
-  "FiltersDetailedReportFilter": {
-    "description": "Auto imported from components/filters/DetailedReportFilter.vue"
-  },
-  "FiltersInventoryBatchFilter": {
-    "description": "Auto imported from components/filters/InventoryBatchFilter.vue"
-  },
-  "FiltersItemFilter": {
-    "description": "Auto imported from components/filters/ItemFilter.vue"
-  },
-  "FiltersOrderFilter": {
-    "description": "Auto imported from components/filters/OrderFilter.vue"
-  },
-  "FiltersReportFilter": {
-    "description": "Auto imported from components/filters/ReportFilter.vue"
-  },
   "ReportsAccountingReport": {
     "description": "Auto imported from components/reports/AccountingReport.vue"
   },
@@ -197,35 +206,8 @@
   "ReportsProfitReport": {
     "description": "Auto imported from components/reports/ProfitReport.vue"
   },
-  "RoleAdd": {
-    "description": "Auto imported from components/role/Add.vue"
-  },
-  "RoleBindPermission": {
-    "description": "Auto imported from components/role/BindPermission.vue"
-  },
-  "RoleShowPermission": {
-    "description": "Auto imported from components/role/ShowPermission.vue"
-  },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
-  },
-  "SettingsCloseingAccountsCreate": {
-    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
-  },
-  "SettingsCloseingAccounts": {
-    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
-  },
-  "SettingsEntryCreate": {
-    "description": "Auto imported from components/settings/Entry/Create.vue"
-  },
-  "SettingsEntry": {
-    "description": "Auto imported from components/settings/Entry/Index.vue"
-  },
-  "SettingsOpeningAccountsCreate": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
-  },
-  "SettingsOpeningAccounts": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
   },
   "SettingsUsersCreate": {
     "description": "Auto imported from components/settings/Users/Create.vue"
@@ -235,5 +217,23 @@
   },
   "SettingsUsersRoleManagement": {
     "description": "Auto imported from components/settings/Users/RoleManagement.vue"
+  },
+  "SettingsOpeningAccountsCreate": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
+  },
+  "SettingsOpeningAccounts": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
+  },
+  "SettingsEntryCreate": {
+    "description": "Auto imported from components/settings/Entry/Create.vue"
+  },
+  "SettingsEntry": {
+    "description": "Auto imported from components/settings/Entry/Index.vue"
+  },
+  "SettingsCloseingAccountsCreate": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
+  },
+  "SettingsCloseingAccounts": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
   }
 }

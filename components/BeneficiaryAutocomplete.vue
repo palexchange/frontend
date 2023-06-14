@@ -22,6 +22,7 @@
       :placeholder="$t(holder)"
       item-text="name"
       item-value="id"
+      :filter="filter"
     >
       <template v-slot:prepend-item>
         <v-btn
@@ -90,6 +91,12 @@ export default {
     search(e) {
       console.log(e);
       console.log("key down");
+    },
+    filter(item, queryText, itemText) {
+      return (
+        itemText.toLocaleLowerCase().indexOf(queryText.toLocaleLowerCase()) >
+          -1 || item.account_id == queryText
+      );
     },
   },
 };

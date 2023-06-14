@@ -90,7 +90,15 @@
               :items="detail_items"
             >
               <template v-slot:item.type="{ item }">
-                {{ [$t("from"), $t("to")][item.type - 1] }};
+                <div >
+                  {{ [$t("from"), $t("to")][item.type - 1] }};
+                </div>
+              </template>
+              <template v-slot:item.amount="{ item }">
+                <div class="text-h6 font-weight-bold" :style="item.type == 1 ? 'color:green' : 'color:red'">
+                  {{ item.amount }}
+                  {{  item.type == 1 ? '+':'-' }}
+                </div>
               </template>
             </v-data-table>
             <!-- <DataTable

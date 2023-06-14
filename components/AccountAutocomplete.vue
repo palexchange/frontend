@@ -22,6 +22,7 @@
       :placeholder="$t(holder)"
       item-text="name"
       :item-value="item_value ? item_value : 'id'"
+      :filter="filter_search_account"
     >
       <template v-slot:prepend-item>
         <div>
@@ -110,6 +111,15 @@ export default {
     return {
       rulesss: ruless(this),
     };
+  },
+  methods: {
+    filter_search_account(item, queryText, itemText) {
+      return (
+        (itemText + "")
+          .toLocaleLowerCase()
+          .indexOf(queryText.toLocaleLowerCase()) > -1 || item.id == queryText
+      );
+    },
   },
   created() {
     if (this.no_fetch) return;

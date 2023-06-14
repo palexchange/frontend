@@ -93,7 +93,7 @@ export default (context) => {
   {
     child: 'party',
     parent: '',
-    headers: ['num', 'id', 'image', 'name', 'id_no', 'created_at', 'address', 'country_name', 'phone'],
+    headers: ['num', 'account_id', 'image', 'name', 'id_no', 'created_at', 'address', 'country_name', 'phone'],
   },
   {
     child: 'role',

@@ -284,6 +284,7 @@
               عمولة إضافة
             </label>
             <v-text-field
+              :disabled="item.transfer_commission_currency != 1"
               :readonly="showReadOnly"
               v-model.number="item.transfer_commission"
               color="#FF7171"
@@ -296,6 +297,33 @@
               type="number"
             >
             </v-text-field>
+          </v-col>
+          <v-col v-if="item.transfer_commission_currency != 1">
+            <InputField
+              @input="
+                (e) =>
+                  (item.transfer_commission =
+                    e /
+                    stocks.find(
+                      (i) => i.id == item.transfer_commission_currency
+                    ).close_mid)
+              "
+              :readonly="showReadOnly"
+              v-model.number="item.transfer_commission_holder"
+              holder="مبلغ العمولة"
+              text="مبلغ العمولة"
+              required
+              type="number"
+            />
+          </v-col>
+          <v-col class="align-self-center" md="2" sm="12">
+            <label for="currency">عمولة</label>
+            <CurrencyAutoComplete
+              id="currency"
+              @change="setCommissionFactor"
+              holder="commission currency"
+              v-model="item.transfer_commission_currency"
+            />
           </v-col>
           <!-- :append-icon="
                 item.is_commission_percentage == 0
@@ -453,6 +481,8 @@ export default {
         receiver_party: {},
         receiver_party_id: "",
         office_currency_id: 1,
+        transfer_commission_holder: 0,
+        transfer_commission_currency: 1,
         delivery_currency_id: 1,
         sender_party_id: 1,
         office_id: 2,
@@ -493,6 +523,9 @@ export default {
   //       }
   // },
   computed: {
+    ...mapState({
+      stocks: (state) => state.stock.all || [],
+    }),
     totals() {
       let total = {
         office_amount: 0,

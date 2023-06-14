@@ -6,8 +6,18 @@
           <v-col cols="3" class="align-self-center">
             <div style="font-size:20px;font-weight:700" >{{ $t("show beneficiaries") }}</div>
           </v-col>
-          <v-col v-if="show_filter" cols="6">
+          <v-col v-if="show_filter" cols="7">
             <v-row>
+              <v-col>
+                <InputField
+                  @keydown.enter="search"
+                  v-model="filters.party_account_id"
+                  hide-details
+                  holder="account number"
+                  text="account number"
+                  required
+                />
+              </v-col>
               <v-col>
                 <InputField
                   @keydown.enter="search"

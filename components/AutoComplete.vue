@@ -19,6 +19,7 @@
       :placeholder="$t(holder)"
       item-text="name"
       item-value="id"
+      :filter="filter"
     >
       <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope"
         ><slot :name="slot" v-bind="scope"
@@ -59,6 +60,15 @@ export default {
     return {
       rulesss: ruless(this),
     };
+  },
+  methods: {
+    filter(item, queryText, itemText) {
+      return (
+        (itemText + "")
+          .toLocaleLowerCase()
+          .indexOf(queryText.toLocaleLowerCase()) > -1 || item.id == queryText
+      );
+    },
   },
 };
 </script>

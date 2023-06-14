@@ -332,6 +332,7 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
+              @input=" edited_recivedAmountComp = 0;"
               v-model.number="item.to_send_amount"
               holder="transfirrig amount"
               text="transfirrig amount"
@@ -351,6 +352,7 @@
                     currencies[0]
                   );
                   item.delivery_currency_id = v.id;
+                  edited_recivedAmountComp = 0;
                 }
               "
               v-model="item.delivery_currency_id"
@@ -419,6 +421,7 @@
                   );
                   item.received_currency_id = v.id;
                   item.received_currency = v;
+                   edited_recivedAmountComp = 0;
                 }
               "
               v-model="item.received_currency_id"
@@ -433,6 +436,7 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
+              @input="edited_recivedAmountComp = 0"
               v-model.number="item.exchange_rate_to_reference_currency"
               holder="convert to receiver currency"
               text="convert to receiver currency"
@@ -442,8 +446,12 @@
           <v-col>
             <InputField
               :readonly="showReadOnly"
-              :value="recivedAmountComp | money"
-              dashed
+              @input="
+                (e) =>
+                  (item.exchange_rate_to_reference_currency =
+                    e / totalAmountInUSDComp)
+              "
+              v-model="recivedAmountComp"
               holder="amount to give"
               text="amount to give"
             />
@@ -688,6 +696,7 @@ export default {
   name: "transfer-form",
   data() {
     return {
+      edited_recivedAmountComp: 0,
       showReadOnly: false,
       prices: [],
       transfer_types: [
@@ -788,16 +797,26 @@ export default {
       this.item.final_received_amount = (final * 1).toFixed(2);
       return final > 0 ? final.toFixed(2) : null;
     },
-    recivedAmountComp() {
-      let conversionParam = this.item.exchange_rate_to_reference_currency || 0,
-        amountInUSD = parseFloat(this.amountInUSDComp || 0);
-      let curr = this.item.received_currency_id;
-      let res =
-        curr == 4
-          ? ((amountInUSD / conversionParam) * 1).toFixed()
-          : (conversionParam * amountInUSD * 1).toFixed();
-      this.item.received_amount = res;
-      return res <= 0 ? null : res;
+    recivedAmountComp: {
+      get: function () {
+        if (this.edited_recivedAmountComp > 0) {
+          return this.edited_recivedAmountComp;
+        } else {
+          let conversionParam =
+              this.item.exchange_rate_to_reference_currency || 0,
+            amountInUSD = parseFloat(this.amountInUSDComp || 0);
+          let curr = this.item.received_currency_id;
+          let res =
+            curr == 4
+              ? ((amountInUSD / conversionParam) * 1).toFixed()
+              : (conversionParam * amountInUSD * 1).toFixed();
+          this.item.received_amount = res;
+          return res <= 0 ? null : res;
+        }
+      },
+      set: function (val) {
+        this.edited_recivedAmountComp = val;
+      },
     },
     totalRecvAmountComp() {
       let amount_in_ = this.recivedAmountComp * 1,

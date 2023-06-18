@@ -75,7 +75,7 @@
       </v-row>
     </Card>
     <DataTable
-      single-expand
+       
       module="exchange"
       show-expand
       :params="params"

@@ -69,15 +69,15 @@
             <InputField
               autofocus
               type="number"
-              text="amount to exchange"
-              holder="amount to exchange"
+              text="amount ."
+              holder="amount ."
               required
               v-model.number="exchange.amount"
             />
           </v-col>
           <v-col cols="12" xs="12" sm="4" md="3" class="ml-40">
             <AutoComplete
-              :items="all_currencies"
+              :items="stocks"
               v-model="item.currency"
               text="currency"
               return-object
@@ -86,14 +86,18 @@
             />
           </v-col>
           <v-col cols="12" md="1">
-            <v-btn @click="$router.push('exchange/multi')" small icon>
+            <v-btn
+              @click="$router.push('/dashboard/exchange/multi')"
+              small
+              icon
+            >
               <v-icon> fas fa-plus </v-icon>
             </v-btn>
           </v-col>
           <v-col cols="12" md="2" class="column-text font-weight-black pa-2">
             <div>
-              <span class="px-2">{{ $t("reminder") }} :</span
-              >{{ item.reminder }}
+              <span class="px-2">{{ $t("reminder") }} :</span>
+              {{ item.reminder }}
             </div>
           </v-col>
           <v-col cols="12" md="3" class="text-h6 d-flex justify-end">
@@ -136,33 +140,22 @@
               </tr>
             </thead>
             <tbody :key="number">
-              <tr
-                :key="i"
-                v-for="(currency, i) in all_currencies"
-                class="text-right"
-              >
+              <tr :key="i" v-for="(item, i) in stocks" class="text-right">
                 <td>
                   <v-btn
-                    @click="setRow(i, currency)"
+                    @click="setRow(i, item)"
                     depressed
                     width="50"
                     class="mt-2 fs-18"
-                    >{{ $t(currency.name) }}</v-btn
+                    >{{ $t(item.name) }}</v-btn
                   >
                 </td>
                 <td>
                   <v-text-field
                     type="number"
                     hide-details
-                    v-model="items[i].exchanged_amount"
-                    @keydown.enter="
-                      (v) => changed_ex_amount(items[i], i, v.target.value)
-                    "
-                    @input="
-                      (v) => {
-                        changed_ex_amount(items[i], i, v);
-                      }
-                    "
+                    :value="item.exchanged_amount"
+                    @input="(e) => setRefAmount(e, item)"
                     class="text-input"
                     min="0"
                     color="#FF7171"
@@ -174,12 +167,14 @@
                 <td>
                   <v-text-field
                     type="number"
-                    :value="items[i].exchanged_vactor_view"
+                    :value="item.exchanged_factor"
                     hide-details
-                    @keydown.enter="
-                      changed_ex_factor(items[i], $event, i, currency)
+                    @input="
+                      (e) => {
+                        item.exchanged_factor = e;
+                        setRow(i, item, false);
+                      }
                     "
-                    @blur="changed_ex_factor(items[i], $event, i, currency)"
                     class="text-input"
                     min="0"
                     color="#FF7171"
@@ -191,7 +186,7 @@
                 <td style="width: 150px">
                   <v-text-field
                     type="number"
-                    :value="items[i].modified_factor_view"
+                    :value="item.modified_factor"
                     hide-details
                     class="text-input"
                     min="0"
@@ -204,23 +199,20 @@
                 </td>
                 <td>
                   <v-btn
-                    @click="setRow(i, currency, true)"
+                    @click="setRow(i, item, true)"
                     class="mt-4"
                     color="primary"
                     >{{ $t("edit") }}</v-btn
                   >
                 </td>
                 <td>
-                  <v-btn
-                    @click="round_amount(items[i], i, currency)"
-                    class="mt-4"
-                    color="primary"
-                    >{{ $t("amount rounding") }}</v-btn
-                  >
+                  <v-btn class="mt-4" color="primary">{{
+                    $t("amount rounding")
+                  }}</v-btn>
                 </td>
                 <td>
                   <v-btn
-                    @click="delete_factors(items[i], i, currency)"
+                    @click="delete_factors(item, i, currency)"
                     class="mt-4"
                     color="primary"
                     >{{ $t("delete fraction") }}</v-btn
@@ -228,7 +220,7 @@
                 </td>
                 <td>
                   <v-btn
-                    @click="complete_factor(items[i], i, currency)"
+                    @click="complete_factor(item, i, currency)"
                     class="mt-4"
                     color="primary"
                     >{{ $t("complete fraction") }}</v-btn
@@ -285,11 +277,12 @@ export default {
       items_copy: [{}, {}, {}, {}, {}, {}, {}],
       numberToReRender: 1,
       selected: {},
+      last_item: {},
       number: 1,
 
       item: {
         currency: {},
-        reminder: null,
+        reminder: 0,
         factor_view: 0.0,
       },
       items: [],
@@ -300,123 +293,49 @@ export default {
     };
   },
   computed: {
+    total_refs() {
+      return (
+        this.stocks.reduce((a, c) => {
+          return (c.ref_amount || 0) * 1 + a;
+        }, 0) || 0
+      );
+    },
     ...mapState({
       pressed_key: (state) => state.last_key_listener_value,
       all_currencies: (state) => state.currency.all,
-      all_stocks: (state) => state.stock.all,
+      all_stocks: function (state) {
+        let val = state.stock.all;
+        let ss = JSON.parse(JSON.stringify(val));
+        this.stocks = ss.map((item) => {
+          return {
+            ...item,
+            modified_factor: null,
+            exchanged_factor: null,
+            exchanged_amount: null,
+            ref_amount: null,
+          };
+        });
+      },
       user: (state) => state.auth.user || {},
     }),
     exchange_profit() {
-      let main_amount = parseFloat(this.exchange.amount || 0);
-      let final_profit = 0;
-      let total_extra_amount = 0;
-
-      if (main_amount == 0) return 0;
-      this.items.forEach((e, index) => {
-        let obj = {};
-        obj.exchanged_amount = parseFloat(e.exchanged_amount || 0);
-        if (obj.exchanged_amount == 0) return;
-
-        obj.used_factor = parseFloat(
-          e.modified_factor || e.exchanged_vactor || 0
-        );
-
-        if (obj.sale_factor == 0) return;
-
-        obj.sale_factor = parseFloat(
-          this.$newCalcSalePrice(this.item.currency, this.all_currencies[index])
-        );
-        obj.buy_factor =
-          this.$newCalcBuyPrice(
-            this.item.currency,
-            this.all_currencies[index]
-          ) * 1;
-
-        obj.calc_profit_factor =
-          // the mid
-          ((obj.buy_factor + obj.sale_factor) / 2).toFixed(
-            (obj.buy_factor + "").length - 1
-          ) * 1;
-
-        obj.amount = parseFloat(
-          obj.exchanged_amount / obj.used_factor
-        ).toFixed();
-        e.amount_in_main_curr = obj.amount;
-        total_extra_amount += obj.amount * 1;
-
-        obj.new_amount =
-          parseFloat(obj.amount * obj.calc_profit_factor).toFixed(5) * 1;
-        obj.profit_in_to_currency = obj.new_amount - obj.exchanged_amount;
-        obj.sale_factor_from_to_currency = parseFloat(
-          this.$newCalcSalePrice(this.all_currencies[index], { id: 1 })
-        );
-        obj.buy_factor_from_to_currency = parseFloat(
-          this.$newCalcBuyPrice(this.all_currencies[index], { id: 1 })
-        );
-        obj.calc_new_factor =
-          (obj.sale_factor_from_to_currency + obj.buy_factor_from_to_currency) /
-          2;
-        obj.profit = obj.profit_in_to_currency * obj.calc_new_factor;
-        const new_obj = {};
-        if (e.exchanged_amount) {
-          new_obj.from_amount = e.amount_in_main_curr * 1;
-          new_obj.from_curr_id = this.item.currency?.id;
-          new_obj.to_amount = e.exchanged_amount * 1;
-          new_obj.to_curr_id = e.currency_id;
-          new_obj.from_curr_to_doller_mid =
-            this.all_stocks.find((s) => s.currency_id == new_obj.from_curr_id)
-              ?.mid * 1;
-          new_obj.to_curr_to_doller_mid =
-            this.all_stocks.find((s) => s.currency_id == new_obj.to_curr_id)
-              ?.mid * 1;
-
-          if (new_obj.from_curr_id == 4) {
-            new_obj.from_in_usd_amout =
-              new_obj.from_amount * new_obj.from_curr_to_doller_mid;
-          } else {
-            new_obj.from_in_usd_amout =
-              new_obj.from_amount / new_obj.from_curr_to_doller_mid;
-          }
-          if (new_obj.to_curr_id == 4) {
-            new_obj.to_in_usd_amout =
-              new_obj.to_amount * new_obj.to_curr_to_doller_mid;
-          } else {
-            new_obj.to_in_usd_amout =
-              new_obj.to_amount / new_obj.to_curr_to_doller_mid;
-          }
-
-          new_obj.profit = new_obj.from_in_usd_amout - new_obj.to_in_usd_amout;
-        }
-        final_profit += new_obj.profit;
-      });
-
-      // this.stocks;
-      // console.log(total_extra_amount - main_amount);
-      // let mid = 1;
-      // if (this.item.currency && this.item.currency.id) {
-      //   mid = this.all_stocks.find(
-      //     (v) => v.currency_id == this.item.currency.id
-      //   ).mid;
-      // }
-
-      let saling = parseFloat(
-        this.$newCalcSalePrice(this.item.currency, { id: 1 })
-      );
-      let buying = parseFloat(
-        this.$newCalcBuyPrice(this.item.currency, { id: 1 })
-      );
-      let mid = (buying + saling) / 2;
-
-      total_extra_amount = total_extra_amount * 1;
-      main_amount = main_amount * 1;
-      final_profit = final_profit - (total_extra_amount - main_amount) * mid;
-      this.exchange.profit = parseFloat(final_profit).toFixed(5);
-      console.log("final_profit");
-      console.log(final_profit);
-      return parseFloat(final_profit).toFixed(4);
+      let reminder = (this.exchange.amount - this.total_refs).toFixed(5) || 0;
+      this.item.reminder = reminder;
+      if (this.item.currency.id == 4) {
+        return (reminder * this.item.currency.close_mid).toFixed(3) || 0;
+      } else {
+        return (reminder / this.item.currency.close_mid).toFixed(3) || 0;
+      }
     },
   },
   methods: {
+    setRefAmount(e, item) {
+      if (item.id == 4) {
+        item.ref_amount = e * item.exchanged_factor;
+      } else {
+        item.ref_amount = e / item.exchanged_factor;
+      }
+    },
     resetForm() {
       const form = this.$refs.form; //to get the form
       form.reset(); // reset the form
@@ -446,7 +365,7 @@ export default {
         // this.exchange.currency_id = this.item.currency.id;
         // this.exchange.reference_currency_id = this.item.currency.id;
         let factor =
-          this.items[0].modified_factor || this.items[0].exchanged_vactor;
+          this.stocks[0].modified_factor || this.stocks[0].exchanged_factor;
         this.exchange.exchange_rate = factor
           ? factor
           : this.$newCalcBuyPrice(
@@ -457,8 +376,8 @@ export default {
         // this.exchange.amount_after =
         //   this.exchange.amount * this.exchange.exchange_rate; // IN DOLLAR
         // // items
-        let trimed_and_modified_items = this.items.filter(
-          (el) => el.exchanged_amount && el.exchanged_vactor
+        let trimed_and_modified_items = this.stocks.filter(
+          (el) => el.exchanged_amount && el.exchanged_factor
         );
         const items_length = trimed_and_modified_items.length;
         trimed_and_modified_items = trimed_and_modified_items.map((e) => {
@@ -472,9 +391,9 @@ export default {
             // amount_after: e.exchanged_amount / ex_factor,
             exchange_rate:
               items_length > 1
-                ? e.exchanged_vactor
+                ? e.exchanged_factor
                 : e.exchanged_amount / this.exchange.amount,
-            usd_factor: ex_factor,
+            usd_factor: e.close_mid,
             type: 2,
           };
         });
@@ -500,86 +419,54 @@ export default {
         this.numberToReRender += 1;
       }, 5000);
     },
-    addItems() {
-      this.all_currencies.forEach((item) => {
-        this.items.push({
-          currency_id: item.id,
-          modified_factor: null,
-          modified_factor_view: null,
-          exchanged_vactor: null,
-          exchanged_amount: null,
-          exchanged_vactor_view: null,
-        });
+
+    async setRow(index, item, reset = true) {
+      if (reset && this.item.reminder == 0) {
+        await this.resetForm();
+      }
+      let amount = 0;
+      if (this.last_item === item) {
+        amount = this.exchange.amount;
+      } else {
+        amount = parseFloat(this.item.reminder) || this.exchange.amount;
+      }
+      const from_curr = this.item.currency;
+      if (!amount || !from_curr.id) return;
+      let fac = 0;
+      if (item.id == 4 || from_curr.id == 4) {
+        fac = (from_curr.close_mid * item.close_mid).toFixed(5);
+      } else {
+        fac = (item.close_mid / from_curr.close_mid).toFixed(5);
+      }
+      if (item.id == from_curr.id) {
+        fac = 1;
+      }
+      item.exchanged_factor = item.exchanged_factor || fac;
+      if (item.id == 4) {
+        item.exchanged_amount = amount / item.exchanged_factor;
+        item.ref_amount = item.exchanged_amount * item.exchanged_factor;
+      } else {
+        item.exchanged_amount = item.exchanged_factor * amount;
+        item.ref_amount = item.exchanged_amount / item.exchanged_factor;
+      }
+      this.last_item = item;
+    },
+    resetForm() {
+      const form = this.$refs.form; //to get the form
+      form.reset(); // reset the form
+      this.stocks.forEach((item) => {
+        item.modified_factor = null;
+        item.exchanged_factor = null;
+        item.exchanged_amount = null;
+        item.ref_amount = null;
       });
     },
-
-    setRow(index, item, is_reminder = false) {
-      let amount = this.exchange.amount || 0;
-      let reminder = parseFloat(this.item.reminder || 0);
-      let item_ex_amount = parseFloat(this.items[index].exchanged_amount || 0);
-      let item_ex_factor = parseFloat(this.items[index].exchanged_vactor || 1);
-      if (reminder > 0) {
-        amount = parseFloat(this.item.reminder);
-        if (item_ex_amount >= 0) {
-          amount += item_ex_amount / item_ex_factor;
-        }
-        this.item.reminder = 0;
-      } else {
-        this.all_currencies.forEach((item, index) => {
-          this.items[index].exchanged_amount = null;
-          this.items[index].exchanged_vactor = null;
-          this.items[index].exchanged_vactor_view = null;
-          this.items[index].modified_factor = null;
-          this.items[index].modified_factor_view = null;
-          this.items[index].profit = null;
-        });
-      }
-
-      let from = this.item.currency;
-      let to = item;
-      if (!to || !from) return;
-      let sale = this.$newCalcSalePrice(from, to);
-      let buy = this.$newCalcBuyPrice(from, to);
-      let temp = Math.min(buy, sale);
-      if (this.items[index].currency_id == 4 || this.item.currency.id == 4) {
-        temp = Math.max(buy, sale);
-      }
-      let factor_to_view =
-        to.weight * 1 > from.weight * 1
-          ? Math.max(
-              this.$newCalcSalePrice(to, from),
-              this.$newCalcSalePrice(to, from)
-            )
-          : temp;
-      if (this.items[index].currency_id == 4) {
-        factor_to_view = temp;
-      }
-
-        console.log("temp");
-  console.log(temp);
-      this.items[index].exchanged_vactor = temp * 1;
-      this.items[index].exchanged_vactor_view = factor_to_view.toFixed(5);
-
-      this.items[index].exchanged_amount = (amount * temp).toFixed(5);
-      if (this.items[index].currency_id == 4) {
-        this.items[index].exchanged_amount = (amount / temp).toFixed(5);
-      }
-      this.items[index].modified_factor = null;
-      this.items[index].modified_factor_view = null;
-      this.number = this.number + 1;
-      console.log("this.items[index]");
-      console.log(this.items[index]);
-    },
-
     changed_ex_amount(element, i, new_value) {
       element.exchanged_amount = new_value;
       let amount = this.exchange.amount || 0;
       let ex_amount = element.exchanged_amount || 0;
       let ex_vector = element.exchanged_vactor || 1;
       let sum = this.sum_fields();
-      // element.exchanged_vactor = parseFloat(
-      //   parseFloat(new_value) / parseFloat(amount)
-      // ).toFixed(5);
 
       if (sum > amount) {
         this.item.reminder = 0;
@@ -790,9 +677,7 @@ export default {
         });
       }
     },
-    all_stocks(val) {
-      this.stocks = val;
-    },
+    all_stocks(val) {},
   },
 };
 </script>

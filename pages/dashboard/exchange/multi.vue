@@ -370,26 +370,31 @@ export default {
       var total_exchanges_in_dollar = 0;
       this.exchanges.forEach((exchange) => {
         if (exchange.currency) {
-          console.log("exchange");
-          console.log(exchange);
           const new_obj = {};
           new_obj.exchange_amount = exchange.amount;
           new_obj.exchange_curr_id = exchange.currency.id;
           new_obj.curr_to_doller_mid =
             this.all_stocks.find(
               (s) => s.currency_id == new_obj.exchange_curr_id
-            )?.mid * 1;
+            )?.close_mid * 1;
           new_obj.dolar_amount =
-            new_obj.exchange_amount / new_obj.curr_to_doller_mid;
+            new_obj.exchange_curr_id == 4
+              ? new_obj.exchange_amount * new_obj.curr_to_doller_mid
+              : new_obj.exchange_amount / new_obj.curr_to_doller_mid;
           total_exchanges_in_dollar =
             total_exchanges_in_dollar + new_obj.dolar_amount;
         }
       });
       const to_id = this.selected_to_currency?.id || 1;
       const selected_to_doller_mid =
-        this.all_stocks.find((s) => s.currency_id == to_id)?.mid * 1;
-      let total_to_in_dollar = total_to / selected_to_doller_mid;
-
+        this.all_stocks.find((s) => s.currency_id == to_id)?.close_mid * 1;
+      let total_to_in_dollar =
+        to_id == 4
+          ? total_to * selected_to_doller_mid
+          : total_to / selected_to_doller_mid;
+      console.log("total_exchanges_in_dollar");
+      console.log(total_exchanges_in_dollar);
+      console.log(total_to_in_dollar);
       return (total_exchanges_in_dollar - total_to_in_dollar).toFixed(4);
       // return (
       //   (this.item.edited_profit +
@@ -505,9 +510,11 @@ export default {
         console.log(from, to);
         let sale = this.$newCalcSalePrice(from, to);
         let buy = this.$newCalcBuyPrice(from, to);
-
-        const temp = Math.min(buy, sale) || 0;
-
+        let temp = Math.min(buy, sale) || 0;
+        console.table({ buy, sale });
+        if (this.items[index].currency_id == 4 || this.item.currency.id == 4) {
+          temp = Math.max(buy, sale);
+        }
         let factor_to_view =
           to.weight * 1 > from.weight * 1
             ? Math.max(
@@ -515,12 +522,16 @@ export default {
                 this.$newCalcSalePrice(to, from)
               )
             : temp;
-
+        console.log("exchangeexchangeexchangeexchange");
+        console.log(exchange);
         exchange.to_currency = to;
         exchange.exchanged_vactor = temp.toFixed(16) * 1;
         exchange.exchanged_vactor_view = factor_to_view.toFixed(5);
         exchange.exchanged_amount = (amount * temp).toFixed(5);
-        total_exchanged_amount += (amount * temp).toFixed(5) * 1;
+        if (exchange.to_currency.id == 4) {
+          exchange.exchanged_amount = (amount / temp).toFixed(5);
+        }
+        total_exchanged_amount += exchange.exchanged_amount * 1;
         exchange.modified_factor = null;
         exchange.modified_factor_view = null;
         this.reRenderNumber = this.reRenderNumber + 1;

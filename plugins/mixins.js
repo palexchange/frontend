@@ -224,6 +224,9 @@ export default (context, inject) => {
     });
     if (to.id == 1) {
       if (from_currency) {
+        if (from_currency.id == 4) {
+          return from_currency.close_mid
+        }
         return (1 / from_currency.final_selling_price).toFixed(16);
       }
     } else if (from.id == 1) {
@@ -239,7 +242,13 @@ export default (context, inject) => {
         return converter.final_selling_price;
       }
       if (to_currency && from_currency) {
-
+        if (to_currency.id == 4 || from_currency.id == 4) {
+          if (to_currency.id == 4) {
+            return (from_currency.close_mid / (1 / to_currency.close_mid)).toFixed(16);
+          } else {
+            return (to_currency.close_mid / (1 / from_currency.close_mid)).toFixed(16);
+          }
+        }
         return ((1 / from_currency.final_selling_price) * to_currency.final_selling_price).toFixed(16);
       }
     }
@@ -259,6 +268,9 @@ export default (context, inject) => {
       return 1;
     } else if (to.id == 1) {
       if (from_currency) {
+        if (from_currency.id == 4) {
+          return from_currency.close_mid
+        }
         return (1 / from_currency.final_purchasing_price).toFixed(16);
       }
     } else if (from.id == 1) {
@@ -274,6 +286,14 @@ export default (context, inject) => {
         return converter.final_purchasing_price;
       }
       if (to_currency && from_currency) {
+        if (to_currency.id == 4 || from_currency.id == 4) {
+          
+          if (to_currency.id == 4) {
+            return (from_currency.close_mid / (1 / to_currency.close_mid)).toFixed(16);
+          } else {
+            return (to_currency.close_mid / (1 / from_currency.close_mid)).toFixed(16);
+          }
+        }
         return ((1 / from_currency.final_purchasing_price) * to_currency.final_purchasing_price).toFixed(16);
       }
     }

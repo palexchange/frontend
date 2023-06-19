@@ -320,7 +320,7 @@
             <label for="currency">عمولة</label>
             <CurrencyAutoComplete
               id="currency"
-              @change="setCommissionFactor"
+              @change="()=>item.transfer_commission = 0"
               holder="commission currency"
               v-model="item.transfer_commission_currency"
             />
@@ -478,8 +478,10 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
+        transfer_commission: 0,
         receiver_party: {},
         receiver_party_id: "",
+        office_currency_id: 1,
         office_currency_id: 1,
         transfer_commission_holder: 0,
         transfer_commission_currency: 1,

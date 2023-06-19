@@ -81,13 +81,13 @@
       :params="params"
       :expanded.sync="expanded_item"
     >
-      <template v-slot:expanded-item="{ headers }">
+      <template v-slot:expanded-item="{ headers , item}">
         <td :colspan="headers.length" class="pa-0">
           <v-card color="primary" flat class="px-8">
             <v-data-table
               :headers="detial_headers"
               hide-default-footer
-              :items="detail_items"
+              :items="item.details"
             >
               <template v-slot:item.type="{ item }">
                 <div >
@@ -171,6 +171,7 @@ export default {
   },
   watch: {
     expanded_item(val) {
+      console.log(val);
       if (val[0]) {
         this.detail_items = val[0].details;
         // this.params2 = {

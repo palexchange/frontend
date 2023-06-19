@@ -315,6 +315,8 @@
               required
               type="number"
             />
+
+          
           </v-col>
           <v-col class="align-self-center" md="2" sm="12">
             <label for="currency">عمولة</label>

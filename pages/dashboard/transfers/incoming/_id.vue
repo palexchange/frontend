@@ -335,13 +335,36 @@
           </v-col> -->
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <!--  (يتم خصم المبلغ من المبلغ المرسل)" -->
-            <InputField
+
+            <label
+              class="form-label"
+              style="color: rgba(0, 0, 0); font-size: 16px"
+            >
+              {{ item.returned_commission_type == 1 ? "%" : "" }}
+              عمولة الوسيط
+            </label>
+            <v-text-field
               type="number"
+              placeholder="عمولة الوسيط"
               :readonly="showReadOnly"
               v-model.number="item.returned_commission"
-              holder="عمولة الوسيط"
-              text="عمولة الوسيط"
-            />
+              color="#FF7171"
+              style="border-radius: 0px !important"
+              dense
+              outlined
+              slot="append"
+              :append-icon="
+                item.returned_commission_type == 0
+                  ? 'fas fa-sort-numeric-up-alt'
+                  : 'fas fa-percentage'
+              "
+              @click:append="
+                () =>
+                  (item.returned_commission_type =
+                    item.returned_commission_type == 1 ? 0 : 1)
+              "
+            >
+            </v-text-field>
           </v-col>
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <label
@@ -352,6 +375,7 @@
               مرجع
             </label>
             <v-text-field
+              type="number"
               :disabled="item.dollar_returned"
               :readonly="showReadOnly"
               v-model.number="item.office_commission"
@@ -661,6 +685,7 @@ export default {
         sender_address: null,
         is_commission_percentage: 0,
         office_commission_type: 0,
+        returned_commission_type: 0,
         exchange_rate_to_delivery_currency: 0,
         exchange_rate_to_delivery_currency_view: null,
         exchange_rate_to_reference_currency_view: null,
@@ -762,7 +787,11 @@ export default {
       // /
       //   this.item.exchange_rate_to_office_currency || 0,
       let officeAmount = parseFloat(this.item.to_send_amount || 0);
-      let returned = this.item.returned_commission || 0;
+      let row_returned = this.item.returned_commission;
+      let returned =
+        this.item.returned_commission_type == 1
+          ? (row_returned / 100) * officeAmount
+          : row_returned;
       // /
       //   this.item.exchange_rate_to_office_currency || 0;
       commission =

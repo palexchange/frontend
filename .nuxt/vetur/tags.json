@@ -158,15 +158,6 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
-  "RoleAdd": {
-    "description": "Auto imported from components/role/Add.vue"
-  },
-  "RoleBindPermission": {
-    "description": "Auto imported from components/role/BindPermission.vue"
-  },
-  "RoleShowPermission": {
-    "description": "Auto imported from components/role/ShowPermission.vue"
-  },
   "FiltersBookFilter": {
     "description": "Auto imported from components/filters/BookFilter.vue"
   },
@@ -206,8 +197,23 @@
   "ReportsProfitReport": {
     "description": "Auto imported from components/reports/ProfitReport.vue"
   },
+  "RoleAdd": {
+    "description": "Auto imported from components/role/Add.vue"
+  },
+  "RoleBindPermission": {
+    "description": "Auto imported from components/role/BindPermission.vue"
+  },
+  "RoleShowPermission": {
+    "description": "Auto imported from components/role/ShowPermission.vue"
+  },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
+  },
+  "SettingsCloseingAccountsCreate": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
+  },
+  "SettingsCloseingAccounts": {
+    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
   },
   "SettingsEntryCreate": {
     "description": "Auto imported from components/settings/Entry/Create.vue"
@@ -229,11 +235,5 @@
   },
   "SettingsUsersRoleManagement": {
     "description": "Auto imported from components/settings/Users/RoleManagement.vue"
-  },
-  "SettingsCloseingAccountsCreate": {
-    "description": "Auto imported from components/settings/CloseingAccounts/Create.vue"
-  },
-  "SettingsCloseingAccounts": {
-    "description": "Auto imported from components/settings/CloseingAccounts/Index.vue"
   }
 }

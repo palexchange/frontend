@@ -51,9 +51,6 @@ export { default as ChartsSeventh } from '../..\\components\\charts\\seventh.vue
 export { default as ChartsSixth } from '../..\\components\\charts\\Sixth.vue'
 export { default as ChartsTenth } from '../..\\components\\charts\\tenth.vue'
 export { default as ChartsThird } from '../..\\components\\charts\\Third.vue'
-export { default as RoleAdd } from '../..\\components\\role\\Add.vue'
-export { default as RoleBindPermission } from '../..\\components\\role\\BindPermission.vue'
-export { default as RoleShowPermission } from '../..\\components\\role\\ShowPermission.vue'
 export { default as FiltersBookFilter } from '../..\\components\\filters\\BookFilter.vue'
 export { default as FiltersCategoryFilter } from '../..\\components\\filters\\CategoryFilter.vue'
 export { default as FiltersCustomerFilter } from '../..\\components\\filters\\CustomerFilter.vue'
@@ -67,7 +64,12 @@ export { default as ReportsDocumentsReport } from '../..\\components\\reports\\D
 export { default as ReportsPartiesReportOneCurrTotal } from '../..\\components\\reports\\PartiesReportOneCurrTotal.vue'
 export { default as ReportsPartiesReportTotals } from '../..\\components\\reports\\PartiesReportTotals.vue'
 export { default as ReportsProfitReport } from '../..\\components\\reports\\ProfitReport.vue'
+export { default as RoleAdd } from '../..\\components\\role\\Add.vue'
+export { default as RoleBindPermission } from '../..\\components\\role\\BindPermission.vue'
+export { default as RoleShowPermission } from '../..\\components\\role\\ShowPermission.vue'
 export { default as SettingsAccounts } from '../..\\components\\settings\\Accounts\\Index.vue'
+export { default as SettingsCloseingAccountsCreate } from '../..\\components\\settings\\CloseingAccounts\\Create.vue'
+export { default as SettingsCloseingAccounts } from '../..\\components\\settings\\CloseingAccounts\\Index.vue'
 export { default as SettingsEntryCreate } from '../..\\components\\settings\\Entry\\Create.vue'
 export { default as SettingsEntry } from '../..\\components\\settings\\Entry\\Index.vue'
 export { default as SettingsOpeningAccountsCreate } from '../..\\components\\settings\\OpeningAccounts\\Create.vue'
@@ -75,8 +77,6 @@ export { default as SettingsOpeningAccounts } from '../..\\components\\settings\
 export { default as SettingsUsersCreate } from '../..\\components\\settings\\Users\\Create.vue'
 export { default as SettingsUsers } from '../..\\components\\settings\\Users\\Index.vue'
 export { default as SettingsUsersRoleManagement } from '../..\\components\\settings\\Users\\RoleManagement.vue'
-export { default as SettingsCloseingAccountsCreate } from '../..\\components\\settings\\CloseingAccounts\\Create.vue'
-export { default as SettingsCloseingAccounts } from '../..\\components\\settings\\CloseingAccounts\\Index.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

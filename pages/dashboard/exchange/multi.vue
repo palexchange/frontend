@@ -695,6 +695,7 @@ export default {
         });
       });
     },
+    
   },
   mounted() {
     this.exchange.page_name = this.$route.path;

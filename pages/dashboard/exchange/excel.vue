@@ -248,6 +248,7 @@ export default {
   },
   mounted() {
     this.exchange.started_at = this.$getDateTime();
+    this.exchange.page_name = this.$route.path;
     var element = this.$refs.btn;
     var top = element.offsetTop;
     setTimeout(() => {

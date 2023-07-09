@@ -105,11 +105,7 @@
         <v-row justify="center">
           <v-col v-if="!showReadOnly" cols="2">
             <v-btn
-              @click="
-                validated
-                  ? $save(form, 'receipt', null, '/dashboard/inputs')
-                  : ''
-              "
+              @click="validated ? $save(form, 'receipt', null, '/dashboard/inputs') : ''"
               height="40"
               color="primary"
               block
@@ -162,7 +158,7 @@ export default {
       this.$store.dispatch("currency/index");
     }
     if (!this.accounts[0]) {
-      this.$store.dispatch("account/index");
+      this.$store.dispatch("account/index", { per_page: -1 });
     }
     if (this.$route.query.show && this.$route.query.show == "true") {
       this.showReadOnly = true;
@@ -217,7 +213,7 @@ export default {
   },
 };
 </script>
-  
+
 <style>
 .rounding {
   border-radius: 4px !important;

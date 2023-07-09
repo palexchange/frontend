@@ -725,6 +725,7 @@ export default {
       this.$store.dispatch("currency/index");
     }
     this.exchange.started_at = this.$getDateTime();
+    this.exchange.page_name = this.$route.path;
     if (this.all_currencies[0] && this.items.length == 0) {
       this.addItems();
     }

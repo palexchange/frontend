@@ -1,10 +1,6 @@
-
 <template>
   <div>
-    <SideInfoTransfer
-      :profit="item.profit"
-      :officeProfitComp="officeProfitComp()"
-    >
+    <SideInfoTransfer :profit="item.profit" :officeProfitComp="officeProfitComp()">
       <v-row>
         <v-col cols="12" sm="12"> {{ $t("incoming moneygram") }} </v-col>
       </v-row>
@@ -68,9 +64,7 @@
             </v-col>
             <v-col class="text-left mb-4">
               {{ $t("transfer stats")
-              }}<span class="show-text">{{
-                item.status == 1 ? "معتمدة" : "مسودة"
-              }}</span>
+              }}<span class="show-text">{{ item.status == 1 ? "معتمدة" : "مسودة" }}</span>
             </v-col>
           </v-row>
         </v-col>
@@ -144,13 +138,7 @@
               :value="item.receiver_party_id"
             />
           </v-col>
-          <v-col
-            v-if="item.receiver_party.image"
-            cols="12"
-            md="4"
-            sm="6"
-            lg="2"
-          >
+          <v-col v-if="item.receiver_party.image" cols="12" md="4" sm="6" lg="2">
             <img width="70" :src="item.receiver_party.image.url" alt="" />
           </v-col>
           <v-col v-else-if="receiver_id_image" cols="12" md="4" sm="6" lg="2">
@@ -159,9 +147,7 @@
           <v-col v-else cols="12" md="4" sm="6" lg="2">
             <label
               style="color: rgba(0, 0, 0); font-size: 16px"
-              :class="
-                item.delivering_type == 2 ? 'required form-label' : 'form-label'
-              "
+              :class="item.delivering_type == 2 ? 'required form-label' : 'form-label'"
               >{{ $t("id image") }}</label
             >
             <v-file-input
@@ -221,9 +207,7 @@
           <v-col v-else cols="12" md="2" sm="6" lg="2">
             <label
               style="color: rgba(0, 0, 0); font-size: 16px"
-              :class="
-                item.delivering_type == 2 ? 'required form-label' : 'form-label'
-              "
+              :class="item.delivering_type == 2 ? 'required form-label' : 'form-label'"
               >{{ $t("transfer image") }}</label
             >
             <v-file-input
@@ -284,7 +268,6 @@
               عمولة إضافة
             </label>
             <v-text-field
-              :disabled="item.transfer_commission_currency != 1"
               :readonly="showReadOnly"
               v-model.number="item.transfer_commission"
               color="#FF7171"
@@ -298,15 +281,11 @@
             >
             </v-text-field>
           </v-col>
-          <v-col v-if="item.transfer_commission_currency != 1">
+          <!-- <v-col v-if="item.transfer_commission_currency != 1">
             <InputField
               @input="
                 (e) =>
-                  (item.transfer_commission =
-                    e /
-                    stocks.find(
-                      (i) => i.id == item.transfer_commission_currency
-                    ).close_mid)
+                
               "
               :readonly="showReadOnly"
               v-model.number="item.transfer_commission_holder"
@@ -317,12 +296,11 @@
             />
 
           
-          </v-col>
+          </v-col> -->
           <v-col class="align-self-center" md="2" sm="12">
             <label for="currency">عمولة</label>
             <CurrencyAutoComplete
               id="currency"
-              @change="()=>item.transfer_commission = 0"
               holder="commission currency"
               v-model="item.transfer_commission_currency"
             />
@@ -429,9 +407,7 @@
           &nbsp; &nbsp;
           <v-menu offset-x left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" color="primary" outlined
-                >الإجراءات</v-btn
-              >
+              <v-btn v-bind="attrs" v-on="on" color="primary" outlined>الإجراءات</v-btn>
             </template>
             <v-list>
               <v-list-item>
@@ -453,8 +429,8 @@
     </v-row>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import { mapState } from "vuex";
 import ruless from "~/helpers/rules";
 export default {
@@ -480,7 +456,7 @@ export default {
       rounedRes: 0,
       prices: [],
       item: {
-        transfer_commission: 0,
+        transfer_commission: null,
         receiver_party: {},
         receiver_party_id: "",
         office_currency_id: 1,
@@ -494,6 +470,7 @@ export default {
         commission_side: 2,
         type: 1,
         a_received_amount_key: 1,
+        office_exchange_rate_to_usd: 1,
         delivering_type: 2,
         reference_currency_id: 1,
         receiver_phone: null,
@@ -547,11 +524,6 @@ export default {
       return res == 0 ? null : res;
     },
     finalAmountToDeliverComp() {
-      // let recvAmountInUSD = parseFloat(this.recivedAmountInUSDComp || 0);
-      // let ratio = this.item.exchange_rate_to_reference_currency || null;
-      // if (ratio == null) return;
-      // let amountToDelv = recvAmountInUSD * ratio;
-      // this.item.received_amount = amountToDelv;
       let office_amount = this.item.to_send_amount;
       this.item.final_received_amount = office_amount;
       this.item.office_amount = office_amount;
@@ -560,22 +532,13 @@ export default {
       let exchange_rate = this.item.exchange_rate_to_reference_currency;
       // console.log(exchange_rate);
       // let factor = exchange_rate < 1 ? exchange_rate : 1 / exchange_rate;
-      let tottal = parseFloat(
-        (office_amount - (this.item.transfer_commission || 0)) * exchange_rate
-      );
+      let tottal = parseFloat(office_amount * exchange_rate);
+      // (office_amount - (transfer_commission_in_usd || 0)) * exchange_rate
 
       let mid =
-        (this.$newCalcSalePrice(
-          { id: this.item.received_currency_id },
-          { id: 1 },
-          12
-        ) *
+        (this.$newCalcSalePrice({ id: this.item.received_currency_id }, { id: 1 }, 12) *
           1 +
-          this.$newCalcBuyPrice(
-            { id: this.item.received_currency_id },
-            { id: 1 },
-            12
-          ) *
+          this.$newCalcBuyPrice({ id: this.item.received_currency_id }, { id: 1 }, 12) *
             1) /
         2;
 
@@ -595,8 +558,6 @@ export default {
       return officeAmount <= 0 ? null : officeAmount;
     },
     totalOfficeAmount() {
-      let commission = this.item.transfer_commission || 0,
-        officeAmount = parseFloat(this.item.to_send_amount || 0);
       let returned = this.item.returned_commision || 0;
       commission =
         this.item.is_commission_percentage == 1
@@ -620,50 +581,28 @@ export default {
   },
   methods: {
     officeProfitComp() {
-      // let fromInDoller = parseFloat(this.recivedAmountInUSDComp) || 0;
-      // let finalOfficeAmount = parseFloat(this.totalOfficeAmount) || 0;
-
-      // let recvCurr = this.item.office_currency || null;
-      // if (recvCurr == undefined) return;
-      // let convParam = this.$newCalcSalePrice(recvCurr, this.currencies[0]);
-      // let res = fromInDoller - finalOfficeAmount * convParam;
-      // console.table({ fromInDoller, finalOfficeAmount, convParam, res });
       this.item.returned_commision;
       this.finalAmountToDeliverComp;
       this.item.transfer_commission;
-      // let office_amount_usd =
-      //   this.finalAmountToDeliverComp *
-      //   this.$newCalcBuyPrice(
-      //     { id: this.item.received_currency_id },
-      //     { id: 1 }
-      //   );
-      // let s = this.item.a_received_amount;
-      // let total = office_amount_usd - s;
 
-      // return (
-      //   total -
-      //   (this.item.returned_commision || 0) +
-      //   (this.item.transfer_commission || 0)
-      // );
-
+      const commission_curr = this.item.transfer_commission_currency;
+      let close_md = this.stocks.find((i) => i.id == commission_curr)?.close_mid;
+      this.item.office_exchange_rate_to_usd = close_md;
+      let transfer_commission_in_usd =
+        commission_curr == 4
+          ? this.item.transfer_commission * close_md
+          : this.item.transfer_commission / close_md;
       return (
         parseFloat(this.item.office_amount) -
-        parseFloat(this.item.a_received_amount)
+        parseFloat(this.item.a_received_amount) +
+        parseFloat(transfer_commission_in_usd)
       );
     },
     change_receied_amount(v) {
       let mid =
-        (this.$newCalcSalePrice(
-          { id: this.item.received_currency_id },
-          { id: 1 },
-          12
-        ) *
+        (this.$newCalcSalePrice({ id: this.item.received_currency_id }, { id: 1 }, 12) *
           1 +
-          this.$newCalcBuyPrice(
-            { id: this.item.received_currency_id },
-            { id: 1 },
-            12
-          ) *
+          this.$newCalcBuyPrice({ id: this.item.received_currency_id }, { id: 1 }, 12) *
             1) /
         2;
 
@@ -675,21 +614,19 @@ export default {
     confirmProcess(status) {
       this.item.issued_at = this.$getDateTime();
       this.item.status = status;
-      this.$save(this.item, "transfer", null, "/dashboard/moneygram").then(
-        (data) => {
-          if (this.transfer_photo) {
-            this.$save(
-              {
-                file: this.transfer_photo,
-                attachable_type: 1,
-                attachable_id: data.id,
-                silent: true,
-              },
-              "file"
-            );
-          }
+      this.$save(this.item, "transfer", null, "/dashboard/moneygram").then((data) => {
+        if (this.transfer_photo) {
+          this.$save(
+            {
+              file: this.transfer_photo,
+              attachable_type: 1,
+              attachable_id: data.id,
+              silent: true,
+            },
+            "file"
+          );
         }
-      );
+      });
       // console.log(this.item);
     },
     setReceiverData(item) {
@@ -750,9 +687,7 @@ export default {
       if (type == "buy") {
         this.item[vModel] = parseFloat(this.$newCalcBuyPrice(fromCurr, toCurr));
       } else if (type == "sale") {
-        this.item[vModel] = parseFloat(
-          this.$newCalcSalePrice(fromCurr, toCurr)
-        );
+        this.item[vModel] = parseFloat(this.$newCalcSalePrice(fromCurr, toCurr));
       } else if (type == "mid") {
         this.item[vModel] =
           (
@@ -854,8 +789,8 @@ export default {
   },
 };
 </script>
-  
-  <style>
+
+<style>
 .show-text {
   background-color: #e6e6e6;
   border-radius: 4px;

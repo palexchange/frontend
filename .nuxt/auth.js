@@ -68,7 +68,7 @@ export default function (ctx, inject) {
     }
   },
   "clientId": "1",
-  "clientSecret": "EsawZ8PtyCf5Bv3bisli2rVkfJeHXLD22FmVJwpx",
+  "clientSecret": "ucvKWI2u458FGzqWeu8fMZO3ysiBXJGfuGQqkhjc",
   "grantType": "password"
 }))
 

@@ -686,6 +686,8 @@ export default {
         is_commission_percentage: 0,
         office_commission_type: 0,
         returned_commission_type: 0,
+        returned_commission:0,
+        transfer_commission:0,
         exchange_rate_to_delivery_currency: 0,
         exchange_rate_to_delivery_currency_view: null,
         exchange_rate_to_reference_currency_view: null,

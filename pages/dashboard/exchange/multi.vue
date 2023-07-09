@@ -697,6 +697,7 @@ export default {
     },
   },
   mounted() {
+    this.exchange.page_name = this.$route.path;
     if (!this.all_currencies[0]) {
       this.$store.dispatch("currency/index");
     }

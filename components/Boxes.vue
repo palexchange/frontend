@@ -9,9 +9,8 @@
           :key="i"
           cols="2"
           v-for="(account, i) in $auth.user.active_accounts.filter(
-            (v) => v.net_balance + v.price != 0
-          )"
-        >
+            (v) => v.net_balance + v.price  
+          )">
           <v-card flat style="border: 1px solid lightgrey">
             <v-card-text class="text-center text-black">
               <v-row dense>

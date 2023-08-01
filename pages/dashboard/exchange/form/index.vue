@@ -87,6 +87,7 @@
             <v-data-table
               :headers="detial_headers"
               hide-default-footer
+              :items-per-page="500"
               :items="item.details"
             >
               <template v-slot:item.type="{ item }">

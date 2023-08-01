@@ -19,7 +19,7 @@
             </v-col>
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
-                type="number"
+                type="text"
                 :readonly="showReadOnly"
                 required
                 text="recived amount"
@@ -73,7 +73,7 @@
               <InputField
                 :readonly="showReadOnly"
                 required
-                type="number"
+                type="text"
                 text="conversion factor to usd"
                 @input="(v) => this.refreshNum++"
                 holder="conversion factor to usd"
@@ -84,7 +84,7 @@
               <InputField
                 :readonly="showReadOnly"
                 disabledd
-                type="number"
+                type="text"
                 text="amount in usd"
                 holder="amount in usd"
                 :value="to_amount"

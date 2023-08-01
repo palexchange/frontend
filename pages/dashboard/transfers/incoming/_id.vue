@@ -168,7 +168,7 @@
           </v-col> -->
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
-            type="number"
+            type="text"
             :readonly="showReadOnly"
               holder="mobile"
               text="mobile"
@@ -194,7 +194,7 @@
           </v-col>
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
             <InputField
-            type="number"
+            type="text"
             :readonly="showReadOnly"
               holder="id_no"
               text="id_no"
@@ -234,7 +234,7 @@
             </v-col> -->
           <!-- <v-col cols="12" md="4" sm="6" lg="2">
               <InputField
-              type="number"
+              type="text"
               :readonly="showReadOnly" holder="address" text="address" />
             </v-col> -->
           <v-col cols="12" md="3">
@@ -272,7 +272,7 @@
           </v-col>
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <InputField
-              type="number"
+              type="text"
               :readonly="showReadOnly"
               v-model.number="item.to_send_amount"
               holder="المبلغ المُرسل"
@@ -306,7 +306,7 @@
 
           <v-col cols="12" sm="2" v-show="!is_moneygram">
             <InputField
-              type="number"
+              type="text"
               :readonly="showReadOnly"
               v-model.number="item.exchange_rate_to_office_currency_view"
               @input="
@@ -325,7 +325,7 @@
           </v-col>
           <!-- <v-col cols="12" sm="3" v-show="!is_moneygram">
             <InputField
-            type="number"
+            type="text"
             :readonly="showReadOnly"
               :value="officeAmount | money"
               dashed
@@ -344,7 +344,7 @@
               عمولة الوسيط
             </label>
             <v-text-field
-              type="number"
+              type="text"
               placeholder="عمولة الوسيط"
               :readonly="showReadOnly"
               v-model.number="item.returned_commission"
@@ -375,7 +375,7 @@
               مرجع
             </label>
             <v-text-field
-              type="number"
+              type="text"
               :disabled="item.dollar_returned"
               :readonly="showReadOnly"
               v-model.number="item.office_commission"
@@ -400,7 +400,7 @@
 
           <v-col cols="12" sm="3" v-show="!is_moneygram">
             <InputField
-              type="number"
+              type="text"
               :readonly="showReadOnly"
               :value="totalOfficeAmount"
               dashed
@@ -412,7 +412,7 @@
         <v-row dense> -->
           <v-col cols="12" sm="3">
             <InputField
-              type="number"
+              type="text"
               :readonly="showReadOnly"
               v-model.number="item.office_amount"
               holder="final amount to office in usd"
@@ -506,7 +506,7 @@
                   refreshKey++;
                 });
               "
-              type="number"
+              type="text"
               :readonly="showReadOnly"
               @keydown.enter="
                 showConversionFactor_ibr(
@@ -524,7 +524,7 @@
           </v-col>
           <v-col>
             <InputField
-              type="number"
+              type="text"
               :readonly="showReadOnly"
               dashed
               @change="refreshKey++"
@@ -574,7 +574,7 @@
           </v-col>
           <v-col>
             <InputField
-              type="number"
+              type="text"
               :readonly="showReadOnly"
               @change="refreshKey++"
               v-model.number="item.final_received_amount"
@@ -585,7 +585,7 @@
           </v-col>
           <v-col :key="item.final_received_amount">
             <InputField
-              type="number"
+              type="text"
               :readonly="showReadOnly"
               :value="a_received_amount_computed | money"
               holder="final amount to give in usd"

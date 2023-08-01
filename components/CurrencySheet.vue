@@ -8,7 +8,7 @@
     <v-row>
       <v-col
         ><v-text-field
-          type="number"
+          type="text"
           outlined
           dense
           hide-details
@@ -17,7 +17,7 @@
       ></v-col>
       <v-col
         ><v-text-field
-          type="number"
+          type="text"
           outlined
           dense
           hide-details

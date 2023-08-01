@@ -174,7 +174,7 @@
             <v-col>
               <h2>
                 {{
-                  this.funds_total2 - (this.funds_total || this.funds_total2)
+                  (this.funds_total2 - (this.funds_total || this.funds_total2)).toFixed(2)
                 }}
                 <!-- +
                     (funds_total2 - funds_total) -->

@@ -92,7 +92,7 @@
     <v-row v-if="report_data.account" dense class="pa-5">
       <v-col>
         <v-text-field
-          type="number"
+          type="text"
           v-model.number="receipt.amount"
           outlined
           dense

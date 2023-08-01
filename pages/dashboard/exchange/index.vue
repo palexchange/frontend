@@ -68,7 +68,7 @@
           <v-col cols="12" xs="12" sm="4" md="3">
             <InputField
               autofocus
-              type="number"
+              type="text"
               text="amount to exchange"
               holder="amount to exchange"
               required
@@ -152,7 +152,7 @@
                 </td>
                 <td>
                   <v-text-field
-                    type="number"
+                    type="text"
                     hide-details
                     v-model="items[i].exchanged_amount"
                     @keydown.enter="
@@ -173,7 +173,7 @@
                 </td>
                 <td>
                   <v-text-field
-                    type="number"
+                    type="text"
                     :value="items[i].exchanged_vactor_view"
                     hide-details
                     @keydown.enter="
@@ -190,7 +190,7 @@
                 </td>
                 <td style="width: 150px">
                   <v-text-field
-                    type="number"
+                    type="text"
                     :value="items[i].modified_factor_view"
                     hide-details
                     class="text-input"

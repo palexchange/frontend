@@ -28,7 +28,7 @@
                 hide-details
                 holder="رقم القيد"
                 text="رقم القيد"
-                type="number"
+                type="text"
               />
             </v-col>
             <v-col>

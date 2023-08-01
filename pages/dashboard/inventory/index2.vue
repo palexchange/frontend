@@ -65,7 +65,7 @@
                   @keydown.space="
                     (v) => addTrans(parseFloat(cards[index].balance), index)
                   "
-                  type="number"
+                  type="text"
                   class="border"
                   :value="vall"
                 />
@@ -454,12 +454,12 @@ export default {
     flex-basis: 20% !important;
   }
 }
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type="text"]::-webkit-inner-spin-button,
+input[type="text"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
-input[type="number"] {
+input[type="text"] {
   -moz-appearance: textfield;
 }
 </style>

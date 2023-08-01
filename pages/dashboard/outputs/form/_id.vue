@@ -19,7 +19,7 @@
             </v-col>
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
-                type="number"
+                type="text"
                 :readonly="showReadOnly"
                 required
                 text="المبلغ المسحوب"
@@ -56,7 +56,7 @@
 
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
-                type="number"
+                type="text"
                 :readonly="showReadOnly"
                 required
                 @input="(v) => this.refreshNum++"
@@ -67,7 +67,7 @@
             </v-col>
             <v-col cols="12" lg="4" xs="12" sm="6">
               <InputField
-                type="number"
+                type="text"
                 :readonly="showReadOnly"
                 disabledd
                 text="amount in usd"

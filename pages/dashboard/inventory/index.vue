@@ -39,7 +39,7 @@
                 style="color: rgba(0, 0, 0); font-size: 16px"
               >
                 رصيد الصندوق :
-                {{ curr.net_balance | money }}
+                {{ (curr.net_balance * 1 + curr.price * 1)| money }}
               </div>
               <div
                 class="black-font"
@@ -64,7 +64,7 @@
                   @keydown.space="
                     (v) => addTrans(parseFloat(curr.inventory_balance), index)
                   "
-                  type="number"
+                  type="text"
                   class="border"
                   :value="vall"
                 />
@@ -748,12 +748,12 @@ export default {
     flex-basis: 20% !important;
   }
 }
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type="text"]::-webkit-inner-spin-button,
+input[type="text"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
-input[type="number"] {
+input[type="text"] {
   -moz-appearance: textfield;
 }
 </style>

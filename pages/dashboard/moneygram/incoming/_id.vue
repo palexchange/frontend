@@ -258,7 +258,7 @@
               holder="المبلغ المرسل للتسليم"
               text="المبلغ المرسل للتسليم"
               required
-              type="number"
+              type="text"
             />
           </v-col>
 
@@ -277,7 +277,7 @@
               slot="append"
               hide-details
               required
-              type="number"
+              type="text"
             >
             </v-text-field>
           </v-col>
@@ -292,7 +292,7 @@
               holder="مبلغ العمولة"
               text="مبلغ العمولة"
               required
-              type="number"
+              type="text"
             />
 
           
@@ -364,7 +364,7 @@
               holder="convert to receiver currency"
               text="convert to receiver currency"
               required
-              type="number"
+              type="text"
             />
           </v-col>
           <v-col>
@@ -374,7 +374,7 @@
               holder="final amount to give"
               text="final amount to give"
               required
-              type="number"
+              type="text"
               @change="(v) => change_receied_amount(v)"
             />
           </v-col>
@@ -386,7 +386,7 @@
               holder="final amount to give in usd"
               text="final amount to give in usd"
               required
-              type="number"
+              type="text"
             />
           </v-col>
         </v-row>

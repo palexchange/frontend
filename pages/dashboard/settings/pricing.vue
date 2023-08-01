@@ -39,7 +39,7 @@
             <v-col cols="3">
               <label for="">{{ $t("buy") }}</label>
               <v-text-field
-                type="number"
+                type="text"
                 v-model.number="currency.final_purchasing_price"
                 dense
               ></v-text-field
@@ -49,7 +49,7 @@
             <v-col cols="3">
               <label for="">{{ $t("sale") }}</label>
               <v-text-field
-                type="number"
+                type="text"
                 v-model.number="currency.final_selling_price"
                 dense
               ></v-text-field

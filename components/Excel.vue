@@ -53,204 +53,204 @@
 
         <input
           @input="(e) => setValue('totalTwo', e, 0, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 0, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 0, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 0, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 0, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 0, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 0, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 0, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 0, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 0, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 1, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 1, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 1, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 1, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 1, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 1, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 1, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 1, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 1, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 1, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 2, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 2, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 2, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 2, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 2, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 2, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 2, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 2, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 2, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 2, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 3, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
@@ -258,521 +258,521 @@
 
         <input
           @input="(e) => setValue('totalTwo', e, 3, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 3, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 3, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 3, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 3, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 3, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 3, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 3, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 3, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 4, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 4, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 4, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 4, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 4, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 4, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 4, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 4, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 4, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 4, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 5, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 5, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 5, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 5, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 5, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 5, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 5, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 5, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 5, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 5, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 6, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 6, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 6, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 6, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 6, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 6, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 6, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 6, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 6, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 6, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 7, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 7, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 7, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 7, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 7, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 7, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 7, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 7, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 7, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 7, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 8, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 8, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 8, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 8, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 8, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 8, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 8, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 8, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 8, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 8, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 9, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 9, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 9, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 9, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 9, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 9, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 9, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 9, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 9, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 9, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />
 
         <input
           @input="(e) => setValue('totalTwo', e, 10, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTwo', e, 10, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTwo"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalOne', e, 10, -1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalOne', e, 10, 1)"
-          type="number"
+          type="text"
           class="cells__input totalOne"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalTree', e, 10, -1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalTree', e, 10, 1)"
-          type="number"
+          type="text"
           class="cells__input totalTree"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalFour', e, 10, -1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalFour', e, 10, 1)"
-          type="number"
+          type="text"
           class="cells__input totalFour"
           value="موجب"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 10, -1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="سالب"
           minus-value="true"
         />
         <input
           @input="(e) => setValue('totalSeven', e, 10, 1)"
-          type="number"
+          type="text"
           class="cells__input totalSeven"
           value="موجب"
         />

@@ -25,7 +25,7 @@
       <v-row align="center">
         <v-col>
           <InputField
-            type="number"
+            type="text"
             v-model="filters.transfer_id"
             hide-details
             holder="transfer id"

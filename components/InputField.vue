@@ -21,6 +21,7 @@
       :rules="required ? rulesss.requiredRules : []"
       :placeholder="$t(holder)"
     />
+    
     <!-- :maxlength="maxlength || '20'"
       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" -->
   </div>
@@ -99,7 +100,7 @@ export default {
   font-size: 20px;
 }
 
-.v-text-field input[type="number"] {
+.v-text-field input[type="text"] {
   direction: ltr;
   unicode-bidi: embed;
 }

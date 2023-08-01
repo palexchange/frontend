@@ -68,7 +68,7 @@
           <v-col cols="12" xs="12" sm="4" md="3">
             <InputField
               autofocus
-              type="number"
+              type="text"
               text="amount ."
               holder="amount ."
               required
@@ -152,7 +152,7 @@
                 </td>
                 <td>
                   <v-text-field
-                    type="number"
+                    type="text"
                     hide-details
                     :value="item.exchanged_amount"
                     @input="(e) => setRefAmount(e, item)"
@@ -166,7 +166,7 @@
                 </td>
                 <td>
                   <v-text-field
-                    type="number"
+                    type="text"
                     :value="item.exchanged_factor"
                     hide-details
                     @input="
@@ -185,7 +185,7 @@
                 </td>
                 <td style="width: 150px">
                   <v-text-field
-                    type="number"
+                    type="text"
                     :value="item.modified_factor"
                     hide-details
                     class="text-input"

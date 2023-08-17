@@ -15,7 +15,6 @@
         cols="12"
         sm="6"
         md="3"
-        v-show="curr.inventory_balance > 0 || trans[index].length > 0"
       >
         <v-card class="black-font">
           <!-- v-if="cards[index].balance > 0 || cards[index].balance < 0" -->

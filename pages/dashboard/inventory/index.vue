@@ -314,12 +314,7 @@ export default {
           last_items.push(one_row_items);
         });
       }
-      console.log("last_items");
-      console.log("last_items");
-      console.log(last_items);
       this.items = last_items.flat();
-      console.log("this.items");
-      console.log(this.items);
     },
     addnumberToReRender() {
       setTimeout(() => {

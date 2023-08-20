@@ -798,8 +798,16 @@ export default {
   },
   methods: {
     fillItems() {
+      this.items = [];
       while (this.items.length < 11) {
-        this.items.push(this.item);
+        console.log("teettttttts tttttts tttt");
+        this.items.push({
+          totalOne: { id: 1, amount: 0, negative: 0, positive: 0 },
+          totalTwo: { id: 2, amount: 0, negative: 0, positive: 0 },
+          totalTree: { id: 3, amount: 0, negative: 0, positive: 0 },
+          totalFour: { id: 4, amount: 0, negative: 0, positive: 0 },
+          totalSeven: { id: 7, amount: 0, negative: 0, positive: 0 },
+        });
       }
     },
     setValue(name, event, row_index, opirator) {
@@ -831,6 +839,7 @@ export default {
         totalFour: { id: 4, amount: 0, negative: 0, positive: 0 },
         totalSeven: { id: 7, amount: 0, negative: 0, positive: 0 },
       };
+      this.items = [];
       this.fillItems();
       console.log("hello world2");
       this.resetForm();

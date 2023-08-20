@@ -75,15 +75,32 @@
               v-model.number="exchange.amount"
             />
           </v-col>
-          <v-col cols="12" xs="12" sm="4" md="3" class="ml-40">
+          <v-col cols="12" xs="12" sm="4" md="3" class="ml-40 mt-5">
             <AutoComplete
               :items="all_currencies"
               v-model="item.currency"
               text="currency"
               return-object
+              hide-details
               holder="currency"
               required
             />
+
+            <v-chip-group>
+              <v-chip
+                @click="item.currency = { id: 1, name: 'دولار', weight: 10 }"
+              >
+                $ دولار</v-chip
+              >
+              <v-chip
+                @click="item.currency = { id: 2, name: 'شيكل', weight: 8 }"
+                >شيكل</v-chip
+              >
+              <v-chip
+                @click="item.currency = { id: 3, name: 'دينار', weight: 9 }"
+                >دينار</v-chip
+              >
+            </v-chip-group>
           </v-col>
           <v-col cols="12" md="1">
             <v-btn @click="$router.push('exchange/multi')" small icon>
@@ -555,8 +572,8 @@ export default {
         factor_to_view = temp;
       }
 
-        console.log("temp");
-  console.log(temp);
+      console.log("temp");
+      console.log(temp);
       this.items[index].exchanged_vactor = temp * 1;
       this.items[index].exchanged_vactor_view = factor_to_view.toFixed(5);
 

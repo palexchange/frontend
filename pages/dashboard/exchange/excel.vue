@@ -131,7 +131,6 @@ export default {
   },
   methods: {
     handleExcel(row_items) {
-      console.log(row_items);
       let items = [];
       let last_items = [];
       row_items.forEach((item) => {
@@ -171,12 +170,7 @@ export default {
           last_items.push(one_row_items);
         });
       }
-      console.log("last_items");
-      console.log("last_items");
-      console.log(last_items);
       this.items = last_items.flat();
-      console.log("this.items");
-      console.log(this.items);
     },
     get_usd_amount(item) {
       let mid = this.all_stocks.find((w) => w.currency_id == item.id).close_mid;
@@ -199,7 +193,6 @@ export default {
             };
           });
         this.exchange.items = trimed_and_modified_items;
-        console.log(this.exchange);
         resolve("SUCCESS");
       });
     },

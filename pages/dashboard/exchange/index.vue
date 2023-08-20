@@ -86,7 +86,7 @@
               required
             />
 
-            <v-chip-group>
+            <v-chip-group color="orange">
               <v-chip
                 @click="item.currency = { id: 1, name: 'دولار', weight: 10 }"
               >

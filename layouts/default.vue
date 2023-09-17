@@ -108,7 +108,7 @@
       </v-menu>
     </v-app-bar>
     <v-main :class="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3  `">
-      <v-container style="max-width: 1340px !important; margin-top: 50px">
+      <v-container style="max-width: 2000px !important; margin-top: 50px">
         <!-- <Boxes /> -->
         <UserActiveAccounts />
         <!-- <Breadcrumbs /> -->

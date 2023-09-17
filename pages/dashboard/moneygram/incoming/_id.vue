@@ -541,8 +541,9 @@ export default {
           this.$newCalcBuyPrice({ id: this.item.received_currency_id }, { id: 1 }, 12) *
             1) /
         2;
-
+    if (!this.$route.params.id) {
       this.item.received_amount = tottal;
+    }
       this.item.transfer_commission_exchange_rate = mid;
       this.item.a_received_amount = (tottal * mid).toFixed(3);
       return tottal;

@@ -309,6 +309,10 @@ export default (context) => {
         key: 'usd_diff',
         f: v => v == null ? null : moneyFilter(v)
       },
+      {
+        key: 'capital',
+        f: v => v == null ? null : moneyFilter(v)
+      },
       // {
       //   key: 'balance',
       //   f: v => parseFloat(v).toFixed(4)

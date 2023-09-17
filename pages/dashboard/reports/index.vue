@@ -21,12 +21,14 @@
           <v-card flat>
             <v-card-text>
               <component
+                v-slot="{ contextFun }"
                 :create_one="create_one"
                 @download_item="(v) => download_item(v)"
                 :is="tab.component_name"
               >
+                <v-btn @click="contextFun"> TEST </v-btn>
                 <data-table
-                  :click_function="showDocument"
+                  @contextmenu="contextFun"
                   noActions
                   nums="#"
                   module="report"

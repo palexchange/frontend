@@ -1,5 +1,18 @@
 <template>
   <div class="ReportsPartiesReportTotals">
+    <v-dialog width="1000" v-model="dialog">
+      <v-sheet class="pa-5">
+        <div class="pa-5">
+          <DataTable
+            hide_pagination
+            no_class
+            module="entry_transaction"
+            :noActions="true"
+          />
+        </div>
+        <v-btn class="primary" @click="dialog = false">تم</v-btn>
+      </v-sheet>
+    </v-dialog>
     <v-row>
       <v-col cols="12" md="10" sm="12">
         <v-form v-model="validated">
@@ -88,7 +101,7 @@
       >
       </v-checkbox>
     </v-row>
-    <slot />
+    <slot :contextFun="contextfun" />
     <v-row v-if="report_data.account" dense class="pa-5">
       <v-col>
         <v-text-field
@@ -136,6 +149,7 @@ export default {
     return {
       currency_signs: [],
       loading: false,
+      dialog: false,
       number: 0,
       receipt: {},
       validated: true,
@@ -149,6 +163,20 @@ export default {
     };
   },
   methods: {
+    contextfun(item) {
+      console.log("item");
+      console.log(item);
+      if (item && item.item) {
+        this.$store
+          .dispatch("entry_transaction/index", {
+            document_id: item.item.r_id,
+            document_type: item.item.document_type,
+          })
+          .then(() => {
+            this.dialog = true;
+          });
+      }
+    },
     selectAll(all) {
       this.report_data.currency_id = all.map((v) => v.id);
       this.number++;
@@ -205,6 +233,7 @@ export default {
       report: (state) => state.report.all || [],
       stocks: (state) => state.stock.all || [],
       user: (state) => state.auth.user || [],
+      entries: (state) => state.entry.all || [],
     }),
   },
 };

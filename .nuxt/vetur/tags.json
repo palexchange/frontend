@@ -128,45 +128,6 @@
   "VuetifyLogo": {
     "description": "Auto imported from components/VuetifyLogo.vue"
   },
-  "FiltersBookFilter": {
-    "description": "Auto imported from components/filters/BookFilter.vue"
-  },
-  "FiltersCategoryFilter": {
-    "description": "Auto imported from components/filters/CategoryFilter.vue"
-  },
-  "FiltersCustomerFilter": {
-    "description": "Auto imported from components/filters/CustomerFilter.vue"
-  },
-  "FiltersDetailedReportFilter": {
-    "description": "Auto imported from components/filters/DetailedReportFilter.vue"
-  },
-  "FiltersInventoryBatchFilter": {
-    "description": "Auto imported from components/filters/InventoryBatchFilter.vue"
-  },
-  "FiltersItemFilter": {
-    "description": "Auto imported from components/filters/ItemFilter.vue"
-  },
-  "FiltersOrderFilter": {
-    "description": "Auto imported from components/filters/OrderFilter.vue"
-  },
-  "FiltersReportFilter": {
-    "description": "Auto imported from components/filters/ReportFilter.vue"
-  },
-  "ReportsAccountingReport": {
-    "description": "Auto imported from components/reports/AccountingReport.vue"
-  },
-  "ReportsDocumentsReport": {
-    "description": "Auto imported from components/reports/DocumentsReport.vue"
-  },
-  "ReportsPartiesReportOneCurrTotal": {
-    "description": "Auto imported from components/reports/PartiesReportOneCurrTotal.vue"
-  },
-  "ReportsPartiesReportTotals": {
-    "description": "Auto imported from components/reports/PartiesReportTotals.vue"
-  },
-  "ReportsProfitReport": {
-    "description": "Auto imported from components/reports/ProfitReport.vue"
-  },
   "ChartsEighth": {
     "description": "Auto imported from components/charts/eighth.vue"
   },
@@ -197,6 +158,30 @@
   "ChartsThird": {
     "description": "Auto imported from components/charts/Third.vue"
   },
+  "FiltersBookFilter": {
+    "description": "Auto imported from components/filters/BookFilter.vue"
+  },
+  "FiltersCategoryFilter": {
+    "description": "Auto imported from components/filters/CategoryFilter.vue"
+  },
+  "FiltersCustomerFilter": {
+    "description": "Auto imported from components/filters/CustomerFilter.vue"
+  },
+  "FiltersDetailedReportFilter": {
+    "description": "Auto imported from components/filters/DetailedReportFilter.vue"
+  },
+  "FiltersInventoryBatchFilter": {
+    "description": "Auto imported from components/filters/InventoryBatchFilter.vue"
+  },
+  "FiltersItemFilter": {
+    "description": "Auto imported from components/filters/ItemFilter.vue"
+  },
+  "FiltersOrderFilter": {
+    "description": "Auto imported from components/filters/OrderFilter.vue"
+  },
+  "FiltersReportFilter": {
+    "description": "Auto imported from components/filters/ReportFilter.vue"
+  },
   "RoleAdd": {
     "description": "Auto imported from components/role/Add.vue"
   },
@@ -205,6 +190,21 @@
   },
   "RoleShowPermission": {
     "description": "Auto imported from components/role/ShowPermission.vue"
+  },
+  "ReportsAccountingReport": {
+    "description": "Auto imported from components/reports/AccountingReport.vue"
+  },
+  "ReportsDocumentsReport": {
+    "description": "Auto imported from components/reports/DocumentsReport.vue"
+  },
+  "ReportsPartiesReportOneCurrTotal": {
+    "description": "Auto imported from components/reports/PartiesReportOneCurrTotal.vue"
+  },
+  "ReportsPartiesReportTotals": {
+    "description": "Auto imported from components/reports/PartiesReportTotals.vue"
+  },
+  "ReportsProfitReport": {
+    "description": "Auto imported from components/reports/ProfitReport.vue"
   },
   "SettingsAccounts": {
     "description": "Auto imported from components/settings/Accounts/Index.vue"
@@ -221,6 +221,12 @@
   "SettingsEntry": {
     "description": "Auto imported from components/settings/Entry/Index.vue"
   },
+  "SettingsOpeningAccountsCreate": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
+  },
+  "SettingsOpeningAccounts": {
+    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
+  },
   "SettingsUsersCreate": {
     "description": "Auto imported from components/settings/Users/Create.vue"
   },
@@ -229,11 +235,5 @@
   },
   "SettingsUsersRoleManagement": {
     "description": "Auto imported from components/settings/Users/RoleManagement.vue"
-  },
-  "SettingsOpeningAccountsCreate": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Create.vue"
-  },
-  "SettingsOpeningAccounts": {
-    "description": "Auto imported from components/settings/OpeningAccounts/Index.vue"
   }
 }

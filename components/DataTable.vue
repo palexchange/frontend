@@ -20,7 +20,7 @@
       "
       :items="all"
       multi-sort
-      @contextmenu:row="$context_menu"
+      @contextmenu:row="handleContext"
       v-bind="$attrs"
       v-on="$listeners"
       @update:sort-by="updateSortBy($event)"
@@ -177,6 +177,12 @@ import menus from "../helpers/menus";
 
 export default {
   props: {
+    outer_context_handler: {
+      type: Function,
+      default: () => {
+        console.log("params is null");
+      },
+    },
     module: {
       type: String,
       default: null,
@@ -387,6 +393,10 @@ export default {
     },
   },
   methods: {
+    handleContext(event, item, sidemenu) {
+      event.preventDefault();
+      this.$emit("contextmenu", item);
+    },
     row_classes(item) {
       if (item.__name == "report__profit_total") {
         return "orange orange-background"; //can also return multiple classes e.g ["orange","disabled"]

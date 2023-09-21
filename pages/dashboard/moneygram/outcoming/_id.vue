@@ -29,7 +29,25 @@
                 holder="test"
               />
             </v-col>
-
+            <v-col cols="12" sm="12" md="5">
+              <AutoComplete
+                :readonly="showReadOnly"
+                required
+                v-model="item.delivering_type"
+                :items="transfer_types"
+                text="transfer type"
+                holder="transfer type"
+              />
+            </v-col>
+            <v-col v-if="item.delivering_type == 5" cols="12" md="10">
+              <BeneficiaryAutocomplete
+                :readonly="showReadOnly"
+                v-model="item.moneygram_on_beneficiary_id"
+                text="on moneygram beneficiary"
+                holder="on moneygram beneficiary"
+                required
+              />
+            </v-col>
             <!-- <v-col cols="12" md="4" sm="12">
               <InputField
                 :readonly="showReadOnly"
@@ -423,9 +441,8 @@ export default {
 
       prices: [],
       transfer_types: [
-        { id: 1, name: "تسليم يد نقداً" },
         { id: 2, name: "موني غرام" },
-        { id: 3, name: "تسليم يد على الحساب" },
+        { id: 5, name: "موني غرام علي الحساب" },
       ],
       item: {
         transfer_commission_currency: 1,

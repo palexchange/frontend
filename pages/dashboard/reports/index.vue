@@ -28,6 +28,7 @@
               >
                 <v-btn @click="contextFun"> TEST </v-btn>
                 <data-table
+                  :click_function="showDocument"
                   @contextmenu="contextFun"
                   noActions
                   nums="#"
@@ -78,6 +79,10 @@ export default {
   },
   methods: {
     async showDocument(event, { item }) {
+      console.log("item");
+      console.log(item);
+      console.log("EmptyFun");
+
       if (!item.document_type) return;
       let resource = this.resources.get(item.document_type);
       const document = await this.$store.dispatch(

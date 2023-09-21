@@ -10,18 +10,45 @@ const moneyFilter = (v, minDigits) => {
 }
 const transactions_name_map = () => {
   const status_map = new Map();
-  status_map.set(0, "صادرة");
+
+
+
+  status_map.set(2, "مبلغ حوالة صادرة"),
+    status_map.set(3, "مبلغ حوالة صادرة علي الحساب"),
+    status_map.set(4, "عمولة حوالة صادرة"),
+    status_map.set(5, "عمولة حوالة صادرة علي الحساب"),
+
+    status_map.set(6, "مبلغ للوسيط حوالة صاردة"),
+
+    status_map.set(7, "مبلغ مرجع وسيط حوالة صاردة"),
+    status_map.set(8, "مبلغ مرجع وسيط حوالة صاردة علي الحساب"),
+
+    status_map.set(9, "مبلغ عمولة وسيط حوالة صاردة"),
+    status_map.set(10, "مبلغ عمولة وسيط حوالة صاردة علي الحساب"),
+
+    status_map.set(11, "مبلغ حوالة واردة"),
+    status_map.set(12, "مبلغ تسليم حوالة واردة"),
+    status_map.set(13, "مبلغ تسليم حوالة واردة في الحساب"),
+
+    status_map.set(13, "عمولة حوالة واردة"),
+    status_map.set(14, "عمولة حوالة واردة علي الحساب"),
+
+
+
+    status_map.set(15, "مبلغ موني غرام صادر"),
+    status_map.set(16, "عمولة موني غرام اضافية صادرة"),
+    status_map.set(17, "مبلغ موني غرام صادر علي الحساب"),
+    status_map.set(18, "عمولة موني غرام اضافية صادرة علي الحساب"),
+
+
+
+    status_map.set(19, "مبلغ موني غرام واردة"),
+    status_map.set(20, "عمولة موني غرام اضافية واردة"),
+    status_map.set(21, "مبلغ من موني غرام واردة مسجل"),
+    status_map.set(22, "مبلغ موني غرام واردة للتسليم"),
+    status_map.set(0, "صادرة");
   status_map.set(1, "واردة");
-  status_map.set(2, "عمولة حوالة");
-  status_map.set(3, "عمولة وسيط");
-  status_map.set(4, "مرجع");
-  status_map.set(5, "عمولة موني غرام إضافية");
-  status_map.set(6, "مبلغ حوالة صادرة");
-  status_map.set(7, "مصروف");
-  status_map.set(8, "ربحية من الوسيط");
-  status_map.set(9, "ربحية فرق عملة");
-  status_map.set(10, "مبلغ تسليم واردة");
-  status_map.set(11, "عمولة حوالة علي الحساب");
+
   return status_map
 }
 export default (context) => {
@@ -178,7 +205,7 @@ export default (context) => {
       {
         key: 'delivering_type',
         f: v => {
-          return ['تسليم يد', 'موني غرام', 'علي الحساب', 'في الحساب'][v - 1]
+          return ['تسليم يد', 'موني غرام', 'علي الحساب', 'في الحساب', 'موني غرام ع الحساب'][v - 1]
         }
       },
       {

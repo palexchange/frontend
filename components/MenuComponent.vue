@@ -10,12 +10,7 @@
       <v-list>
         <v-list-item v-for="(item, i) in users" :key="i">
           <v-list-item-title dir="rtl">
-            {{ item.name }} :
-            {{
-              item.id == 1
-                ? getAdminAmount()
-                : (item[profit_name] * 1).toFixed(3)
-            }}
+            {{ user.daily_profit }}
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -47,20 +42,8 @@ export default {
   }),
   computed: {
     ...mapState({
-      users: (state) => state.user.all,
+      user: (state) => state.auth.user,
     }),
-  },
-  methods: {
-    getAdminAmount() {
-      let sub_amount = this.users.reduce((e, user) => {
-        if (user.id != 1) {
-          return (user[this.profit_name] || 0) * 1 + e;
-        }
-        return 0;
-      }, 0);
-      const admin = this.users.find((user) => user.id == 1);
-      return (admin[this.profit_name] - sub_amount).toFixed(3);
-    },
   },
 };
 </script>

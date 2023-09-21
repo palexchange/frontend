@@ -1,19 +1,12 @@
 <template>
   <Card>
     <v-card-text>
-      <v-row
-        
-        class="pt-5"
-        dense
-      >
+      <v-row class="pt-5" dense>
         <v-col class="text-center"> <h3>رصيد اول اليوم</h3> </v-col>
       </v-row>
-      <v-row  dense>
-          <!-- v-show="acc.start_net_balance * 1 + acc.start_price * 1 != 0" -->
-        <v-col
-          :key="i"
-          v-for="(acc, i) in start_active_accounts"
-        >
+      <v-row dense>
+        <!-- v-show="acc.start_net_balance * 1 + acc.start_price * 1 != 0" -->
+        <v-col :key="i" v-for="(acc, i) in start_active_accounts">
           <v-row dense class="flex-column">
             <v-col>
               <v-card class="text-center">
@@ -53,11 +46,8 @@
         >
       </v-row>
       <v-row dense>
-          <!-- v-show="acc.net_balance * 1 + acc.price * 1 != 0" -->
-        <v-col
-          :key="i"
-          v-for="(acc, i) in active_accounts"
-        >
+        <!-- v-show="acc.net_balance * 1 + acc.price * 1 != 0" -->
+        <v-col :key="i" v-for="(acc, i) in active_accounts">
           <v-row dense class="flex-column">
             <v-col>
               <v-card class="text-center">
@@ -174,7 +164,11 @@
             <v-col>
               <h2>
                 {{
-                  this.funds_total2 - (this.funds_total || this.funds_total2)
+                  (
+                    (this.funds_total2 -
+                      (this.funds_total || this.funds_total2)) *
+                    1
+                  ).toFixed(3)
                 }}
                 <!-- +
                     (funds_total2 - funds_total) -->

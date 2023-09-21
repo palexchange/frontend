@@ -11,7 +11,7 @@
       :items-per-page="per_page_num"
       :sort-by.sync="options.sortBy"
       :sort-desc.sync="options.sortDesc"
-      @dblclick:row="click_function"
+      @dblclick:row="EmptyFun"
       :item-class="row_classes"
       :headers="
         noActions
@@ -208,7 +208,6 @@ export default {
     },
     click_function: {
       type: Function,
-      defualt: () => 1,
     },
     hidden_headers: Array,
   },
@@ -413,8 +412,11 @@ export default {
     setEditedMenu(item) {
       this.edited_menu = this.$filterMenu(this.menu_items, this.module, item);
     },
-    EmptyFun() {
-      return this.click_function;
+    EmptyFun(event, objc) {
+      console.log("EmptyFun");
+      if (this.click_function) {
+        this.click_function(event, objc);
+      }
     },
     updateSortBy(event) {
       this.sortingData.sortBy = event;

@@ -29,40 +29,11 @@
             class="pa-8 color-green"
             @mousemove.once="$store.dispatch('user/index')"
           >
-            {{ $t("today exchanges profit") }}
+            {{ $t("total today profit") }}
             :
-            <span
-              class="change-hover  font-weight-bold"
-              @mouseleave="active_exchange_profit_detail = false"
-              @mousemove="(e) => show_exchange_profit_detail(e)"
-            >
-              {{ (this.$auth.user.daily_exchange_profit * 1).toFixed(2) }}
+            <span class="change-hover font-weight-bold">
+              {{ (this.$auth.user.daily_profit * 1).toFixed(4) }}
             </span>
-            <MenuComponent
-              profit_name="daily_exchange_profit"
-              :coordinates="daily_exchange_coo"
-              :active_menu="active_exchange_profit_detail"
-            ></MenuComponent>
-          </v-col>
-          <v-col
-            class="pa-8 color-green"
-            @mousemove.once="$store.dispatch('user/index')"
-          >
-            {{ $t("today transfers profit") }}
-            :
-            <span
-              class="change-hover font-weight-bold"
-              @mouseleave="active_transfer_profit_detail = false"
-              @mousemove="(e) => show_transfer_profit_detail(e)"
-            >
-              {{ (this.$auth.user.daily_transfer_profit * 1).toFixed(2) }}
-            </span>
-            <MenuComponent
-              profit_name="daily_transfer_profit"
-              :coordinates="daily_transfer_coo"
-              :active_menu="active_transfer_profit_detail"
-            >
-            </MenuComponent>
           </v-col>
         </v-row>
       </v-expand-transition>
